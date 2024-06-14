@@ -31,7 +31,7 @@ const ShowDestination = () => {
     }
   }, []);
 
-  const directionsCallback = (response: any) => {
+  const directionsCallback = (response) => {
     if (response !== null) {
       if (response.status === 'OK') {
         setDirectionsResponse(response);
