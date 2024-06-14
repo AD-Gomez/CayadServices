@@ -1,0 +1,950 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/Testimonials";
+import FormLanding from "../components/forms/FormLanding";
+import ButtonSlide from "../components/buttons/ButtonSlide.astro";
+---
+
+<style>
+  .service-item:hover img,
+  .team-item:hover img {
+    /* transform: scale(1.1); */
+  }
+
+  .service-item a.btn-slide,
+  .price-item a.btn-slide,
+  .team-item div.btn-slide {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0;
+  }
+
+  .service-item a.btn-slide i,
+  .service-item a.btn-slide span,
+  .price-item a.btn-slide i,
+  .price-item a.btn-slide span,
+  .team-item div.btn-slide i,
+  .team-item div.btn-slide span {
+    position: relative;
+    height: 40px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #ffffff;
+    background: #00a1ef;
+    border-radius: 0 35px 35px 0;
+    transition: 0.5s;
+    z-index: 2;
+  }
+
+  .team-item div.btn-slide span a i {
+    padding: 0 10px;
+  }
+
+  .team-item div.btn-slide span a:hover i {
+    background: #007bef;
+  }
+
+  .service-item a.btn-slide span,
+  .price-item a.btn-slide span,
+  .team-item div.btn-slide span {
+    padding-left: 0;
+    left: -100%;
+    z-index: 1;
+  }
+
+  .service-item:hover a.btn-slide i,
+  .price-item:hover a.btn-slide i,
+  .team-item:hover div.btn-slide i {
+    border-radius: 0;
+  }
+
+  .service-item:hover a.btn-slide span,
+  .price-item:hover a.btn-slide span,
+  .team-item:hover div.btn-slide span {
+    left: 0;
+  }
+
+  .service-item a.btn-slide:hover i,
+  .service-item a.btn-slide:hover span,
+  .price-item a.btn-slide:hover i,
+  .price-item a.btn-slide:hover span {
+    background: #007bef;
+  }
+
+  .texts-container {
+    display: inline-block;
+    height: 40px;
+    overflow: hidden;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+  }
+
+  .texts-container span {
+    display: block;
+    animation: moveUp 6s infinite;
+  }
+
+  @keyframes moveUp {
+    0% {
+      transform: translateY(0);
+    }
+
+    25% {
+      transform: translateY(-26%);
+    }
+
+    50% {
+      transform: translateY(-51%);
+    }
+
+    75% {
+      transform: translateY(-76%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .fadeInUp {
+    animation-name: fadeInUp;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(-100%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .fadeInLeft {
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 6s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .fadeInRight {
+    animation-name: fadeInRight;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+</style>
+
+<Layout title="Cayad Auto Transport">
+  <section class="relative h-screen xs:h-max md:h-max w-full">
+    <div
+      class="h-screen w-full visible bg-[url('../../public/img/banner.webp')] bg-cover"
+    >
+    </div>
+    <div id="two" class="bg-[url('/img/banner-2.web')] bg-cover"></div>
+    <div id="three" class="bg-[url('/img/banner-5.web')] bg-cover"></div>
+    <div
+      class="absolute inset-0 w-full h-full flex flex-row justify-around xs:flex-col sm:flex-col md:flex-col items-center bg-[rgba(6,3,21,0.5)]"
+    >
+      <div
+        class="w-[65%] xl:w-[50%] lg:w-[50%] xs:w-full sm:w-full md:w-2/1 p-4 md:p-8"
+      >
+        <div class="row justify-start">
+          <div class="col-10 lg:col-8 px-20">
+            <h1 class="changing-text text-white text-4xl">
+              WE DELIVER
+              <div class="texts-container">
+                <span>
+                  CARS-SUVS-TRUCKS<br />
+                  MOTORCYCLES-ATV<br />
+                  RVS-HEAVY HAULS<br />
+                  ...
+                </span>
+              </div>
+            </h1>
+            <p class="text-lg font-medium text-white mb-3 mt-2 pb-2">
+              Cayad Auto Transport is the most cost-effective car transporter in
+              the U.S
+            </p>
+            <a
+              href="/quote/index.html"
+              class="mt-6 flex w-56 items-center fadeInLeft justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >Get Free Quote</a
+            >
+          </div>
+        </div>
+      </div>
+      <FormLanding client:load />
+    </div>
+  </section>
+
+  <div class="w-full h-600 flex items-center fadeInUp justify-center">
+    <Testimonials client:load />
+  </div>
+
+  <div
+    class="container-wrapper sm:w-full xs:px-2 xl:px=12 sm:px-2 md:w-full md:px-8 lg:px-12 xl:px-72 px-72"
+  >
+    <h1 class="text-5xl text-h1-landing font-normal mb-4">
+      Track everything in real-time
+    </h1>
+    <p class="text-xl font-bold mb-4">
+      Track vehicle status and driver location for instant visibility and be
+      updates all the time.
+    </p>
+    <div
+      class="flex flex-row justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
+      style="background-color: rgb(193, 194, 197);"
+    >
+      <div
+        class="min-w-300px fadeInLeft xs:mr-0 xs:mt-4 sm:mt-4 md:mt-4 xl:min-w-[300px] md:mr-0 max-w-xl min-h-80 mr-4 mb-14"
+        data-wow-delay="0.1s"
+      >
+        <img
+          class=""
+          src="../../public/img/track.jpeg"
+          style="object-fit: cover; width: 100%;"
+          alt="image info"
+        />
+      </div>
+      <div
+        class="w-2/5 xs:w-11/12 sm:w-11/12 md:w-11/12 xl:w-1/2 xl:mt-8 ml-4"
+        data-wow-delay="0.5s"
+      >
+        <div class="row g-4 mb-5">
+          <div data-wow-delay="0.5s">
+            <h3 class="text-3xl text-h3-title font-medium">GPS tracking</h3>
+            <p class="m-0 text-p-landing">
+              It’s the future of auto transport and a single feature that could
+              change their daily operation. So we got it.
+              <br /><br />
+              Cayad Auto Transport is excited to announce the newest feature – GPS
+              tracking. Visibility has never been easier. Customers can have full,
+              real-time tracking with accurate ETA, full imspection, BOL sharing,
+              all in one place, for the very first time.
+              <br /><br />
+              Within our systems, over 70% of loads have guaranteed tracking and
+              carrier GPS participation. Customers will be able to access and provide:
+              <br /><br />
+              <ol>
+                <li class="text-p-landing">Updates on late deliveries</li>
+                <li class="text-p-landing">Map view tracking and BOL</li>
+                <li class="text-p-landing">Shareable ETAs through the link</li>
+              </ol>
+              <br />
+            </p>
+            <p class="text-p-landing">
+              GPS tracking is the number one requested feature in the auto
+              industry. It solves numerous problems around communication, wasted
+              time, and our customers’ experiences.
+            </p>
+          </div>
+        </div>
+        <div
+          class="hiw-cta-wrap xs:mb-4 md:mb-4 sm:mb-4 sm:flex-col xl:mb-8 xl:flex-row flex flex-row w-full items-center justify-end"
+        >
+          <a
+            href="/quote/index.html"
+            id="Get Free Quote - Desktop - In Content"
+            class="with-mb-24 mr-1 js-animate-cta button-primary button-hover-effect tg-pcta-incontent cta-animation"
+          >
+            <span
+              class="mt-6 flex w-42 rounded items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover-light hover:text-btn-hover transition-colors duration-100 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
+              >Get Free Quote</span
+            >
+          </a>
+
+          <a
+            class="mt-6 ml-1 flex w-42 items-center rounded justify-center border border-btn-blue bg-white px-8 py-3 text-base font-medium text-btn-blue transition-colors duration-100 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
+            href="/how-auto-transport-works/"
+            class="with-mb-24 button-secondary button-hover-effect tg-scta-how-auto-transport-works"
+          >
+            <span class="button-text">Learn more</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="py-5 w-full flex flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-center"
+  >
+    <div
+      class="w-[40%] h-[550px] xs:w-[80%] xs:max-h-[340px] sm:max-h-[340px] md:w-[80%] lg:w-[80%] xl:w-[50%] xs:mr-0 mr-2 sm:w-full sm:mr-0 min-h-[300px] fadeInLeft"
+      data-aos="fade-left"
+      data-aos-delay="100"
+    >
+      <img
+        src="img/home-page.webp"
+        srcset="/img/home-page-xs.webp 480w,/img/home-page-sm.webp 768w"
+        class="object-cover w-full h-full"
+        alt=""
+      />
+    </div>
+    <div
+      class="w-[40%] lg:w-[80%] xs:w-[80%] sm:w-[100%] md:w-11/12"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <!-- <h6 class="text-secondary text-uppercase mb-3">Why Us</h6> -->
+      <h1 class="text-3xl text-[#19171fd2] font-bold mb-3">
+        Why you should book with the most cost effective auto shipping company:
+      </h1>
+      <!-- <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p> -->
+      <div
+        class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 xs:px-4 gap-8 mb-5"
+      >
+        <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
+          <!-- <i class="fa fa-globe fa-3x text-primary mb-3"></i> -->
+          <img src="../img/call.webp" class="w-24 mb-2" />
+          <h5 class="text-lg font-semibold text-[#19171fd2]">
+            Dedicated advisors
+          </h5>
+          <p class="text-justify">
+            Our auto transport specialists led by <a
+              href="./our-team/"
+              class="text-blue-500 hover:underline">the executive team</a
+            > work passionately to ensure you are with the most cost-effective auto
+            transport company.
+          </p>
+        </div>
+        <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
+          <!-- <i class="fa fa-shipping-fast fa-3x text-primary mb-3"></i> -->
+          <img
+            src="../img/insurance.webp"
+            srcset="/img/insurance-xs.webp 480w, /img/insurance-sm.webp 768w"
+            class="w-24 mb-2"
+          />
+          <h5 class="text-lg font-semibold text-[#19171fd2]">
+            Insurance coverage
+          </h5>
+          <p class="text-justify">
+            Car transport companies include insurance coverage in your shipping
+            quote. Our selected auto haulers must meet insurance standards
+            before qualifying to be part of our carrier network.
+          </p>
+        </div>
+      </div>
+      <a
+        href="/quote/index.html"
+        class="btn bg-primary text-white py-3 px-5 me-3">Get Free Quote</a
+      >
+    </div>
+  </div>
+
+  <div class="container xs:min-w-[80%] sm:min-w-[80%] mx-auto py-5">
+    <div
+      class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-10 py-5"
+    >
+      <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
+        <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
+        <h1 class="text-3xl font-bold mb-3">
+          How much do car transport companies charge?
+        </h1>
+        <p class="mb-2 text-justify">
+          Auto transport company prices are based on current market trends for
+          nationwide auto transport. Your total cost from auto shipping
+          companies will depend on the type of
+          <ol class="list-decimal list-inside">
+            <li>Car you want to move</li>
+            <li>Where it needs to go</li>
+            <li>It's size</li>
+            <li>Condition (or if it has any modifications)</li>
+            <li>Total transport distance</li>
+            <li>Transport type (open, enclosed, heavy haul shipment)</li>
+            <li>The time of the year when you book it</li>
+          </ol>
+        </p><br />
+        <p class="mb-4">
+          Don’t forget to check for additional promotions and savings. Get Free
+          Quote with our
+          <a href="/quote/index.html" class="text-blue-500 hover:underline"
+            >Quote request form</a
+          >, or use our Live Chat
+        </p>
+
+        <div class="flex items-center">
+          <i class="fa fa-phone-alt flex-shrink-0 bg-primary p-3 text-white"
+          ></i>
+          <div class="pl-4">
+            <h6>Call for any query!</h6>
+            <a href="tel:(469) 619-0747">
+              <h3 class="text-primary m-0">(469) 619-0747</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
+        >
+          <div
+            class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow fadeIn"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <i class="fa fa-car fa-2x text-white mb-3"></i>
+            <h5 class="text-white mb-2">The Size and weight of vehicle</h5>
+            <p class="text-white mb-0 text-justify">
+              Longer, taller or heavier-than-average vehicles require special
+              accommodations by car transport companies and, as a result, the
+              price may vary.
+            </p>
+          </div>
+          <div
+            class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow fadeIn"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <i class="fa fa-star fa-2x text-white mb-3"></i>
+            <h5 class="text-white mb-2">The car condition</h5>
+            <p class="text-white mb-0 text-justify">
+              Shipping inoperable vehicles costs more because it requires extra
+              tools and labor for car shipping companies to accommodate the
+              cargo. But if your car rolls, steers, and brakes, we can ship it.
+            </p>
+          </div>
+          <div
+            class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow fadeIn"
+            data-aos="fade-up"
+            data-aos-delay="700"
+          >
+            <i class="fa fa-ship fa-2x text-white mb-3"></i>
+            <h5 class="text-white mb-2">The transport type</h5>
+            <p class="text-white mb-0 text-justify">
+              Open transport is standard and more affordable option. Enclosed
+              transport requires specific handling, so the price might be
+              different.
+            </p>
+          </div>
+          <div
+            class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow fadeIn"
+            data-aos="fade-up"
+            data-aos-delay="700"
+          >
+            <i class="fa fa-map-marked fa-2x text-white mb-3"></i>
+            <h5 class="text-white mb-2">The shipping distance</h5>
+            <p class="text-white mb-0 text-justify">
+              Longer runs have a higher overall price but lower cost per mile.
+              The further your vehicle travels, the more you save on an auto
+              transporter.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container xs:min-w-[100%] sm:min-w-[100% mx-auto py-0"
+    id="services"
+    style="padding-bottom: 0rem;"
+  >
+    <div class="container xs:min-w-[100%] sm:min-w-[100%] py-0">
+      <div
+        class="text-center wow fadeInUp"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <h1 class="text-3xl text-[#19171fd2] font-bold mb-10">
+          Popular vehicle shipping services
+        </h1>
+      </div>
+      <div
+        class="grid grid-cols-3 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/home1.webp"
+                srcset="/img/home1-125.webp 480w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Door to door Transport</h4>
+            <p>
+              Door-to-door service is a convenient way to ship your car. You
+              provide specific addresses and the truck driver will pickup and
+              drop off your vehicle as close to your door as safely and legally
+              possible.
+            </p>
+            <a
+              class="btn-slide mt-4 text-blue-500 hover:underline"
+              href="door-to-door/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </i><span>Read More</span></a
+            >
+          </div>
+        </div>
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="500">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/open-car.webp"
+                srcset="/img/open-car-xs.webp 480w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Open Auto Transport</h4>
+            <p>
+              Cayad Auto Transport has years of open car shipping experience
+            </p>
+            <a
+              class="btn-slide mt-2 text-blue-500 hover:underline"
+              href="open-car-transport/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg></i
+              ><span>Read More</span></a
+            >
+          </div>
+        </div>
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="700">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/enclosed1.webp"
+                srcset="/img/enclosed1-xs.webp 480w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Enclosed Car Transport</h4>
+            <p>Enclosed auto transport protects your car during shipping</p>
+            <a
+              class="btn-slide mt-2 text-blue-500 hover:underline"
+              href="enclosed-auto-transport/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg></i
+              ><span>Read More</span></a
+            >
+          </div>
+        </div>
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="900">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/motorcycle1.webp"
+                srcset="/img/motorcycle1-sm.webp 480w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Motorcycle Shipping</h4>
+            <p>
+              Cayad use experienced drivers who have the skills and equipment to
+              properly load, secure and transport motorcycles, scooters, ATVs,
+              UTVs and powersports.
+            </p>
+            <a
+              class="btn-slide mt-2 text-blue-500 hover:underline"
+              href="motorcycle-shipping/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg></i
+              ><span>Read More</span></a
+            >
+          </div>
+        </div>
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="1000">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/classic-carx360.webp"
+                srcset="/img/classic-carx360-xs.webp 480w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Car Collectors</h4>
+            <p>
+              Classic car transport and exotic car transport from Cayad Auto
+              Transport
+            </p>
+            <a
+              class="btn-slide mt-2 text-blue-500 hover:underline"
+              href="classic-cars-auto-transport/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg></i
+              ><span>Read More</span></a
+            >
+          </div>
+        </div>
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="1100">
+          <div class="service-item shadow-sm p-4">
+            <div class="overflow-hidden mb-4">
+              <img
+                class="w-full h-auto"
+                src="../img/resellerx360.webp"
+                srcset="/img/resellerx360-sm.webp 480w, /img/resellerx360-sm.webp 768w"
+                alt=""
+              />
+            </div>
+            <h4 class="text-xl font-semibold mb-3">Car Resellers Shipping</h4>
+            <p>Cayad Auto Transport delivers resold cars to new owners</p>
+            <a
+              class="btn-slide mt-2 text-blue-500 hover:underline"
+              href="car-resellers-auto-transport/"
+              ><i class="fa fa-arrow-right"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-5 stroke-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg></i
+              ><span>Read More</span></a
+            >
+            <br />
+            <a
+              class="text-blue-500 hover:underline"
+              href="./how-auto-transport-works/"
+              >Find out how auto transport works</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        We Are Trusted Auto Transport Company
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="flex mb-10 wow fadeInUp"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <img
+              src="../img/dollar.webp"
+              srcset="/img/dollar-sm.webp 768w"
+              class="w-24 h-20 mb-2"
+            />
+            <div class="ml-4">
+              <h5 class="font-semibold">Zero upfront payment</h5>
+              <p class="text-justify mb-0">
+                You read that right, no upfront payment! The best auto transport
+                companies charge you once the carrier has been dispatched for
+                your car shipping order. So, you can book with your auto
+                transport company now and not worry about the bill until later.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex mb-10 wow fadeInUp"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <img src="../img/countries.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">20K+ auto carriers</h5>
+              <p class="text-justify mb-0">
+                Cayad Auto Transport has a huge network of haulers who are
+                personally vetted auto shipping experts, ensuring your vehicle
+                is transported by trusted members of the industry. These
+                shipping companies will treat your vehicles like their own.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex mb-10 wow fadeIn"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <img
+              src="../img/easy.webp"
+              srcset="/img/easy-sm.webp 480w, /img/easy-sm.webp 768w"
+              class="w-24 h-24 mb-2"
+            />
+            <div class="ml-4">
+              <h5 class="font-semibold">Personalized approach</h5>
+              <p class="text-justify mb-0">
+                Cayad Auto Transport works with you through every step of your
+                car or truck’s route. Experience hassle-free shipping when you
+                choose us as your car transporter and enjoy an easy and painless
+                shipment process.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex mb-0 wow fadeInUp"
+            data-aos="fade-up"
+            data-aos-delay="700"
+          >
+            <img src="../img/badge.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">The most cost effective company</h5>
+              <p class="text-justify mb-0">
+                Cayad is the most cost effective <a
+                  href="./reviews/"
+                  class="text-blue-500 underline">5 Stars</a
+                > auto transport company, so your car will get from point A to point
+                B without you having to break a single sweat. By having your car
+                delivered straight to your door, you’re allowing the specialists
+                to handle every step of the process and ensure there are no speed
+                bumps along the way.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="relative wow fadeInRight"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="img/company.webp"
+              class="object-cover w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container xs:min-w-[100%] xs:items-center xs:flex xs:flex-col sm:min-w-[100%] sm:items-center sm:flex sm:flex-col mx-auto py-10"
+  >
+    <div class="text-center mb-10" data-aos="fade-up" data-aos-delay="100">
+      <h1 class="text-3xl font-bold mb-5">Our Partners</h1>
+    </div>
+
+    <div
+      class="grid grid-cols-4 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] items-center max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <a href="https://www.movecars.com/cayadservicesLLC" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part1.webp" class="w-[80%] mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <a href="https://www.chase.com/" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part2.webp" class="bg-cover mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
+        <a href="https://www.iaai.com/" target="_blank">
+          <div
+            class="bg-white h-full w-full flex items-center rounded-lg hover:shadow-lg"
+          >
+            <img
+              src="../img/part3.webp"
+              srcset="/img/part3-xs.webp 480w"
+              class="w-[70%] mx-auto"
+              alt=""
+            />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="900"
+      >
+        <a href="https://g.page/r/Cf5Y4UM2AWGtEAI/review" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part4.webp" class="bg-contain mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <a href="https://www.transportreviews.com/" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part5.webp" class="bg-contain mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <a
+          href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&original_query_param=NAME&query_string=4091368&original_query_string=CAYAD%20SERVICES%20LLC"
+          target="_blank"
+        >
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part6.webp" class="w-[70%] mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
+        <a href="https://www.copart.com" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img src="../img/part7.webp" class="bg-contain mx-auto" alt="" />
+          </div>
+        </a>
+      </div>
+
+      <div
+        class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
+        data-aos="fade-up"
+        data-aos-delay="900"
+      >
+        <a href="https://www.manheim.com" target="_blank">
+          <div
+            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
+          >
+            <img
+              src="../img/part8.webp"
+              srcset="/img/part8-xs.webp 480w"
+              class="w-[70%] mx-auto"
+              alt=""
+            />
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
