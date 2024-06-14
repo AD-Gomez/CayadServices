@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Autoplay, A11y } from "swiper";
-import { FaQuoteRight } from "react-icons/fa6";
-import "swiper/css";
-import "../styles/animate.css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { A11y, Autoplay, Pagination } from "swiper/modules";
 
-import part4 from "../../public/img/part4.webp";
-import client from "../../public/img/client.webp";
+import part4 from '../../public/img/part4.webp'
+import client from '../../public/img/client.webp'
+
+import 'swiper/css'
+import '../styles/animate.css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { FaQuoteRight } from "react-icons/fa6";
 
 SwiperCore.use([Pagination, Autoplay, A11y]);
 
