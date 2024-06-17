@@ -23,6 +23,7 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import logoweb from '../../public/img/logo-cayad.webp'
 import MarqueeText from './Marquee'
+import { FaPhone } from 'react-icons/fa'
 
 const weOffer = [
   { description: 'Door to door transport', href: '#', icon: ChartPieIcon },
@@ -64,8 +65,8 @@ export default function Example () {
   return (
     <>
       <MarqueeText />
-      <header className="bg-white border-t-4 border-[#00a1ef] z-50">
-        <nav className="mx-auto flex max-w-[95%] items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <header className="bg-white border-t-[5px] max-h-[80px] border-[#00a1ef] sticky top-0 xs:static sm:static md:static z-50">
+        <nav className="mx-auto flex max-w-[95%] max-h-[80px] items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -213,6 +214,12 @@ export default function Example () {
             <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-semibold leading-6 text-gray-900">
               CONTACT
             </a>
+            <div className='flex items-center'>
+              <FaPhone className="text-btn-blue text-xl px-0 m-0 mr-1" />
+              <a href="tel:(469) 619-0747" className='ml-1 text-xl text-btn-blue'>
+                (469) 619-0747
+              </a>
+            </div>
           </PopoverGroup>
         </nav>
         <Dialog className=" lg:hidden xl:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -363,6 +370,12 @@ export default function Example () {
                   >
                     CONTACT
                   </a>
+                  <div className='flex items-center'>
+                    <FaPhone className="text-btn-blue text-xl px-0 m-0 mr-1" />
+                    <a href="tel:(469) 619-0747" className='ml-1 text-xl text-btn-blue'>
+                      (469) 619-0747
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

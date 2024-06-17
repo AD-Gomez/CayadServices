@@ -15,7 +15,7 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label },
         id={name}
         type="date"
         {...register(name)}
-        className={`p-2 w-full border-0 border-b border-gray-300 focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out bg-white ${errors[name]?.message ? 'border-red-500' : ''}`}
+        className={`peer h-10 w-full border-b-2 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-btn-blue ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
       />
       {errors[name]?.message !== null && (
         <label htmlFor={name} className="block text-red-500 text-sm mb-1">
