@@ -23,7 +23,7 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({ name, label, value }) => 
         type="radio"
         value={value}
         {...register(name)}
-        className="mr-2 h-5 w-5 rounded-full text-blue-600 focus:ring-blue-500 border-gray-300"
+        className="mr-2 h-5 w-5 rounded-full text-btn-blue focus:ring-btn-blue border-gray-300"
       />
       <label
         htmlFor={name}

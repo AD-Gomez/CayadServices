@@ -3,6 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Testimonials from "../components/Testimonials";
 import FormLanding from "../components/forms/FormLanding";
 import ButtonSlide from "../components/buttons/ButtonSlide.astro";
+import { FaPhone } from "react-icons/fa";
+import { FaCar } from "react-icons/fa6";
+import { IoBoat } from "react-icons/io5";
+import { FaStar } from "react-icons/fa";
+import { FaMapMarked } from "react-icons/fa";
 ---
 
 <style>
@@ -85,6 +90,10 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
   .texts-container span {
     display: block;
     animation: moveUp 6s infinite;
+  }
+
+  .image--banner {
+    background-image: url("../../public/img/banner.webp");
   }
 
   @keyframes moveUp {
@@ -177,12 +186,11 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
 
 <Layout title="Cayad Auto Transport">
   <section class="relative h-screen xs:h-max md:h-max w-full">
-    <div
-      class="h-screen w-full visible bg-[url('../../public/img/banner.webp')] bg-cover"
-    >
+    <div class="h-screen image--banner w-full visible bg-cover"></div>
+    <div id="two" class="bg-[url('../../public/img/banner-2.web')] bg-cover">
     </div>
-    <div id="two" class="bg-[url('/img/banner-2.web')] bg-cover"></div>
-    <div id="three" class="bg-[url('/img/banner-5.web')] bg-cover"></div>
+    <div id="three" class="bg-[url('../../public/img/banner-5.web')] bg-cover">
+    </div>
     <div
       class="absolute inset-0 w-full h-full flex flex-row justify-around xs:flex-col sm:flex-col md:flex-col items-center bg-[rgba(6,3,21,0.5)]"
     >
@@ -223,7 +231,7 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
   </div>
 
   <div
-    class="container-wrapper sm:w-full xs:px-2 xl:px=12 sm:px-2 md:w-full md:px-8 lg:px-12 xl:px-72 px-72"
+    class="container-wrapper sm:w-full xs:px-2 xl:px-12 sm:px-2 md:w-full md:px-8 lg:px-12 px-72"
   >
     <h1 class="text-5xl text-h1-landing font-normal mb-4">
       Track everything in real-time
@@ -241,7 +249,6 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
         data-wow-delay="0.1s"
       >
         <img
-          class=""
           src="../../public/img/track.jpeg"
           style="object-fit: cover; width: 100%;"
           alt="image info"
@@ -266,10 +273,12 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
               Within our systems, over 70% of loads have guaranteed tracking and
               carrier GPS participation. Customers will be able to access and provide:
               <br /><br />
-              <ol>
-                <li class="text-p-landing">Updates on late deliveries</li>
-                <li class="text-p-landing">Map view tracking and BOL</li>
-                <li class="text-p-landing">Shareable ETAs through the link</li>
+              <ol class="ml-4">
+                <li class="text-p-landing">1. Updates on late deliveries</li>
+                <li class="text-p-landing">2. Map view tracking and BOL</li>
+                <li class="text-p-landing">
+                  3. Shareable ETAs through the link
+                </li>
               </ol>
               <br />
             </p>
@@ -340,7 +349,7 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
           <h5 class="text-lg font-semibold text-[#19171fd2]">
             Dedicated advisors
           </h5>
-          <p class="text-justify">
+          <p class="xs:text-justify sm:text-justify">
             Our auto transport specialists led by <a
               href="./our-team/"
               class="text-blue-500 hover:underline">the executive team</a
@@ -358,7 +367,7 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
           <h5 class="text-lg font-semibold text-[#19171fd2]">
             Insurance coverage
           </h5>
-          <p class="text-justify">
+          <p class="xs:text-justify sm:text-justify">
             Car transport companies include insurance coverage in your shipping
             quote. Our selected auto haulers must meet insurance standards
             before qualifying to be part of our carrier network.
@@ -374,7 +383,7 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
 
   <div class="container xs:min-w-[80%] sm:min-w-[80%] mx-auto py-5">
     <div
-      class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-10 py-5"
+      class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 py-5"
     >
       <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
         <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
@@ -404,12 +413,15 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
         </p>
 
         <div class="flex items-center">
-          <i class="fa fa-phone-alt flex-shrink-0 bg-primary p-3 text-white"
-          ></i>
+          <div class="h-12 w-12 flex items-center justify-center bg-btn-blue">
+            <FaPhone className="text-[#FFFF]" />
+          </div>
           <div class="pl-4">
-            <h6>Call for any query!</h6>
+            <h6 class="text-[#19171fd2] font-semibold">Call for any query!</h6>
             <a href="tel:(469) 619-0747">
-              <h3 class="text-primary m-0">(469) 619-0747</h3>
+              <h3 class="text-2xl text-btn-blue font-semibold m-0">
+                (469) 619-0747
+              </h3>
             </a>
           </div>
         </div>
@@ -423,9 +435,10 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
             data-aos="fade-up"
             data-aos-delay="300"
           >
+            <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
             <i class="fa fa-car fa-2x text-white mb-3"></i>
             <h5 class="text-white mb-2">The Size and weight of vehicle</h5>
-            <p class="text-white mb-0 text-justify">
+            <p class="text-white mb-0">
               Longer, taller or heavier-than-average vehicles require special
               accommodations by car transport companies and, as a result, the
               price may vary.
@@ -436,9 +449,9 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
             data-aos="fade-up"
             data-aos-delay="500"
           >
-            <i class="fa fa-star fa-2x text-white mb-3"></i>
+            <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
             <h5 class="text-white mb-2">The car condition</h5>
-            <p class="text-white mb-0 text-justify">
+            <p class="text-white mb-0">
               Shipping inoperable vehicles costs more because it requires extra
               tools and labor for car shipping companies to accommodate the
               cargo. But if your car rolls, steers, and brakes, we can ship it.
@@ -449,9 +462,9 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
             data-aos="fade-up"
             data-aos-delay="700"
           >
-            <i class="fa fa-ship fa-2x text-white mb-3"></i>
+            <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
             <h5 class="text-white mb-2">The transport type</h5>
-            <p class="text-white mb-0 text-justify">
+            <p class="text-white mb-0">
               Open transport is standard and more affordable option. Enclosed
               transport requires specific handling, so the price might be
               different.
@@ -462,9 +475,9 @@ import ButtonSlide from "../components/buttons/ButtonSlide.astro";
             data-aos="fade-up"
             data-aos-delay="700"
           >
-            <i class="fa fa-map-marked fa-2x text-white mb-3"></i>
+            <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
             <h5 class="text-white mb-2">The shipping distance</h5>
-            <p class="text-white mb-0 text-justify">
+            <p class="text-white mb-0">
               Longer runs have a higher overall price but lower cost per mile.
               The further your vehicle travels, the more you save on an auto
               transporter.

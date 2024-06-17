@@ -20,34 +20,9 @@ interface FormValues {
 const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
   const validationSchema = yup.object().shape({
     origin_city: yup.string()
-      .required('origin is required')
-      .test('is-in-us', 'City must be in the United States', async (value) => {
-        // Lógica para verificar si la ciudad está en Estados Unidos
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${value}&key=AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY&libraries=places`);
-        const data = await response.json();
-        console.log
-        const isInUS = data.results.some((result: any) =>
-          result.address_components.some((component: any) =>
-            component.types.includes('country') && component.short_name === 'US'
-          )
-        );
-        console.log(isInUS)
-        return isInUS;
-      }),
+      .required('origin is required'),
     destination_city: yup.string()
-      .required('Destination is required')
-      .test('is-in-us', 'City must be in the United States', async (value) => {
-        if (!value) return true; // Si no hay valor, retornamos true ya que la validación de requerido manejará esto
-        // Lógica para verificar si la ciudad está en Estados Unidos
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${value}&key=AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY&libraries=places`);
-        const data = await response.json();
-        const isInUS = data.results.some((result: any) =>
-          result.address_components.some((component: any) =>
-            component.types.includes('country') && component.short_name === 'US'
-          )
-        );
-        return isInUS;
-      }),
+      .required('Destination is required'),
     transport_type: yup.string()
       .required('transportType is required')
   })
@@ -60,39 +35,6 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
     },
   });
   const { handleSubmit, setError, clearErrors } = methods;
-
-
-
-  // function getPostalCode (address: string) {
-  //   const geocoder = new google.maps.Geocoder();
-
-  //   // Geocoding the address
-  //   geocoder.geocode({ address: address }, function (results, status) {
-  //     if (status === 'OK' && results.length > 0) {
-  //       const location = results[0].geometry.location;
-
-  //       // Reverse geocoding the coordinates to get detailed address components
-  //       geocoder.geocode({ location: location }, function (results, status) {
-  //         if (status === 'OK' && results.length > 0) {
-  //           // Loop through the address components to find the postal code
-  //           for (let i = 0; i < results[0].address_components.length; i++) {
-  //             const component = results[0].address_components[i];
-  //             if (component.types.includes('postal_code')) {
-  //               console.log('Postal Code:', component.long_name);
-  //               return component.long_name;
-  //             }
-  //           }
-  //           console.log('Postal Code not found');
-  //         } else {
-  //           console.log('Geocoder failed due to: ' + status);
-  //         }
-  //       });
-  //     } else {
-  //       console.log('Geocode was not successful for the following reason: ' + status);
-  //     }
-  //   });
-  // }
-
 
   const onSubmit = (data: FormValues) => {
     setDataSubmit(data)
@@ -120,7 +62,7 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
               Please provide a valid city or zip code.
             </div>
           </div>
-          <div className="flex gap-4 py-2">
+          <div className="flex xs:flex-col gap-4 py-2">
             <p>
               Select <b>Transport Type</b>
             </p>
@@ -129,7 +71,7 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 cursor-pointer mb-4 w-11/12 h-10 mt-5 text-white"
+            className="bg-btn-blue cursor-pointer mb-4 w-11/12 h-10 mt-5 text-white"
           >
             Add Vehicle Details <i className="fa-solid fa-chevron-right"></i>
           </button>
@@ -468,14 +410,14 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             </div>
           ))}
           <button
-            className="bg-white border border-blue-500 text-blue-500 py-2 px-4 mt-4"
+            className="bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4"
             type="button"
             onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
           >
             Add Another Vehicle
           </button>
           <button
-            className="bg-blue-500 cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
             Contact Details <i className="fa-solid fa-chevron-right"></i>
@@ -483,18 +425,18 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
         </form>
         <footer className="flex justify-around text-center py-4">
           <div className="flex flex-col items-center">
-            <button type="button" onClick={handleStepBack} className="bg-blue-500 flex justify-center items-center text-white w-8 h-8 rounded-full">
+            <button type="button" onClick={handleStepBack} className="bg-btn-blue flex justify-center items-center text-white w-8 h-8 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>            </button>
             <small>Location</small>
           </div>
           <div className="flex flex-col items-center">
-            <button type="button" className="border border-blue-500 text-blue-500 w-8 h-8 rounded-full">2</button>
+            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">2</button>
             <small>Vehicle(s)</small>
           </div>
           <div className="flex flex-col items-center">
-            <button type="button" className="border border-blue-500 mb-4 text-blue-500 w-8 h-8 rounded-full">3</button>
+            <button type="button" className="border border-btn-blue mb-4 text-btn-blue w-8 h-8 rounded-full">3</button>
             <small>Contact</small>
           </div>
         </footer>
@@ -539,7 +481,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 
   const { handleSubmit, setError, clearErrors } = methods;
 
-  const originCityAndState = dataSubmit.origin_city
+  const originCityAndState = dataSubmit?.origin_city
   const location = separarCiudadYEstado(originCityAndState)
   const onSubmit = (data: FormStep3) => {
     const dataToSend = {
@@ -586,7 +528,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <button
             id="submit_button"
-            className="bg-blue-500 cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
             Submit <i className="fa-regular fa-paper-plane"></i>
@@ -594,7 +536,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
         </form>
         <footer className="flex justify-around text-center py-4">
           <div className="flex flex-col items-center" >
-            <button type="button" onClick={() => { handleStepBack(0) }} className="bg-blue-500 text-center flex justify-center items-center text-white w-8 h-8 rounded-full">
+            <button type="button" onClick={() => { handleStepBack(0) }} className="bg-btn-blue text-center flex justify-center items-center text-white w-8 h-8 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
@@ -602,7 +544,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <small>Location</small>
           </div>
           <div className="flex flex-col items-center" >
-            <button type="button" onClick={() => { handleStepBack(1) }} className="bg-blue-500 flex justify-center items-center text-white w-8 h-8 rounded-full">
+            <button type="button" onClick={() => { handleStepBack(1) }} className="bg-btn-blue flex justify-center items-center text-white w-8 h-8 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
@@ -610,7 +552,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <small>Vehicle(s)</small>
           </div>
           <div className="flex flex-col items-center">
-            <button type="button" className="border border-blue-500 text-blue-500 w-8 h-8 rounded-full">3</button>
+            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">3</button>
             <small>Contact</small>
           </div>
         </footer>
@@ -626,7 +568,6 @@ const FormLanding = () => {
   const emailCayad = getEmail()
   const isSendedEmail = getSendedEmail()
   const isSendedLead = getSendedLead()
-  console.log(lead, emailCayad)
   const updateFormData = (newData: any) => {
     setDataSubmit((prevData: any) => ({
       ...prevData,
@@ -654,7 +595,7 @@ const FormLanding = () => {
   }
 
   useEffect(() => {
-    if (dataSubmit.Vehicles && Array.isArray(dataSubmit.Vehicles)) {
+    if (dataSubmit?.Vehicles && Array.isArray(dataSubmit?.Vehicles)) {
       setTimeout(saveDataInLocalStorage, 1000)
     }
   }, [dataSubmit])
@@ -672,7 +613,7 @@ const FormLanding = () => {
     }
   }, [activeStep]);
   return (
-    <div className="max-w-[455px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap	overflow-auto	 bg-white flex justify-between items-center flex-col">
+    <div className="max-w-[455px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[350px] sm:min-w-[400px] md:min-w-[440px]	overflow-auto	 bg-white flex justify-between items-center flex-col">
       {renderContent()}
     </div>
   );

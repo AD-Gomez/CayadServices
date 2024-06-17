@@ -140,7 +140,7 @@ const Testimonials = () => {
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>
-            <div className={`w-full fadeInUp xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl' : ''}`}>
+            <div className={`w-full  xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
               <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
               <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
                 <div className="w-16">
