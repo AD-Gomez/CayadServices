@@ -29,8 +29,7 @@ const weOffer = [
   { description: 'Door to door transport', href: '#', icon: ChartPieIcon },
   { description: 'Open car transport', href: '#', icon: CursorArrowRaysIcon },
   { description: 'Enclosed auto transport', href: '#', icon: FingerPrintIcon },
-  { description: 'Motorcycle shipping', href: '#', icon: SquaresPlusIcon },
-  { description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
+  { description: 'Motorcycle shipping', href: '#', icon: SquaresPlusIcon }
 ]
 
 const weServe = [
