@@ -59,8 +59,8 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
               placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle FROM '
             />
           </div>
-          <div className="flex xs:flex-col gap-4 py-2">
-            <p>
+          <div className="flex gap-4 py-2">
+            <p className='text-sm'>
               Select <b>Transport Type</b>
             </p>
             <CheckboxInput name='transport_type' label='Open' value='1' />
@@ -615,7 +615,7 @@ const FormLanding = () => {
     }
   }, [activeStep]);
   return (
-    <div className="max-w-[500px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[350px] sm:min-w-[400px] md:min-w-[440px]	overflow-auto	 bg-white flex justify-between items-center flex-col">
+    <div className="max-w-[500px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[95%] sm:min-w-[90%] md:min-w-[60%]	overflow-auto	 bg-white flex justify-between items-center flex-col">
       {renderContent()}
     </div>
   );
