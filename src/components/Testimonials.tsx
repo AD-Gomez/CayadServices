@@ -5,6 +5,9 @@ import { Swiper as SwiperInstance } from 'swiper';
 
 import part4 from '../../public/img/part4.webp'
 import client from '../../public/img/client.webp'
+import facebookReview from '../../public/img/img_landing/facebookReview.png'
+import facebookReview2 from '../../public/img/img_landing/facebookReview2.jpeg'
+import webp1 from '../../public/img/1.webp'
 
 import 'swiper/css'
 import '../styles/animate.css'
@@ -14,73 +17,73 @@ import { FaQuoteRight } from "react-icons/fa6";
 
 const testimonials = [
   {
-    name: "body shop",
-    image: client,
+    name: "Moe Omar",
+    image: 'https://lh3.googleusercontent.com/a-/ALV-UjUE9WfAxktuUTQHRbSJFbO9coZvY1Bzo6ZBTTfh2XheXCm7u1GV=w60-h60-p-rp-mo-br100',
     rating: 5,
-    comment: "",
-    link: "https://g.co/kgs/K5aLkF",
+    comment: "Awesome service, second time using the service",
+    link: "https://www.google.com/maps/contrib/112079156209575097076/reviews?hl=en-GB",
     userImage: part4,
-    altText: "body shop",
+    altText: "Moe Omar",
     id: 0
   },
   {
-    name: "Paul Rosales",
-    image: client,
+    name: "Hhrg Ramirez",
+    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-1/102802572_665660624016806_3203696689356932331_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wuSSzH9Y3o8Q7kNvgHoBYi6&_nc_ht=scontent-hou1-1.xx&oh=00_AYBL4SHZtcW36yW1B-QkbWwN2bnKWSes7oFhbCxf73VZBA&oe=669943CC',
     rating: 5,
-    comment: "Excelente servicio! Comunicación al 100 ! Es nuestra mejor opción para bajar autos a la frontera de Mexico!! 💯 recomendado!!",
-    link: "https://g.co/kgs/S42ZLt",
+    comment: "Muy profesional y excelente servicio hasta ahora el mejor servicio de transporte que he contratado. Recomiendo 100%,. Muy rápida y buena comunicación.",
+    link: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02gRac3mrcL3Q8W14Qo67DabHoCChnEWCirDMtJgdrUgvgzngQ2aUv84hGNtMLjFUwl%26id%3D100017186221123&show_text=true&width=500",
+    userImage: facebookReview2,
+    altText: "Hhrg Ramirez",
+    id: 2
+  },
+  {
+    name: "Santiago Caceres",
+    image: 'https://lh3.googleusercontent.com/a-/ALV-UjXwNOMW8_aQSW7tzSra1biY72AhZoCGHXFkMNORG8S9WVOpSoRn=w60-h60-p-rp-mo-br100',
+    rating: 5,
+    comment: "Alex G at Cayad Auto Transport was amazing to work with. He helps me ship a car from Utah to Idaho without problems and with fair price. I’d definitely be using their services again.",
+    link: "https://www.google.com/maps/contrib/102787767697976243009/reviews",
     userImage: part4,
     altText: "Paul Rosales",
     id: 1
   },
   {
-    name: "Peter Fielding",
-    image: client,
+    name: "Kimmy Tennant",
+    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ygtiSzcFFq8Q7kNvgGcWvtg&_nc_ht=scontent-hou1-1.xx&oh=00_AYBoJgyP20-E8EQE2hGFDajTv3zpXvdQiDm0tTtLqMILsQ&oe=6677A236',
     rating: 5,
-    comment: "Fantastic communications from Leo J. Good service",
-    link: "https://g.co/kgs/oAgbJ7",
-    userImage: part4,
-    altText: "Peter Fielding",
-    id: 2
-  },
-  {
-    name: "Abner Aquino",
-    image: client,
-    rating: 5,
-    comment: "Great communication, fast service! Very friendly 10/10",
-    link: "https://g.co/kgs/wcnicu",
-    userImage: part4,
-    altText: "Abner Aquino",
+    comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
+    link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
+    userImage: facebookReview2,
+    altText: "Kimmy Tennant",
     id: 3
   },
   {
-    name: "William Guzmán",
-    image: client,
+    name: "Jordan Allen",
+    image: 'https://lh3.googleusercontent.com/a-/ALV-UjVXyptdS-K6uObP24Vy6KPgzXcGBGX5urCyOiOLdBwiDglgv-gS=w60-h60-p-rp-mo-br100',
     rating: 5,
-    comment: "Muy eficiente trabajo, rápido y honesto.",
-    link: "https://g.co/kgs/xoFQ8j",
+    comment: "I've worked with AD for a couple years now, he's shipped 10 or so rigs for me. First time I was a little worried doing all this through messenger, but now he's my go to guy.",
+    link: "https://www.google.com/maps/contrib/115116084854189813969/reviews/@37.0668996,-96.2086757,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?entry=ttu",
     userImage: part4,
-    altText: "William Guzman",
+    altText: "jordan allen",
     id: 4
   },
   {
-    name: "Kenny Gonzalez",
-    image: client,
+    name: "Abir Khan",
+    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-1/33920933_10215860728529327_6365152725356773376_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=K5MZivfpbEcQ7kNvgHQzwrv&_nc_ht=scontent-hou1-1.xx&oh=00_AYDzbvfa_mBLaU6nqfUpbrbac9DZj2Eei9bLDJ6PCITwDw&oe=66993E33',
     rating: 5,
-    comment: "Thank you for your service. Everything OK",
-    link: "https://g.co/kgs/SuY5oG",
-    userImage: part4,
-    altText: "Kenny Gonzalez",
+    comment: "11/10. Maiky was amazing in his communication and transparency. Car was delivered from IL to NY with no issues and they even provide live upates and location tracking! Would not hesitate to use their services again.",
+    link: "https://www.facebook.com/adot.khan.7/posts/10232305783965435?ref=embed_post",
+    userImage: facebookReview2,
+    altText: "Abir Khan",
     id: 5
   },
   {
-    name: "Angel Espinoza",
-    image: client,
+    name: "Jose Santiago",
+    image: 'https://lh3.googleusercontent.com/a-/ALV-UjXusMMqJ6c8Fws5d8PSARGHm01MN_yaeQGkgytYUqhhoBm-qTc=w60-h60-p-rp-mo-br100',
     rating: 5,
-    comment: "Good service.. and good price",
-    link: "https://g.co/kgs/nzeuzs",
+    comment: "Call  Leo Took care of me. They brought my vehicle to my house. The best service I ever have. These are the great people that you can trust on",
+    link: "https://www.google.com/maps/contrib/105406262029060010977/reviews?hl=en-GB",
     userImage: part4,
-    altText: "Angel Espinoza",
+    altText: "Jose Santiago",
     id: 6
   }
 ];
@@ -140,25 +143,27 @@ const Testimonials = () => {
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>
-            <div className={`w-full  xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
-              <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
-              <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
-                <div className="w-16">
-                  <img src={testimonial.image.src} className="bg-cover" alt="img" />
+            <div className={`w-full cursor-pointer xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
+              <a href={testimonial.link}>
+                <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
+                <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
+                  <div className="w-16">
+                    <img src={testimonial.image} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img" />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <h4 className="text-xl font-normal mb-2">
+                      {testimonial.name}
+                    </h4>
+                    {renderStars(testimonial.rating)}
+                  </div>
+                  <div className="w-16 mt-4">
+                    <img src={testimonial.userImage.src} className="bg-cover" alt="image google" />
+                  </div>
                 </div>
-                <div className="text-center md:text-left">
-                  <h4 className="text-xl font-normal mb-2">
-                    {testimonial.name}
-                  </h4>
-                  {renderStars(testimonial.rating)}
+                <div className="flex flex-col p-4 text-justify text-p-landing">
+                  {testimonial.comment}
                 </div>
-                <div className="w-16 mt-4">
-                  <img src={testimonial.userImage.src} className="bg-cover" alt="image google" />
-                </div>
-              </div>
-              <div className="flex flex-col p-4 text-justify text-p-landing">
-                {testimonial.comment}
-              </div>
+              </a>
             </div>
           </SwiperSlide>
         ))}

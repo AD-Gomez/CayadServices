@@ -279,6 +279,9 @@ export default function Example () {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
+                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                    HOW IT WORKS?
+                  </a>
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>
@@ -366,7 +369,10 @@ export default function Example () {
                     )}
                   </Disclosure>
                   <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
-                    HOW IT WORKS?
+                    FAQS
+                  </a>
+                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                    CONTACT
                   </a>
                   <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
                     BLOG
