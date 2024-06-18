@@ -80,10 +80,10 @@ export default function Example () {
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              <Bars3Icon className=" h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
             </button>
           </div>
-          <PopoverGroup className="flex gap-x-12 xs:hidden sm:hidden md:hidden lg:flex lg:gap-x-12">
+          <PopoverGroup className="flex gap-x-12 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-8">
             <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-medium  leading-6 text-gray-900">
               HOW IT WORKS?
             </a>
