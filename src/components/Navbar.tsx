@@ -113,7 +113,7 @@ export default function Example () {
                     leaveTo="opacity-0 translate-y-1"
                   >
                     <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
-                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
+                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                         <p className='text-white'>
                           We Offer
                         </p>
@@ -122,7 +122,7 @@ export default function Example () {
                         {weOffer.map((item) => (
                           <div
                             key={item.description}
-                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                            className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
                               <a href={item.href} className="block text-base text-gray-600">
@@ -132,7 +132,7 @@ export default function Example () {
                           </div>
                         ))}
                       </div>
-                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
+                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                         <p className='text-white'>
                           We Serve
                         </p>
@@ -141,7 +141,7 @@ export default function Example () {
                         {weServe.map((item) => (
                           <div
                             key={item.description}
-                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                            className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
                               <a href={item.href} className="block text-base text-gray-600">
@@ -185,7 +185,7 @@ export default function Example () {
                         {forBusinesses.map((item) => (
                           <div
                             key={item.description}
-                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                            className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
                               <a href={item.href} className="block text-base text-gray-600">
@@ -229,7 +229,7 @@ export default function Example () {
                         {whyUs.map((item) => (
                           <div
                             key={item.description}
-                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                            className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
                               <a href={item.href} className="block text-base text-gray-600">
