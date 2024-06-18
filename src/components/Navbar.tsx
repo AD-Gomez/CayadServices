@@ -254,7 +254,7 @@ export default function Example () {
             <div className="flex ">
               <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
               <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
-                (469) 619-0737
+                (469) 619-0747
               </a>
             </div>
           </PopoverGroup>
@@ -380,7 +380,7 @@ export default function Example () {
                   <div className="flex ">
                     <FaPhone className="text-[#00a1ef] text-lg mr-2 mt-1" />
                     <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
-                      (469) 619-0737
+                      (469) 619-0747
                     </a>
                   </div>
                 </div>

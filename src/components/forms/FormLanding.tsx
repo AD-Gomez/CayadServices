@@ -68,7 +68,7 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
           </div>
           <button
             type="submit"
-            className="bg-btn-blue flex items-center justify-center cursor-pointer mb-4 w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer mb-4 w-full h-10 mt-5 text-white"
           >
             Add Vehicle Details
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
@@ -407,14 +407,14 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             </div>
           ))}
           <button
-            className="bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4"
+            className="bg-white border  border-btn-blue text-btn-blue py-2 px-4 mt-4"
             type="button"
             onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
           >
             Add Another Vehicle
           </button>
           <button
-            className="bg-btn-blue flex justify-center items-center cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
             Contact Details
@@ -528,7 +528,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <button
             id="submit_button"
-            className="bg-btn-blue flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
             <p className='mr-2'>
