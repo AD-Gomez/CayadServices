@@ -436,7 +436,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             <small>Vehicle(s)</small>
           </div>
           <div className="flex flex-col items-center">
-            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">2</button>
+            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">3</button>
             <small>Contact</small>
           </div>
         </footer>
