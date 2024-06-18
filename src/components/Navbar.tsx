@@ -64,8 +64,8 @@ export default function Example () {
   return (
     <>
       <MarqueeText />
-      <header className="bg-white border-t-[5px] max-h-[65px] border-[#00a1ef] sticky top-0 xs:static sm:static md:static z-50">
-        <nav className="mx-auto flex max-w-[95%] max-h-[65px] items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <header className="bg-white border-t-[5px] max-h-[80px] border-[#00a1ef] sticky top-0 xs:static sm:static md:static z-50">
+        <nav className="mx-auto flex max-w-[95%] max-h-[80px] items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -84,11 +84,11 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
-            <a href="#" className="text-lg font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
+            <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
               HOW IT WORKS?
             </a>
             <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-lg font-medium leading-6 text-[#060315]">
+              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium leading-6 text-[#060315]">
                 FOR INDIVIDUALS
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -144,7 +144,7 @@ export default function Example () {
               </Transition>
             </Popover>
             <Popover className="relative">
-              <PopoverButton className="flex items-center text-[#060315] hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-medium leading-6 ">
+              <PopoverButton className="flex items-center text-[#060315] hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium leading-6 ">
                 FOR BUSINESSES
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -176,7 +176,7 @@ export default function Example () {
               </Transition>
             </Popover>
             <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] text-[#060315] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-medium leading-6 ">
+              <PopoverButton className="flex items-center hover:text-[#00a1ef] text-[#060315] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium leading-6 ">
                 WHY US?
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -207,10 +207,10 @@ export default function Example () {
                 </PopoverPanel>
               </Transition>
             </Popover>
-            <a href="#" className="text-lg hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
+            <a href="#" className="text-[16px] hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
               FAQS
             </a>
-            <a href="#" className="text-lg hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
+            <a href="#" className="text-[16px] hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
               CONTACT
             </a>
             <div className='flex items-center'>
@@ -228,18 +228,18 @@ export default function Example () {
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
-                  className="h-8 w-auto"
+                  className="h-12 w-auto"
                   src={logoweb.src}
                   alt=""
                 />
               </a>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                className="-m-2.5 rounded-md p-2.5 "
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                <XMarkIcon className="h-8 font-medium w-8 text-black" aria-hidden="true" />
               </button>
             </div>
             <div className="mt-6 flow-root">
