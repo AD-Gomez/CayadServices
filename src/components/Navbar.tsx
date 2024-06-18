@@ -60,6 +60,7 @@ function classNames (...classes: any) {
 
 export default function Example () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [openPopover, setOpenPopover] = useState<string | null>(null)
 
   return (
     <>
@@ -87,288 +88,274 @@ export default function Example () {
             <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
               HOW IT WORKS?
             </a>
-            <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium leading-6 text-[#060315]">
-                FOR INDIVIDUALS
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-              </PopoverButton>
+            <Popover
+              className="relative"
+              onMouseEnter={() => setOpenPopover('individuals')}
+              onMouseLeave={() => setOpenPopover(null)}
+            >
+              {({ open }) => (
+                <>
+                  <Popover.Button className={classNames(
+                    openPopover === 'individuals' ? 'text-blue-500' : 'text-[#060315]',
+                    'flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                  )}>
+                    FOR INDIVIDUALS
+                    <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                  </Popover.Button>
 
-              <Transition
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <PopoverPanel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
-                    <p className='text-white'>
-                      We Offer
-                    </p>
-                  </div>
-                  <div className="p-0">
-                    {weOffer.map((item) => (
-                      <div
-                        key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
-                      >
-                        <div className="flex-auto">
-                          <a href={item.href} className="block text-base text-gray-600">
-                            {item.description}
-                          </a>
-                        </div>
+                  <Transition
+                    show={openPopover === 'individuals'}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
+                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
+                        <p className='text-white'>
+                          We Offer
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                  <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
-                    <p className='text-white'>
-                      We Serve
-                    </p>
-                  </div>
-                  <div className="p-0">
-                    {weServe.map((item) => (
-                      <div
-                        key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
-                      >
-                        <div className="flex-auto">
-                          <a href={item.href} className="block text-base text-gray-600">
-                            {item.description}
-                          </a>
-                        </div>
+                      <div className="p-0">
+                        {weOffer.map((item) => (
+                          <div
+                            key={item.description}
+                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                          >
+                            <div className="flex-auto">
+                              <a href={item.href} className="block text-base text-gray-600">
+                                {item.description}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Transition>
+                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
+                        <p className='text-white'>
+                          We Serve
+                        </p>
+                      </div>
+                      <div className="p-0">
+                        {weServe.map((item) => (
+                          <div
+                            key={item.description}
+                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                          >
+                            <div className="flex-auto">
+                              <a href={item.href} className="block text-base text-gray-600">
+                                {item.description}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
             </Popover>
-            <Popover className="relative">
-              <PopoverButton className="flex items-center text-[#060315] hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium leading-6 ">
-                FOR BUSINESSES
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-              </PopoverButton>
+            <Popover
+              className="relative"
+              onMouseEnter={() => setOpenPopover('businesses')}
+              onMouseLeave={() => setOpenPopover(null)}
+            >
+              {({ open }) => (
+                <>
+                  <Popover.Button className={classNames(
+                    openPopover === 'businesses' ? 'text-blue-500' : 'text-gray-900',
+                    'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                  )}>
+                    FOR BUSINESSES
+                    <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                  </Popover.Button>
 
-              <Transition
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <PopoverPanel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className="p-0">
-                    {forBusinesses.map((item) => (
-                      <div
-                        key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
-                      >
-                        <div className="flex-auto">
-                          <a href={item.href} className="block text-base text-gray-600">
-                            {item.description}
-                          </a>
-                        </div>
+                  <Transition
+                    show={openPopover === 'businesses'}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
+                      <div className="p-0">
+                        {forBusinesses.map((item) => (
+                          <div
+                            key={item.description}
+                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                          >
+                            <div className="flex-auto">
+                              <a href={item.href} className="block text-base text-gray-600">
+                                {item.description}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Transition>
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
             </Popover>
-            <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] text-[#060315] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium leading-6 ">
-                WHY US?
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-              </PopoverButton>
+            <Popover
+              className="relative"
+              onMouseEnter={() => setOpenPopover('whyUs')}
+              onMouseLeave={() => setOpenPopover(null)}
+            >
+              {({ open }) => (
+                <>
+                  <Popover.Button className={classNames(
+                    openPopover === 'whyUs' ? 'text-blue-500' : 'text-gray-900',
+                    'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                  )}>
+                    WHY US?
+                    <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                  </Popover.Button>
 
-              <Transition
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <PopoverPanel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
-                  <div className="p-0">
-                    {whyUs.map((item) => (
-                      <div
-                        key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
-                      >
-                        <div className="flex-auto">
-                          <a href={item.href} className="block text-base text-gray-600">
-                            {item.description}
-                          </a>
-                        </div>
+                  <Transition
+                    show={openPopover === 'whyUs'}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
+                      <div className="p-0">
+                        {whyUs.map((item) => (
+                          <div
+                            key={item.description}
+                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
+                          >
+                            <div className="flex-auto">
+                              <a href={item.href} className="block text-base text-gray-600">
+                                {item.description}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </PopoverPanel>
-              </Transition>
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
             </Popover>
-            <a href="#" className="text-[16px] hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
+
+            <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6">
               FAQS
             </a>
-            <a href="#" className="text-[16px] hover:text-[#00a1ef] text-[#060315] ease-in-out duration-100 delay-100 font-medium leading-6 ">
+            <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6">
               CONTACT
             </a>
-            <div className='flex items-center'>
-              <FaPhone className="text-btn-blue text-xl px-0 m-0 mr-1" />
-              <a href="tel:(469) 619-0747" className='ml-1 text-xl text-btn-blue'>
-                (469) 619-0747
+            <div className="flex ">
+              <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
+              <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
+                (813) 333-1100
               </a>
             </div>
           </PopoverGroup>
         </nav>
-        <Dialog className=" lg:hidden xl:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-          <div className="fixed inset-0 z-10" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+          <div className="fixed inset-0 z-50" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
-                  className="h-12 w-auto"
-                  src={logoweb.src}
-                  alt=""
-                />
+                <img className="h-10 w-auto" src={logoweb.src} alt="" />
               </a>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 "
+                className="-m-2.5 rounded-md p-2.5 text-gray-700"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-8 font-medium w-8 text-black" aria-hidden="true" />
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
+                  <Disclosure as="div" className="-mx-3">
+                    {({ open }) => (
+                      <>
+                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                          FOR INDIVIDUALS
+                          <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                        </DisclosureButton>
+                        <DisclosurePanel className="mt-2 space-y-2">
+                          {[...weOffer, ...weServe].map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+                        </DisclosurePanel>
+                      </>
+                    )}
+                  </Disclosure>
+                  <Disclosure as="div" className="-mx-3">
+                    {({ open }) => (
+                      <>
+                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                          FOR BUSINESSES
+                          <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                        </DisclosureButton>
+                        <DisclosurePanel className="mt-2 space-y-2">
+                          {forBusinesses.map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+                        </DisclosurePanel>
+                      </>
+                    )}
+                  </Disclosure>
+                  <Disclosure as="div" className="-mx-3">
+                    {({ open }) => (
+                      <>
+                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                          WHY US?
+                          <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                        </DisclosureButton>
+                        <DisclosurePanel className="mt-2 space-y-2">
+                          {whyUs.map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+                        </DisclosurePanel>
+                      </>
+                    )}
+                  </Disclosure>
+                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
                     HOW IT WORKS?
                   </a>
-                  <Disclosure as="div" className="-mx-3">
-                    {({ open }) => (
-                      <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                          FOR INDIVIDUALS
-                          <ChevronDownIcon
-                            className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                            aria-hidden="true"
-                          />
-                        </DisclosureButton>
-                        <DisclosurePanel className="mt-2 space-y-2">
-                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
-                            <p className='text-white'>
-                              We Offer
-                            </p>
-                          </div>
-                          {[...weOffer].map((item) => (
-                            <DisclosureButton
-                              key={item.description}
-                              as="a"
-                              href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                              {item.description}
-                            </DisclosureButton>
-                          ))}
-
-                        </DisclosurePanel>
-                        <DisclosurePanel>
-                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  p-4 text-sm leading-6'>
-                            <p className='text-white'>
-                              We Serve
-                            </p>
-                          </div>
-                          {[...weServe].map((item) => (
-                            <DisclosureButton
-                              key={item.description}
-                              as="a"
-                              href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                              {item.description}
-                            </DisclosureButton>
-                          ))}
-                        </DisclosurePanel>
-                      </>
-                    )}
-                  </Disclosure>
-
-                  <Disclosure as="div" className="-mx-3">
-                    {({ open }) => (
-                      <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                          FOR BUSINESSES
-                          <ChevronDownIcon
-                            className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                            aria-hidden="true"
-                          />
-                        </DisclosureButton>
-                        <DisclosurePanel className="mt-2 space-y-2">
-                          {[...forBusinesses].map((item) => (
-                            <DisclosureButton
-                              key={item.description}
-                              as="a"
-                              href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                              {item.description}
-                            </DisclosureButton>
-                          ))}
-                        </DisclosurePanel>
-                      </>
-                    )}
-                  </Disclosure>
-
-                  <Disclosure as="div" className="-mx-3">
-                    {({ open }) => (
-                      <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                          WHY US?
-                          <ChevronDownIcon
-                            className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                            aria-hidden="true"
-                          />
-                        </DisclosureButton>
-                        <DisclosurePanel className="mt-2 space-y-2">
-                          {[...whyUs].map((item) => (
-                            <DisclosureButton
-                              key={item.description}
-                              as="a"
-                              href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                              {item.description}
-                            </DisclosureButton>
-                          ))}
-                        </DisclosurePanel>
-                      </>
-                    )}
-                  </Disclosure>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    FAQS
+                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                    BLOG
                   </a>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    CONTACT
+                </div>
+                <div className="py-6">
+                  <a href="tel:+1 (833) 233-4447" className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                    +1 (833) 233-4447
                   </a>
-                  <div className='flex items-center'>
-                    <FaPhone className="text-btn-blue text-xl px-0 m-0 mr-1" />
-                    <a href="tel:(469) 619-0747" className='ml-1 text-xl text-btn-blue'>
-                      (469) 619-0747
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
