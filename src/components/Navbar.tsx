@@ -96,7 +96,7 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'individuals' ? 'text-blue-500' : 'text-[#060315]',
+                    openPopover === 'individuals' ? 'text-btn-blue' : 'text-[#060315]',
                     'flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR INDIVIDUALS
@@ -164,7 +164,7 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'businesses' ? 'text-blue-500' : 'text-gray-900',
+                    openPopover === 'businesses' ? 'text-btn-blue' : 'text-gray-900',
                     'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR BUSINESSES
@@ -208,7 +208,7 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'whyUs' ? 'text-blue-500' : 'text-gray-900',
+                    openPopover === 'whyUs' ? 'text-btn-blue' : 'text-gray-900',
                     'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     WHY US?
@@ -254,7 +254,7 @@ export default function Example () {
             <div className="flex ">
               <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
               <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
-                (813) 333-1100
+                (469) 619-0737
               </a>
             </div>
           </PopoverGroup>
@@ -351,11 +351,12 @@ export default function Example () {
                   <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
                     BLOG
                   </a>
-                </div>
-                <div className="py-6">
-                  <a href="tel:+1 (833) 233-4447" className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
-                    +1 (833) 233-4447
-                  </a>
+                  <div className="flex ">
+                    <FaPhone className="text-[#00a1ef] text-lg mr-2 mt-1" />
+                    <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
+                      (469) 619-0737
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
