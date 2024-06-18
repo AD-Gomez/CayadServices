@@ -10,7 +10,7 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label },
   const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-2">
       <input
         id={name}
         type="date"

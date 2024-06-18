@@ -12,7 +12,7 @@ interface CustomInputProps {
 const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange }) => {
   const { register, formState: { errors } } = useFormContext();
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-2">
       <input
         id={name}
         type={type}

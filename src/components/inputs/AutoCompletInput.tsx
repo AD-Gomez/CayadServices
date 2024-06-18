@@ -65,7 +65,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
   };
 
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-2">
       <input
         id={name}
         {...register(name)}
