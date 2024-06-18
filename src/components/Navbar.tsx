@@ -292,7 +292,22 @@ export default function Example () {
                               We Offer
                             </p>
                           </div>
-                          {[...weOffer, ...weServe].map((item) => (
+                          {[...weOffer].map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                            <p className='text-white'>
+                              We Serve
+                            </p>
+                          </div>
+                          {[...weServe].map((item) => (
                             <DisclosureButton
                               key={item.description}
                               as="a"
