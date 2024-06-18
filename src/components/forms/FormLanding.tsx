@@ -565,7 +565,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 }
 
 const FormLanding = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const [dataSubmit, setDataSubmit] = useState<any>({})
   const lead = getLead()
   const emailCayad = getEmail()

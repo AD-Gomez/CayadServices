@@ -287,6 +287,11 @@ export default function Example () {
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
+                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                            <p className='text-white'>
+                              We Offer
+                            </p>
+                          </div>
                           {[...weOffer, ...weServe].map((item) => (
                             <DisclosureButton
                               key={item.description}
