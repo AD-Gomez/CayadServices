@@ -84,11 +84,11 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-12 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-8">
-            <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-medium  leading-6 text-gray-900">
+            <a href="#" className="text-lg font-semibold hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
               HOW IT WORKS?
             </a>
             <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-lg font-medium leading-6 text-[#060315]">
+              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-lg font-semibold leading-6 text-[#060315]">
                 FOR INDIVIDUALS
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -144,7 +144,7 @@ export default function Example () {
               </Transition>
             </Popover>
             <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-semibold leading-6 text-gray-900">
+              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-semibold leading-6 ">
                 FOR BUSINESSES
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -176,7 +176,7 @@ export default function Example () {
               </Transition>
             </Popover>
             <Popover className="relative">
-              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-semibold leading-6 text-gray-900">
+              <PopoverButton className="flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-lg font-semibold leading-6 ">
                 WHY US?
                 <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
               </PopoverButton>
@@ -207,10 +207,10 @@ export default function Example () {
                 </PopoverPanel>
               </Transition>
             </Popover>
-            <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-semibold leading-6 text-gray-900">
+            <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-semibold leading-6 ">
               FAQS
             </a>
-            <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-semibold leading-6 text-gray-900">
+            <a href="#" className="text-lg hover:text-[#00a1ef] ease-in-out duration-100 delay-100 font-semibold leading-6 ">
               CONTACT
             </a>
             <div className='flex items-center'>
