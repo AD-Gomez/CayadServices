@@ -10,6 +10,7 @@ import SelectInput from '../inputs/CustomSelect';
 import DateInput from '../inputs/CustomInputDate';
 import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, sendedEmail, sendedLead } from '../../services/localStorage';
 import { sendEmail, sendLead } from '../../services/landing';
+import { FaRegPaperPlane } from "react-icons/fa";
 
 interface FormValues {
   origin_city: string;
@@ -20,9 +21,9 @@ interface FormValues {
 const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
   const validationSchema = yup.object().shape({
     origin_city: yup.string()
-      .required('origin is required'),
+      .required('Please provide a valid city or zip code.'),
     destination_city: yup.string()
-      .required('Destination is required'),
+      .required('Please provide a valid city or zip code.'),
     transport_type: yup.string()
       .required('transportType is required')
   })
@@ -43,24 +44,20 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
 
   return (
     <FormProvider {...methods}>
-      <section id="paso1" className="w-full mt-8 flex flex-col items-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <section id="paso1" className="w-full mt-4 flex flex-col items-center">
+        <form onSubmit={handleSubmit(onSubmit)} className='w-[90%]'>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
 
             <AutocompleteInput placeholder="Miami, Florida, EE. UU."
               name='origin_city' label='Transport Vehicle TO'
             />
             <div id="validationOrigin" className="invalid-feedback">
-              Please provide a valid city or zip code.
             </div>
           </div>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
             <AutocompleteInput
               placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle FROM '
             />
-            <div id="validationDestination" className="invalid-feedback">
-              Please provide a valid city or zip code.
-            </div>
           </div>
           <div className="flex xs:flex-col gap-4 py-2">
             <p>
@@ -83,10 +80,6 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
     </FormProvider >
   )
 }
-
-
-// Definición de la interfaz de los datos del formulario
-
 
 // Definición de la interfaz de los datos del formulario
 interface VehicleForm {
@@ -420,10 +413,13 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             Add Another Vehicle
           </button>
           <button
-            className="bg-btn-blue cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex justify-center items-center cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
-            Contact Details <i className="fa-solid fa-chevron-right"></i>
+            Contact Details
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
+              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+            </svg>
           </button>
         </form>
         <footer className="flex justify-around text-center py-4">
@@ -531,10 +527,13 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <button
             id="submit_button"
-            className="bg-btn-blue cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
           >
-            Submit <i className="fa-regular fa-paper-plane"></i>
+            <p className='mr-2'>
+              Submit
+            </p>
+            <FaRegPaperPlane />
           </button>
         </form>
         <footer className="flex justify-around text-center py-4">
