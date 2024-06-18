@@ -507,7 +507,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       <section id="paso3" className={`form--quote--content mt-4 block max-w-[350px] `}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='first_name' label='Full Name' />
+            <CustomInput name='first_name' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <CustomInput name='phone' label='Phone Number' />
