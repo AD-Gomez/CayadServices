@@ -111,7 +111,7 @@ export default function Example () {
                     {weOffer.map((item) => (
                       <div
                         key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
                       >
                         <div className="flex-auto">
                           <a href={item.href} className="block text-base text-gray-600">
@@ -130,7 +130,7 @@ export default function Example () {
                     {weServe.map((item) => (
                       <div
                         key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
                       >
                         <div className="flex-auto">
                           <a href={item.href} className="block text-base text-gray-600">
@@ -162,7 +162,7 @@ export default function Example () {
                     {forBusinesses.map((item) => (
                       <div
                         key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
                       >
                         <div className="flex-auto">
                           <a href={item.href} className="block text-base text-gray-600">
@@ -194,7 +194,7 @@ export default function Example () {
                     {whyUs.map((item) => (
                       <div
                         key={item.description}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-neutral-300"
                       >
                         <div className="flex-auto">
                           <a href={item.href} className="block text-base text-gray-600">
@@ -351,12 +351,6 @@ export default function Example () {
                       </>
                     )}
                   </Disclosure>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Features
-                  </a>
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
