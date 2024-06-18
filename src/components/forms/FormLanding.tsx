@@ -377,7 +377,8 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                 <ul id={`vehicleModelList${index}`} className="form--list--content"></ul>
               </div>
 
-              <div className="form--group--inline">
+              <div className="flex w-full justify-around">
+                <p className='xs:text-sm'>Is The <b className=''>Vehicle Operable?</b></p>
                 <div>
                   <Controller
                     name={`Vehicles.${index}.vehicleOperable`}
@@ -399,7 +400,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
               </div>
 
               <div className="d-flex end dashed">
-                <button type="button" onClick={() => remove(index)} className="button--alt--remove">
+                <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2 ">
                   Remove car
                 </button>
               </div>
@@ -435,7 +436,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             <small>Vehicle(s)</small>
           </div>
           <div className="flex flex-col items-center">
-            <button type="button" className="border border-btn-blue mb-4 text-btn-blue w-8 h-8 rounded-full">3</button>
+            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">2</button>
             <small>Contact</small>
           </div>
         </footer>
