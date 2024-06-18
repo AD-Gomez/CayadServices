@@ -91,7 +91,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
       {errors[name] && (
         <p className="text-red-500 text-xs italic mt-1">{String(errors[name]?.message)}</p>
       )}
-      <div ref={suggestionsRef} className="absolute mt-1 w-full z-10 max-h-48 overflow-y-auto">
+      <div ref={suggestionsRef} className="absolute mt-1 bg-white shadow w-full z-10 max-h-48 overflow-y-auto">
         {suggestions.map((city, index) => (
           <div
             key={index}

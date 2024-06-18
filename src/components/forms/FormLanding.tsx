@@ -45,7 +45,7 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
     <FormProvider {...methods}>
       <section id="paso1" className="w-full mt-8 flex flex-col items-center">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col mb-1 w-11/12 relative bg-white p-4 border border-gray-200">
+          <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
 
             <AutocompleteInput placeholder="Miami, Florida, EE. UU."
               name='origin_city' label='Transport Vehicle TO'
@@ -54,7 +54,7 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
               Please provide a valid city or zip code.
             </div>
           </div>
-          <div className="flex flex-col mb-1 w-11/12 relative bg-white p-4 border border-gray-200">
+          <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
             <AutocompleteInput
               placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle FROM '
             />
@@ -71,13 +71,16 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
           </div>
           <button
             type="submit"
-            className="bg-btn-blue cursor-pointer mb-4 w-11/12 h-10 mt-5 text-white"
+            className="bg-btn-blue flex items-center justify-center cursor-pointer mb-4 w-full h-10 mt-5 text-white"
           >
-            Add Vehicle Details <i className="fa-solid fa-chevron-right"></i>
+            Add Vehicle Details
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
+              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+            </svg>
           </button>
         </form>
       </section>
-    </FormProvider>
+    </FormProvider >
   )
 }
 
@@ -613,7 +616,7 @@ const FormLanding = () => {
     }
   }, [activeStep]);
   return (
-    <div className="max-w-[455px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[350px] sm:min-w-[400px] md:min-w-[440px]	overflow-auto	 bg-white flex justify-between items-center flex-col">
+    <div className="max-w-[500px] min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[350px] sm:min-w-[400px] md:min-w-[440px]	overflow-auto	 bg-white flex justify-between items-center flex-col">
       {renderContent()}
     </div>
   );
