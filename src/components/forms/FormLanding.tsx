@@ -340,7 +340,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
 
   return (
     <FormProvider {...methods}>
-      <section id="paso2" className="form--quote--content mt-8 min-w-[340px] max-w-[350px] block">
+      <section id="paso2" className="form--quote--content mt-2 min-w-[90%]  block">
         <form onSubmit={handleSubmit(onSubmit)}>
           {fields.map((item, index) => (
             <div key={item.id} className="border p-4 my-4">
@@ -564,7 +564,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 }
 
 const FormLanding = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [dataSubmit, setDataSubmit] = useState<any>({})
   const lead = getLead()
   const emailCayad = getEmail()
