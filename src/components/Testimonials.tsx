@@ -41,7 +41,7 @@ const testimonials = [
     image: 'https://lh3.googleusercontent.com/a-/ALV-UjXwNOMW8_aQSW7tzSra1biY72AhZoCGHXFkMNORG8S9WVOpSoRn=w60-h60-p-rp-mo-br100',
     rating: 5,
     comment: "Alex G at Cayad Auto Transport was amazing to work with. He helps me ship a car from Utah to Idaho without problems and with fair price. I’d definitely be using their services again.",
-    link: "https://www.google.com/maps/contrib/102787767697976243009/reviews",
+    link: "https://www.google.com/maps/contrib/102787767697976243009/reviews/@36.8332502,-101.4969573,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?hl=en-GB&entry=ttu",
     userImage: part4,
     altText: "Paul Rosales",
     id: 1
@@ -139,12 +139,12 @@ const Testimonials = () => {
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
         onSlideChange={handleSlideChange}
-        className="h-72 w-full xs:px-4 sm:px-4"
+        className="h-[350px] w-full xs:px-4 sm:px-4"
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>
             <div className={`w-full cursor-pointer xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
-              <a href={testimonial.link}>
+              <a href={testimonial.link} target="_blank">
                 <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
                 <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
                   <div className="w-16">
