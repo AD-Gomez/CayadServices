@@ -64,12 +64,12 @@ export default function Example () {
   return (
     <>
       <MarqueeText />
-      <header className="bg-white border-t-[5px] max-h-[70px] border-[#00a1ef] sticky top-0 xs:static sm:static md:static z-50">
-        <nav className="mx-auto flex max-w-[95%] max-h-[70px] items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <header className="bg-white border-t-[5px] max-h-[65px] border-[#00a1ef] sticky top-0 xs:static sm:static md:static z-50">
+        <nav className="mx-auto flex max-w-[95%] max-h-[65px] items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img className="h-12 w-auto" src={logoweb.src} alt="" />
+              <img className="h-10 w-auto" src={logoweb.src} alt="" />
             </a>
           </div>
 
