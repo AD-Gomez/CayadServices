@@ -31,7 +31,7 @@ const testimonials = [
     image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-1/102802572_665660624016806_3203696689356932331_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wuSSzH9Y3o8Q7kNvgHoBYi6&_nc_ht=scontent-hou1-1.xx&oh=00_AYBL4SHZtcW36yW1B-QkbWwN2bnKWSes7oFhbCxf73VZBA&oe=669943CC',
     rating: 5,
     comment: "Muy profesional y excelente servicio hasta ahora el mejor servicio de transporte que he contratado. Recomiendo 100%,. Muy rápida y buena comunicación.",
-    link: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02gRac3mrcL3Q8W14Qo67DabHoCChnEWCirDMtJgdrUgvgzngQ2aUv84hGNtMLjFUwl%26id%3D100017186221123&show_text=true&width=500",
+    link: "https://www.facebook.com/permalink.php?story_fbid=1548929205689939&id=100017186221123&ref=embed_post",
     userImage: facebookReview2,
     altText: "Hhrg Ramirez",
     id: 2
