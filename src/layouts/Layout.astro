@@ -19,7 +19,7 @@ const { title } = Astro.props;
     <link
       rel="icon"
       type="image/webp"
-      href="/img/title-icon.webp"
+      href="public/img/title-icon.webp"
       sizes="120x120"
     />
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
@@ -37,9 +37,7 @@ const { title } = Astro.props;
   <body class="relative">
     <Navbar client:load />
     <slot />
-    <div class="absolute bottom-2 right-6">
-      <ButtonChat client:load />
-    </div>
+    <ButtonChat client:load />
     <Footer />
   </body>
 </html>
