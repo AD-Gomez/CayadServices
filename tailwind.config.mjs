@@ -48,9 +48,20 @@ export default {
 				'0%': { transform: 'translateX(100%)' },
 				'100%': { transform: 'translateX(-100%)' },
 			},
+			spin: {
+				'0%': { transform: 'rotate(0deg)' },
+				'100%': { transform: 'rotate(180deg)' },
+			},
 		},
 		animation: {
 			marquee: 'marquee 8s linear infinite',
+			'spin-slow': 'spin 1s linear infinite',
+		},
+	},
+	variants: {
+		extend: {
+			animation: ['hover', 'focus'],
+			transform: ['hover', 'focus'],
 		},
 	},
 	plugins: [],
