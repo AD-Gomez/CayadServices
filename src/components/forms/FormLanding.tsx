@@ -49,14 +49,14 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
 
             <AutocompleteInput placeholder="Miami, Florida, EE. UU."
-              name='origin_city' label='Transport Vehicle TO'
+              name='origin_city' label='Transport Vehicle FROM'
             />
             <div id="validationOrigin" className="invalid-feedback">
             </div>
           </div>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
             <AutocompleteInput
-              placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle FROM '
+              placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle TO '
             />
           </div>
           <div className="flex gap-4 py-2">

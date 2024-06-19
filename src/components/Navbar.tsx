@@ -51,7 +51,8 @@ const whyUs = [
   { description: 'Reviews', href: '#', icon: ChartPieIcon },
   { description: 'About us', href: '#', icon: CursorArrowRaysIcon },
   { description: 'Our team', href: '#', icon: FingerPrintIcon },
-  { description: 'Vision and Mission', href: '#', icon: FingerPrintIcon }
+  { description: 'Vision and Mission', href: '#', icon: FingerPrintIcon },
+  { description: 'Blog', href: '#', icon: FingerPrintIcon }
 ]
 
 function classNames (...classes: any) {
@@ -373,9 +374,6 @@ export default function Example () {
                   </a>
                   <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
                     CONTACT
-                  </a>
-                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
-                    BLOG
                   </a>
                   <div className="flex ">
                     <FaPhone className="text-[#00a1ef] text-lg mr-2 mt-1" />
