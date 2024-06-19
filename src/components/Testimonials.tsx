@@ -4,10 +4,7 @@ import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from 'swiper';
 
 import part4 from '../../public/img/part4.webp'
-import client from '../../public/img/client.webp'
-import facebookReview from '../../public/img/img_landing/facebookReview.png'
-import facebookReview2 from '../../public/img/img_landing/facebookReview2.jpeg'
-import webp1 from '../../public/img/1.webp'
+import facebookReview2 from '../../public/img/facebookReview2.jpeg'
 
 import 'swiper/css'
 import '../styles/animate.css'
