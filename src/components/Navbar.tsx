@@ -385,15 +385,16 @@ export default function Example () {
               </div>
             </div>
             <div
-              className="container xs:min-w-[100%] h-[380px] flex justify-end items-end sm:min-w-[90%] md:min-w-[90%] md:mx-auto"
+              className="container xs:min-w-[100%] h-[350px] flex justify-end items-end sm:min-w-[90%] md:min-w-[90%] md:mx-auto"
             >
               <div className="py-4">
                 <div
                   className="flex w-full items-center flex-col md:flex-row md:justify-between text-center md:text-left"
                 >
                   <div className="mb-3 flex text-black xs:text-xs sm:text-sm md:text-base md:mb-0">
-                    &copy;2023 <a
-                      className="border-b mr-2"
+                    &copy;2023
+                    <a
+                      className="ml-2 mr-2"
                       href="https://www.cayadservices.com">Cayad Services LLC</a>
                     |
                     <p className="ml-2 text-black">All Rights Reserve</p>
@@ -401,17 +402,17 @@ export default function Example () {
                   <div className="space-x-2 xs:text-xs sm:text-sm md:text-sm">
                     <a href="/privacy-policy/" className="text-black capitalize"
                     >Privacy Policy</a>
-                    |
+                    <span>|</span>
                     <a href="/copyright-trademark/" className="text-black capitalize">
-                      Copyright and Trademark</a>
-                    |
+                      Copyright & Trademark</a>
+                    <span>|</span>
                     <a
                       href="/pdfs/Terms-and-Conditions.pdf"
                       download
                       className="text-black capitalize">Terms & Conditions</a>
-                    |
-                    <a href="/pdfs/Terms-of-use.pdf" download className="text-black capitalize"
-                    >Terms of use</a>
+                    <span>|</span>
+                    <a href="/pdfs/Terms-of-use.pdf" download className="text-black"
+                    >Terms of Use</a>
                   </div>
                 </div>
               </div>

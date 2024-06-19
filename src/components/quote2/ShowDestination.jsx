@@ -109,7 +109,7 @@ const ShowDestination = () => {
             - OR -
             <br />
             Book with one of our friendly specialists! <a href="tel:(469) 619-0747">
-              <h5 className="text-primary m-0">Call now (469) 619-0747</h5>
+              <h5 className="text-primary m-0 text-btn-blue">Call now (469) 619-0747</h5>
             </a></span>
 
         </div>
