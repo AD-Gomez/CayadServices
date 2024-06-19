@@ -5,7 +5,7 @@ const MarqueeText = () => {
         <div className="overflow-hidden w-full max-h-[40px] py-[1px] whitespace-nowrap bg-white ">
             <div className="inline-block w-full  marquee">
                 <span className="text-[#029046] font-bold">Cayad Auto Transport</span> - is the most cost effective
-                <span className="text-[#00a1ef] mx-2 font-bold">5 stars auto</span> transport company.
+                <span className="text-[#00a1ef] mx-2 font-bold">5 stars </span>auto transport company.
             </div>
         </div>
     );
