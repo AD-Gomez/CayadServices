@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaFacebookMessenger, FaPlus, FaCommentDots } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 const ButtonChat = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -21,14 +22,37 @@ const ButtonChat = () => {
     window.open('https://wa.me/14696190747', '_blank');
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const isBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+      setIsAtBottom(isBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-4 right-4 flex flex-col items-end" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div
+      className={`fixed ${isAtBottom ? 'bottom-24' : 'bottom-4'} right-4 flex flex-col items-end`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isOpen && (
         <div className="mb-2 flex flex-col items-end space-y-2 transition-all duration-300">
-          <button onClick={handleMessengerClick} className="h-12 w-12 flex items-center justify-center text-2xl text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300">
+          <button
+            onClick={handleMessengerClick}
+            className="h-12 w-12 flex items-center justify-center text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+          >
             <FaFacebookMessenger />
           </button>
-          <button onClick={handleWhatsappClick} className="h-12 w-12 flex items-center justify-center bg-green-500 text-2xl text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300">
+          <button
+            onClick={handleWhatsappClick}
+            className="h-12 w-12 flex items-center justify-center bg-green-500 text-white text-[20px] rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+          >
             <IoLogoWhatsapp />
           </button>
         </div>
@@ -37,7 +61,7 @@ const ButtonChat = () => {
         className={`h-12 w-12 flex items-center justify-center bg-btn-blue text-white rounded-full shadow-lg transform transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 font-bold w-10 stroke-2">
+        {isOpen ? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
           <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
         </svg>
           : <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
