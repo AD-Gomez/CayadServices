@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FaFacebookMessenger } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
-
 const ButtonChat = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,12 +13,24 @@ const ButtonChat = () => {
     setIsOpen(false);
   };
 
+  const handleMessengerClick = () => {
+    window.open('https://m.me/116222094837969', '_blank');
+  };
+
+  const handleWhatsappClick = () => {
+    window.open('https://wa.me/14696190747', '_blank');
+  };
+
   return (
     <div className="fixed bottom-4 right-4 flex flex-col items-end" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isOpen && (
         <div className="mb-2 flex flex-col items-end space-y-2">
-          <button className="h-12 w-12 flex items-center justify-center  text-white bg-blue-500 rounded-full shadow-lg"><FaFacebookMessenger /></button>
-          <button className="h-12 w-12 flex items-center justify-center bg-green-500 text-white text-[20px] rounded-full shadow-lg"><IoLogoWhatsapp /></button>
+          <button onClick={handleMessengerClick} className="h-12 w-12 flex items-center justify-center text-white bg-blue-500 rounded-full shadow-lg">
+            <FaFacebookMessenger />
+          </button>
+          <button onClick={handleWhatsappClick} className="h-12 w-12 flex items-center justify-center bg-green-500 text-white text-[20px] rounded-full shadow-lg">
+            <IoLogoWhatsapp />
+          </button>
         </div>
       )}
       <button className="h-12 w-12 flex items-center justify-center bg-btn-blue text-white rounded-full shadow-lg">
