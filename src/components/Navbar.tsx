@@ -385,7 +385,7 @@ export default function Example () {
               </div>
             </div>
             <div
-              className="container xs:min-w-[100%] fixed bottom-1 sm:min-w-[90%] md:min-w-[90%] md:mx-auto"
+              className="container xs:min-w-[100%] sm:min-w-[90%] md:min-w-[90%] md:mx-auto"
             >
               <div className="py-4">
                 <div

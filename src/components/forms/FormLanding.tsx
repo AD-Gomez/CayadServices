@@ -11,6 +11,7 @@ import DateInput from '../inputs/CustomInputDate';
 import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, sendedEmail, sendedLead } from '../../services/localStorage';
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
+import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 
 
 interface FormValues {
@@ -358,7 +359,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
   const validationSchema = yup.object().shape({
     first_name: yup.string()
       .required('Name is required')
-      .min(3, 'Name must be exactly 3 characters'),
+      .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
+      .min(3, 'Name must be exactly 3 characters')
+      .max(20, ''),
     phone: yup.string()
       .required('Phone is required'),
     email: yup.string()
@@ -399,18 +402,18 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       <section id="paso3" className={`form--quote--content mt-4 block max-w-[350px] `}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='first_name' label='Name' />
+            <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='phone' label='Phone Number' />
+            <CustomInput name='phone' type='number' max={10} label='Phone Number' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='email' label='Email Address' />
+            <CustomInput name='email' max={30} label='Email Address' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <DateInput name='ship_date' label='Date' />
           </div>
-          <div className="flex gap-4 py-2 border-b border-dashed">
+          <div className="flex text-xs gap-4 py-2 border-b border-dashed">
             <small id="termsAndConditions">
               By providing your phone number/email and clicking through,
               you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and

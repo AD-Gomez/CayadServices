@@ -1,27 +1,39 @@
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface CustomInputProps {
   name: string;
   label: string;
   type?: string;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  max?: number; // Hacer el max opcional
+  max?: number;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max }) => {
+const CustomInputOnlyText: React.FC<CustomInputProps> = ({ name, label, type = 'text', max }) => {
   const { register, formState: { errors } } = useFormContext();
+
+  // Función para manejar el cambio en el input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    // Validar solo letras y espacios
+    if (!/^[a-zA-Z\s]*$/.test(value)) {
+      e.preventDefault();
+      e.target.value = value.slice(0, -1); // Eliminar el último carácter no válido
+    }
+  };
 
   return (
     <div className="relative mb-2">
       <input
         id={name}
         type={type}
-        inputMode={type === 'number' ? 'numeric' : undefined} // Establecer inputMode a 'numeric' si es tipo 'number'
-        maxLength={max}
-        {...register(name)}
-        placeholder=" "
-        className={`peer h-10 w-full border-b-2 text-gray-900 focus:outline-none focus:border-btn-blue ${errors[name]?.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
+        maxLength={max} // Asignar maxLength si está definido
+        {...register(name, {
+          required: `${label} is required`,
+        })}
+        onChange={handleChange} // Agregar el manejador de cambio
+        placeholder={label}
+        className={`peer h-10 w-full border-b-2 text-gray-900 focus:outline-none focus:border-btn-blue ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
       />
       {errors[name] && (
         <div className="absolute top-2.5 text-red-500 right-2.5">
@@ -43,4 +55,4 @@ const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', o
   );
 };
 
-export default CustomInput;
+export default CustomInputOnlyText;
