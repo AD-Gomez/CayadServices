@@ -33,8 +33,35 @@ const { title } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    {/* Código de Google Tag Manager */}
+    <script>
+      // @ts-ignore
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true; // No es necesario castear j aquí
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl; // No es necesario castear j aquí
+        if (f && f.parentNode) {
+          f.parentNode.insertBefore(j, f);
+        }
+      })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+    </script>
+    {/* Fin de código de Google Tag Manager */}
   </head>
   <body class="relative">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <Navbar client:load />
     <slot />
     <ButtonChat client:load />
