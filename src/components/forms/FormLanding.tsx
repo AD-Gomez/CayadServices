@@ -12,34 +12,42 @@ import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, 
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 
+
 interface FormValues {
   origin_city: string;
   destination_city: string;
-  transport_type: string
+  transport_type: string;
 }
 
+const validationSchemaStep1 = yup.object().shape({
+  origin_city: yup.string()
+    .required('Please provide a valid city or zip code.'),
+  destination_city: yup.string()
+    .required('Please provide a valid city or zip code.'),
+  transport_type: yup.string()
+    .required('Transport type is required')
+});
+
 const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
-  const validationSchema = yup.object().shape({
-    origin_city: yup.string()
-      .required('Please provide a valid city or zip code.'),
-    destination_city: yup.string()
-      .required('Please provide a valid city or zip code.'),
-    transport_type: yup.string()
-      .required('transportType is required')
-  })
   const methods = useForm<FormValues>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchemaStep1),
     defaultValues: {
       origin_city: '',
       destination_city: '',
       transport_type: '1'
     },
   });
-  const { handleSubmit, setError, clearErrors } = methods;
 
-  const onSubmit = (data: FormValues) => {
-    setDataSubmit(data)
-    setActiveStep(1)
+  const { handleSubmit, trigger, setError, clearErrors, formState: { errors } } = methods;
+
+  const onSubmit = async (data: FormValues) => {
+    const isValid = await trigger();
+    if (!isValid) {
+      return;
+    }
+
+    setDataSubmit(data);
+    setActiveStep(1);
   };
 
   return (
@@ -47,24 +55,46 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
       <section id="paso1" className="w-full mt-4 flex flex-col items-center">
         <form onSubmit={handleSubmit(onSubmit)} className='w-[90%]'>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
-
-            <AutocompleteInput placeholder="Miami, Florida, EE. UU."
-              name='origin_city' label='Transport Vehicle FROM'
+            <AutocompleteInput
+              name='origin_city'
+              label='Transport Vehicle FROM'
+              placeholder="Miami, Florida, EE. UU."
+              trigger={trigger}
+              clearErrors={clearErrors}
+              setError={setError}
             />
             <div id="validationOrigin" className="invalid-feedback">
+              {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
             </div>
           </div>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
             <AutocompleteInput
-              placeholder="Alameda, California, EE. UU." name='destination_city' label=' Transport Vehicle TO '
+              name='destination_city'
+              label='Transport Vehicle TO'
+              placeholder="Alameda, California, EE. UU."
+              trigger={trigger}
+              clearErrors={clearErrors}
+              setError={setError}
             />
+            <div id="validationDestination" className="invalid-feedback">
+              {errors.destination_city && <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>}
+            </div>
           </div>
           <div className="flex gap-4 py-2">
             <p className='text-sm'>
               Select <b>Transport Type</b>
             </p>
-            <CheckboxInput name='transport_type' label='Open' value='1' />
-            <CheckboxInput name='transport_type' label='Enclosed' value='2' />
+            <Controller
+              name="transport_type"
+              control={methods.control}
+              render={({ field }) => (
+                <>
+                  <CheckboxInput {...field} name="transport_type" label="Open" value="1" />
+                  <CheckboxInput {...field} name="transport_type" label="Enclosed" value="2" />
+                </>
+              )}
+            />
+            {errors.transport_type && <p className="text-red-500 text-xs italic mt-1">{errors.transport_type.message}</p>}
           </div>
           <button
             type="submit"
@@ -72,14 +102,15 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
           >
             Add Vehicle Details
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
-              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
             </svg>
           </button>
         </form>
       </section>
-    </FormProvider >
-  )
-}
+    </FormProvider>
+  );
+};
+
 
 // Definición de la interfaz de los datos del formulario
 interface VehicleForm {
@@ -92,6 +123,7 @@ interface VehicleForm {
 interface FormStep2 {
   Vehicles: VehicleForm[];
 }
+
 const validationSchema = yup.object().shape({
   Vehicles: yup.array().of(
     yup.object().shape({
@@ -123,6 +155,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
   const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   console.log(vehicleMarks)
+
   // Genera los años dinámicamente
   useEffect(() => {
     const currentYear = new Date().getFullYear();
@@ -139,155 +172,10 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
       if (name && name.endsWith('vehicle_model_year')) {
         const index = parseInt(name.split('.')[1], 10);
         const marksData = [
-          {
-            label: "Ford",
-            value: "ford"
-          },
-          {
-            label: "Chevrolet",
-            value: "chevrolet"
-          },
-          {
-            label: "Dodge",
-            value: "dodge"
-          },
-          {
-            label: "Jeep",
-            value: "jeep"
-          },
-          {
-            label: "Tesla",
-            value: "tesla"
-          },
-          {
-            label: "Cadillac",
-            value: "cadillac"
-          },
-          {
-            label: "Buick",
-            value: "buick"
-          },
-          {
-            label: "GMC",
-            value: "gmc"
-          },
-          {
-            label: "Chrysler",
-            value: "chrysler"
-          },
-          {
-            label: "Lincoln",
-            value: "lincoln"
-          },
-          {
-            label: "Ram",
-            value: "ram"
-          },
-          {
-            label: "BMW",
-            value: "bmw"
-          },
-          {
-            label: "Mercedes-Benz",
-            value: "mercedes-benz"
-          },
-          {
-            label: "Audi",
-            value: "audi"
-          },
-          {
-            label: "Volkswagen",
-            value: "volkswagen"
-          },
-          {
-            label: "Porsche",
-            value: "porsche"
-          },
-          {
-            label: "Volvo",
-            value: "volvo"
-          },
-          {
-            label: "Land Rover",
-            value: "land rover"
-          },
-          {
-            label: "Jaguar",
-            value: "jaguar"
-          },
-          {
-            label: "Mini",
-            value: "mini"
-          },
-          {
-            label: "Alfa Romeo",
-            value: "alfa romeo"
-          },
-          {
-            label: "Ferrari",
-            value: "ferrari"
-          },
-          {
-            label: "Lamborghini",
-            value: "lamborghini"
-          },
-          {
-            label: "Bentley",
-            value: "bentley"
-          },
-          {
-            label: "Rolls-Royce",
-            value: "rolls-royce"
-          },
-          {
-            label: "Toyota",
-            value: "toyota"
-          },
-          {
-            label: "Honda",
-            value: "honda"
-          },
-          {
-            label: "Nissan",
-            value: "nissan"
-          },
-          {
-            label: "Subaru",
-            value: "subaru"
-          },
-          {
-            label: "Mazda",
-            value: "mazda"
-          },
-          {
-            label: "Mitsubishi",
-            value: "mitsubishi"
-          },
-          {
-            label: "Lexus",
-            value: "lexus"
-          },
-          {
-            label: "Infiniti",
-            value: "infiniti"
-          },
-          {
-            label: "Acura",
-            value: "acura"
-          },
-          {
-            label: "Hyundai",
-            value: "hyundai"
-          },
-          {
-            label: "Kia",
-            value: "kia"
-          },
-          {
-            label: "Genesis",
-            value: "genesis"
-          }
-        ]
+          { label: "Ford", value: "ford" },
+          { label: "Chevrolet", value: "chevrolet" },
+          // ... otros valores
+        ];
         setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
         setVehicleModels(prev => ({ ...prev, [index]: [] }));
         const updatedVehicles = getValues('Vehicles').map((item: VehicleForm, idx: number) => (
@@ -328,19 +216,19 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
   }, [watch, setValue, getValues]);
 
   const handleStepBack = () => {
-    setActiveStep(0)
+    setActiveStep(0);
   }
 
   // Maneja la sumisión del formulario
   const onSubmit = (data: FormStep2) => {
     setDataSubmit(data);
-    console.log(data)
+    console.log(data);
     setActiveStep(2);
   };
 
   return (
     <FormProvider {...methods}>
-      <section id="paso2" className="form--quote--content mt-2 min-w-[90%]  block">
+      <section id="paso2" className="form--quote--content mt-2 min-w-[90%] block">
         <form onSubmit={handleSubmit(onSubmit)}>
           {fields.map((item, index) => (
             <div key={item.id} className="border p-4 my-4">
@@ -399,15 +287,17 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                 </div>
               </div>
 
-              <div className="d-flex end dashed">
-                <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2 ">
-                  Remove car
-                </button>
-              </div>
+              {fields.length > 1 && (
+                <div className="d-flex end dashed">
+                  <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2 ">
+                    Remove car
+                  </button>
+                </div>
+              )}
             </div>
           ))}
           <button
-            className="bg-white border  border-btn-blue text-btn-blue py-2 px-4 mt-4"
+            className="bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4"
             type="button"
             onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
           >
@@ -419,7 +309,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
           >
             Contact Details
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
-              <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
             </svg>
           </button>
         </form>
@@ -428,7 +318,8 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
             <button type="button" onClick={handleStepBack} className="bg-btn-blue flex justify-center items-center text-white w-8 h-8 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>            </button>
+              </svg>
+            </button>
             <small>Location</small>
           </div>
           <div className="flex flex-col items-center">

@@ -5,6 +5,9 @@ interface AutocompleteInputProps {
   name: string;
   label: string;
   placeholder: string;
+  trigger: any;
+  clearErrors: any;
+  setError: any;
 }
 
 const fetchGeoNamesSuggestions = async (query: string) => {
@@ -24,10 +27,11 @@ const fetchGeoNamesSuggestions = async (query: string) => {
   }
 };
 
-const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, placeholder }) => {
+const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, placeholder, trigger, clearErrors, setError }) => {
   const { register, setValue, formState: { errors } } = useFormContext();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [isValidUSCity, setIsValidUSCity] = useState(false); // Estado para validar la ciudad
   const inputRef = useRef<HTMLInputElement | null>(null);
   const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
@@ -57,11 +61,29 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
     };
   }, []);
 
+  const handleBlur = async () => {
+    const valid = await trigger(name);
+    if (!valid) {
+      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' });
+    } else {
+      clearErrors(name);
+    }
+  };
+
   const handleSuggestionClick = (city: any) => {
     const cityName = `${city.name}, ${city.adminCode1}`;
     setInputValue(cityName);
     setValue(name, cityName);
     setSuggestions([]);
+
+    // Validar si la ciudad está en los Estados Unidos
+    if (city.countryCode === 'US') {
+      setIsValidUSCity(true);
+      clearErrors(name);
+    } else {
+      setIsValidUSCity(false);
+      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' });
+    }
   };
 
   return (
@@ -71,9 +93,12 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
         {...register(name)}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        onBlur={handleBlur}
         ref={inputRef}
         placeholder={placeholder}
-        className={`peer h-10 w-full border-b-2 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-btn-blue ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
+        className={`peer h-10 w-full border-b-2 bg-transparent text-gray-900 placeholder-transparent focus:outline-none 
+          ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}
+          ${isValidUSCity ? 'border-green-500 focus:border-green-500' : ''}`}
       />
       {errors[name] && (
         <div className="absolute top-2.5 text-red-500 right-2.5">
@@ -84,13 +109,11 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
       )}
       <label
         htmlFor={name}
-        className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-btn-blue ${errors[name] ? 'text-red-500' : ''}`}
+        className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-btn-blue 
+          ${errors[name] ? 'text-red-500' : ''}`}
       >
         {label}
       </label>
-      {errors[name] && (
-        <p className="text-red-500 text-xs italic mt-1">{String(errors[name]?.message)}</p>
-      )}
       <div ref={suggestionsRef} className="absolute mt-1 bg-white w-full z-10 max-h-48 overflow-y-auto">
         {suggestions.map((city, index) => (
           <div
@@ -102,6 +125,13 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
           </div>
         ))}
       </div>
+      {isValidUSCity && (
+        <div className="absolute top-2.5 right-2.5 text-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 };
