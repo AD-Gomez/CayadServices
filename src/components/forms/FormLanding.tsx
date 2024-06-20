@@ -357,7 +357,8 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 
   const validationSchema = yup.object().shape({
     first_name: yup.string()
-      .required('Name is required'),
+      .required('Name is required')
+      .min(3, 'Name must be exactly 3 characters'),
     phone: yup.string()
       .required('Phone is required'),
     email: yup.string()

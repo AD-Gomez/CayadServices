@@ -45,13 +45,13 @@ const ButtonChat = () => {
         <div className="mb-2 flex flex-col items-end space-y-2 transition-all duration-300">
           <button
             onClick={handleMessengerClick}
-            className="h-12 w-12 flex items-center justify-center text-2xl text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+            className="h-12 w-12 flex items-center justify-center text-[1.8rem] text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
           >
             <FaFacebookMessenger />
           </button>
           <button
             onClick={handleWhatsappClick}
-            className="h-12 w-12 flex items-center justify-center bg-green-500 text-2xl text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+            className="h-12 w-12 flex items-center justify-center bg-green-500 text-[1.8rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
           >
             <IoLogoWhatsapp />
           </button>
