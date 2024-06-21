@@ -42,10 +42,15 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="relative">
-    <script type="module" src="/src/lib/aos.ts"></script>
     <Navbar client:load />
     <slot />
     <ButtonChat client:load />
     <Footer />
+    <script>
+      import { aosInit } from "../lib/aos";
+
+      // runs on initial page load
+      aosInit();
+    </script>
   </body>
 </html>
