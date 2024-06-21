@@ -8,21 +8,6 @@ import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
-// Importa AOS y sus estilos
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-const initAOS = () => {
-  AOS.init({
-    duration: 1000, // Duración de las animaciones en milisegundos
-    once: true, // Si es true, la animación se ejecutará solo una vez
-  });
-};
-
-// Asegúrate de que AOS se inicialice cuando el componente se cargue
-if (typeof window !== "undefined") {
-  initAOS();
-}
 ---
 
 <style>
