@@ -100,6 +100,93 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
   .adjust--img {
     background-size: 90% 50%;
   }
+
+  @keyframes moveUp {
+    0% {
+      transform: translateY(0);
+    }
+
+    25% {
+      transform: translateY(-26%);
+    }
+
+    50% {
+      transform: translateY(-51%);
+    }
+
+    75% {
+      transform: translateY(-76%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .fadeInUp {
+    animation-name: fadeInUp;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(-100%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .fadeInLeft {
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 6s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .fadeInRight {
+    animation-name: fadeInRight;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
 </style>
 
 <Layout title="Cayad Auto Transport">
@@ -131,8 +218,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
             </p>
             <a
               href="/quote/index.html"
-              data-aos="fade-right"
-              class="mt-6 flex w-56 items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              class="mt-6 flex w-56 fadeInLeft items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >Get Free Quote</a
             >
           </div>
@@ -145,6 +231,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
   <div
     class="w-full h-[450px] flex items-center justify-center"
     data-aos="fade-up"
+    data-wow-delay="0.1s"
   >
     <Testimonials client:load />
   </div>
@@ -166,6 +253,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
       <div
         class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
         data-aos="fade-right"
+        data-wow-delay="0.1s"
       >
         <img
           src="/img/track.jpeg"
@@ -453,7 +541,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               >
             </div>
           </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="700">
+          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="700">
             <div class="service-item shadow-sm p-4">
               <div class="overflow-hidden mb-4">
                 <img
