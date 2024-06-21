@@ -3,6 +3,7 @@ import GoogleTagManager from "../components/GoogleTagManager.astro";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
+import "aos/dist/aos.css";
 interface Props {
   title: string;
 }
@@ -17,6 +18,10 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
 
     <link
       rel="icon"
@@ -37,9 +42,17 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="relative">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+    ></script>
     <Navbar client:load />
     <slot />
     <ButtonChat client:load />
     <Footer />
+    <script>
+      import { aosInit } from "../lib/aos";
+
+      // runs on initial page load
+      aosInit();
+    </script>
   </body>
 </html>

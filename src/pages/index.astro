@@ -2,13 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import Testimonials from "../components/Testimonials";
 import FormLanding from "../components/forms/FormLanding";
-import ButtonSlide from "../components/buttons/ButtonSlide.astro";
 import { FaPhone } from "react-icons/fa";
 import { FaCar } from "react-icons/fa6";
 import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
+// Importa AOS y sus estilos
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const initAOS = () => {
+  AOS.init({
+    duration: 1000, // Duración de las animaciones en milisegundos
+    once: true, // Si es true, la animación se ejecutará solo una vez
+  });
+};
+
+// Asegúrate de que AOS se inicialice cuando el componente se cargue
+if (typeof window !== "undefined") {
+  initAOS();
+}
 ---
 
 <style>
@@ -101,93 +115,6 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
   .adjust--img {
     background-size: 90% 50%;
   }
-
-  @keyframes moveUp {
-    0% {
-      transform: translateY(0);
-    }
-
-    25% {
-      transform: translateY(-26%);
-    }
-
-    50% {
-      transform: translateY(-51%);
-    }
-
-    75% {
-      transform: translateY(-76%);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-    }
-
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  .fadeInUp {
-    animation-name: fadeInUp;
-  }
-
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translate3d(-100%, 0, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  .fadeInLeft {
-    animation-name: fadeInLeft;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .fadeIn {
-    animation-name: fadeIn;
-    animation-duration: 6s;
-    animation-fill-mode: both;
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  .fadeInRight {
-    animation-name: fadeInRight;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-  }
 </style>
 
 <Layout title="Cayad Auto Transport">
@@ -219,7 +146,8 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
             </p>
             <a
               href="/quote/index.html"
-              class="mt-6 flex w-56 items-center fadeInLeft justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              data-aos="fade-right"
+              class="mt-6 flex w-56 items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >Get Free Quote</a
             >
           </div>
@@ -229,7 +157,10 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
     </div>
   </section>
 
-  <div class="w-full h-[450px] flex items-center fadeInUp justify-center">
+  <div
+    class="w-full h-[450px] flex items-center justify-center"
+    data-aos="fade-up"
+  >
     <Testimonials client:load />
   </div>
 
@@ -248,8 +179,8 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
       style="background-color: rgb(193, 194, 197);"
     >
       <div
-        class="min-w-300px fadeInLeft xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
-        data-wow-delay="0.1s"
+        class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
+        data-aos="fade-right"
       >
         <img
           src="/img/track.jpeg"
@@ -320,7 +251,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
       class="py-5 w-full flex xs:mt-12 sm:mt-12 xs:py-0 sm:py-0 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
     >
       <div
-        class="w-[60%] h-[550px] xs:w-[100%] px-2 xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px] fadeInLeft"
+        class="w-[60%] h-[550px] xs:w-[100%] px-2 xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
         data-aos="fade-left"
         data-aos-delay="100"
       >
@@ -332,8 +263,6 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
       </div>
       <div
         class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
-        data-aos="fade-up"
-        data-aos-delay="300"
       >
         <!-- <h6 class="text-secondary text-uppercase mb-3">Why Us</h6> -->
         <h1 class="text-3xl text-[#19171fd2] font-bold mb-3">
@@ -436,7 +365,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
             class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
           >
             <div
-              class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow fadeIn"
+              class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow"
               data-aos="fade-up"
               data-aos-delay="300"
             >
@@ -450,7 +379,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               </p>
             </div>
             <div
-              class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow fadeIn"
+              class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
               data-aos="fade-up"
               data-aos-delay="500"
             >
@@ -464,7 +393,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               </p>
             </div>
             <div
-              class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow fadeIn"
+              class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow"
               data-aos="fade-up"
               data-aos-delay="700"
             >
@@ -477,7 +406,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               </p>
             </div>
             <div
-              class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow fadeIn"
+              class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
               data-aos="fade-up"
               data-aos-delay="700"
             >
@@ -500,11 +429,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
       style="padding-bottom: 0rem;"
     >
       <div class="container xs:min-w-[100%] sm:min-w-[100%] py-0">
-        <div
-          class="text-center wow fadeInUp"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
+        <div class="text-center wow" data-aos="fade-up" data-aos-delay="100">
           <h1 class="text-3xl text-[#19171fd2] font-bold mb-10">
             Popular vehicle shipping services
           </h1>
@@ -512,7 +437,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
         <div
           class="grid grid-cols-3 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="300">
+          <div class="wow" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item shadow-sm p-4">
               <div class="overflow-hidden max-h-[300px] mb-4">
                 <img class="w-full h-auto" src="../img/door-image.jpg" alt="" />
@@ -573,7 +498,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               >
             </div>
           </div>
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="500">
+          <div class="wow" data-aos="fade-up" data-aos-delay="500">
             <div class="service-item shadow-sm p-4">
               <div class="overflow-hidden mb-4">
                 <img class="w-full h-auto" src="/img/open-car.jpg" alt="" />
@@ -601,7 +526,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               >
             </div>
           </div>
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="900">
+          <div class="wow" data-aos="fade-up" data-aos-delay="900">
             <div class="service-item shadow-sm p-4">
               <div class="overflow-hidden mb-4">
                 <img class="w-full h-auto" src="/img/motorcycle1.webp" alt="" />
@@ -631,7 +556,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               >
             </div>
           </div>
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="1000">
+          <div class="wow" data-aos="fade-up" data-aos-delay="1000">
             <div class="service-item shadow-sm p-4">
               <div class="overflow-hidden mb-4">
                 <img
@@ -664,7 +589,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
               >
             </div>
           </div>
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="1100">
+          <div class="wow" data-aos="fade-up" data-aos-delay="1100">
             <div class="service-item h-max shadow-sm p-4">
               <div class="overflow-hidden mb-4">
                 <img
@@ -718,12 +643,8 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
         <div
           class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
         >
-          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
-            <div
-              class="flex mb-10 wow fadeInUp"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
+          <div class="wow" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
               <img src="../img/dollar.webp" class="w-24 h-20 mb-2" />
               <div class="ml-4">
                 <h5 class="font-semibold">Zero upfront payment</h5>
@@ -736,11 +657,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
                 </p>
               </div>
             </div>
-            <div
-              class="flex mb-10 wow fadeInUp"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
+            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
               <img src="../img/countries.webp" class="w-24 h-20 mb-2" />
               <div class="ml-4">
                 <h5 class="font-semibold">20K+ auto carriers</h5>
@@ -752,11 +669,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
                 </p>
               </div>
             </div>
-            <div
-              class="flex mb-10 wow fadeIn"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
+            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
               <img src="../img/easy.webp" class="w-24 h-24 mb-2" />
               <div class="ml-4">
                 <h5 class="font-semibold">Personalized approach</h5>
@@ -768,11 +681,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
                 </p>
               </div>
             </div>
-            <div
-              class="flex mb-0 wow fadeInUp"
-              data-aos="fade-up"
-              data-aos-delay="700"
-            >
+            <div class="flex mb-0 wow" data-aos="fade-up" data-aos-delay="700">
               <img src="../img/badge.webp" class="w-24 h-24 mb-2" />
               <div class="ml-4">
                 <h5 class="font-semibold">The most cost effective company</h5>
@@ -790,7 +699,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
             </div>
           </div>
           <div
-            class="relative wow fadeInRight"
+            class="relative wow"
             data-aos="fade-right"
             data-aos-delay="100"
             style="min-height: 400px;"

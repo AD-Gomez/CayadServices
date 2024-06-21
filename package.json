@@ -20,6 +20,7 @@
     "@hookform/resolvers": "3.4.2",
     "@react-google-maps/api": "^2.19.3",
     "@types/googlemaps": "3.43.3",
+    "aos": "^2.3.4",
     "astro": "4.8.6",
     "axios": "^1.7.2",
     "react": "18.3.1",
@@ -32,6 +33,7 @@
     "yup": "1.4.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.4.5"
