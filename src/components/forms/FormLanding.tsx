@@ -12,6 +12,7 @@ import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, 
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
+import AutoSuggestInput from '../inputs/AutoSuggestInput';
 
 
 interface FormValues {
@@ -31,7 +32,7 @@ const validationSchemaStep1 = yup.object().shape({
 
 const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
   const methods = useForm<FormValues>({
-    resolver: yupResolver(validationSchemaStep1),
+    // resolver: yupResolver(validationSchemaStep1),
     defaultValues: {
       origin_city: '',
       destination_city: '',
@@ -137,7 +138,7 @@ const validationSchema = yup.object().shape({
 });
 
 const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
-  const methods = useForm<FormStep2>({
+  const methods = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       Vehicles: [
@@ -155,9 +156,8 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
-  console.log(vehicleMarks)
 
-  // Genera los años dinámicamente
+  // Generate years dynamically
   useEffect(() => {
     const currentYear = new Date().getFullYear();
     const yearsArray = Array.from(new Array(30), (val, index) => {
@@ -167,7 +167,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
     setYears(yearsArray);
   }, []);
 
-  // Actualiza las marcas cuando se selecciona un año
+  // Update vehicle marks when year is selected
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name && name.endsWith('vehicle_model_year')) {
@@ -175,12 +175,47 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
         const marksData = [
           { label: "Ford", value: "ford" },
           { label: "Chevrolet", value: "chevrolet" },
-          // ... otros valores
+          { label: "Dodge", value: "dodge" },
+          { label: "Jeep", value: "jeep" },
+          { label: "Tesla", value: "tesla" },
+          { label: "Cadillac", value: "cadillac" },
+          { label: "Buick", value: "buick" },
+          { label: "GMC", value: "gmc" },
+          { label: "Chrysler", value: "chrysler" },
+          { label: "Lincoln", value: "lincoln" },
+          { label: "Ram", value: "ram" },
+          { label: "BMW", value: "bmw" },
+          { label: "Mercedes-Benz", value: "mercedes-benz" },
+          { label: "Audi", value: "audi" },
+          { label: "Volkswagen", value: "volkswagen" },
+          { label: "Porsche", value: "porsche" },
+          { label: "Volvo", value: "volvo" },
+          { label: "Land Rover", value: "land rover" },
+          { label: "Jaguar", value: "jaguar" },
+          { label: "Mini", value: "mini" },
+          { label: "Alfa Romeo", value: "alfa romeo" },
+          { label: "Ferrari", value: "ferrari" },
+          { label: "Lamborghini", value: "lamborghini" },
+          { label: "Bentley", value: "bentley" },
+          { label: "Rolls-Royce", value: "rolls-royce" },
+          { label: "Toyota", value: "toyota" },
+          { label: "Honda", value: "honda" },
+          { label: "Nissan", value: "nissan" },
+          { label: "Subaru", value: "subaru" },
+          { label: "Mazda", value: "mazda" },
+          { label: "Mitsubishi", value: "mitsubishi" },
+          { label: "Lexus", value: "lexus" },
+          { label: "Infiniti", value: "infiniti" },
+          { label: "Acura", value: "acura" },
+          { label: "Hyundai", value: "hyundai" },
+          { label: "Kia", value: "kia" },
+          { label: "Genesis", value: "genesis" },
         ];
         setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
         setVehicleModels(prev => ({ ...prev, [index]: [] }));
-        const updatedVehicles = getValues('Vehicles').map((item: VehicleForm, idx: number) => (
-          idx === index ? { ...item, vehicleMark: '', vehicleModel: '' } : item
+
+        const updatedVehicles = getValues('Vehicles').map((item, idx) => (
+          idx === index ? { ...item, vehicle_make: '', vehicle_model: '' } : item
         ));
         setValue('Vehicles', updatedVehicles);
       }
@@ -189,23 +224,23 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
     return () => subscription.unsubscribe();
   }, [watch, setValue, getValues]);
 
-  // Actualiza los modelos cuando se selecciona una marca
+  // Update vehicle models when make is selected
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name && name.endsWith('vehicle_make')) {
         const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
-        if (vehicleYear && value.Vehicles !== undefined) {
-          axios
-            .get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${value?.Vehicles[index]?.vehicle_make}/modelyear/${vehicleYear}?format=json`)
+        const vehicleYear: any = getValues(`Vehicles.${index}.vehicle_model_year`);
+        const vehicleMake: any = getValues(`Vehicles.${index}.vehicle_make`);
+        if (vehicleYear && vehicleMake) {
+          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake.value}/modelyear/${vehicleYear.value}?format=json`)
             .then((response) => {
               const modelsData = response.data.Results.map((model: any) => ({
-                value: model.ModelId,
+                value: model.Model_ID,
                 label: model.Model_Name,
               }));
               setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-              const updatedVehicles = getValues('Vehicles').map((item: VehicleForm, idx: number) => (
-                idx === index ? { ...item, vehicleModel: '' } : item
+              const updatedVehicles = getValues('Vehicles').map((item, idx) => (
+                idx === index ? { ...item, vehicle_model: '' } : item
               ));
               setValue('Vehicles', updatedVehicles);
             });
@@ -220,11 +255,10 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
     setActiveStep(0);
   }
 
-  // Maneja la sumisión del formulario
-  const onSubmit = (data: FormStep2) => {
-    setDataSubmit(data);
-    console.log(data);
-    setActiveStep(2);
+  const onSubmit = (data: any) => {
+    console.log(data)
+    // setDataSubmit(data);
+    // setActiveStep(2);
   };
 
   return (
@@ -238,10 +272,9 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_model_year`}
                   control={control}
                   render={({ field }) => (
-                    <SelectInput {...field} label="Vehicle Year" options={years} />
+                    <AutoSuggestInput {...field} label="Vehicle Year" options={years} />
                   )}
                 />
-                <ul id={`vehicleYearList${index}`} className="form--list--content"></ul>
               </div>
 
               <div className="form--group form--group--section">
@@ -249,10 +282,9 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_make`}
                   control={control}
                   render={({ field }) => (
-                    <SelectInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
+                    <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
                   )}
                 />
-                <ul id={`vehicleMarkList${index}`} className="form--list--content"></ul>
               </div>
 
               <div className="form--group mt-4 form--group--section">
@@ -260,10 +292,9 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_model`}
                   control={control}
                   render={({ field }) => (
-                    <SelectInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                    <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
                   )}
                 />
-                <ul id={`vehicleModelList${index}`} className="form--list--content"></ul>
               </div>
 
               <div className="flex w-full justify-around">
@@ -290,7 +321,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
 
               {fields.length > 1 && (
                 <div className="d-flex end dashed">
-                  <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2 ">
+                  <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
                     Remove car
                   </button>
                 </div>
@@ -460,7 +491,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 }
 
 const FormLanding = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [dataSubmit, setDataSubmit] = useState<any>({})
   const lead = getLead()
   const emailCayad = getEmail()
