@@ -15,7 +15,6 @@ const AuthorizeNetSeal = () => {
     // Append the script to the document body
     document.body.appendChild(script);
 
-    // Cleanup function to remove the script when the component is unmounted
     return () => {
       document.body.removeChild(script);
     };

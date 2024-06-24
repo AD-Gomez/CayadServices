@@ -386,7 +386,6 @@ function separarCiudadYEstado (locationString: string) {
 }
 
 const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSubmit }: any) => {
-  const phoneRegExp = /^(\+1|1)?(\s|-|\.)?(\()?(\d{3})(\))?(\s|-|\.)?(\d{3})(\s|-|\.)?(\d{4})$/;
 
   const validationSchema = yup.object().shape({
     first_name: yup.string()

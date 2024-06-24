@@ -21,7 +21,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', o
         maxLength={max}
         {...register(name)}
         placeholder=" "
-        className={`peer h-10 w-full border-b-2 text-gray-900 focus:outline-none focus:border-btn-blue ${errors[name]?.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
+        className={`h-10 w-full border-b-2 text-gray-900 focus:outline-none focus:border-btn-blue ${errors[name]?.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
       />
       {errors[name] && (
         <div className="absolute top-2.5 text-red-500 right-2.5">
