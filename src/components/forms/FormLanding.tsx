@@ -392,7 +392,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     first_name: yup.string()
       .required('Name is required')
       .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
-      .min(3, 'Name must be exactly 3 characters')
+      .min(3, 'Name must be at least 3 characters')
       .max(20, ''),
     phone: yup.string()
       .required('Phone is required'),
