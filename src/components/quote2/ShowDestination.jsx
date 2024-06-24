@@ -1,16 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { LoadScript, GoogleMap, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-
-const containerStyle = {
-  width: '85%',
-  height: '210px'
-};
-
-const center = {
-  lat: 41.85,
-  lng: -87.65
-};
-
 const ShowDestination = () => {
   const [isClient, setIsClient] = useState(false);
   const [directionsResponse, setDirectionsResponse] = useState(null);
@@ -71,33 +59,6 @@ const ShowDestination = () => {
       </div>
 
       <div className='w-full flex flex-col items-center justify-center mt-4'>
-        <LoadScript googleMapsApiKey="AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY">
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={7}
-          >
-            {origin && destination && (
-              <>
-                <DirectionsService
-                  options={{
-                    destination: destination,
-                    origin: origin,
-                    travelMode: 'DRIVING'
-                  }}
-                  callback={directionsCallback}
-                />
-                {directionsResponse && (
-                  <DirectionsRenderer
-                    options={{
-                      directions: directionsResponse
-                    }}
-                  />
-                )}
-              </>
-            )}
-          </GoogleMap>
-        </LoadScript>
         <div className="w-[90%] px-8" >
           <br />
           <b >Don't know the exact day?</b>

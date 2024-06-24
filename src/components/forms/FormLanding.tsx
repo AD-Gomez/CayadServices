@@ -13,6 +13,7 @@ import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import AutoSuggestInput from '../inputs/AutoSuggestInput';
+import CustomInputPhone from '../inputs/CustomInputPhone';
 
 
 interface FormValues {
@@ -32,7 +33,7 @@ const validationSchemaStep1 = yup.object().shape({
 
 const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
   const methods = useForm<FormValues>({
-    // resolver: yupResolver(validationSchemaStep1),
+    resolver: yupResolver(validationSchemaStep1),
     defaultValues: {
       origin_city: '',
       destination_city: '',
@@ -232,10 +233,10 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
         const vehicleYear: any = getValues(`Vehicles.${index}.vehicle_model_year`);
         const vehicleMake: any = getValues(`Vehicles.${index}.vehicle_make`);
         if (vehicleYear && vehicleMake) {
-          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake.value}/modelyear/${vehicleYear.value}?format=json`)
+          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
             .then((response) => {
               const modelsData = response.data.Results.map((model: any) => ({
-                value: model.Model_ID,
+                value: model.Model_Name,
                 label: model.Model_Name,
               }));
               setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
@@ -256,9 +257,9 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
   }
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    // setDataSubmit(data);
-    // setActiveStep(2);
+    console.log(data);
+    setDataSubmit(data);
+    setActiveStep(2);
   };
 
   return (
@@ -396,7 +397,8 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     phone: yup.string()
       .required('Phone is required'),
     email: yup.string()
-      .required('Email is required'),
+      .required('Email is required')
+      .email('Email is not valid'),
     ship_date: yup.date()
       .required('Date is required')
   })
@@ -418,10 +420,11 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       origin_state: location.state,
       origin_country: 'US',
     }
-    setTimeout(() => {
-      handleSubmitLeadAndEmail()
-    }, 3000)
-    setDataSubmit(dataToSend)
+    // setTimeout(() => {
+    //   handleSubmitLeadAndEmail()
+    // }, 3000)
+    // setDataSubmit(dataToSend)
+    console.log(data)
   };
 
   const handleStepBack = (data: number) => {
@@ -430,13 +433,13 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 
   return (
     <FormProvider {...methods}>
-      <section id="paso3" className={`form--quote--content mt-4 block max-w-[350px] `}>
+      <section id="paso3" className={`form--quote--content mt-4 block max-w-[90%] `}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='phone' type='number' max={10} label='Phone Number' />
+            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <CustomInput name='email' max={30} label='Email Address' />
@@ -491,7 +494,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 }
 
 const FormLanding = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const [dataSubmit, setDataSubmit] = useState<any>({})
   const lead = getLead()
   const emailCayad = getEmail()

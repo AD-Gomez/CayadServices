@@ -10,7 +10,11 @@ interface SelectInputProps {
 }
 
 const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, disabled }) => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
+
+  const handleChange = (selectedOption: any) => {
+    setValue(name, selectedOption ? selectedOption.value : '', { shouldValidate: true });
+  };
 
   return (
     <div className="flex relative flex-col mb-4">
@@ -20,6 +24,8 @@ const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, di
         render={({ field }) => (
           <Select
             {...field}
+            value={options.find(option => option.value === field.value) || null}
+            onChange={handleChange}
             options={options}
             isDisabled={disabled}
             classNamePrefix="react-select"

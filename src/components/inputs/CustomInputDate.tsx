@@ -9,15 +9,18 @@ interface DateInputProps {
 const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label }, ref) => {
   const { register, formState: { errors } } = useFormContext();
 
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <div className="relative mb-2">
       <input
         id={name}
         type="date"
         {...register(name)}
+        min={today}
         className={`peer h-10 w-full border-b-2 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-btn-blue ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
       />
-      {errors[name]?.message !== null && (
+      {errors[name]?.message && (
         <label htmlFor={name} className="block text-red-500 text-sm mb-1">
           {String(errors[name]?.message)}
         </label>
