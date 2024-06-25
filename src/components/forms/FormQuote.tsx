@@ -13,7 +13,6 @@ import CustomInput from '../inputs/CustomInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { OK } from 'astro/zod';
 
 
 const validationSchema = yup.object().shape({
@@ -145,8 +144,6 @@ const FormQuote = () => {
   }, [allFields, modelField]);
 
   const onSubmit = (data: FormQuoteTypes) => {
-    // all OK
-    // redirect a quote 2, setear data en local storage
     console.log(data);
   };
 
@@ -207,7 +204,7 @@ const FormQuote = () => {
                     name={'transport_type'}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} value="1" label="Yes" name='transport_type' checked={field.value === '1'} />
+                      <CheckboxInput {...field} value="1" label="Open" name='transport_type' checked={field.value === '1'} />
                     )}
                   />
                 </div>
@@ -216,7 +213,7 @@ const FormQuote = () => {
                     name={'transport_type'}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} value="0" name='transport_type' label="No" checked={field.value === '0'} />
+                      <CheckboxInput {...field} value="2" name='transport_type' label="Enclosed" checked={field.value === '0'} />
                     )}
                   />
                 </div>
@@ -224,7 +221,7 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4  mt-4 rounded-sm min-h-[350px] flex-nowrap overflow-auto max-h-[375px] border-[1px]'>
+          <div className='w-[95%] p-4  mt-4 rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>2</p>
               <p className='ml-2'>
@@ -233,7 +230,7 @@ const FormQuote = () => {
             </div>
             <div className=''>
               {fields.map((item, index) => (
-                <div key={item.id} className=' mt-4  min-h-[240px] max-h-[300px]'>
+                <div key={item.id} className=' mt-4  min-h-[150px] max-h-[300px]'>
                   <div className="grid  grid-cols-3 md:grid-cols-1">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}

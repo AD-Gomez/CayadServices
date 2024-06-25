@@ -408,7 +408,6 @@ function separarCiudadYEstado (locationString: string) {
 }
 
 const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSubmit }: any) => {
-
   const validationSchema = yup.object().shape({
     first_name: yup.string()
       .required('Name is required')
@@ -416,23 +415,33 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       .min(3, 'Name must be at least 3 characters')
       .max(20, ''),
     phone: yup.string()
-      .required('Phone is required'),
+      .required('Phone is required')
+      .min(14, 'Phone must be at least 10 characters'),
     email: yup.string()
       .required('Email is required')
       .email('Email is not valid'),
     ship_date: yup.date()
       .required('Date is required')
-  })
-
-  const methods = useForm<FormStep3>({
-    resolver: yupResolver(validationSchema)
   });
 
-  const { handleSubmit, setError, clearErrors } = methods;
+  const methods = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: 'onChange' // Para que las validaciones se actualicen en tiempo real
+  });
 
-  const originCityAndState = dataSubmit?.origin_city
-  const location = separarCiudadYEstado(originCityAndState)
-  const onSubmit = (data: FormStep3) => {
+  const { handleSubmit, formState: { isValid } } = methods;
+
+  useEffect(() => {
+    if (isValid) {
+      // Aquí puedes realizar alguna acción cuando todos los campos sean válidos
+      console.log(isValid)
+    }
+  }, [isValid]);
+
+  const originCityAndState = dataSubmit?.origin_city;
+  const location = separarCiudadYEstado(originCityAndState);
+
+  const onSubmit = (data: any) => {
     const dataToSend = {
       ...dataSubmit,
       ...data,
@@ -440,21 +449,17 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       destination_state: 'OK',
       origin_state: location.state,
       origin_country: 'US',
-    }
-    // setTimeout(() => {
-    //   handleSubmitLeadAndEmail()
-    // }, 3000)
-    // setDataSubmit(dataToSend)
-    console.log(data)
+    };
+    console.log(data);
   };
 
-  const handleStepBack = (data: number) => {
-    setActiveStep(data)
-  }
+  const handleStepBack = (data: any) => {
+    setActiveStep(data);
+  };
 
   return (
     <FormProvider {...methods}>
-      <section id="paso3" className={`form--quote--content mt-4 block max-w-[90%] `}>
+      <section id="paso3" className={`form--quote--content mt-4 block max-w-[90%]`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
@@ -511,8 +516,8 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
         </footer>
       </section>
     </FormProvider>
-  )
-}
+  );
+};
 
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
