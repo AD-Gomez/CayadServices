@@ -13,6 +13,7 @@ import CustomInput from '../inputs/CustomInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { OK } from 'astro/zod';
 
 
 const validationSchema = yup.object().shape({
@@ -43,6 +44,7 @@ const validationSchema = yup.object().shape({
   ship_date: yup.date()
     .required('Date is required')
 })
+
 const FormQuote = () => {
   const methods = useForm<FormQuoteTypes>({
     resolver: yupResolver(validationSchema),
@@ -80,41 +82,6 @@ const FormQuote = () => {
         const marksData = [
           { label: "Ford", value: "ford" },
           { label: "Chevrolet", value: "chevrolet" },
-          { label: "Dodge", value: "dodge" },
-          { label: "Jeep", value: "jeep" },
-          { label: "Tesla", value: "tesla" },
-          { label: "Cadillac", value: "cadillac" },
-          { label: "Buick", value: "buick" },
-          { label: "GMC", value: "gmc" },
-          { label: "Chrysler", value: "chrysler" },
-          { label: "Lincoln", value: "lincoln" },
-          { label: "Ram", value: "ram" },
-          { label: "BMW", value: "bmw" },
-          { label: "Mercedes-Benz", value: "mercedes-benz" },
-          { label: "Audi", value: "audi" },
-          { label: "Volkswagen", value: "volkswagen" },
-          { label: "Porsche", value: "porsche" },
-          { label: "Volvo", value: "volvo" },
-          { label: "Land Rover", value: "land rover" },
-          { label: "Jaguar", value: "jaguar" },
-          { label: "Mini", value: "mini" },
-          { label: "Alfa Romeo", value: "alfa romeo" },
-          { label: "Ferrari", value: "ferrari" },
-          { label: "Lamborghini", value: "lamborghini" },
-          { label: "Bentley", value: "bentley" },
-          { label: "Rolls-Royce", value: "rolls-royce" },
-          { label: "Toyota", value: "toyota" },
-          { label: "Honda", value: "honda" },
-          { label: "Nissan", value: "nissan" },
-          { label: "Subaru", value: "subaru" },
-          { label: "Mazda", value: "mazda" },
-          { label: "Mitsubishi", value: "mitsubishi" },
-          { label: "Lexus", value: "lexus" },
-          { label: "Infiniti", value: "infiniti" },
-          { label: "Acura", value: "acura" },
-          { label: "Hyundai", value: "hyundai" },
-          { label: "Kia", value: "kia" },
-          { label: "Genesis", value: "genesis" },
         ];
         setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
         setVehicleModels(prev => ({ ...prev, [index]: [] }));
@@ -132,10 +99,10 @@ const FormQuote = () => {
   // Update vehicle models when make is selected
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name && name.endsWith('vehicle_make')) {
+      if (name && name.startsWith('Vehicles') && name.endsWith('vehicle_make')) {
         const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear: any = getValues(`Vehicles.${index}.vehicle_model_year`);
-        const vehicleMake: any = getValues(`Vehicles.${index}.vehicle_make`);
+        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
+        const vehicleMake = getValues(`Vehicles.${index}.vehicle_make`);
         if (vehicleYear && vehicleMake) {
           axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
             .then((response) => {
@@ -143,11 +110,9 @@ const FormQuote = () => {
                 value: model.Model_Name,
                 label: model.Model_Name,
               }));
+
               setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-              const updatedVehicles = getValues('Vehicles').map((item, idx) => (
-                idx === index ? { ...item, vehicle_model: '' } : item
-              ));
-              setValue('Vehicles', updatedVehicles);
+              setValue(`Vehicles.${index}.vehicle_model`, '', { shouldValidate: true });
             });
         }
       }
@@ -156,9 +121,33 @@ const FormQuote = () => {
     return () => subscription.unsubscribe();
   }, [watch, setValue, getValues]);
 
-  console.log(fields)
+
+  const [disabled, setDisabled] = useState(true)
+
+  const allFields = watch('Vehicles');
+  const [index, setIndex] = useState<number>(0);
+  const modelField = watch(`Vehicles.${index}.vehicle_model`);
+
+  useEffect(() => {
+    setIndex(allFields.length - 1);
+  }, [allFields]);
+
+  useEffect(() => {
+    if (modelField !== '') {
+      const isFormComplete = allFields.every(
+        (field) =>
+          field.vehicle_model_year !== '' &&
+          field.vehicle_make !== '' &&
+          field.vehicleOperable !== ''
+      );
+      setDisabled(!isFormComplete);
+    }
+  }, [allFields, modelField]);
+
   const onSubmit = (data: FormQuoteTypes) => {
-    console.log(data)
+    // all OK
+    // redirect a quote 2, setear data en local storage
+    console.log(data);
   };
 
   return (
@@ -170,13 +159,10 @@ const FormQuote = () => {
               <img src={logoCayad.src} />
             </div>
             <p className=' font-bold text-[180x]'>Get Free Quote Request</p>
-            <div className="AuthorizeNetSeal">
-              <script type="text/javascript">
-                var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";
-              </script>
-              <script
-                type="text/javascript"
-                src="https://verify.authorize.net:443/anetseal/seal.js"></script>
+            <div className="AuthorizeNetSeal" >
+              <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
+              <script type="text/javascript"
+                src="//verify.authorize.net:443/anetseal/seal.js"></script>
             </div>
           </div>
           <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[200px] border-[1px]'>
@@ -214,6 +200,27 @@ const FormQuote = () => {
                   {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
                 </div>
               </div>
+              <div className="flex w-full">
+                <p className='xs:text-sm'>Select Transport Type</p>
+                <div className='ml-2'>
+                  <Controller
+                    name={'transport_type'}
+                    control={control}
+                    render={({ field }) => (
+                      <CheckboxInput {...field} value="1" label="Yes" name='transport_type' checked={field.value === '1'} />
+                    )}
+                  />
+                </div>
+                <div className='ml-2'>
+                  <Controller
+                    name={'transport_type'}
+                    control={control}
+                    render={({ field }) => (
+                      <CheckboxInput {...field} value="0" name='transport_type' label="No" checked={field.value === '0'} />
+                    )}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -226,8 +233,8 @@ const FormQuote = () => {
             </div>
             <div className=''>
               {fields.map((item, index) => (
-                <div key={item.id} className='grid mt-4  grid-cols-2 md:grid-cols-1 min-h-[240px] max-h-[300px]'>
-                  <div className=" ">
+                <div key={item.id} className=' mt-4  min-h-[240px] max-h-[300px]'>
+                  <div className="grid  grid-cols-3 md:grid-cols-1">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}
                       control={control}
@@ -235,26 +242,27 @@ const FormQuote = () => {
                         <AutoSuggestInput {...field} label="Vehicle Year" options={years} />
                       )}
                     />
-                  </div>
 
-                  <div className="">
-                    <Controller
-                      name={`Vehicles.${index}.vehicle_make`}
-                      control={control}
-                      render={({ field }) => (
-                        <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
-                      )}
-                    />
-                  </div>
+                    <div className="">
+                      <Controller
+                        name={`Vehicles.${index}.vehicle_make`}
+                        control={control}
+                        render={({ field }) => (
+                          <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
+                        )}
+                      />
+                    </div>
 
-                  <div className="">
-                    <Controller
-                      name={`Vehicles.${index}.vehicle_model`}
-                      control={control}
-                      render={({ field }) => (
-                        <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
-                      )}
-                    />
+
+                    <div className="">
+                      <Controller
+                        name={`Vehicles.${index}.vehicle_model`}
+                        control={control}
+                        render={({ field }) => (
+                          <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                        )}
+                      />
+                    </div>
                   </div>
 
                   <div className="flex w-full justify-around">
@@ -289,8 +297,8 @@ const FormQuote = () => {
                 </div>
               ))}
               <button
-                className="bg-white border border-btn-blue text-btn-blue py-2 px-4  mb-4"
-                type="button"
+                className={`bg-white border border-btn-blue text-btn-blue py-2 px-4  mb-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+                type="button" disabled={disabled}
                 onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
               >
                 Add Another Vehicle

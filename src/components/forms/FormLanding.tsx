@@ -230,8 +230,9 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
     const subscription = watch((value, { name }) => {
       if (name && name.endsWith('vehicle_make')) {
         const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear: any = getValues(`Vehicles.${index}.vehicle_model_year`);
-        const vehicleMake: any = getValues(`Vehicles.${index}.vehicle_make`);
+        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
+        const vehicleMake = getValues(`Vehicles.${index}.vehicle_make`);
+
         if (vehicleYear && vehicleMake) {
           axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
             .then((response) => {
@@ -239,22 +240,43 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
                 value: model.Model_Name,
                 label: model.Model_Name,
               }));
+
               setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-              const updatedVehicles = getValues('Vehicles').map((item, idx) => (
-                idx === index ? { ...item, vehicle_model: '' } : item
-              ));
-              setValue('Vehicles', updatedVehicles);
+
+              setValue(`Vehicles.${index}.vehicle_model`, '');
             });
         }
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
+  }, [watch, getValues, setValue]);
 
   const handleStepBack = () => {
     setActiveStep(0);
   }
+
+  const [disabled, setDisabled] = useState(true)
+
+  const allFields = watch('Vehicles');
+  const [index, setIndex] = useState<number>(0);
+  const modelField = watch(`Vehicles.${index}.vehicle_model`);
+
+  useEffect(() => {
+    setIndex(allFields.length - 1);
+  }, [allFields]);
+
+  useEffect(() => {
+    if (modelField !== '') {
+      const isFormComplete = allFields.every(
+        (field) =>
+          field.vehicle_model_year !== '' &&
+          field.vehicle_make !== '' &&
+          field.vehicleOperable !== ''
+      );
+      setDisabled(!isFormComplete);
+    }
+  }, [allFields, modelField]);
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -331,7 +353,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
           ))}
           <button
             className="bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4"
-            type="button"
+            type="button" disabled={disabled}
             onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
           >
             Add Another Vehicle
