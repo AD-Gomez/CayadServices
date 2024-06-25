@@ -162,7 +162,7 @@ const FormQuote = () => {
                 src="//verify.authorize.net:443/anetseal/seal.js"></script>
             </div>
           </div>
-          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[200px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[200px] md:min-h-[250px] md:max-h-[300px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>1</p>
               <p className='ml-2'>
@@ -303,7 +303,7 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4 mb-8 mt-8 rounded-sm md:min-h-[300px] md:max-h-[350px] min-h-[150px] max-h-[220px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-8 mt-8 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>3</p>
               <p className='ml-2'>
