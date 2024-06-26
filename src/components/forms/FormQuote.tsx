@@ -13,6 +13,8 @@ import CustomInput from '../inputs/CustomInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { sendEmail, sendLead } from '../../services/landing';
+import { saveEmail, saveLead } from '../../services/localStorage';
 
 
 const validationSchema = yup.object().shape({
@@ -145,8 +147,54 @@ const FormQuote = () => {
     }
   }, [allFields, modelField]);
 
+  const handleSubmitLead = async (data: any) => {
+    const response = await sendLead(data)
+    if (response) {
+      let send = {
+        ...data,
+        origin: data.origin_city,
+        destination: data.destination_city,
+        transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
+      };
+      if (data.Vehicles && Array.isArray(data.Vehicles)) {
+        data.Vehicles.map((vehicle: any, index: any) => {
+          let vehicleData: any = {};
+
+          vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
+          vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
+          vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
+          vehicleData[`vehicle_inop_${index + 1}`] = "No Data"
+          send = { ...send, ...vehicleData };
+        });
+      }
+      delete send.Vehicles;
+      delete send.origin_city;
+      delete send.origin_postal_code;
+      delete send.destination_city;
+      delete send.destination_postal_code;
+      Object.keys(send).map((key) => {
+        if (send[key] === "") {
+          delete send[key];
+        }
+      });
+      const responseEmail = await sendEmail(send)
+
+      saveEmail(data)
+      saveLead(data)
+
+      setTimeout(() => {
+        window.location.href = '/quote2';
+      }, 3000);
+      console.log(responseEmail)
+    }
+  }
+
   const onSubmit = (data: FormQuoteTypes) => {
-    console.log(data);
+    const dataToLead = {
+      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
+      ...data
+    }
+    handleSubmitLead(dataToLead)
   };
 
   return (
@@ -157,7 +205,7 @@ const FormQuote = () => {
             <div className='max-h-[50px] max-w-[200px]'>
               <img src={logoCayad.src} />
             </div>
-            <p className=' font-bold text-[180x]'>Get Free Quote Request</p>
+            <p className=' font-bold text-[180x]'>Get Quote Request</p>
             <div className="AuthorizeNetSeal" >
               <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
               <script type="text/javascript"

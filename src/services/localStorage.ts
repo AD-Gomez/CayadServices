@@ -7,7 +7,6 @@ const saveEmail = (data: any) => {
     destination: data.destination_city,
     transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
   };
-  console.log(data)
   if (data.Vehicles && Array.isArray(data.Vehicles)) {
     data.Vehicles.map((vehicle: any, index: any) => {
       let vehicleData: any = {};

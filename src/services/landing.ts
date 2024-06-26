@@ -3,7 +3,7 @@ import axios from 'axios';
 const sendEmail = async (data: any) => {
   try {
     const response = await axios.post("https://backupnode-production.up.railway.app/api/lead/send-email/",
-      data
+      JSON.stringify(data)
       , {
         headers: {
           "Content-Type": "application/json",
@@ -16,22 +16,17 @@ const sendEmail = async (data: any) => {
   }
 }
 
-const sendLead = async (data: any) => {
-  return new Promise((resolve, reject) => {
-    fetch(`https://api.batscrm.com/leads`, {
+async function sendLead (data: any): Promise<boolean> {
+  try {
+    const response = await fetch(`https://api.batscrm.com/leads`, {
       method: "POST",
-
       body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        resolve(true);
-      })
-      .catch((err) => {
-        // alert("Unexpected error, try again later");
-        resolve(false);
-      });
-  });
+    });
+    const result = response.ok;
+    return result
+  } catch (error) {
+    return false
+  }
 }
 
 export {
