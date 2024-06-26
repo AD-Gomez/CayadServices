@@ -420,8 +420,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     email: yup.string()
       .required('Email is required')
       .email('Email is not valid'),
-    ship_date: yup.date()
+    ship_date: yup.string()
       .required('Date is required')
+      .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value)))
   });
 
   const methods = useForm({

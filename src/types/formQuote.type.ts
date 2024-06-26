@@ -26,5 +26,5 @@ export interface FormQuoteTypes {
   first_name: string
   phone: string
   email: string
-  ship_date: Date
+  ship_date: string
 }

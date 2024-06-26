@@ -86,7 +86,7 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
-            <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
+            <a href="/how-auto-transport-works/" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
               HOW IT WORKS?
             </a>
             <Popover
@@ -280,7 +280,7 @@ export default function Example () {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                  <a href="/how-auto-transport-works/" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
                     HOW IT WORKS?
                   </a>
                   <Disclosure as="div" className="-mx-3">

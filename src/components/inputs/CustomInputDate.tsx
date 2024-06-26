@@ -19,6 +19,7 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label },
         {...register(name)}
         min={today}
         className={`peer h-10 w-full border-b-2 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-btn-blue ${errors[name] ? 'border-red-500 focus:border-red-500' : 'border-gray-300'}`}
+        onFocus={(e) => e.currentTarget.showPicker()}
       />
       {errors[name]?.message && (
         <label htmlFor={name} className="block text-red-500 text-sm mb-1">
