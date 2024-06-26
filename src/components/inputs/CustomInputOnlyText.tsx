@@ -40,9 +40,6 @@ const CustomInputOnlyText: React.FC<CustomInputProps> = ({ name, label, type = '
     await trigger(name);
   };
 
-  useEffect(() => {
-    console.log('dirtyFields updated:', dirtyFields);
-  }, [dirtyFields]);
   return (
     <div className="relative mb-2">
       <input
@@ -74,7 +71,7 @@ const CustomInputOnlyText: React.FC<CustomInputProps> = ({ name, label, type = '
       )}
       <label
         htmlFor={name}
-        className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm 
+        className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-btn-blue peer-focus:text-sm 
           ${errors[name] ? 'text-red-500' : isValidInput(value) && value && value?.length > 3 ? 'text-btn-blue' : ''}`}
       >
         {label}
