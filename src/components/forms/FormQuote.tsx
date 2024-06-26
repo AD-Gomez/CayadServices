@@ -38,7 +38,8 @@ const validationSchema = yup.object().shape({
     .min(3, 'Name must be at least 3 characters')
     .max(20, ''),
   phone: yup.string()
-    .required('Phone is required'),
+    .required('Phone is required')
+    .min(14, 'Phone must be at least 10 characters'),
   email: yup.string()
     .required('Email is required')
     .email('Email is not valid'),
@@ -219,7 +220,7 @@ const FormQuote = () => {
                 Origin & Destination
               </p>
             </div>
-            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2 mt-4'>
+            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2'>
               <div>
                 <AutocompleteInput
                   name='origin_city'
@@ -271,16 +272,16 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4  mt-4 rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]'>
+          <div className='w-[95%] p-4   rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>2</p>
               <p className='ml-2'>
                 Vehicle Details
               </p>
             </div>
-            <div className=''>
+            <div className='mt-8'>
               {fields.map((item, index) => (
-                <div key={item.id} className=' mt-4  min-h-[150px] max-h-[300px]'>
+                <div key={item.id} className=' mt-4  min-h-[130px] max-h-[300px]'>
                   <div className="grid  grid-cols-3 md:grid-cols-1">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}
@@ -312,9 +313,9 @@ const FormQuote = () => {
                     </div>
                   </div>
 
-                  <div className="flex w-full justify-around">
-                    <p className='xs:text-sm'>Is The <b className=''>Vehicle Operable?</b></p>
-                    <div>
+                  <div className="flex w-full ">
+                    <p className='xs:text-sm ml-2'>Is The <b className=''>Vehicle Operable?</b></p>
+                    <div className='ml-2'>
                       <Controller
                         name={`Vehicles.${index}.vehicleOperable`}
                         control={control}
@@ -323,7 +324,7 @@ const FormQuote = () => {
                         )}
                       />
                     </div>
-                    <div>
+                    <div className='ml-2'>
                       <Controller
                         name={`Vehicles.${index}.vehicleOperable`}
                         control={control}
@@ -344,7 +345,7 @@ const FormQuote = () => {
                 </div>
               ))}
               <button
-                className={`bg-white border border-btn-blue text-btn-blue py-2 px-4  mb-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+                className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-8 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
                 type="button" disabled={disabled}
                 onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
               >
@@ -353,14 +354,14 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4 mb-8 mt-8 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-8 mt-4 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>3</p>
               <p className='ml-2'>
                 Shipment Details
               </p>
             </div>
-            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2 mt-4'>
+            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2 mt-6'>
               <DateInput name='ship_date' label='Date' />
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
