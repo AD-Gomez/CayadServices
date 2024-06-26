@@ -334,7 +334,7 @@ const FormQuote = () => {
                       />
                     </div>
                     {fields.length > 1 && (
-                      <div className="flex w-[50%] justify-end mb-8 dashed">
+                      <div className="flex w-[62%] justify-end mb-8 dashed">
                         <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
                           Remove car
                         </button>
