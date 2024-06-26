@@ -206,7 +206,7 @@ const FormQuote = () => {
             <div className='max-h-[50px] max-w-[200px]'>
               <img src={logoCayad.src} />
             </div>
-            <p className=' font-bold text-[180x]'>Get Quote Request</p>
+            <p className=' font-bold text-[180x]'>Request a quote</p>
             <div className="AuthorizeNetSeal" >
               <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
               <script type="text/javascript"
