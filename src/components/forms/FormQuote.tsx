@@ -213,7 +213,7 @@ const FormQuote = () => {
                 src="//verify.authorize.net:443/anetseal/seal.js"></script>
             </div>
           </div>
-          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[200px] md:min-h-[250px] md:max-h-[300px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[170px] md:min-h-[250px] md:max-h-[300px] border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>1</p>
               <p className='ml-2'>
@@ -313,7 +313,7 @@ const FormQuote = () => {
                     </div>
                   </div>
 
-                  <div className="flex w-full ">
+                  <div className="flex w-full mb-8 ">
                     <p className='xs:text-sm ml-2'>Is The <b className=''>Vehicle Operable?</b></p>
                     <div className='ml-2'>
                       <Controller
@@ -333,19 +333,19 @@ const FormQuote = () => {
                         )}
                       />
                     </div>
+                    {fields.length > 1 && (
+                      <div className="flex w-[50%] justify-end mb-8 dashed">
+                        <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
+                          Remove car
+                        </button>
+                      </div>
+                    )}
                   </div>
 
-                  {fields.length > 1 && (
-                    <div className="d-flex mb-4 end dashed">
-                      <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
-                        Remove car
-                      </button>
-                    </div>
-                  )}
                 </div>
               ))}
               <button
-                className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-8 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+                className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-2 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
                 type="button" disabled={disabled}
                 onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
               >
