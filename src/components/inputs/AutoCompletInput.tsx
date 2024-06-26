@@ -31,7 +31,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
   const { register, setValue, formState: { errors } } = useFormContext();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [isValidUSCity, setIsValidUSCity] = useState(false); // Estado para validar la ciudad
+  const [isValidUSCity, setIsValidUSCity] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
@@ -76,7 +76,6 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
     setValue(name, cityName);
     setSuggestions([]);
 
-    // Validar si la ciudad está en los Estados Unidos
     if (city.countryCode === 'US') {
       setIsValidUSCity(true);
       clearErrors(name);
@@ -85,6 +84,12 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
       setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' });
     }
   };
+
+  useEffect(() => {
+    if (inputValue.trim() === '') {
+      setValue(name, '');
+    }
+  }, [inputValue, name, setValue]);
 
   return (
     <div className="relative mb-2">

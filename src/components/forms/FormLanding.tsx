@@ -31,13 +31,13 @@ const validationSchemaStep1 = yup.object().shape({
     .required('Transport type is required')
 });
 
-const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
+const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   const methods = useForm<FormValues>({
     resolver: yupResolver(validationSchemaStep1),
     defaultValues: {
-      origin_city: '',
-      destination_city: '',
-      transport_type: '1'
+      origin_city: dataSubmit.origin_city || '',
+      destination_city: dataSubmit.destination_city || '',
+      transport_type: dataSubmit.transport_type || '1',
     },
   });
 
@@ -114,7 +114,6 @@ const Step1 = ({ setActiveStep, setDataSubmit }: any) => {
   );
 };
 
-
 // Definición de la interfaz de los datos del formulario
 interface VehicleForm {
   vehicle_model_year: string;
@@ -138,7 +137,7 @@ const validationSchema = yup.object().shape({
   ).required()
 });
 
-const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
+const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   const methods = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -147,7 +146,7 @@ const Step2 = ({ setActiveStep, setDataSubmit }: any) => {
       ],
     },
   });
-
+  console.log(dataSubmit)
   const { handleSubmit, control, getValues, setValue, watch } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
@@ -559,16 +558,15 @@ const FormLanding = () => {
     }
   }, [dataSubmit])
 
-  console.log(dataSubmit)
   const renderContent = useCallback(() => {
     switch (activeStep) {
       case 1:
-        return <Step2 setActiveStep={setActiveStep} setDataSubmit={updateFormData} />;
+        return <Step2 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={updateFormData} />;
       case 2:
         return <Step3 dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLeadAndEmail} setDataSubmit={updateFormData} />;
 
       default:
-        return <Step1 setActiveStep={setActiveStep} setDataSubmit={setDataSubmit} />
+        return <Step1 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={setDataSubmit} />
     }
   }, [activeStep]);
   return (
