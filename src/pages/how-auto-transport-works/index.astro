@@ -3,12 +3,19 @@ import Layout from "../../layouts/Layout.astro";
 import Testimonials from "../../components/Testimonials";
 ---
 
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/how.webp") center center no-repeat;
+    background-size: cover;
+  }
+</style>
+
 <Layout title="How It Works? | Cayad Auto Transport">
-  <div
-    class="w-full h-[450px] flex items-center justify-center"
-    data-aos="fade-up"
-    data-wow-delay="0.1s"
-  >
-    <Testimonials client:load />
+  <div class="container-fluid py-5 custom-background h-[40vh]">
+    <h1 class="text-white">How does auto transport work?</h1>
+    <p class="text-white">You'll have to follow 3 simple steps</p>
   </div>
+  <Testimonials client:load />
 </Layout>
