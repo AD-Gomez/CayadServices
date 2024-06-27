@@ -5,6 +5,9 @@ import FormQuote from "../../components/forms/FormQuote";
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
     <link
       rel="icon"
       type="image/webp"
@@ -13,9 +16,11 @@ import FormQuote from "../../components/forms/FormQuote";
     />
     <title>Get a Quote | Cayad Auto Transport</title>
   </head>
-  <body class="box-border">
-    <div class="flex w-full h-full justify-center box-border bg-[#cccccc]">
-      <FormQuote client:load />
-    </div>
-  </body>
+  <div
+    class="flex w-full h-screen md:h-[max-content] lg:h[110vh] xl:h[110vh] justify-center box-border bg-[#cccccc]"
+  >
+    <FormQuote client:load />
+  </div>
+
+
 </html>

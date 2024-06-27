@@ -56,6 +56,7 @@ const FormQuote = () => {
       Vehicles: [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' },
       ],
+      transport_type: '1'
     },
   });
   const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors } } = methods;
@@ -200,8 +201,8 @@ const FormQuote = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="h-max w-[60%] md:w-full  flex flex-col  items-center bg-white rounded">
-        <form className='h-max w-[100%] md:w-full flex flex-col  items-center' onSubmit={handleSubmit(onSubmit)}>
+      <div className="h-max w-[60%] md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
+        <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-full justify-around mt-4">
             <div className='max-h-[50px] max-w-[200px]'>
               <img src={logoCayad.src} />
@@ -213,14 +214,16 @@ const FormQuote = () => {
                 src="//verify.authorize.net:443/anetseal/seal.js"></script>
             </div>
           </div>
-          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[170px] md:min-h-[250px] md:max-h-[300px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[170px]  border-[1px]
+          md:min-h-[250px] md:max-h-[300px] sm:min-h-[250px] sm:max-h-[300px] xs:min-h-[250px] xs:max-h-[300px]
+          '>
             <div className='flex w-full'>
               <p className='font-bold'>1</p>
               <p className='ml-2'>
                 Origin & Destination
               </p>
             </div>
-            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2'>
+            <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2'>
               <div>
                 <AutocompleteInput
                   name='origin_city'
@@ -272,7 +275,9 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4   rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]'>
+          <div className='w-[95%] p-4   rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]
+          md:min-h-[380px] md:max-h-[400px] sm:min-h-[410px] sm:max-h-[450px] xs:min-h-[410px] xs:max-h-[450px]
+          '>
             <div className='flex w-full'>
               <p className='font-bold'>2</p>
               <p className='ml-2'>
@@ -282,7 +287,7 @@ const FormQuote = () => {
             <div className='mt-8'>
               {fields.map((item, index) => (
                 <div key={item.id} className=' mt-4  min-h-[130px] max-h-[300px]'>
-                  <div className="grid  grid-cols-3 md:grid-cols-1">
+                  <div className="grid  grid-cols-3 sm:grid-cols-1 xs:grid-cols-1">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}
                       control={control}
@@ -354,14 +359,16 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <div className='w-[95%] p-4 mb-8 mt-4 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] border-[1px]'>
+          <div className='w-[95%] p-4 mb-8 mt-4 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] 
+          xs:min-h-[300px] xs:max-h-[450px] sm:min-h-[300px] sm:max-h-[450px]
+          border-[1px]'>
             <div className='flex w-full'>
               <p className='font-bold'>3</p>
               <p className='ml-2'>
                 Shipment Details
               </p>
             </div>
-            <div className='grid grid-cols-2 md:grid-cols-1 gap-4 p-2 mt-6'>
+            <div className='grid grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2 mt-6'>
               <DateInput name='ship_date' label='Date' />
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
