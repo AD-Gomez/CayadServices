@@ -35,7 +35,7 @@ const ShowDestination = () => {
 
   return (
     <div className='w-full xs:mt-4 sm md:mt-4 :mt-4  h-max flex flex-col items-center'>
-      <div className="w-full h-24 flex justify-end xs:min-w-[85%] sm:min-w-[85%] md:min-w-[85%] ml-2 w3-container mt-sm-0">
+      <div className="w-full h-24 flex justify-end xs:justify-start sm:justify-start xs:w-[85%] sm:w-[85%] md:w-[85%] md:justify-start ml-2 w3-container mt-sm-0">
         <div className="container w-[85%] mr-10 xs:min-w-full sm:min-w-full md:min-w-full p-3 border-[1px] ">
           <div className="flex row px-4 items-center w-full justify-between">
             <div><img src="../img/point_a.webp" alt="Point A" /></div>
