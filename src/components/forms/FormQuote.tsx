@@ -200,7 +200,7 @@ const FormQuote = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="h-max w-[60%] md:w-full flex flex-col  items-center bg-white rounded">
+      <div className="h-max w-[60%] md:w-full  flex flex-col  items-center bg-white rounded">
         <form className='h-max w-[100%] md:w-full flex flex-col  items-center' onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-full justify-around mt-4">
             <div className='max-h-[50px] max-w-[200px]'>

@@ -65,6 +65,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               trigger={trigger}
               clearErrors={clearErrors}
               setError={setError}
+              defaultValue={methods.getValues('origin_city')}
             />
             <div id="validationOrigin" className="invalid-feedback">
               {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
@@ -78,6 +79,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               trigger={trigger}
               clearErrors={clearErrors}
               setError={setError}
+              defaultValue={methods.getValues('destination_city')}
             />
             <div id="validationDestination" className="invalid-feedback">
               {errors.destination_city && <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>}
@@ -141,7 +143,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   const methods = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      Vehicles: [
+      Vehicles: dataSubmit.Vehicles || [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' },
       ],
     },
@@ -214,7 +216,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
         setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
         setVehicleModels(prev => ({ ...prev, [index]: [] }));
 
-        const updatedVehicles = getValues('Vehicles').map((item, idx) => (
+        const updatedVehicles = getValues('Vehicles').map((item: any, idx: any) => (
           idx === index ? { ...item, vehicle_make: '', vehicle_model: '' } : item
         ));
         setValue('Vehicles', updatedVehicles);
@@ -268,7 +270,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   useEffect(() => {
     if (modelField !== '') {
       const isFormComplete = allFields.every(
-        (field) =>
+        (field: any) =>
           field.vehicle_model_year !== '' &&
           field.vehicle_make !== '' &&
           field.vehicleOperable !== ''
@@ -294,7 +296,9 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_model_year`}
                   control={control}
                   render={({ field }) => (
-                    <AutoSuggestInput {...field} label="Vehicle Year" options={years} />
+                    <AutoSuggestInput {...field} label="Vehicle Year" options={years}
+                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_model_year`)}
+                    />
                   )}
                 />
               </div>
@@ -304,7 +308,10 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_make`}
                   control={control}
                   render={({ field }) => (
-                    <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
+                    <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)}
+                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_make`)}
+
+                    />
                   )}
                 />
               </div>
@@ -314,7 +321,9 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                   name={`Vehicles.${index}.vehicle_model`}
                   control={control}
                   render={({ field }) => (
-                    <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                    <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)}
+                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_model`)}
+                    />
                   )}
                 />
               </div>

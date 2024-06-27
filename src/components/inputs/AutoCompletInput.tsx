@@ -8,6 +8,7 @@ interface AutocompleteInputProps {
   trigger: any;
   clearErrors: any;
   setError: any;
+  defaultValue?: string;
 }
 
 const fetchGeoNamesSuggestions = async (query: string) => {
@@ -27,9 +28,9 @@ const fetchGeoNamesSuggestions = async (query: string) => {
   }
 };
 
-const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, placeholder, trigger, clearErrors, setError }) => {
+const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, placeholder, trigger, clearErrors, setError, defaultValue }) => {
   const { register, setValue, formState: { errors } } = useFormContext();
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(defaultValue);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isValidUSCity, setIsValidUSCity] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -61,6 +62,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
     };
   }, []);
 
+  useEffect(() => {
+    setValue(name, defaultValue);
+  }, [defaultValue, name, setValue]);
+
   const handleBlur = async () => {
     const valid = await trigger(name);
     if (!valid) {
@@ -86,7 +91,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
   };
 
   useEffect(() => {
-    if (inputValue.trim() === '') {
+    if (inputValue?.trim() === '') {
       setValue(name, '');
     }
   }, [inputValue, name, setValue]);

@@ -7,9 +7,10 @@ interface SelectInputProps {
   label: string;
   options: { value: string; label: string }[];
   disabled?: boolean;
+  defaultValue?: string;
 }
 
-const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, disabled }) => {
+const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, disabled, defaultValue }) => {
   const { control, setValue, formState: { errors } } = useFormContext();
 
   const handleChange = (selectedOption: any) => {
@@ -17,15 +18,17 @@ const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, di
   };
 
   const hasError = !!errors[name];
-
+  console.log(defaultValue)
   return (
     <div className="flex relative flex-col mb-4">
       <Controller
         name={name}
         control={control}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Select
             {...field}
+            defaultInputValue={defaultValue}
             value={options.find(option => option.value === field.value) || null}
             onChange={handleChange}
             options={options}
