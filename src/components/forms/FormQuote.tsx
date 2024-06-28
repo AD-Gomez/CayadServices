@@ -205,7 +205,9 @@ const FormQuote = () => {
         <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-full justify-between px-8  mt-4">
             <div className='max-h-[50px] max-w-[200px]'>
-              <img src={logoCayad.src} />
+              <a href="/">
+                <img src={logoCayad.src} />
+              </a>
             </div>
             <p className=' font-bold text-[180x]'>Request a quote</p>
             <div className="AuthorizeNetSeal" >

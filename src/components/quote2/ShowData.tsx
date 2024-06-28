@@ -9,7 +9,7 @@ const ShowDataQuote = () => {
   console.log(lead)
   return (
     <>
-      <div className="w-[95%] xs:w-[80%] sm:w-[85%] md:w-[85%] bg-white text-black border border-gray-200 p-2">
+      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] bg-white text-black border border-gray-200 p-2">
         <table className="w-full">
           <tbody id="leadInfo">
             <tr>
@@ -31,10 +31,10 @@ const ShowDataQuote = () => {
           </tbody>
         </table>
       </div>
-      <div className="w-[95%] xs:w-[80%] sm:w-[85%] md:w-[85%] border-[1px] h-8"></div>
-      <div className="w-[95%] xs:w-[80%] sm:w-[85%] md:w-[85%] border-[1px] h-8"></div>
+      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-8"></div>
+      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-8"></div>
       <div
-        className="w-[95%] xs:w-[80%] sm:w-[85%] md:w-[85%] border-[1px]"
+        className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px]"
       >
         <table className="w-full ">
           <tbody>
