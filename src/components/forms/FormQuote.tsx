@@ -203,7 +203,7 @@ const FormQuote = () => {
     <FormProvider {...methods}>
       <div className="h-max w-[60%] md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
         <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex w-full justify-around mt-4">
+          <div className="flex w-full justify-between px-8  mt-4">
             <div className='max-h-[50px] max-w-[200px]'>
               <img src={logoCayad.src} />
             </div>
