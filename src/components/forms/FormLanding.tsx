@@ -570,7 +570,7 @@ const FormLanding = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop;
           send = { ...send, ...vehicleData };
         });
       }
