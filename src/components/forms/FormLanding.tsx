@@ -427,7 +427,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       .max(20, ''),
     phone: yup.string()
       .required('Phone is required')
-      .min(14, 'Phone must be at least 10 characters'),
+      .min(14, 'Phone number must be 10 characters'),
     email: yup.string()
       .required('Email is required')
       .email('Email is not valid'),
