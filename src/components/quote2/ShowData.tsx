@@ -10,91 +10,40 @@ const ShowDataQuote = () => {
   return (
     <>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] bg-white text-black border border-gray-200 p-2">
+        <div className="w-full justify-center"><p className=" font-bold">Customer</p></div>
         <table className="w-full">
           <tbody id="leadInfo">
             <tr>
-              <td className="bg-blue-100">Pickup From</td>
-              <td className="text-sm">{lead?.origin_city}</td>
+              <td className="bg-blue-100">Name</td>
+              <td className="text-sm">{lead?.first_name}</td>
             </tr>
             <tr>
-              <td className="bg-blue-100">Deliver To</td>
-              <td className="text-sm">{lead?.destination_city}</td>
+              <td className="bg-blue-100">Email</td>
+              <td className="text-sm">{lead?.email}</td>
             </tr>
-            {lead && Array.isArray(lead.Vehicles) && (
-              lead.Vehicles.map((vehicles: any) => (
-                <tr>
-                  <td className="bg-blue-100">Vehicle(s)</td>
-                  <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year}`}</td>
-                </tr>
-              ))
-            )}
+            <tr>
+              <td className="bg-blue-100">Phone</td>
+              <td className="text-sm">{lead?.phone}</td>
+            </tr>
+
           </tbody>
         </table>
       </div>
-      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-8"></div>
-      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-8"></div>
-      <div
-        className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px]"
-      >
-        <table className="w-full ">
-          <tbody>
-            <tr>
-              <td>
-                <div className="flex w-full justify-center items-center ">
-                  <div className="h-4 w-5">
-                    <img
-                      src="../img/green_checkbox.webp"
-                    />
-                  </div>
-                  <p>
-                    Dedicated Advisors
-                  </p>
-                </div>
-              </td>
-              <td>
-                <div className="flex items-center">
-                  <div className="h-4 w-5">
-                    <img
-                      src="../img/green_checkbox.webp"
-                    />
-                  </div>
-                  <p>
-                    No Hidden Fees
-                  </p>
-                </div>
-              </td>
-            </tr>
+      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
+        <div className="w-full justify-center"><p className=" font-bold">Vehicles</p></div>
 
+        {lead && Array.isArray(lead.Vehicles) && (
+          lead.Vehicles.map((vehicles: any) => (
             <tr>
-              <td>
-                <div className="flex w-full justify-center items-center ">
-                  <div className="h-4 w-5">
-                    <img
-                      src="../img/green_checkbox.webp"
-                    />
-                  </div>
-                  <p>
-                    Insurance Included
-                  </p>
-                </div>
-              </td>
-              <td>
-                <div className="flex items-center">
-                  <div className="h-4 w-5">
-                    <img
-                      src="../img/green_checkbox.webp"
-                    />
-                  </div>
-                  <p>
-                    Customer Portal
-                  </p>
-                </div>
-              </td>
+              <td className="bg-blue-100">Vehicle(s)</td>
+              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year}`}</td>
             </tr>
-          </tbody>
-        </table>
-
-        <table className="w-[95%]" >
+          ))
+        )}
+      </div>
+      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
+        <div className="font-bold justify-center">Trailer</div>
+        <table className="w-[95%] " >
           <tbody >
             {lead?.Vehicles && lead.Vehicles?.map((vehicle: any) => (
               <tr>
@@ -150,6 +99,67 @@ const ShowDataQuote = () => {
                 </td>
               </tr>
             ))}
+          </tbody>
+        </table>
+      </div>
+      <div
+        className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2"
+      >
+        <table className="w-full ">
+          <tbody>
+            <tr>
+              <td>
+                <div className="flex w-full justify-center items-center ">
+                  <div className="h-4 w-5">
+                    <img
+                      src="../img/green_checkbox.webp"
+                    />
+                  </div>
+                  <p>
+                    Dedicated Specialists
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div className="flex items-center">
+                  <div className="h-4 w-5">
+                    <img
+                      src="../img/green_checkbox.webp"
+                    />
+                  </div>
+                  <p>
+                    Money back guarantee
+                  </p>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div className="flex w-full justify-center items-center ">
+                  <div className="h-4 w-5">
+                    <img
+                      src="../img/green_checkbox.webp"
+                    />
+                  </div>
+                  <p>
+                    Insurance Included
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div className="flex items-center">
+                  <div className="h-4 w-5">
+                    <img
+                      src="../img/green_checkbox.webp"
+                    />
+                  </div>
+                  <p>
+                    Gps Tracking
+                  </p>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div></>
