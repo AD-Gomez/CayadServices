@@ -471,7 +471,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     handleSubmitLeadAndEmail(dataToSend)
     console.log(data);
   };
-  console.log(dataSubmit)
   const handleStepBack = (step: number) => {
     const datavalue = methods.getValues()
     console.log(datavalue)
@@ -590,6 +589,7 @@ const FormLanding = () => {
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
+        setDataSubmit({})
         window.location.href = '/quote2';
       }, 3000);
 
