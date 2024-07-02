@@ -29,7 +29,7 @@ const validationSchema = yup.object().shape({
       vehicle_model_year: yup.string().required('vehicleYear is required'),
       vehicle_make: yup.string().required('vehicle_make is required'),
       vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicleOperable: yup.string().required('vehicleOperable is required')
+      vehicle_inop: yup.string().required('vehicleOperable is required')
     })
   ).required(),
   first_name: yup.string()
@@ -54,7 +54,7 @@ const FormQuote = () => {
     mode: 'onBlur',
     defaultValues: {
       Vehicles: [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' },
+        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
       transport_type: '1'
     },
@@ -201,7 +201,7 @@ const FormQuote = () => {
         (field) =>
           field.vehicle_model_year !== '' &&
           field.vehicle_make !== '' &&
-          field.vehicleOperable !== ''
+          field.vehicle_inop !== ''
       );
       setDisabled(!isFormComplete);
     }
@@ -240,11 +240,11 @@ const FormQuote = () => {
         }
       });
       await sendEmail(send)
-
+      console.log(data)
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
-        window.location.href = '/quote2';
+        // window.location.href = '/quote2';
       }, 2000);
     }
   }
@@ -382,19 +382,19 @@ const FormQuote = () => {
                     <p className='xs:text-sm ml-2'>Is The <b className=''>Vehicle Operable?</b></p>
                     <div className='ml-2'>
                       <Controller
-                        name={`Vehicles.${index}.vehicleOperable`}
+                        name={`Vehicles.${index}.vehicle_inop`}
                         control={control}
                         render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="1" label="Yes" checked={field.value === '1'} />
+                          <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="0" label="Yes" checked={field.value === '1'} />
                         )}
                       />
                     </div>
                     <div className='ml-2'>
                       <Controller
-                        name={`Vehicles.${index}.vehicleOperable`}
+                        name={`Vehicles.${index}.vehicle_inop`}
                         control={control}
                         render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="0" label="No" checked={field.value === '0'} />
+                          <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="1" label="No" checked={field.value === '0'} />
                         )}
                       />
                     </div>
@@ -412,7 +412,7 @@ const FormQuote = () => {
               <button
                 className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-2 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
                 type="button" disabled={disabled}
-                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
+                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
               >
                 Add Another Vehicle
               </button>

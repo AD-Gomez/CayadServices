@@ -137,7 +137,7 @@ const validationSchema = yup.object().shape({
       vehicle_model_year: yup.string().required('vehicleYear is required'),
       vehicle_make: yup.string().required('vehicle_make is required'),
       vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicleOperable: yup.string().required('vehicleOperable is required')
+      vehicle_inop: yup.string().required('vehicleOperable is required')
     })
   ).required()
 });
@@ -147,7 +147,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       Vehicles: dataSubmit.Vehicles || [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: 'operable' },
+        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
     },
   });
@@ -276,7 +276,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
         (field: any) =>
           field.vehicle_model_year !== '' &&
           field.vehicle_make !== '' &&
-          field.vehicleOperable !== ''
+          field.vehicle_inop !== ''
       );
       setDisabled(!isFormComplete);
     }
@@ -335,19 +335,19 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                 <p className='xs:text-sm'>Is The <b className=''>Vehicle Operable?</b></p>
                 <div>
                   <Controller
-                    name={`Vehicles.${index}.vehicleOperable`}
+                    name={`Vehicles.${index}.vehicle_inop`}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="Operable" label="Yes" checked={field.value === '1'} />
+                      <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="0" label="Yes" checked={field.value === '1'} />
                     )}
                   />
                 </div>
                 <div>
                   <Controller
-                    name={`Vehicles.${index}.vehicleOperable`}
+                    name={`Vehicles.${index}.vehicle_inop`}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="Inoperable" label="No" checked={field.value === '0'} />
+                      <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="1" label="No" checked={field.value === '0'} />
                     )}
                   />
                 </div>
@@ -365,7 +365,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
           <button
             className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
             type="button" disabled={disabled}
-            onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' })}
+            onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
           >
             Add Another Vehicle
           </button>
@@ -570,7 +570,7 @@ const FormLanding = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop;
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
           send = { ...send, ...vehicleData };
         });
       }

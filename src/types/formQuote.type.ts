@@ -8,7 +8,7 @@ export interface vehicleTypes {
   vehicle_model_year: string;
   vehicle_make: string;
   vehicle_model: string;
-  vehicleOperable: string;
+  vehicle_inop: string;
 }
 
 export interface shipmentDetails {
