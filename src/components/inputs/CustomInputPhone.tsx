@@ -8,11 +8,22 @@ interface CustomInputProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   max?: number;
+  defaultValue?: string;
 }
 
-const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max }) => {
+const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max, defaultValue }) => {
   const { register, formState: { errors, dirtyFields }, setValue, trigger, watch } = useFormContext();
-  const [maskedValue, setMaskedValue] = useState('');
+  const [maskedValue, setMaskedValue] = useState(defaultValue || '');
+
+  useEffect(() => {
+    // Si defaultValue está presente, formatearlo y establecerlo como valor inicial
+    if (defaultValue) {
+      const formattedValue = formatPhoneNumber(defaultValue);
+      setMaskedValue(formattedValue);
+      setValue(name, formattedValue);
+    }
+  }, [defaultValue, name, setValue]);
+
   useEffect(() => {
     console.log('dirtyFields updated:', dirtyFields);
   }, [dirtyFields]);
@@ -38,7 +49,7 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'tex
 
   // Chequear si el campo es válido
   const isFieldValid = !errors[name] && dirtyFields[name] === undefined && maskedValue && maskedValue.length >= 14;
-  console.log(maskedValue)
+
   return (
     <div className="relative mb-2">
       <input

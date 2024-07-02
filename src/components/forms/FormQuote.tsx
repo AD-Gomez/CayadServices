@@ -209,9 +209,11 @@ const FormQuote = () => {
 
   const handleSubmitLead = async (data: any) => {
     const response = await sendLead(data)
+    const { AuthKey, ...dataWithoutAuthKey } = data
+    console.log(dataWithoutAuthKey)
     if (response) {
       let send = {
-        ...data,
+        ...dataWithoutAuthKey,
         origin: data.origin_city,
         destination: data.destination_city,
         transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
@@ -223,13 +225,13 @@ const FormQuote = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = "No Data"
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicleOperable
           send = { ...send, ...vehicleData };
         });
       }
       delete send.Vehicles;
-      delete send.origin_city;
       delete send.origin_postal_code;
+      delete send.origin_city;
       delete send.destination_city;
       delete send.destination_postal_code;
       Object.keys(send).map((key) => {
@@ -237,15 +239,13 @@ const FormQuote = () => {
           delete send[key];
         }
       });
-      const responseEmail = await sendEmail(send)
+      await sendEmail(send)
 
       saveEmail(data)
       saveLead(data)
-
       setTimeout(() => {
         window.location.href = '/quote2';
-      }, 3000);
-      console.log(responseEmail)
+      }, 2000);
     }
   }
 

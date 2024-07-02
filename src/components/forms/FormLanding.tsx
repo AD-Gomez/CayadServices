@@ -438,15 +438,20 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 
   const methods = useForm({
     resolver: yupResolver(validationSchema),
-    mode: 'onChange' // Para que las validaciones se actualicen en tiempo real
+    mode: 'onChange',
+    defaultValues: {
+      first_name: dataSubmit.first_name || '',
+      phone: dataSubmit.phone || '',
+      email: dataSubmit.email || '',
+      ship_date: dataSubmit.ship_date || '',
+    },
   });
 
-  const { handleSubmit, formState: { isValid } } = methods;
+  const { handleSubmit, formState: { isValid }, getValues, setValue, trigger } = methods;
 
   useEffect(() => {
     if (isValid) {
-      // Aquí puedes realizar alguna acción cuando todos los campos sean válidos
-      console.log(isValid)
+      console.log(isValid);
     }
   }, [isValid]);
 
@@ -457,16 +462,21 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dataToSend = {
       ...dataSubmit,
       ...data,
+      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
       destination_country: 'US',
       destination_state: 'OK',
       origin_state: location.state,
       origin_country: 'US',
     };
+    handleSubmitLeadAndEmail(dataToSend)
     console.log(data);
   };
-
-  const handleStepBack = (data: any) => {
-    setActiveStep(data);
+  console.log(dataSubmit)
+  const handleStepBack = (step: number) => {
+    const datavalue = methods.getValues()
+    console.log(datavalue)
+    setDataSubmit(datavalue);
+    setActiveStep(step);
   };
 
   return (
@@ -477,7 +487,8 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' defaultValue={methods.getValues('phone')}
+            />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <CustomInput name='email' max={30} label='Email Address' />
@@ -534,10 +545,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [dataSubmit, setDataSubmit] = useState<any>({})
-  const lead = getLead()
-  const emailCayad = getEmail()
-  const isSendedEmail = getSendedEmail()
-  const isSendedLead = getSendedLead()
+
   const updateFormData = (newData: any) => {
     setDataSubmit((prevData: any) => ({
       ...prevData,
@@ -545,37 +553,56 @@ const FormLanding = () => {
     }));
   };
 
-  const saveDataInLocalStorage = () => {
-    saveEmail(dataSubmit)
-    saveLead(dataSubmit)
-    sendedEmail(false)
-    sendedLead(false)
-  }
+  const handleSubmitLead = async (data: any) => {
+    const response = await sendLead(data)
+    const { AuthKey, ...dataWithoutAuthKey } = data
 
-  const handleSubmitLeadAndEmail = async () => {
-    console.log('a punto de detonar')
-    console.log(emailCayad, isSendedEmail)
-    if (lead && emailCayad && !isSendedEmail && !isSendedLead) {
-      console.log('detonar')
-      const responseEmail = await sendEmail(emailCayad)
-      const responseLead = await sendLead(lead)
+    if (response) {
+      let send = {
+        ...dataWithoutAuthKey,
+        origin: data.origin_city,
+        destination: data.destination_city,
+        transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
+      };
+      if (data.Vehicles && Array.isArray(data.Vehicles)) {
+        data.Vehicles.map((vehicle: any, index: any) => {
+          let vehicleData: any = {};
 
-      console.log(responseEmail, responseLead)
+          vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
+          vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
+          vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicleOperable
+          send = { ...send, ...vehicleData };
+        });
+      }
+      delete send.Vehicles;
+      delete send.origin_city;
+      delete send.origin_postal_code;
+      delete send.destination_city;
+      delete send.destination_postal_code;
+      Object.keys(send).map((key) => {
+        if (send[key] === "") {
+          delete send[key];
+        }
+      });
+      const responseEmail = await sendEmail(send)
+
+      saveEmail(data)
+      saveLead(data)
+      setTimeout(() => {
+        window.location.href = '/quote2';
+      }, 3000);
+
+      console.log(responseEmail)
     }
   }
-
-  useEffect(() => {
-    if (dataSubmit?.Vehicles && Array.isArray(dataSubmit?.Vehicles)) {
-      setTimeout(saveDataInLocalStorage, 1000)
-    }
-  }, [dataSubmit])
 
   const renderContent = useCallback(() => {
     switch (activeStep) {
       case 1:
         return <Step2 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={updateFormData} />;
       case 2:
-        return <Step3 dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLeadAndEmail} setDataSubmit={updateFormData} />;
+        return <Step3 dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLead} setDataSubmit={updateFormData} />;
 
       default:
         return <Step1 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={setDataSubmit} />
