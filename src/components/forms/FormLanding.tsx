@@ -147,7 +147,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       Vehicles: dataSubmit.Vehicles || [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: '1' },
+        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicleOperable: 'operable' },
       ],
     },
   });
@@ -338,7 +338,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                     name={`Vehicles.${index}.vehicleOperable`}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="1" label="Yes" checked={field.value === '1'} />
+                      <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="Operable" label="Yes" checked={field.value === '1'} />
                     )}
                   />
                 </div>
@@ -347,7 +347,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                     name={`Vehicles.${index}.vehicleOperable`}
                     control={control}
                     render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="0" label="No" checked={field.value === '0'} />
+                      <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="Inoperable" label="No" checked={field.value === '0'} />
                     )}
                   />
                 </div>
@@ -570,7 +570,7 @@ const FormLanding = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicleOperable
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
           send = { ...send, ...vehicleData };
         });
       }
