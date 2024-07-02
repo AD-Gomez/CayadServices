@@ -462,11 +462,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dataToSend = {
       ...dataSubmit,
       ...data,
-      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
-      destination_country: 'US',
-      destination_state: 'OK',
-      origin_state: location.state,
-      origin_country: 'US',
+      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc"
     };
     handleSubmitLeadAndEmail(dataToSend)
     console.log(data);
