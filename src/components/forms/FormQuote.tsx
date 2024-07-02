@@ -15,6 +15,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead } from '../../services/localStorage';
+import { format } from 'date-fns';
 
 
 const validationSchema = yup.object().shape({
@@ -249,10 +250,18 @@ const FormQuote = () => {
     }
   }
 
+  const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return format(dateObj, 'MM/dd/yyyy');
+  };
+
   const onSubmit = (data: FormQuoteTypes) => {
+    const formattedDate = formatDate(data.ship_date);
+
     const dataToLead = {
       AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
-      ...data
+      ...data,
+      ship_date: formattedDate,
     }
     handleSubmitLead(dataToLead)
   };
