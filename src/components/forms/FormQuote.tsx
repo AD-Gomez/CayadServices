@@ -244,7 +244,7 @@ const FormQuote = () => {
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
-        // window.location.href = '/quote2';
+        window.location.href = '/quote2';
       }, 2000);
     }
   }
