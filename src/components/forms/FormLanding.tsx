@@ -363,13 +363,15 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               )}
             </div>
           ))}
-          <button
-            className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
-            type="button" disabled={disabled}
-            onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
-          >
-            Add Another Vehicle
-          </button>
+          {fields.length < 10 &&
+            <button
+              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+              type="button"
+              onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
+            >
+              Add Another Vehicle
+            </button>
+          }
           <button
             className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"

@@ -12,7 +12,7 @@ interface CustomInputProps {
 }
 
 const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max, defaultValue }) => {
-  const { register, formState: { errors, dirtyFields }, setValue, trigger, watch } = useFormContext();
+  const { register, formState: { errors, dirtyFields, touchedFields }, setValue, trigger, watch } = useFormContext();
   const [maskedValue, setMaskedValue] = useState(defaultValue || '');
 
   useEffect(() => {
@@ -48,8 +48,9 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'tex
   };
 
   // Chequear si el campo es válido
-  const isFieldValid = !errors[name] && dirtyFields[name] === undefined && maskedValue && maskedValue.length >= 14;
-
+  const isFieldValid = (!errors[name] || errors[name] === undefined) && (dirtyFields[name] === undefined || dirtyFields[name]) && maskedValue && maskedValue.length >= 14;
+  console.log(isFieldValid, errors[name], dirtyFields[name], maskedValue)
+  console.log(errors[name])
   return (
     <div className="relative mb-2">
       <input

@@ -51,7 +51,7 @@ const ShowDataQuote = () => {
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
 
         <div className="font-bold justify-center">Trailer</div>
-        <tr>
+        <tr className="w-full flex items-center justify-between">
           <td className="p-2">
             {lead?.transport_type === '1'
               ? <img
