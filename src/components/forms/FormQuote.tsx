@@ -43,6 +43,7 @@ const validationSchema = yup.object().shape({
     .min(14, 'Phone number must be 10 characters'),
   email: yup.string()
     .required('Email is required')
+    .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
     .email('Email is not valid'),
   ship_date: yup.string()
     .required('Date is required')

@@ -14,6 +14,7 @@ import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import AutoSuggestInput from '../inputs/AutoSuggestInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
+import { format } from 'date-fns';
 
 
 interface FormValues {
@@ -430,6 +431,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       .min(14, 'Phone number must be 10 characters'),
     email: yup.string()
       .required('Email is required')
+      .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
       .email('Email is not valid'),
     ship_date: yup.string()
       .required('Date is required')
@@ -458,11 +460,19 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
   const originCityAndState = dataSubmit?.origin_city;
   const location = separarCiudadYEstado(originCityAndState);
 
+  const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return format(dateObj, 'MM/dd/yyyy');
+  };
+
   const onSubmit = (data: any) => {
+    const formattedDate = formatDate(data.ship_date);
+
     const dataToSend = {
       ...dataSubmit,
       ...data,
-      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc"
+      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
+      data_ship: formattedDate
     };
     handleSubmitLeadAndEmail(dataToSend)
     console.log(data);
