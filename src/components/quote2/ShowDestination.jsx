@@ -73,8 +73,8 @@ const ShowDestination = () => {
         <div className="w-[95%] px-2 h-max" >
 
           <div class="w-[95%] xs:w-[95%] sm:w-[85%] md:w-[85%]">
-            <span class="text-sm"
-            >Ooh right!
+            <span class="text-sm">
+              <b>Ooh right!</b>
               <br />
               <br />
               Your quote has been e-mailed to you. Ready to book?
@@ -82,8 +82,8 @@ const ShowDestination = () => {
             </span>
             <span>Great!</span>
 
-            <span>
-              <b>*NO PAYMENT REQUIRED*</b> until your pickup is scheduled.
+            <span className='ml-2'>
+              <b>NO PAYMENT REQUIRED</b> until your pickup is scheduled.
             </span>
           </div>
 
@@ -92,11 +92,7 @@ const ShowDestination = () => {
           <br /><br />
 
           <span className='text-sm'>
-            That's ok! You can change at any time.
-            <br />
-            - OR -
-            <br />
-            Book with one of our friendly specialists! <a
+            That's ok! You can change at any time with one of our friendly specialists! <a
               href="tel:(469) 619-0747"
             >
               <h5 class="text-primary text-base font-semibold m-0 text-btn-blue mt-4">
