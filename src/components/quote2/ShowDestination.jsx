@@ -73,13 +73,15 @@ const ShowDestination = () => {
         <div className="w-[95%] px-2 h-max" >
 
           <div class="w-[95%] xs:w-[95%] sm:w-[85%] md:w-[85%]">
-            <span class="text-sm">
+            <span class="text-base">
               <b>Ooh right!</b>
-              <br />
-              <br />
-              Your quote has been e-mailed to you. Ready to book?
-              <br />
             </span>
+            <br />
+            <br />
+            <span>
+              Your quote has been e-mailed to you. Ready to book?
+            </span>
+            <br />
             <span>Great!</span>
 
             <span className='ml-2'>
