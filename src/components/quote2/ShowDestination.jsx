@@ -96,7 +96,7 @@ const ShowDestination = () => {
           <b>Don't know the exact day?</b>
           <br /><br />
 
-          <span>
+          <span className='text-sm'>
             That's ok! You can change at any time. You will be still able to
             review your order.
             <br />
@@ -105,7 +105,7 @@ const ShowDestination = () => {
             Book with one of our friendly specialists! <a
               href="tel:(469) 619-0747"
             >
-              <h5 class="text-primary m-0 text-btn-blue mt-4">
+              <h5 class="text-primary text-base font-semibold m-0 text-btn-blue mt-4">
                 Call now (469) 619-0747
               </h5>
             </a></span>
