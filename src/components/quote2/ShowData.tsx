@@ -49,59 +49,54 @@ const ShowDataQuote = () => {
         )}
       </div>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
+
         <div className="font-bold justify-center">Trailer</div>
-        <table className="w-[95%] " >
-          <tbody>
-            <tr>
-              <td className="p-4">
-                <br />
-                {lead?.transport_type === '1'
-                  ? <img
-                    src={truckFlatbed.src}
-                    alt=""
-                    width="16"
-                    height="16"
-                    title=""
-                    id="transportTypeIcon"
-                  />
-                  : <img
-                    src={truck.src}
-                    alt=""
-                    width="16"
-                    height="16"
-                    title=""
-                    id="transportTypeIcon"
-                  />
-                }
-                <div id="transportType">
-                  {lead?.transport_type === '1' ? 'Open transport' : 'Enclosed transport'}
-                </div>
-              </td>
-              <td>
-                <br />
-                {operableStatus === 'Operable'
-                  ? <img
-                    src={op.src}
-                    alt=""
-                    width="16"
-                    height="16"
-                    title=""
-                    id="inop"
-                  />
-                  : <img
-                    src={inop.src}
-                    alt=""
-                    width="16"
-                    height="16"
-                    title=""
-                    id="inop"
-                  />
-                }
-                <div id="drives">{operableStatus}</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <tr>
+          <td className="p-2">
+            {lead?.transport_type === '1'
+              ? <img
+                src={truckFlatbed.src}
+                alt=""
+                width="16"
+                height="16"
+                title=""
+                id="transportTypeIcon"
+              />
+              : <img
+                src={truck.src}
+                alt=""
+                width="16"
+                height="16"
+                title=""
+                id="transportTypeIcon"
+              />
+            }
+            <div id="transportType">
+              {lead?.transport_type === '1' ? 'Open transport' : 'Enclosed transport'}
+            </div>
+          </td>
+          <td>
+            {operableStatus === 'Operable'
+              ? <img
+                src={op.src}
+                alt=""
+                width="16"
+                height="16"
+                title=""
+                id="inop"
+              />
+              : <img
+                src={inop.src}
+                alt=""
+                width="16"
+                height="16"
+                title=""
+                id="inop"
+              />
+            }
+            <div id="drives">{operableStatus}</div>
+          </td>
+        </tr>
       </div>
       <div
         className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2"

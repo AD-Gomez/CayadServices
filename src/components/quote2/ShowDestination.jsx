@@ -36,9 +36,9 @@ const ShowDestination = () => {
   return (
     <div className='w-full xs:mt-4 sm md:mt-4 :mt-4  h-max flex flex-col items-center'>
       <div className="w-full h-24 flex justify-end xs:justify-start sm:justify-start xs:w-[95%] sm:w-[95%] md:w-[85%] xs:ml-0 sm:ml-0 md:justify-start ml-2 w3-container mt-sm-0">
-        <div className="container w-[85%] mr-10 xs:min-w-full sm:min-w-full md:min-w-full p-3 border-[1px] ">
+        <div className="container w-[88%] mr-10 xs:min-w-full sm:min-w-full md:min-w-full p-3 border-[1px] ">
           <div className="flex row px-4 items-center w-full justify-between">
-            <div className='flex items-center'>
+            <div className='flex  items-center'>
               <div><img src="../img/point_a.webp" alt="Point A" /> </div>
               <p className='font-bold text-[#34a5e5] ml-2' >
                 Origin
@@ -77,11 +77,8 @@ const ShowDestination = () => {
           </div>
 
 
-          <span class="text-sm w-[95%] xs:w-[90%] sm:w-[90%] md:w-[85%]"
+          <span class="text-xs w-[95%] xs:w-[90%] sm:w-[90%] md:w-[85%]"
           >Fee of 4% will be charged over CC / Paypal / Venmo
-            <br />
-            <br />
-
             No fee will be charged over Zelle and Cash App</span>
           <br />
           <br />
@@ -95,8 +92,25 @@ const ShowDestination = () => {
               Don’t worry, you won’t pay until your pickup is scheduled.</span>
           </div>
 
+          <br />
+          <b>Don't know the exact day?</b>
+          <br /><br />
 
+          <span>
+            That's ok! You can change at any time. You will be still able to
+            review your order.
+            <br />
+            - OR -
+            <br />
+            Book with one of our friendly specialists! <a
+              href="tel:(469) 619-0747"
+            >
+              <h5 class="text-primary m-0 text-btn-blue mt-4">
+                Call now (469) 619-0747
+              </h5>
+            </a></span>
         </div>
+
       </div>
     </div>
   );
