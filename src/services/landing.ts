@@ -16,13 +16,13 @@ const sendEmail = async (data: any) => {
   }
 }
 
-async function sendLead (data: any): Promise<boolean> {
+async function sendLead (data: any): Promise<any> {
   try {
     const response = await fetch(`https://api.batscrm.com/leads`, {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const result = response.ok;
+    const result = response.text();
     return result
   } catch (error) {
     return false

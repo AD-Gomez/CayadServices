@@ -86,6 +86,18 @@ const getLead = (): any | null => {
   return null
 }
 
+const saveNumberLead = (data: string) => {
+  if (typeof window !== 'undefined') window.localStorage.setItem("numberLead", JSON.stringify(data));
+}
+
+const getNumberLead = (): any | null => {
+  if (isBrowser) {
+    const datos = localStorage.getItem('numberLead');
+    return datos ? JSON.parse(datos) : null;
+  }
+  return null
+}
+
 export {
   saveEmail,
   getEmail,
@@ -94,5 +106,7 @@ export {
   sendedEmail,
   sendedLead,
   getSendedEmail,
-  getSendedLead
+  getSendedLead,
+  saveNumberLead,
+  getNumberLead
 }

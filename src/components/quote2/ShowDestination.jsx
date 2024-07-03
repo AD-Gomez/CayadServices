@@ -72,24 +72,19 @@ const ShowDestination = () => {
 
         <div className="w-[95%] px-2 h-max" >
 
-          <div class="max-h-9">
-            <img src="../img/credit_cards.webp" class="max-h-9" /><br />
-          </div>
-
-
-          <span class="text-xs w-[95%] xs:w-[90%] sm:w-[90%] md:w-[85%]"
-          >Fee of 4% will be charged over CC / Paypal / Venmo
-            No fee will be charged over Zelle and Cash App</span>
-          <br />
-          <br />
-          <br />
-
           <div class="w-[95%] xs:w-[95%] sm:w-[85%] md:w-[85%]">
             <span class="text-sm"
-            >Due now, We charge you once the carrier has been dispatched for
-              your order.
-              <br /><br />
-              Don’t worry, you won’t pay until your pickup is scheduled.</span>
+            >Ooh right!
+              <br />
+              <br />
+              Your quote has been e-mailed to you. Ready to book?
+              <br />
+            </span>
+            <span>Great!</span>
+
+            <span>
+              <b>*NO PAYMENT REQUIRED*</b> until your pickup is scheduled.
+            </span>
           </div>
 
           <br />
@@ -97,8 +92,7 @@ const ShowDestination = () => {
           <br /><br />
 
           <span className='text-sm'>
-            That's ok! You can change at any time. You will be still able to
-            review your order.
+            That's ok! You can change at any time.
             <br />
             - OR -
             <br />
@@ -111,8 +105,8 @@ const ShowDestination = () => {
             </a></span>
         </div>
 
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

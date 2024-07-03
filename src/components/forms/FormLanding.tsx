@@ -8,7 +8,7 @@ import CheckboxInput from '../inputs/CustomCheckbox';
 import axios from 'axios'
 import SelectInput from '../inputs/CustomSelect';
 import DateInput from '../inputs/CustomInputDate';
-import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, sendedEmail, sendedLead } from '../../services/localStorage';
+import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, saveNumberLead, sendedEmail, sendedLead } from '../../services/localStorage';
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
@@ -549,6 +549,15 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
   );
 };
 
+const extractLeadNumber = (response: string) => {
+  const match = response.match(/Lead\s*:\s*(\d+)/);
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    throw new Error('No se pudo encontrar el número de lead en la respuesta.');
+  }
+};
+
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [dataSubmit, setDataSubmit] = useState<any>({})
@@ -563,7 +572,8 @@ const FormLanding = () => {
   const handleSubmitLead = async (data: any) => {
     const response = await sendLead(data)
     const { AuthKey, ...dataWithoutAuthKey } = data
-
+    const numberLead = extractLeadNumber(response)
+    saveNumberLead(numberLead)
     if (response) {
       let send = {
         ...dataWithoutAuthKey,
