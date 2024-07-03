@@ -21,15 +21,15 @@ const ShowDataQuote = () => {
         <table className="w-full">
           <tbody id="leadInfo">
             <tr>
-              <td className="bg-blue-100 p-2">Name</td>
+              <td className="bg-blue-100">Name</td>
               <td className="text-sm">{lead?.first_name}</td>
             </tr>
             <tr>
-              <td className="bg-blue-100 p-2">Email</td>
+              <td className="bg-blue-100">Email</td>
               <td className="text-sm">{lead?.email}</td>
             </tr>
             <tr>
-              <td className="bg-blue-100 p-2">Phone</td>
+              <td className="bg-blue-100">Phone</td>
               <td className="text-sm">{lead?.phone}</td>
             </tr>
 
@@ -37,39 +37,14 @@ const ShowDataQuote = () => {
         </table>
       </div>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
-        <div className="w-full justify-center"><p className=" font-bold">Route</p></div>
-        <tr>
-          <td className="bg-blue-100 p-2">Origin</td>
-          <td className="text-sm ml-2" id="vehicle-list">{lead?.origin_city}</td>
-        </tr>
-        <tr>
-          <td className="bg-blue-100 p-2">Destination</td>
-          <td className="text-sm" id="vehicle-list">{lead?.destination_city}</td>
-        </tr>
-      </div>
-      <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
         <div className="w-full justify-center"><p className=" font-bold">Vehicles</p></div>
 
         {lead && Array.isArray(lead.Vehicles) && (
-          lead.Vehicles.map((vehicles: vehicleTypes, index: any) => (
-            <>
-              <tr>
-                <td className="bg-blue-100 p-2">Vehicle_model_year_{index + 1}</td>
-                <td className="text-sm ml-2" id="vehicle-list">{vehicles.vehicle_model_year}</td>
-              </tr>
-              <tr>
-                <td className="bg-blue-100 p-2">Vehicle_make_{index + 1}</td>
-                <td className="text-sm" id="vehicle-list">{vehicles.vehicle_make}</td>
-              </tr>
-              <tr>
-                <td className="bg-blue-100 p-2">Vehicle_model_{index + 1}</td>
-                <td className="text-sm" id="vehicle-list">{vehicles.vehicle_model}</td>
-              </tr>
-              <tr>
-                <td className="bg-blue-100 p-2">Vehicle_inop_{index + 1}</td>
-                <td className="text-sm" id="vehicle-list">{vehicles.vehicle_inop === '1' ? 'Operable' : 'Inoperable'}</td>
-              </tr>
-            </>
+          lead.Vehicles.map((vehicles: vehicleTypes, i: any) => (
+            <tr>
+              <td className="bg-blue-100 p-2">Vehicle(s)</td>
+              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Operable' : 'Inoperable'}`}</td>
+            </tr>
           ))
         )}
       </div>
