@@ -45,7 +45,7 @@ const testimonials = [
   },
   {
     name: "Kimmy Tennant",
-    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ygtiSzcFFq8Q7kNvgGcWvtg&_nc_ht=scontent-hou1-1.xx&oh=00_AYBoJgyP20-E8EQE2hGFDajTv3zpXvdQiDm0tTtLqMILsQ&oe=6677A236',
+    image: 'https://scontent-dfw5-2.xx.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=uqoKlkPdyiAQ7kNvgFg2mOo&_nc_ht=scontent-dfw5-2.xx&oh=00_AYBq6U6Y__zktdRu0R43IfSgfwFxvJVlC2SbyAzp_TYobQ&oe=668C81F6',
     rating: 5,
     comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
     link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
@@ -97,7 +97,11 @@ const renderStars = (rating: number) => {
   );
 };
 
-const Testimonials = () => {
+interface testimonialsType {
+  title: string
+}
+
+const Testimonials = ({ title }: testimonialsType) => {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -110,7 +114,7 @@ const Testimonials = () => {
   return (
     <div className="w-3/4 fadeInUp xs:w-full md:w-11/12" data-wow-delay="0.5s">
       <h2 className="text-center text-4xl font-medium">
-        Our Customers Say
+        {title}
       </h2>
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
