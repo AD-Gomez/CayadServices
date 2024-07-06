@@ -9,7 +9,8 @@ const steps = [
     label: 'Step 1', title: 'Quote and book your order',
     description: 'in seconds (we’re talking finger-snapping fast!). Call or chat online with one of our advisors. After that, go ahead and compare with competition, we know you want to!',
     span: 'Click—or tap—here for an instant online quote',
-    img: why1
+    img: why1,
+    hasButton: true
   },
   {
     label: 'Step 2',

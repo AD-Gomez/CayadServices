@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { GetQuoteReact } from "./buttons/GetQuoteReact";
 
 interface Step {
   label: string;
@@ -7,6 +6,7 @@ interface Step {
   title?: string
   span?: string
   img?: any
+  hasButton?: boolean
 }
 
 interface VerticalStepperProps {
@@ -55,9 +55,15 @@ const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, on
                     <div className=' mb-8 text-[38px]'>{step?.title}</div>
                     <div className="text-base w-[80%] xs:w-[90%] sm:w-[90%] text-gray-500 ">
                       {step.span &&
-                        <span className='text-btn-blue text-base mr-[2px]'>{step.span}</span>
+                        <span className='text-btn-blue text-base hover:cursor-pointer mr-[2px]'><a href="/quote" >{step.span}</a></span>
                       }
                       {step.description}
+
+                      {step?.hasButton &&
+                        <>
+                          <GetQuoteReact />
+                        </>
+                      }
                     </div>
                   </div>
                   <div className='max-w-[400px] max-h-[400px]'>
