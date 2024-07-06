@@ -26,7 +26,7 @@ import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
 
 const weOffer = [
-  { description: 'Door to door transport', href: '#', icon: ChartPieIcon },
+  { description: 'Door to door transport', href: '/for-individuals/door-to-door', icon: ChartPieIcon },
   { description: 'Open car transport', href: '#', icon: CursorArrowRaysIcon },
   { description: 'Enclosed auto transport', href: '#', icon: FingerPrintIcon },
   { description: 'Motorcycle shipping', href: '#', icon: SquaresPlusIcon }
