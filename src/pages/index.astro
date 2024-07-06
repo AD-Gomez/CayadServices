@@ -8,6 +8,7 @@ import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
+import NumberPhone from "../components/NumberPhone.astro";
 ---
 
 <style>
@@ -413,21 +414,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
             >, or use our Live Chat
           </p>
 
-          <div class="flex items-center">
-            <div class="h-12 w-12 flex items-center justify-center bg-btn-blue">
-              <FaPhone className="text-[#FFFF]" />
-            </div>
-            <div class="pl-4">
-              <h6 class="text-[#19171fd2] font-semibold">
-                Call for any query!
-              </h6>
-              <a href="tel:(469) 619-0747">
-                <h3 class="text-2xl text-btn-blue font-semibold m-0">
-                  (469) 619-0747
-                </h3>
-              </a>
-            </div>
-          </div>
+          <NumberPhone />
         </div>
         <div>
           <div
