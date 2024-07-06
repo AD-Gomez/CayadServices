@@ -113,7 +113,7 @@ const Testimonials = ({ title }: testimonialsType) => {
 
   return (
     <div className="w-3/4 fadeInUp xs:w-full md:w-11/12" data-wow-delay="0.5s">
-      <h2 className="text-center text-4xl font-medium">
+      <h2 className="text-center mb-8 text-4xl font-medium">
         {title}
       </h2>
       <Swiper
