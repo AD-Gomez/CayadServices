@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Testimonials from "../../components/Testimonials";
+import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 ---
 
 <style>
@@ -26,11 +27,14 @@ import Testimonials from "../../components/Testimonials";
         Cayad is known for safe and secure door to door auto transportation
         services
       </p>
-      <button
-        data-aos="fade-right"
-        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >Get a quote</button
-      >
+      <a href="/quote/">
+        <button
+          data-aos="fade-right"
+          class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Get a Quote
+        </button>
+      </a>
     </div>
   </div>
 
@@ -54,7 +58,7 @@ import Testimonials from "../../components/Testimonials";
       </p>
     </div>
     <div data-aos="fade-left" class="w-[40%] xs:w-full sm:w-full p-4">
-      <img src="/public/img/home-car.webp" class="rounded-xl" />
+      <img src="/img/home-car.webp" class="rounded-xl" />
     </div>
   </div>
 
@@ -216,7 +220,7 @@ import Testimonials from "../../components/Testimonials";
         >
           <div class="h-full">
             <img
-              src="/public/img/door.webp"
+              src="/img/door.webp"
               class="object-cover w-full h-full"
               alt=""
             />
@@ -224,5 +228,8 @@ import Testimonials from "../../components/Testimonials";
         </div>
       </div>
     </div>
+  </div>
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
   </div>
 </Layout>

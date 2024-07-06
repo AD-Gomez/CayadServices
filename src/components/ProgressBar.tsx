@@ -82,19 +82,12 @@ const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, on
         </button>
         {activeStep < steps.length - 1 ? (
           <button
-            className="bg-btn-blue text-white px-4 py-2 rounded"
+            className="bg-btn-blue text-white px-4 py-2 rounded hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
             onClick={onNext}
           >
             Next
           </button>
-        ) : (
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded"
-            onClick={onComplete}
-          >
-            Complete
-          </button>
-        )}
+        ) : null}
       </div>
     </div>
   );
