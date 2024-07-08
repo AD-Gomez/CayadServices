@@ -21,6 +21,7 @@
     "@react-google-maps/api": "^2.19.3",
     "@types/googlemaps": "3.43.3",
     "@types/react-datepicker": "^6.2.0",
+    "@vercel/speed-insights": "^1.0.12",
     "aos": "^2.3.4",
     "astro": "4.8.6",
     "axios": "^1.7.2",
