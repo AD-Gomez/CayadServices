@@ -3,8 +3,6 @@ import GoogleTagManager from "../components/GoogleTagManager.astro";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
-import { ToastContainer } from "react-toastify";
-
 import "aos/dist/aos.css";
 interface Props {
   title: string;
@@ -45,18 +43,6 @@ const { title } = Astro.props;
   </head>
   <body class="relative">
     <Navbar client:load />
-    <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      client:load
-    />
     <slot />
     <ButtonChat client:load />
     <Footer />
