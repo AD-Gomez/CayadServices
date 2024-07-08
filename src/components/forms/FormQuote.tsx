@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead } from '../../services/localStorage';
 import { format } from 'date-fns';
+import { showNotification } from '../../utils/notificaction';
 
 
 const validationSchema = yup.object().shape({
@@ -213,6 +214,7 @@ const FormQuote = () => {
     const { AuthKey, ...dataWithoutAuthKey } = data
     console.log(dataWithoutAuthKey)
     if (response) {
+      showNotification({ text: 'success', icon: 'success' })
       let send = {
         ...dataWithoutAuthKey,
         origin: data.origin_city,

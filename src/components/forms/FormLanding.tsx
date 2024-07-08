@@ -15,6 +15,7 @@ import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import AutoSuggestInput from '../inputs/AutoSuggestInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import { format } from 'date-fns';
+import { showNotification } from '../../utils/notificaction';
 
 
 interface FormValues {
@@ -575,6 +576,7 @@ const FormLanding = () => {
     const numberLead = extractLeadNumber(response)
     saveNumberLead(numberLead)
     if (response) {
+      showNotification({ text: 'success', icon: 'success' })
       let send = {
         ...dataWithoutAuthKey,
         origin: data.origin_city,
