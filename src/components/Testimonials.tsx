@@ -115,7 +115,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
   return (
     <div className="w-[78%] fadeInUp xs:w-full md:w-11/12" data-wow-delay="0.5s">
       {position === 'left'
-        ? <h2 className="xs:px-8 sm:px-8 w-full mb-8 text-4xl font-medium">
+        ? <h2 className="xs:px-4 sm:px-4 w-full mb-8 text-4xl font-medium">
           {title}
         </h2>
         : <h2 className="text-center mb-8 text-4xl font-medium">
