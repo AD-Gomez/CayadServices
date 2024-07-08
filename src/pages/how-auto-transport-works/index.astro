@@ -3,11 +3,9 @@ import Layout from "../../layouts/Layout.astro";
 import ProgressBar from "../../components/ProgressBar";
 import Step from "../../components/Steps";
 import Testimonials from "../../components/Testimonials";
-import { FaUsers } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi";
-import { FaBusinessTime } from "react-icons/fa";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import NumberPhone from "../../components/NumberPhone.astro";
+import CountNumber from "../../components/CountNumber";
 ---
 
 <style>
@@ -365,73 +363,7 @@ import NumberPhone from "../../components/NumberPhone.astro";
           <NumberPhone />
         </div>
       </div>
-      <div
-        class="w-1/2 xs:w-full sm:w-full p-2 grid gap-4 grid-cols-2 xs:grid-cols-1"
-      >
-        <div class="col-sm-6">
-          <div class="bg-btn-blue p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
-            <h1 class="text-white text-[5rem]">
-              <FaUsers />
-            </h1>
-            <h2
-              class="text-white mb-2 text-[2rem] font-semibold"
-              style="display: inline-block!important;"
-              data-toggle="counter-up"
-            >
-              15,000
-            </h2>
-            <h2
-              class="text-white mb-2 text-[2rem] font-semibold"
-              style="display: inline-block!important;"
-            >
-              +
-            </h2>
-            <p class="text-white mb-0">Carriers</p>
-          </div>
-
-          <div class="bg-[#51CFED] p-4 wow fadeIn" data-wow-delay="0.5s">
-            <h1 class="text-white text-[5rem]">
-              <FaBusinessTime />
-            </h1>
-            <h2
-              class="text-white text-[2rem] font-semibold mb-2"
-              style="display: inline-block!important;"
-              data-toggle="counter-up"
-            >
-              5,000
-            </h2>
-            <h2
-              class="text-white text-[2rem] font-semibold mb-2"
-              style="display: inline-block!important;"
-            >
-              +
-            </h2>
-            <p class="text-white mb-0">Individual Drivers</p>
-          </div>
-        </div>
-
-        <div class="col-span-">
-          <div class="bg-[#198754] p-4 wow fadeIn" data-wow-delay="0.7s">
-            <h1 class="text-white text-[5rem]">
-              <HiUsers />
-            </h1>
-            <h2
-              class="text-white text-[2rem] font-semibold mb-2"
-              style="display: inline-block!important;"
-              data-toggle="counter-up"
-            >
-              100
-            </h2>
-            <h2
-              class="text-white mb-2 text-[2rem]"
-              style="display: inline-block!important;"
-            >
-              +
-            </h2>
-            <p class="text-white mb-0">Positive Reviews</p>
-          </div>
-        </div>
-      </div>
+      <CountNumber client:load />
     </div>
   </div>
 
