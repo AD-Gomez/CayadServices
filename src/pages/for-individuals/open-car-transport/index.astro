@@ -1,0 +1,215 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/open.webp") center center no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Open Auto Transport | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+        data-aos="fade-down"
+      >
+        Open auto transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Cayad is experienced in open car shipping
+      </p>
+      <GetQuoete />
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials
+      title="Read what other customers say about their experience with Cayad"
+      client:load
+    />
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          What is open auto transport?
+        </h1>
+        <p class="text-base mt-8">
+          Open auto transport is the most common type of car shipping service.
+          It's easier to arrange an open transport than an enclosed car shipping
+          due to the capacity of each, as open trailers can carry an average of
+          8-10 cars at once. Open car transport is also more affordable than
+          enclosed.
+        </p>
+      </div>
+      <div>
+        <img src="/public/img/open-auto.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div>
+      <h1
+        class="font-semibold xs:w-full sm:w-full xs:px-4 sm:px-4 text-[2.5rem]"
+      >
+        What you’ll like about open auto transport:
+      </h1>
+    </div>
+    <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">Fast</h5>
+          <p class="py-4" style="text-align: justify;">
+            Over 90% of truckers operate an open trailer in USA, so it will be
+            easier to locate one of them in the area. Open auto transport is the
+            fastest way to ship your vehicle.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Affordable
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Most people look for the best overall transportation option but if
+              you're looking for the cheapest, open auto transport is the way to
+              go. Having the capacity to carry more vehicles in a single trip,
+              open trailer truckers divide their travel expenses among more
+              clients.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Topload available
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Basically, transport trucks have different levels where vehicles
+              are loaded, the highest level is referred to as the top load.
+              Please note that a trailer with a single deck is still considered
+              top load as it ensures that there will be no vehicle above yours.
+              If you prefer, you can add this option for a little extra.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              Used by most car dealerships
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Dealers usually use open auto transport when they send cars from
+              one location to another. We work with some of the largest dealers
+              in the country and often haul brand new vehicles for them using
+              open auto transport.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why choose Cayad for open car shipping?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="../img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Best price</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We always offer the best car shipping prices on the market. Our
+                transportation specialists determines all factors to get you the
+                fairest and accurate open car transport cost as possible.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="../img/countries.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Friendly customer service</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Our representatives are always friendly and helpful. They will
+                make sure that you have an excellent experience from start to
+                finish.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="../img/easy.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">
+                Multi-vehicle, Door to door auto transport
+              </h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Families traveling across the country will enjoy our multi
+                vehicle door to door transportation services. Yo won't need to
+                worry at all, each car will be delivered at the same time.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/banner.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
+  </div>
+</Layout>

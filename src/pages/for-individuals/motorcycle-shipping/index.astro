@@ -1,0 +1,242 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import NumberPhone from "../../../components/NumberPhone.astro";
+import CountNumber from "../../../components/CountNumber";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/motorcycle.webp") center center no-repeat;
+    background-size: cover;
+    background-position-y: 60%;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Motorcycle Shipping | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+        data-aos="fade-down"
+      >
+        Motorcycle Shipping: Easy and Convenient
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Cayad ships motorcycles of all types across all 50 states
+      </p>
+      <GetQuoete />
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials
+      title="Read what other motorcycle enthusiasts say about their delivery experience with Cayad"
+      client:load
+    />
+  </div>
+
+  <div class="w-full flex p-4 justify-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-around"
+    >
+      <div class="w-1/2 xs:w-full sm:w-full p-2">
+        <h1 class="text-[2.5rem] leading-tight font-bold text-[#19171fd2]">
+          Why should you choose Cayad Auto Transport for your motorcycle
+          shipment?
+        </h1>
+        <p class="mt-8">
+          With years of experience in the industry, we have honed our services
+          to ensure safe and efficient motorcycle transportation. No matter
+          where you are located in the USA, we are ready to pick up and deliver
+          your motorcycle. Our extensive network allows us to reach every corner
+          of the country. We understand the value of your motorcycle, and we
+          prioritize its safety throughout the shipping process. Our team uses
+          secure and reliable methods to keep your bike in perfect condition. We
+          believe in providing top-notch customer support. Our dedicated team is
+          available to address any questions or concerns you may have. We
+          genuinely care about your satisfaction and strive to offer you the
+          best experience possible.
+        </p>
+        <div class="mt-8">
+          <NumberPhone />
+        </div>
+      </div>
+      <CountNumber client:load />
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Motorcycle shipping services made easy
+        </h1>
+        <p class="text-base mt-8">
+          Nationwide motorcycle shipping has never been easier with Cayad Auto
+          Transport. We offer two types of motorcycle transport services to our
+          customers: Door to door (home delivery) and shipping between
+          distribution centers. Home delivery (Door to door) transport is the
+          most common and preferred customer solution.
+          <br />
+          <br />
+
+          When shipping a motorcycle Door to door, our assigned carrier will
+          arrive at your location and load your motorcycle onto patented metal
+          skids and specialized platforms made specifically for transporting
+          motorcycles, scooters and ATV’s.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/public/img/moto-ship.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-bold">
+            Motorcycle shipping and seasonal demand
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            While most companies base their pricing estimates for transport
+            services in relation to seasonal market demand, Cayad Auto Transport
+            provides you with a set price not directly influenced by typical
+            demand fluctuations.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 shadow-sm hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-bold">
+              Why should I transport my motorcycle with us?
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              At Cayad Auto Transport, we have built a reputation as the
+              industry-leader in vehicle transport. With more than 3 years of
+              experience, we are the number one provider for many of the world’s
+              largest OEM manufacturers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for enclosed auto transport?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">13K+ auto carriers</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Cayad Auto Transport has a huge network of haulers who are
+                personally vetted auto shipping experts, ensuring your
+                Motorcycle is transported by trusted members of the industry.
+                These shipping companies will treat your motorcycle like their
+                own.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/countries.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Zero upfront payment</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                You read that right, $0! We only charge your motorcycle
+                transport cost once the carrier has been dispatched to your
+                location.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/easy.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Dedicated advisors</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Our team of professional shipping advisors are committed to
+                locating the best carrier solution for every motorcycle we
+                transport. We will monitor your shipment around the clock.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="../img/motorcycle.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="footer--img h-[30vh] w-full bg-center flex xs:flex-col sm:flex-col xs:h-max sm:h-max justify-center items-center"
+  >
+    <div class="w-[80%] xs:w-[90%] sm:w-[90%] opacity-[0.9] p-2 rounded-xl">
+      <div class="bg-[#778899] xs:w-[100%] sm:w-[100%] w-[60%] p-2 rounded-xl">
+        <h2 class="text-white text-[30px]">
+          Ready to transport your car with Cayad Auto Transport?
+        </h2>
+        <p class="text-white text-lg">
+          Our car shipping advisors are available by calling
+          <a
+            href="tel:813-333-1100"
+            class="text-lg hover:underline mr-[1px] leading-6"
+          >
+            (469) 619-0747
+          </a> to answer all your questions.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
+  </div>
+</Layout>

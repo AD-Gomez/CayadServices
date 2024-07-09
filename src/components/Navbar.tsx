@@ -27,9 +27,9 @@ import { FaPhone } from 'react-icons/fa'
 
 const weOffer = [
   { description: 'Door to door transport', href: '/for-individuals/door-to-door', icon: ChartPieIcon },
-  { description: 'Open car transport', href: '#', icon: CursorArrowRaysIcon },
-  { description: 'Enclosed auto transport', href: '#', icon: FingerPrintIcon },
-  { description: 'Motorcycle shipping', href: '#', icon: SquaresPlusIcon }
+  { description: 'Open car transport', href: '/for-individuals/open-car-transport', icon: CursorArrowRaysIcon },
+  { description: 'Enclosed auto transport', href: '/for-individuals/enclosed-auto-transport/', icon: FingerPrintIcon },
+  { description: 'Motorcycle shipping', href: '/for-individuals/motorcycle-shipping/', icon: SquaresPlusIcon }
 ]
 
 const weServe = [
