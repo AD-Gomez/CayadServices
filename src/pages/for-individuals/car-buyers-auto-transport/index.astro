@@ -1,0 +1,323 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/online.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Buy A Car | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Buy a car online and have it delivered
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Cayad Auto Transport makes things super easy for online buyers
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials
+      position="left"
+      title="Read what other online car buyers say about their experience with Cayad"
+      client:load
+    />
+  </div>
+
+  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
+    <div class="w-[80%] xs:w-[100%] sm:w-[100%] px-4">
+      <h2
+        data-aos="fade-up"
+        class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold"
+      >
+        Why you should buy a car online and have it delivered:
+      </h2>
+
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+            We schedule the pick-up
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            Arranging transportation is the biggest obstacle when you buy a new
+            car online and have it delivered. The numerous phone calls to deal
+            with the seller’s conditions take time and money. Avoid that hassle
+            with Cayad’s Door to door auto transport service.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Save money
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              You would be smart to buy a car online and have it delivered.
+              You'll save time, money and energy when you ship a car with Cayad
+              Auto Transport.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Skip that airplane ticket
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Airplane fares are expensive if purchased last minute. Save the
+              money for the flight if you plan to pick-up your car yourself. We
+              can load anywhere in the United States and deliver to a convenient
+              place at a price you’ll love.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              Buy your car from anywhere
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Don’t want to waste time going to get your vehicle by yourself? No
+              problem. Cayad Auto Transport can deliver your auto from anywhere,
+              making it even easier to buy a car online and have it delivered to
+              your door.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Why you should buy a car online delivered with Cayad:
+        </h1>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">Pick-up from any dealership</h3>
+          <p class="text-base mt-8">
+            Cayad Auto Transport can transport your car from any dealer to your
+            door. We proud of having experienced auto transport experts worked
+            with several dealers and successfully completed their shipments.”
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">Auction pick-up​</h3>
+          <p class="text-base mt-4">
+            Auctions have their own rules for buyers to buy a car online and
+            have it delivered. We can load your car from any auction and bring
+            it to you safely and securely.
+          </p>
+        </div>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/online-car.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/online-car1.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <div class="flex text-base text-[#ffd700]">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6 fill-yellow-400"
+            >
+              <path
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6 fill-yellow-400"
+            >
+              <path
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6 fill-yellow-400"
+            >
+              <path
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6 fill-yellow-400"
+            >
+              <path
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6 fill-yellow-400"
+            >
+              <path
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-[#19171fd2] font-bold text-base">Rated company</h1>
+        <p class="text-base mt-4">
+          Our professional Auto Transport Advisors are here 365 days a year and
+          will guide you through the shipping process if you choose to buy a new
+          car online and have it delivered straight to your door.
+        </p>
+
+        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+          Track your order on Live Chat
+        </h1>
+        <p class="text-base mt-4">
+          Once you make that big purchase, you can track your car shipping order
+          via calling your dedicated agent or ask questions about your order on
+          Live Chat!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why choose Cayad for your car shipment
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">The most cost effective company</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                In order to be the best and ser you always we are decided to be
+                the most cost effective solution for all your transportation
+                needs nawadays, we have the oportunity to move for you at the
+                best price ever.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">A+ claims team</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Antique car haulers carry higher insurance policy limits due to
+                the higher value of their cargo. Our compliance team checks the
+                insurance coverage of all of our carriers. If your vehicle is
+                worth $50,000 or more, we recommend using enclosed auto
+                transport.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">
+                Covered auto transport compliance standards
+              </h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We have a compliance department that checks all exotic auto
+                transport carriers in our network to ensure we only work with
+                the most professional car haulers.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/onlinebuyers.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

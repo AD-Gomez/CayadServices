@@ -33,12 +33,12 @@ const weOffer = [
 ]
 
 const weServe = [
-  { description: 'Online car buyers', href: '#', icon: ChartPieIcon },
-  { description: 'College students', href: '#', icon: CursorArrowRaysIcon },
-  { description: 'Snowbirds', href: '#', icon: FingerPrintIcon },
-  { description: 'Car collectors', href: '#', icon: SquaresPlusIcon },
-  { description: 'Car resellers shipping', href: '#', icon: ArrowPathIcon },
-  { description: 'Military', href: '#', icon: ArrowPathIcon },
+  { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport', icon: ChartPieIcon },
+  { description: 'College students', href: '/for-individuals/students-auto-transport/', icon: CursorArrowRaysIcon },
+  { description: 'Snowbirds', href: '/for-individuals/snowbirds-auto-transport/', icon: FingerPrintIcon },
+  { description: 'Car collectors', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
+  { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: ArrowPathIcon },
+  { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ArrowPathIcon },
 ]
 
 const forBusinesses = [

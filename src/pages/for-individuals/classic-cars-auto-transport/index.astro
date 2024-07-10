@@ -1,0 +1,263 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/classic-car.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Classic Car Auto Transport | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Classic car transport and exotic car transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Nobody outshines Cayad Auto Transport’s top-rated classic car transport
+        services
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Clients Say!" client:load />
+  </div>
+
+  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
+    <div class="w-[80%] xs:w-[100%] sm:w-[100%] px-4">
+      <h2
+        data-aos="fade-up"
+        class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold"
+      >
+        Why you might choose exotic car transport:
+      </h2>
+
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+            Shipped with care
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            We ship all kinds of cars, including classic, luxury, and brand new
+            vehicles. We even offer international classic car transport to
+            selected ports.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Avoid exposure to the elements
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              We know that you want your car to arrive as clean as when you left
+              it. Avoid exposure to the elements or extreme weather with our
+              enclosed auto transport option.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Interstate compliant
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              We have a compliance department that checks all auto classic cars
+              transport trucks in our network to ensure we only work with the
+              most professional classic car hauler companies possible.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              Call your driver anytime
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Exotic car transport can be stressful, but Cayad Auto Transport
+              makes it easy with status updates and providing you with the
+              contact information of your truck driver.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">
+            Years of classic car experience
+          </h3>
+          <p class="text-base mt-8">
+            Highways and long-distance travel are unpredictable even at the best
+            of times. Get your exotic car transport done by the industry leader.
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">‌Super helpful claims team ​</h3>
+          <p class="text-base mt-4">
+            Exotic car transport could have its complications, which is why
+            Cayad Auto Transport's team is always here to friendly help you and
+            make sure that everything goes smoothly, giving you the best
+            experience possible.
+          </p>
+        </div>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/classic-car1.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/classic-car2.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-bold text-base">
+          Only work with approved car carriers
+        </h1>
+        <p class="text-base mt-4">
+          When it comes to classic car transport and exotic car transport, Cayad
+          Auto Transport takes things very seriously. We vet each and every one
+          of our 15k+ carriers to ensure you’re getting the reliable, classic
+          car transport service that you paid for.
+        </p>
+
+        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+          Fully-insured auto transport
+        </h1>
+        <p class="text-base mt-4">
+          Your car will be covered from transport damage with the carrier’s
+          cargo insurance. Our compliance team ensures that ALL our carriers
+          meet and maintain our insurance standards.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for Classic car transport?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Competitive Prices</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                At Cayad Auto Transport, we understand the value and importance
+                of your classic car. That's why we offer competitive prices that
+                fit your specific budget. We believe in offering transparent
+                pricing, ensuring that you will receive a fair and affordable
+                quote for the transportation of your prized classic car. Our
+                goal is to make classic car transportation accessible and
+                cost-effective for all enthusiasts.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Care and Attention</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We understand that classic cars require special care and
+                attention, and we go the extra mile to ensure their well-being
+                during transport. That's why we partner with drivers who deeply
+                appreciate classic cars and their unique requirements. From
+                handling loading and unloading with precision to employing safe
+                strapping and padding techniques, we take every precaution to
+                protect your classic car from any potential damage.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Expert Assistance</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Our team of highly trained professionals is dedicated to
+                providing excellent customer service and expert assistance
+                throughout the classic car transportation process. We are here
+                to address any concerns or questions you may have and guide you
+                throughout the entire journey. Our trained staff is committed to
+                ensuring a smooth and worry-free experience.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/classic-car.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

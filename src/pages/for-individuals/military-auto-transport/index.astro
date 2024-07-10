@@ -1,0 +1,331 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/mil.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Military Car Shipping | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Safe & reliable nationwide military car shipping
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Ship your car with unbeatable prices
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Customers Say" client:load />
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] mt-8 xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div
+        data-aos="fade-up"
+        class="w-[50%] xs:w-full sm:w-full h-[100%] px-4 xs:p-4 sm:p-4"
+      >
+        <h2 class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold">
+          How does military PCS vehicle shipping work?
+        </h2>
+        <p class="text-justify mt-2 w-[80%] xs:w-[100%] sm:w-[100%]">
+          Military PCS vehicle shipping is entitled to certain members assigned
+          to a new duty station. Only one privately owned vehicle (POV) may be
+          shipped at government expense, according to the Department of Defense.
+          Alternate port requests must get approval from the Military Traffic
+          Management Command (MTMC).
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/military1.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/military2.webp" class="rounded-xl" />
+      </div>
+      <div
+        data-aos="fade-up"
+        class="w-[50%] xs:w-full sm:w-full h-[100%] px-4 xs:p-4 sm:p-4"
+      >
+        <h2 class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold">
+          Does the military ship your car for free?
+        </h2>
+        <p class="text-justify mt-2 w-[80%] xs:w-[100%] sm:w-[100%]">
+          The military may ship your car for free if you're an a) active member
+          of the military and b) have received permanent change of station (PCS)
+          orders. The government only pays for one privately owned vehicle (POV)
+          to be shipped, according to the Department of Defense.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
+    <div class="w-[80%] xs:w-[100%] sm:w-[100%] px-4">
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+            Simple pick-up and delivery​
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            Our drivers will follow your directions for pick-up and delivery,
+            transporting your vehicle to your final destination safely and
+            securely. Our three-step military car transport service is easy and
+            hassle-free for military PCS shipments.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Military discounts
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              We offer PSC vehicle shipping discounts for active duty, veterans,
+              Reserves, National Guard, and military dependents. It’s the least
+              we can do for the brave men and women who protect our country.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Additional baggage allowed
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              You are allowed to keep one suitcase or box with personal items
+              (under 100 lbs.) in the trunk of your car at no additional charge,
+              as long as it does not interfere with the safe transport of the
+              vehicle. The assigned trucker has the right to check the trunk for
+              unlawful items.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              We understand military life
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              We know you and your family may get a PCS order at any time, and
+              that this can be stressful. We are here to take care of your
+              family vehicles so you can focus on transitioning yourself and
+              your family to your new home.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] mt-8 xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">
+            No carrier assignment, no charge
+          </h3>
+          <p class="text-base mt-8">
+            We work quickly to find carriers to ship your car, and we don’t
+            charge credit card payments until after we find a dependable car
+            hauler for your vehicle.
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">‌High compliance standards ​</h3>
+          <p class="text-base mt-4">
+            We have a carrier compliance department that checks all carriers in
+            our network to ensure we only work with the most professional,
+            qualified, and dedicated truckers.
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">
+            Leaders in military PCS vehicle shipping ​
+          </h3>
+          <p class="text-base mt-4">
+            A PCS relocation can be tough on families, but you shouldn’t have to
+            worry about whether your car will arrive on time. Our goal is always
+            stress-free military car shipping
+          </p>
+        </div>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/usa-flag1.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/usa-flag.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-bold text-base">
+          Excellent customer service
+        </h1>
+        <p class="text-base mt-4">
+          Our customer support team is available 365 days a year for extended
+          hours. Our agents will guide you in every step of the transport of
+          your vehicle. They will also provide you with timely updates to keep
+          you informed.
+        </p>
+
+        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+          Dealerships choose us
+        </h1>
+        <p class="text-base mt-4">
+          Cayad Auto Transport takes care of the car shipping needs of some of
+          the largest dealerships and car manufacturers in the country. We
+          provide the same care and attention to detail to military personnel.
+        </p>
+
+        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+          Safe military car shipping
+        </h1>
+        <p class="text-base mt-4">
+          All of our carriers are fully insured, but we also carry contingent
+          cargo insurance so you can rest assured that your interests will be
+          protected, no matter what.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for your military car
+        shipping?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Competitive Prices</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Cayad Auto Transport understands the importance of providing
+                cost-effective solutions for military car shipping. We offer
+                competitive prices that are tailored to meet the unique needs of
+                military personnel. Our transparent pricing structure ensures
+                that you receive a fair and affordable quote for shipping your
+                vehicle. By choosing us, you can trust that you are getting the
+                best value for your money.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Convenience and Care</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                At Cayad Auto Transport, we prioritize convenience and care when
+                it comes to military car shipping. We strive to make the process
+                as easy and stress-free as possible for our customers. From
+                scheduling the pickup of your vehicle to delivering it to its
+                destination, we handle all the logistics so you can focus on
+                other important matters. Our experienced drivers and transport
+                specialists take great care in handling your vehicle to ensure
+                it arrives in the same condition as when it was picked up
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Exceptional Assistance</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Our dedicated team is committed to providing exceptional
+                assistance to military personnel. We understand the unique
+                challenges and requirements that come with military car
+                shipping. Our knowledgeable staff is available to guide you
+                through the entire process, from helping you choose the right
+                shipping options to providing updates on the status of your
+                shipment. We are here to support you and ensure a smooth and
+                hassle-free experience.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/military2.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

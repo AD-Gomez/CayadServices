@@ -1,0 +1,294 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import NumberPhone from "../../../components/NumberPhone.astro";
+import CountNumber from "../../../components/CountNumber";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/student.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Students Auto Transport | Cayad Service">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Head to college with Cayad Auto Transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Need to ship a car to college? We’re here to help
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials
+      position="left"
+      title="Read what other online car buyers say about their experience with Cayad"
+      client:load
+    />
+  </div>
+
+  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
+    <div class="w-[80%] xs:w-[100%] sm:w-[100%] px-4">
+      <h2
+        data-aos="fade-up"
+        class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold"
+      >
+        Why college students prefer Cayad Auto Transport:
+      </h2>
+
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+            Arrive Safely
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            Moving to college is an emocional and complicated task. Don't fret,
+            we will transport your vehicle the old-fashioned way, from your home
+            to campus and back.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              No driving alone
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              You don't want to risk your life getting into a car accident.
+              Ensure a smooth trip from your home to campus and back with Cayad
+              Auto Transport.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Extra luggage allowed
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              You are allowed to keep one suitcase or box with personal items
+              (under 100 lbs.) in the trunk of your car at no additional charge.
+              The assigned trucker has the right to check the trunk for unlawful
+              items.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              Save time
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              If you drive across the country, you’ll shorten the lifespan of
+              your car by adding miles and you will also have to go through the
+              hassle of lenghty driving through different states.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">Prospective leader</h3>
+          <p class="text-base mt-8">
+            Cayad Auto Transport is one of the fastest growing auto transport
+            companies in the industry. The company team aims to become the
+            largest service provider in the US market.
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-[1.5rem] font-bold">Affordable auto transport ​</h3>
+          <p class="text-base mt-4">
+            We know that college students don’t exactly have deep pockets. With
+            benefits like our ‘Discounted Cash Price’ payment option, Cayad Auto
+            Transport is ready to work with any sized budget.
+          </p>
+        </div>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/student1.webp" class="rounded-xl w-[90%] object-cover" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/student2.webp" class="rounded-xl w-[90%] object-cover" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-bold text-base">
+          Flexible Door to door pickup and delivery options
+        </h1>
+        <p class="text-base mt-4">
+          People who are moving and relocating book orders with Cayad Auto
+          Transport every day. We have experience in transporting cars for both
+          small and large households with convenient pick-up and delivery
+          options.
+        </p>
+
+        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+          Excellent customer service available on Live Chat
+        </h1>
+        <p class="text-base mt-4">
+          You can easily check what part of the journey your vehicle is through
+          our Live Chat link, just asking for updates.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex p-4 justify-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-around"
+    >
+      <div class="w-1/2 xs:w-full sm:w-full p-2">
+        <h1 class="text-[2.5rem] text-[#19171fd2]">
+          Why should you choose Cayad Auto Transport for your car shipment
+        </h1>
+        <p>
+          In striving to be the best in the industry, Cayad Auto Transport has
+          become one of the fastest growing companies in American Market. A huge
+          number of auto transport specialists are ready to help deliver
+          satisfaction as well as your vehicle. We have a very large carrier
+          network monitored by our special team to make sure the shipping
+          process goes through with no hassle. Shipping your vehicle is not our
+          only concern. We want to deliver professional service so that you get
+          completely positive experience about shipping cars with auto transport
+          service providers. Establishing partnerships with largest dealers,
+          auctions and moving companies in the country to meet their
+          transportation needs is also our top priority.
+        </p>
+        <div class="mt-8">
+          <NumberPhone />
+        </div>
+      </div>
+      <CountNumber client:load />
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for students?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Easy Auto Transportation</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Moving your vehicle should be a hassle-free experience, and with
+                Cayad Auto Transport, it is. Our team is experienced in handling
+                all aspects of transportation, ensuring that your vehicle is
+                safely moved from one location to another. We provide a seamless
+                and convenient process, so you can focus on other important
+                tasks while we take care of your auto transport needs.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">A+ claims team</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Moving your vehicle should be a hassle-free experience, and with
+                Cayad Auto Transport, it is. Our team is experienced in handling
+                all aspects of transportation, ensuring that your vehicle is
+                safely moved from one location to another. We provide a seamless
+                and convenient process, so you can focus on other important
+                tasks while we take care of your auto transport needs.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Expert Assistance</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We take pride in our team of highly trained and knowledgeable
+                professionals who are dedicated to providing top-notch customer
+                service. Our staff is here to assist you every step of the way,
+                offering guidance and answering any questions you may have.
+                Whether it's helping you with the paperwork or ensuring that
+                your vehicle is properly secured, our team is committed to
+                making your auto transport experience smooth and stress-free.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/student.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
