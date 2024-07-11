@@ -42,9 +42,9 @@ const weServe = [
 ]
 
 const forBusinesses = [
-  { description: 'Auto dealerships', href: '#', icon: ChartPieIcon },
-  { description: 'Auto auctions', href: '#', icon: CursorArrowRaysIcon },
-  { description: 'Heavy haul', href: '#', icon: FingerPrintIcon }
+  { description: 'Auto dealerships', href: '/for-businesses/auto-dealers/', icon: ChartPieIcon },
+  { description: 'Auto auctions', href: '/for-businesses/auto-auctions/', icon: CursorArrowRaysIcon },
+  { description: 'Heavy haul', href: '/for-businesses/heavy-haul/', icon: FingerPrintIcon }
 ]
 
 const whyUs = [

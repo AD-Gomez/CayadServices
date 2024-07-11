@@ -1,0 +1,302 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/heavyhaul.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Heavy Haul | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Heavy Haul Transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Discover the Cayad Services Advantage: Your Trusted Heavy Equipment
+        Moving Experts
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Customer Say" client:load />
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Heavy haul with Cayad
+        </h1>
+        <p class="text-base mt-8">
+          At Cayad Services, we take pride in offering an extensive selection of
+          trailers, catering to all your heavy equipment moving needs. Our
+          diverse fleet includes specialized options designed to ensure safe and
+          efficient transportation for your valuable cargo. Our trailer
+          selection
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/stretch.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/winch-truck.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Winch truck
+        </h1>
+        <p class="text-base mt-8">
+          A specialized type of truck that contains a winch. A winch is a
+          powered reel of cable that can be used to lift or pull heavy cargo.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">RGN</h1>
+        <p class="text-base mt-8">
+          RGN trailers are mainly used for transporting heavy equipment, cars,
+          and trucks, among others. Heavy equipment that can't be driven through
+          public roads is loaded on the suitable RGN trailer and secured for
+          transport.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/rgn.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/stepdeck.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Step deck</h1>
+        <p class="text-base mt-8">
+          A step deck trailer is designed to carry cargo that is too tall to go
+          on a flatbed truck. A step deck truck can help you haul loads without
+          having to obtain special permits for exceeding the legal height limit.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Low boy</h1>
+        <p class="text-base mt-8">
+          A lowboy trailer is a low platform flatbed trailer used to haul heavy,
+          bulky and taller than normal items. They have carry capacities of 25
+          tons (50,000 pounds) & 35 tons (70,000 pounds). A lowboy trailer is an
+          excellent choice for hauling construction equipment, agricultural
+          machinery and other heavy-duty loads.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/lowboy.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/dropdeck.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Drop deck</h1>
+        <p class="text-base mt-8">
+          Similar as a step-deck or lowboy trailer, a drop deck trailer is
+          specially designed to transport taller cargo exceeding the maximum
+          height. It is retractable, has two deck levels (upper and lower), and
+          has no roof, sides, or door.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Tanker trailer
+        </h1>
+        <p class="text-base mt-8">
+          Fuel tank trailers are built to hold liquids and dry materials for
+          easy, safe transportation. They can transport a range of cargo, from
+          milk to hazardous chemicals. The tank may be divided into different
+          sections by partitions, allowing drivers to carry different materials
+          in the same load.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/tankertrailer.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/flatbed.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Flatbed</h1>
+        <p class="text-base mt-8">
+          A flatbed trailer is a typical open deck equipment that has no roof
+          nor sides. It is mainly used for transporting heavy, oversized, wide
+          and indelicate goods such as machinery, building supplies or
+          equipment. The flatly shaped body makes it much easier to load and
+          unload goods.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Double drop
+        </h1>
+        <p class="text-base mt-8">
+          Double drop trailers are designed to carry taller loads because their
+          cargo bed can go as low as 18 inches off the ground. This adds a
+          considerable amount to your height clearance. Having a lower center
+          means the center of gravity is also lower, which makes it safer than
+          standard flatbeds.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/doubledrop.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for heavy haul transport?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Firstly</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We offer competitive and affordable pricing options. We
+                understand that heavy haul transport can be a significant
+                investment, and our goal is to provide cost-effective solutions
+                that fit within your budget. Rest assured that with Cayad Auto
+                Transport, you will receive high-quality services without
+                breaking the bank.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Secondly</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We prioritize ease and convenience in every step of the shipping
+                process. Our team is dedicated to ensuring a seamless experience
+                for our clients. From initial consultation to final delivery, we
+                handle all the logistics and paperwork, so you can focus on
+                other aspects of your business. We have streamlined our
+                processes to minimize any disruptions or complications,
+                providing you with a hassle-free experience.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Lastly</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We offer comprehensive assistance throughout the entire process.
+                We understand that heavy haul transport can be complex and
+                require specialized knowledge. That's why our team of experts is
+                available to guide you through every step. Whether you have
+                questions about shipping regulations, insurance coverage, or
+                documentation requirements, we are here to provide you with the
+                necessary support and guidance.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/poweronly.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

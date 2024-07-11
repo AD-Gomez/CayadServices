@@ -1,0 +1,359 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/auction.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Auto Auction Shipping | Cayad Autro Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        When timing is everything, count on Cayad Auto Transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Cayad Auto Transport delivers resold cars to new owners
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Customer Say" client:load />
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Transport vehicles quickly and conveniently
+        </h1>
+        <p class="text-base mt-8">
+          You’re not just running an auction business, you’re orchestrating
+          hundreds of moves with such precision that top-rated surgeons would be
+          impressed. One wrong move, miscommunication or delay and your
+          business, as well as those of your buyers and sellers, could cost you
+          money. That’s why having the right transportation and specialist
+          partner on your team is critically important.
+        </p>
+
+        <p class="text-base mt-8">
+          Cayad Auto Transport has the technology and carrier resources to
+          efficiently transport inbound and outbound vehicles for your auto
+          auction operation.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/auction_circle_1.webp" class="rounded-xl h-[80%]" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex flex-col justify-between"
+    >
+      <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        Transport vehicles quickly and conveniently
+      </h1>
+      <p class="text-base text-[#555] mt-4">
+        Cayad can handle moves for any type of auction operation—large physical
+        auctions and online marketplaces, as well as independent and specialty
+        auto auctions.
+      </p>
+
+      <p class="text-base text-[#555] mt-4">
+        The auction team at Cayad understands that moving vehicles your way is
+        the best way. Our services can complement your specific processes,
+        following your hours of operation, regulations, gate pass procedures and
+        vehicle location strategy.
+      </p>
+      <p class="text-base text-[#555] mt-4">
+        We provide reliable pricing though our market-driven pricing engine,
+        which analyzes historical trends, seasonality and surplus vs. demand to
+        generate rates. We can also customize set pricing to fit your exact
+        needs or provide contract pricing.
+      </p>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/dealership_circle_3.avif" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Single-unit move expertise
+        </h1>
+        <p class="text-base mt-8">
+          We are the leader in single-unit moves and have the capacity to pickup
+          or deliver vehicles just around the corner or more than 140 miles
+          away. Whether you have a single vehicle to transport or one hundred,
+          Cayad’s scalable capacity provides quick response with skilled vehicle
+          handling and average pickup and transit times lower than the
+          competition.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Nationwide pickup and delivery coverage
+        </h1>
+        <p class="text-base mt-8">
+          Our vetted network of more than 15,000 carriers includes small,
+          independent owner operators in markets from coast to coast. All
+          carriers are screened, monitored and evaluated on a regular basis to
+          ensure they meet insurance and safety requirements. They understand
+          and respect the strict security protocols that must be followed in the
+          auction industry.
+        </p>
+      </div>
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/dealership_circle_5.webp" class="rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+    >
+      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
+        <img src="/img/dealership_circle_6.webp" class="rounded-xl" />
+      </div>
+      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
+        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+          Technologies for speed and efficiency
+        </h1>
+        <p class="text-base mt-8">
+          If you leverage auction software, we can seamlessly integrate with
+          your system so you can quickly book orders and gain visibility into
+          all movements, all on one platform. To speed unloading, improve
+          accuracy and reduce the billing cycle, Cayad uses electronic proof of
+          delivery (ePOD) and digital bill of lading (BOL).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
+    <div class="w-[80%] xs:w-[100%] sm:w-[100%]">
+      <h2
+        data-aos="fade-up"
+        class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold"
+      >
+        Cayad is the ideal auto transport partner for dealerships
+      </h2>
+
+      <div
+        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
+      >
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.3s"
+        >
+          <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+            Experience
+          </h5>
+          <p class="py-4" style="text-align: justify;">
+            Cayad Auo Transport has been moving cars one at a time since 2007.
+            We average 400 shipments per day, including weekends, and can safely
+            handle your local and long-distance moves.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Technology
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              We leverage the latest technology to make car shipping easier and
+              more convenient for our customers. Our innovation and service
+              drive progress for our customers’ operations.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.7s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
+              Innovation
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              Our priority on product and service innovations fuels our
+              customers’ success. We were experts checking the market for get
+              the best rates.
+            </p>
+          </div>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="col-lg-6 col-md-6 hover:shadow-xl duration-300 wow fadeInUp"
+          data-wow-delay="0.9s"
+        >
+          <div class="team-item p-4 xs:p-0 sm:p-0">
+            <h5 class="mb-2 text-xl py-4 text-[#19171fd2] font-semibold">
+              Responsiveness
+            </h5>
+            <p class="py-4" style="text-align: justify;">
+              With our 15,000+ carrier network and teams of experienced
+              transportation and customer service experts, Nep Auto Tansport has
+              the capacity and expertise to respond to your needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 mb-12 flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex flex-col justify-between"
+    >
+      <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        How Cayad can help your auction business
+      </h1>
+      <p class="text-base text-[#555] mt-4">
+        <span class="text-[#555] font-bold">End-to-end solutions:</span>
+        Taking a consultative approach, we will work with your inside sales reps,
+        operations team and business leaders to make recommendations to improve service
+        levels and transparency. We can benchmark our costs and service capabilities
+        against your current providers to prove our value.
+      </p>
+
+      <p class="text-base text-[#555] mt-4">
+        <span class="text-[#555] font-bold">Preferred transporter:</span>
+        Whether for one or all of your locations, Cayad will deliver first-class
+        service, reducing your stress and maximizing your time to focus on growing
+        your business. We can be your one-stop solution for cars, trucks, motorcycles
+        and powersports, with the trailer options and equipment required to handle
+        recreational vehicles, luxury or collector cars and inoperable vehicles.
+      </p>
+      <p class="text-base text-[#555] mt-4">
+        <span class="text-[#555] font-bold">Augment established carriers:</span>
+        Cayad routinely handles long-distance moves and can extend the reach of your
+        local carriers with our nationwide network of vetted carriers. The right
+        partner will work in harmony with your auction operations and your established
+        carriers to extend reach and increase efficiency to your operation.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        Why should you choose Cayad Auto Transport for auto auction shipping?
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Competitive Prices</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                At Cayad Auto Transport, we understand the importance of getting
+                a quality service at an affordable price. Our highly competitive
+                prices ensure that you get the best value for your money. We
+                work hard to provide transparent and surprise-free rates,
+                without compromising the quality of our service.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Ease of shipping</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We take pride in offering a hassle-free vehicle shipping
+                process. From the moment you contact us to the delivery of your
+                car at the final destination, we take care of all the details.
+                Our highly trained staff will guide you through the entire
+                process, ensuring that everything is fast and efficient. With
+                Cayad Auto Transport, you can have peace of mind knowing that
+                your vehicle is in good hands.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Personalized assistance</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We recognize that every customer and every car shipment is
+                unique. That's why our team of car transportation experts is
+                available to provide personalized assistance at every stage of
+                the process. Whether you need additional information, shipping
+                status updates, or any other inquiries, our friendly staff will
+                be delighted to assist you. Your satisfaction is our top
+                priority.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/auction.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
