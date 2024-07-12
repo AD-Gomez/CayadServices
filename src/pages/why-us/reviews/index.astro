@@ -1,0 +1,850 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import part4 from "../../../../public/img/part4.webp";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/reviews.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Reviews | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Heavy Haul Transport
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Discover the Cayad Services Advantage: Your Trusted Heavy Equipment
+        Moving Experts
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Customer Say" client:load />
+  </div>
+
+  <div class="w-full mt-12 h-max flex justify-center">
+    <div
+      class="w-[80%] xs:w-[100%] sm:w-[100%] xs:px-4 sm:px-4 py-8 min-h-[300px] max-h-[360px] rounded bg-[#f5f7fa] shadow-xl"
+    >
+      <div class="flex flex-col h-full justify-evenly items-center">
+        <h2 class="text-[38px]">Ready to transport your car with Cayad?</h2>
+        <p>
+          Our car shipping advisors are available by calling <span
+            class="text-[#00a1ef]">(469) 619-0747</span
+          > to answer all your questions.
+        </p>
+        <div class="mt-4">
+          <GetQuote />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full h-max flex flex-col items-center">
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 md:w-[95%] flex xs:flex-col sm:flex-col"
+    >
+      <div class="w-1/2 xs:w-full sm:w-full flex flex-col">
+        <div
+          class="w-[95%] xs:w-full sm:w-full p-4 mt-4 hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 h-[250px] flex flex-col justify-evenly bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Great Communication</h1>
+          <div class="flex">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Jesus Edel Lopez Navas</p>
+          </div>
+          <p class="text-sm text-[#555]">
+            Very reliable auto transport company, they got my vehicle shipped
+            faster than expected for a very reasonable price. Thanks to AD Gomez
+            for all the help! 5/5 would recommend to anyone.
+          </p>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+
+        <div
+          class="w-[95%] xs:w-full sm:w-full p-4 mt-4 hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 h-[250px] flex flex-col justify-evenly bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Professional Driver</h1>
+          <div class="flex">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Alin Bita</p>
+          </div>
+          <p class="text-sm text-[#555]">
+            AD Gomez thank you for your fast and easy shipping services, my car
+            was able to get from point A to point B in the same condition.
+            Definitely working with you again.
+          </p>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+      </div>
+
+      <div
+        class="w-1/2 xs:w-full sm:w-full flex xs:flex-col sm:flex-col md:flex-col"
+      >
+        <div
+          class="w-[48%] md:h-[250px] xs:w-full sm:w-full md:w-[96%] mr-2 hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 p-4 mt-4 h-[97%] flex flex-col bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Great Service</h1>
+          <div class="flex mt-4">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Alneidismar G</p>
+          </div>
+          <p class="text-sm h-[70%] mt-8 text-[#555]">
+            Agradecida por su Servicio, son confiables, profesionales y tienen
+            comunicación constante, los recomiendo para mover su Auto.
+          </p>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+
+        <div
+          class="w-[45%] xs:w-full sm:w-full xs:ml-0 sm:ml-0 md:h-max md:w-[96%] ml-2 p-4 hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 mt-4 h-[97%] flex flex-col bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Appreciative Service</h1>
+          <div class="flex mt-2">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">JUAN MA LEON</p>
+          </div>
+          <div class="w-full mb-2 mt-8 h-[70%]">
+            <p class="text-sm text-[#555]">
+              Totalmente recomendable, la comunicación es muy buena todo el
+              tiempo están al pendiente de la entrega,
+            </p>
+
+            <p class="text-sm mt-4 text-[#555]">
+              los costos son mejores que otras compañías, es una empresa total
+              mente sería.
+            </p>
+
+            <p class="text-sm mt-4 text-[#555]">
+              Un 10 de 10 felicidades y que sigan cosechando éxito!!
+            </p>
+          </div>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 md:w-[95%] mb-8 flex xs:flex-col sm:flex-col"
+    >
+      <div class="w-1/2 xs:w-full sm:w-full flex xs:flex-col sm:flex-col">
+        <div
+          class="w-[48%] xs:w-full xs:mr-0 sm:mr-0 sm:w-full mr-2 p-4 mt-4 h-[97%] hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 flex flex-col bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Good Company To Deal With</h1>
+          <div class="flex mt-4">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Paul Rosales</p>
+          </div>
+          <div class="h-[70%] w-full mt-8">
+            <p class="text-sm text-[#555]">
+              Excelente servicio! Comunicación al 100 !
+            </p>
+            <p class="text-sm mt-4 text-[#555]">
+              Es nuestra mejor opción para bajar autos a la frontera de Mexico!!
+            </p>
+            <p class="text-sm mt-4 text-[#555]">💯 recomendado!!</p>
+          </div>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+
+        <div
+          class="w-[45%] xs:w-full sm:w-full xs:ml-0 sm:ml-[0px] ml-2 p-4 mt-4 h-[97%] hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 flex flex-col bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Good Communication</h1>
+          <div class="flex mt-2">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Joe Smith</p>
+          </div>
+          <div class="w-full mt-8 h-[70%]">
+            <p class="text-sm text-[#555]">
+              Your company is the best I hired you guys-to pick up model a
+            </p>
+
+            <p class="text-sm mt-4 text-[#555]">
+              for me and I had to cancel because of paperwork for estate was not
+              ready
+            </p>
+
+            <p class="text-sm mt-4 text-[#555]">
+              you didn’t even charge me your company is the best thank u so much
+            </p>
+          </div>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+      </div>
+      <div class="w-1/2 flex xs:w-full sm:w-full flex-col">
+        <div
+          class="w-[96%] xs:w-full sm:w-full p-4 mt-4 h-[250px] hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 flex flex-col justify-evenly bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">Reliable</h1>
+          <div class="flex">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Geordanis Hernandez</p>
+          </div>
+          <p class="text-sm text-[#555]">
+            AD was extremely helpful, he has moved two cars for me already and
+            always very responsive and a great person to work with!
+          </p>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+
+        <div
+          class="w-[96%] xs:w-full sm:w-full p-4 mt-4 hover:scale-105 hover:drop-shadow-xl hover:shadow-xl duration-300 h-[250px] flex flex-col justify-evenly bg-white rounded shadow"
+        >
+          <h1 class="text-[24px] font-semibold">I Recommend Everyone</h1>
+          <div class="flex">
+            <div class="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-5 fill-yellow-400"
+              >
+                <path
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                ></path>
+              </svg>
+            </div>
+            <p class="text-sm text-[#9ba3af]">Jordan Allen</p>
+          </div>
+          <p class="text-sm text-[#555]">
+            I've worked with AD for a couple years now, he's shipped 10 or so
+            rigs for me. First time I was a little worried doing all this
+            through messenger, but now he's my go to guy.
+          </p>
+
+          <img
+            height="17"
+            class="lazyloaded w-16"
+            data-src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+            alt=""
+            src="https://d1d9oqfe9g83w6.cloudfront.net/assets/prod/images/reviews/Google-logo-small.png?8851fc04e40115a4"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex justify-center">
+    <div
+      class="w-[80%] flex xs:mt-12 sm:mt-12 xs:px-4 sm:px-4 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
+    >
+      <div
+        class="w-[60%] h-[550px] xs:w-[100%] xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
+        data-aos="fade-right"
+        data-aos-delay="100"
+      >
+        <img
+          src="/img/img-home.jpg"
+          class="adjust--img w-full h-[80%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
+          alt=""
+        />
+      </div>
+      <div
+        class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
+      >
+        <h1 class="text-3xl text-[#19171fd2] font-bold mb-3">
+          Why you should book with one of the top-rated auto transport
+          companies:
+        </h1>
+        <div
+          class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 xs:px-0 sm:px-0 gap-8"
+        >
+          <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/call.webp" class="w-24 mb-2" />
+            <h5 class="text-lg font-semibold text-[#19171fd2]">
+              Dedicated advisors
+            </h5>
+            <p class="xs:text-justify sm:text-justify">
+              Our professional auto transport company advisors work passionately
+              to ensure you're working with the best vehicle transportation
+              company. They will monitor your shipment around the clock.
+            </p>
+          </div>
+          <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
+            <img src="/img/insurance.webp" class="w-24 mb-2" />
+            <h5 class="text-lg font-semibold text-[#19171fd2]">
+              Insurance coverage
+            </h5>
+            <p class="xs:text-justify sm:text-justify">
+              Car transport companies include insurance coverage in your
+              shipping quote. Our selected auto haulers must meet insurance
+              standards before qualifying to be part of our carrier network.
+            </p>
+          </div>
+        </div>
+        <a
+          href="/quote/index.html"
+          class="btn bg-primary text-white py-3 px-5 me-3">Get a Quote</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
+  >
+    <div
+      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
+    >
+      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+        We Are Trusted Auto Transport Company
+      </h1>
+      <div
+        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+      >
+        <div class="wow" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/dollar.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Zero upfront payment</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                You read that right, no upfront payment! The best auto transport
+                companies charge you once the carrier has been dispatched for
+                your car shipping order. So, you can book with your auto
+                transport company now and not worry about the bill until later.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
+            <img src="/img/easy.webp" class="w-24 h-20 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Personalized approach</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                Why choose our auto transport company? Cayad Auto Transport
+                works with you through every step of your car or truck’s move.
+                Experience hassle-free shipping when you choose us as your car
+                transporter and enjoy an easy and painless shipment process.
+              </p>
+            </div>
+          </div>
+          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
+            <img src="/img/badge.webp" class="w-24 h-24 mb-2" />
+            <div class="ml-4">
+              <h5 class="font-semibold">Top rated company</h5>
+              <p class="text-justify xs:text-start sm:text-start mb-0">
+                We're a top-rated auto transport company, so your car will get
+                from point A to point B without you having to break a single
+                sweat. By having your car delivered straight to your door,
+                you’re allowing the experts to handle every step of the process
+                and ensure there are no speed bumps along the way.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[95%] wow"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          style="min-height: 400px;"
+        >
+          <div class="h-full">
+            <img
+              src="/img/Cayad2.webp"
+              class="object-cover rounded w-full h-full"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="footer--img h-[30vh] w-full bg-center flex xs:flex-col sm:flex-col xs:h-max sm:h-max justify-center items-center"
+  >
+    <div class="w-[80%] xs:w-[90%] sm:w-[90%] opacity-[0.9] p-2 rounded-xl">
+      <div class="bg-[#778899] xs:w-[100%] sm:w-[100%] w-[60%] p-2 rounded-xl">
+        <h2 class="text-white text-[30px]">
+          Ready to transport your car with Cayad Auto Transport?
+        </h2>
+        <p class="text-white text-lg">
+          Our car shipping advisors are available by calling
+          <a
+            href="tel:813-333-1100"
+            class="text-lg hover:underline mr-[1px] leading-6"
+          >
+            (469) 619-0747
+          </a> to answer all your questions.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
+  </div>
+</Layout>

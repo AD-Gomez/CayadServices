@@ -1,0 +1,90 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import ProgressBar from "../../../components/ProgressBar";
+import StepVision from "../../../components/StepVision";
+import Testimonials from "../../../components/Testimonials";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import NumberPhone from "../../../components/NumberPhone.astro";
+import CountNumber from "../../../components/CountNumber";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/banner.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Vision & Mission | Cayad Auto Transport">
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Over a Decade of Outstanding Delivery and Exponential Growth
+      </h1>
+      <p class="text-white text-lg font-semibold">
+        Rich History of Innovation, Dependability and Success
+      </p>
+      <button
+        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <a href="/quote/">Get a Quote</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full flex mt-8 justify-center">
+    <div class="w-[80%]">
+      <h1
+        class="text-[#232b36] text-[30px] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Over a Decade of Outstanding Delivery and Exponential Growth
+      </h1>
+    </div>
+  </div>
+
+  <div
+    class="w-full flex flex-col items-center overflow-hidden pt-16 pb-16 relative"
+  >
+    <StepVision client:load />
+  </div>
+
+  <div class="w-full mt-8 flex justify-center mb-8">
+    <Testimonials title="Our Customers Say" client:load />
+  </div>
+
+  <div
+    class="footer--img h-[30vh] w-full bg-center flex xs:flex-col sm:flex-col xs:h-max sm:h-max justify-center items-center"
+  >
+    <div class="w-[80%] xs:w-[90%] sm:w-[90%] opacity-[0.9] p-2 rounded-xl">
+      <div class="bg-[#778899] xs:w-[100%] sm:w-[100%] w-[60%] p-2 rounded-xl">
+        <h2 class="text-white text-[30px]">
+          Ready to transport your car with Cayad Auto Transport?
+        </h2>
+        <p class="text-white text-lg">
+          Our car shipping advisors are available by calling
+          <a
+            href="tel:813-333-1100"
+            class="text-lg hover:underline mr-[1px] leading-6"
+          >
+            (469) 619-0747
+          </a> to answer all your questions.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
+  </div>
+</Layout>

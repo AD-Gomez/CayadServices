@@ -1,0 +1,205 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import { FaStar } from "react-icons/fa";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import { IoArrowRedo } from "react-icons/io5";
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import part4 from "../../../../public/img/part4.webp";
+---
+
+<style>
+  .service-item:hover img,
+  .team-item:hover img {
+    /* transform: scale(1.1); */
+  }
+
+  .service-item a.btn-slide,
+  .price-item a.btn-slide,
+  .team-item div.btn-slide {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0;
+  }
+
+  .service-item a.btn-slide i,
+  .service-item a.btn-slide span,
+  .price-item a.btn-slide i,
+  .price-item a.btn-slide span,
+  .team-item div.btn-slide i,
+  .team-item div.btn-slide span {
+    position: relative;
+    height: 40px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #ffffff;
+    background: #00a1ef;
+    border-radius: 0 35px 35px 0;
+    transition: 0.5s;
+    z-index: 2;
+  }
+
+  .team-item div.btn-slide span a i {
+    padding: 0 10px;
+  }
+
+  .team-item div.btn-slide span a:hover i {
+    background: var(--secondary);
+  }
+
+  .service-item a.btn-slide span,
+  .price-item a.btn-slide span,
+  .team-item div.btn-slide span {
+    padding-left: 0;
+    left: -100%;
+    z-index: 1;
+  }
+
+  .service-item:hover a.btn-slide i,
+  .price-item:hover a.btn-slide i,
+  .team-item:hover div.btn-slide i {
+    border-radius: 0;
+  }
+
+  .service-item:hover a.btn-slide span,
+  .price-item:hover a.btn-slide span,
+  .team-item:hover div.btn-slide span {
+    left: 0;
+  }
+
+  .service-item a.btn-slide:hover i,
+  .service-item a.btn-slide:hover span,
+  .price-item a.btn-slide:hover i,
+  .price-item a.btn-slide:hover span {
+    background: var(--secondary);
+  }
+
+  .footer--img {
+    background-image: url("/public/img/footer.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Our Team | Cayad Auto Transport">
+  <div class="w-full flex justify-center">
+    <div class="w-[80%]">
+      <h1 class="text-[2.5rem] text-[#19171fd2] font-semibold">
+        The Executive Team
+      </h1>
+
+      <div
+        class="w-full grid grid-cols-3 mt-12 mb-12 gap-6 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1"
+      >
+        <div
+          class="min-h-[400px] max-h-[450px] w-[80%] md:w-full sm:w-full xs:w-full shadow hover:drop-shadow-2xl hover:shadow-2xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4">
+            <div class="overflow-hidden w-full flex justify-center mb-4">
+              <img
+                class="img-fluid w-[15rem] h-[15rem]"
+                src="/img/ceo.webp"
+                alt=""
+              />
+            </div>
+            <h5 class="mb-0 text-[#19171fd2] text-lg font-semibold">
+              AD Gomez
+            </h5>
+            <p class="text-[#555555]">Chief Executive Officer</p>
+            <div class="btn-slide mt-1">
+              <i class="">
+                <IoArrowRedo className="text-white " />
+              </i>
+              <span>
+                <a href="tel:(254) 269-3086"><FaPhoneAlt /> </a>
+                <a class="ml-4 text-[16px]" href="mailto:info@cayadservices.com"
+                  ><FaEnvelope />
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="min-h-[400px] max-h-[450px] w-[80%] md:w-full sm:w-full xs:w-full shadow hover:drop-shadow-2xl hover:shadow-2xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4">
+            <div class="overflow-hidden w-full flex justify-center mb-4">
+              <img
+                class="img-fluid w-[15rem] h-[15rem]"
+                src="/img/supervisor.webp"
+                alt=""
+              />
+            </div>
+            <h5 class="mb-0 text-[#19171fd2] text-lg font-semibold">Alex G</h5>
+            <p class="text-[#555555]">Transportation Specialist</p>
+            <div class="btn-slide mt-1">
+              <i class="">
+                <IoArrowRedo className="text-white " />
+              </i>
+              <span>
+                <a href="tel:(254) 269-3086"><FaPhoneAlt /> </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="min-h-[400px] max-h-[450px] w-[80%] md:w-full sm:w-full xs:w-full shadow hover:drop-shadow-2xl hover:shadow-2xl duration-300 wow fadeInUp"
+          data-wow-delay="0.5s"
+        >
+          <div class="team-item p-4">
+            <div class="overflow-hidden w-full flex justify-center mb-4">
+              <img
+                class="img-fluid w-[15rem] h-[15rem]"
+                src="/img/worker2.webp"
+                alt=""
+              />
+            </div>
+            <h5 class="mb-0 text-[#19171fd2] text-lg font-semibold">OPEN</h5>
+            <p class="text-[#555555]">Auto Transport Specialist</p>
+            <div class="btn-slide mt-1">
+              <i class="">
+                <IoArrowRedo className="text-white " />
+              </i>
+              <span>
+                <a href="tel:(254) 269-3086"><FaPhoneAlt /> </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="footer--img h-[30vh] w-full bg-center flex xs:flex-col sm:flex-col xs:h-max sm:h-max justify-center items-center"
+  >
+    <div class="w-[80%] xs:w-[90%] sm:w-[90%] opacity-[0.9] p-2 rounded-xl">
+      <div class="bg-[#778899] xs:w-[100%] sm:w-[100%] w-[60%] p-2 rounded-xl">
+        <h2 class="text-white text-[30px]">
+          Ready to transport your car with Cayad Auto Transport?
+        </h2>
+        <p class="text-white text-lg">
+          Our car shipping advisors are available by calling
+          <a
+            href="tel:813-333-1100"
+            class="text-lg hover:underline mr-[1px] leading-6"
+          >
+            (469) 619-0747
+          </a> to answer all your questions.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-4 right-20 flex flex-col items-end">
+    <ButtonScrollTop client:load />
+  </div>
+</Layout>
