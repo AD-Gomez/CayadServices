@@ -13,8 +13,8 @@ const steps = [
   },
   {
     label: 'Step 2',
-    description: 'Our goal is to become one of the best cost effective shipping services, servicing the widest range of individual customers, corporations of any size and business partners within the United States.',
-    title: 'OUR VISION',
+    description: 'At Cayad, our mission is to deliver a 5-star vehicle-shipping experience to every customer by blending innovative solutions with commitment to service excellence',
+    title: 'OUR MISSION',
     img: step2
   },
   {
