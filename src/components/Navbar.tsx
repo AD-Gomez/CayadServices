@@ -20,7 +20,7 @@ import {
   SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logoweb from '../../public/img/logo-cayad.png'
 import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
