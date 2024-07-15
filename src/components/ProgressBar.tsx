@@ -68,7 +68,7 @@ const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, on
                   </div>
                   <div className='max-w-[400px] max-h-[400px]'>
                     {step?.img &&
-                      <img src={step.img.src} />
+                      <img src={step.img.src} className="rounded-xl" />
                     }
                   </div>
                 </div>
