@@ -2,7 +2,6 @@
 import Layout from "../../../layouts/Layout.astro";
 import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
-import { FaStar } from "react-icons/fa";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import NumberPhone from "../../../components/NumberPhone.astro";
 import CountNumber from "../../../components/CountNumber";
@@ -36,11 +35,7 @@ import CountNumber from "../../../components/CountNumber";
       <p class="text-white text-lg font-semibold">
         Need to ship a car to college? We’re here to help
       </p>
-      <button
-        class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-      >
-        <a href="/quote/">Get a Quote</a>
-      </button>
+      <GetQuoete />
     </div>
   </div>
 
@@ -291,7 +286,5 @@ import CountNumber from "../../../components/CountNumber";
       </div>
     </div>
   </div>
-  <div class="fixed bottom-4 right-20 flex flex-col items-end">
-    <ButtonScrollTop client:load />
-  </div>
+  <ButtonScrollTop client:load />
 </Layout>
