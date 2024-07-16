@@ -31,7 +31,7 @@ const Accordion = ({ title, children }: Accordionprops) => {
         </svg>
       </button>
       {isOpen &&
-        <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
+        <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-max' : 'max-h-0'}`}>
           <div className="p-4">{children}</div>
         </div>
       }
