@@ -271,8 +271,8 @@ export default function Example () {
             ${currentPath === '/faqs/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''}  `}>
               FAQS
             </a>
-            <a href="#" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
-            ${currentPath === '/contact/' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
+            <a href="/contact" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            ${currentPath === '/contact' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
               CONTACT
             </a>
             <div className="flex p-2">
@@ -405,7 +405,7 @@ export default function Example () {
                     className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] ${currentPath === '/faqs/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''}    hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                     FAQS
                   </a>
-                  <a href="#" className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 ${currentPath === '/contact/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''} text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
+                  <a href="/contact" className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 ${currentPath === '/contact' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''} text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                     CONTACT
                   </a>
                   <div className="flex ">
