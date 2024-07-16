@@ -74,12 +74,12 @@ export default function Example () {
   const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
   const pathsToCheckForIBusinesses = ['/for-businesses', ...forBusinesses.map(item => item.href)];
   const pathsToCheckWhyUs = ['/why-us', ...whyUs.map(item => item.href)];
-
+  const hrefForIndividuals = weOffer.map(item => item.href)
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
   const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
 
-  console.log(currentPath, isPopoverWhyUsActive)
+  console.log(hrefForIndividuals, isPopoverWhyUsActive)
   return (
     <>
       <MarqueeText />
@@ -142,10 +142,10 @@ export default function Example () {
                         {weOffer.map((item) => (
                           <div
                             key={item.description}
-                            className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
+                            className={`group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6  hover:bg-neutral-300`}
                           >
                             <div className="flex-auto">
-                              <a href={item.href} className="block text-base text-gray-600">
+                              <a href={item.href} className={`block text-base  ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
                                 {item.description}
                               </a>
                             </div>
@@ -164,7 +164,7 @@ export default function Example () {
                             className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
-                              <a href={item.href} className="block text-base text-gray-600">
+                              <a href={item.href} className={`block text-base  ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
                                 {item.description}
                               </a>
                             </div>
@@ -209,7 +209,7 @@ export default function Example () {
                             className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
-                              <a href={item.href} className="block text-base text-gray-600">
+                              <a href={item.href} className={`block text-base    ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
                                 {item.description}
                               </a>
                             </div>
@@ -254,7 +254,7 @@ export default function Example () {
                             className="group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6 hover:bg-neutral-300"
                           >
                             <div className="flex-auto">
-                              <a href={item.href} className="block text-base text-gray-600">
+                              <a href={item.href} className={`block text-base ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'}`}>
                                 {item.description}
                               </a>
                             </div>
@@ -303,13 +303,18 @@ export default function Example () {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a href="/how-auto-transport-works/" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                  <a href="/how-auto-transport-works/"
+                    className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] ${currentPath === '/how-auto-transport-works/' ? ' text-btn-blue border-2 border-btn-blue  rounded ' : ''} hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                     HOW IT WORKS?
                   </a>
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                        <DisclosureButton
+                          className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315]
+                         hover:text-[#00a1ef] ease-in-out duration-100 delay-100 *:
+                         ${isPopoverActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
+                         `}>
                           FOR INDIVIDUALS
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
@@ -324,7 +329,7 @@ export default function Example () {
                               key={item.description}
                               as="a"
                               href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
                             >
                               {item.description}
                             </DisclosureButton>
@@ -339,7 +344,7 @@ export default function Example () {
                               key={item.description}
                               as="a"
                               href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
                             >
                               {item.description}
                             </DisclosureButton>
@@ -351,7 +356,9 @@ export default function Example () {
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                        <DisclosureButton
+                          className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7
+                         text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 ${isPopoverBusinessesActive ? 'border-2 border-btn-blue  rounded  text-btn-blue ' : 'text-[#060315]'}`}>
                           FOR BUSINESSES
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
@@ -361,7 +368,7 @@ export default function Example () {
                               key={item.description}
                               as="a"
                               href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
                             >
                               {item.description}
                             </DisclosureButton>
@@ -373,7 +380,9 @@ export default function Example () {
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>
-                        <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                        <DisclosureButton
+                          className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold ${isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
+                        leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                           WHY US?
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
@@ -383,7 +392,7 @@ export default function Example () {
                               key={item.description}
                               as="a"
                               href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-600 hover:bg-neutral-300"
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
                             >
                               {item.description}
                             </DisclosureButton>
@@ -392,10 +401,11 @@ export default function Example () {
                       </>
                     )}
                   </Disclosure>
-                  <a href="/faqs/" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                  <a href="/faqs/"
+                    className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] ${currentPath === '/faqs/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''}    hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                     FAQS
                   </a>
-                  <a href="#" className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100">
+                  <a href="#" className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 ${currentPath === '/contact/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''} text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
                     CONTACT
                   </a>
                   <div className="flex ">
