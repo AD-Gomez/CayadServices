@@ -103,8 +103,8 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
-            <a href="/how-auto-transport-works/" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 
-              ${currentPath === '/how-auto-transport-works/' ? 'border-b-2 border-btn-blue ' : ''} `}>
+            <a href="/how-auto-transport-works/" className={`text-[16px] p-2 font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 
+              ${currentPath === '/how-auto-transport-works/' ? ' text-btn-blue border-2 border-btn-blue  rounded ' : ''} `}>
               HOW IT WORKS?
             </a>
             <Popover
@@ -115,9 +115,9 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'individuals' ? 'text-btn-blue' : 'text-[#060315]',
-                    isPopoverActive ? 'text-btn-blue border-b-2 border-btn-blue' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    openPopover === 'individuals' ? 'text-btn-blue' : '',
+                    isPopoverActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
+                    'flex items-center hover:text-[#00a1ef] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR INDIVIDUALS
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -184,9 +184,9 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'businesses' ? 'text-btn-blue' : 'text-gray-900',
-                    isPopoverBusinessesActive ? ' border-b-2 border-btn-blue text-btn-blue ' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    openPopover === 'businesses' ? 'text-btn-blue' : '',
+                    isPopoverBusinessesActive ? 'border-2 border-btn-blue  rounded  text-btn-blue ' : 'text-[#060315]',
+                    'flex items-center hover:text-[#00a1ef] p-2 ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR BUSINESSES
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -229,9 +229,9 @@ export default function Example () {
               {({ open }) => (
                 <>
                   <Popover.Button className={classNames(
-                    openPopover === 'whyUs' ? 'text-btn-blue' : 'text-gray-900',
-                    isPopoverWhyUsActive ? 'text-btn-blue border-b-2 border-btn-blue' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    openPopover === 'whyUs' ? 'text-btn-blue' : '',
+                    isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
+                    'flex items-center p-2 hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     WHY US?
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -267,17 +267,17 @@ export default function Example () {
               )}
             </Popover>
 
-            <a href="/faqs/" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
-            ${currentPath === '/faqs/' ? 'border-b-2 border-btn-blue ' : ''}  `}>
+            <a href="/faqs/" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            ${currentPath === '/faqs/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''}  `}>
               FAQS
             </a>
-            <a href="#" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
-            ${currentPath === '/contact/' ? 'border-b-2 border-btn-blue ' : ''}    `}>
+            <a href="#" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            ${currentPath === '/contact/' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
               CONTACT
             </a>
-            <div className="flex ">
+            <div className="flex p-2">
               <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
-              <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
+              <a href="tel:813-333-1100" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
                 (469) 619-0747
               </a>
             </div>
