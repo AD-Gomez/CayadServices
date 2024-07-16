@@ -167,7 +167,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                     <img src={testimonial.userImage.src} className="bg-cover" alt="image google" />
                   </div>
                 </div>
-                <div className="flex flex-col p-4 text-justify text-p-landing">
+                <div className="flex flex-col p-4  text-p-landing">
                   {testimonial.comment}
                 </div>
               </a>
