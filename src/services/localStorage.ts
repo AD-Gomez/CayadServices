@@ -98,6 +98,18 @@ const getNumberLead = (): any | null => {
   return null
 }
 
+const saveSectionNavbar = (data: string) => {
+  if (typeof window !== 'undefined') window.localStorage.setItem("saveSectionNavbar", JSON.stringify(data));
+}
+
+const getSectionNavbar = (): any | null => {
+  if (isBrowser) {
+    const datos = localStorage.getItem('saveSectionNavbar');
+    return datos ? JSON.parse(datos) : null;
+  }
+  return null
+}
+
 export {
   saveEmail,
   getEmail,
@@ -108,5 +120,7 @@ export {
   getSendedEmail,
   getSendedLead,
   saveNumberLead,
-  getNumberLead
+  getNumberLead,
+  saveSectionNavbar,
+  getSectionNavbar
 }

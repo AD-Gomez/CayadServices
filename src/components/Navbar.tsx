@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import {
   Dialog,
   DialogPanel,
@@ -24,6 +24,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logoweb from '../../public/img/logo-cayad.png'
 import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
+import { getSectionNavbar } from '../services/localStorage'
 
 const weOffer = [
   { description: 'Door to door transport', href: '/for-individuals/door-to-door', icon: ChartPieIcon },
@@ -62,7 +63,23 @@ function classNames (...classes: any) {
 export default function Example () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openPopover, setOpenPopover] = useState<string | null>(null)
+  const [currentPath, setCurrentPath] = useState('');
+  const forIndividuals = '/for-individuals'
 
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
+  const isActive = (path: string) => currentPath.startsWith(path);
+
+  const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
+  const pathsToCheckForIBusinesses = ['/for-businesses', ...forBusinesses.map(item => item.href)];
+  const pathsToCheckWhyUs = ['/why-us', ...whyUs.map(item => item.href)];
+
+  const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
+  const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
+  const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
+
+  console.log(currentPath, isPopoverWhyUsActive)
   return (
     <>
       <MarqueeText />
@@ -86,7 +103,8 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
-            <a href="/how-auto-transport-works/" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 ">
+            <a href="/how-auto-transport-works/" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 
+              ${currentPath === '/how-auto-transport-works/' ? 'border-b-2 border-btn-blue ' : ''} `}>
               HOW IT WORKS?
             </a>
             <Popover
@@ -98,6 +116,7 @@ export default function Example () {
                 <>
                   <Popover.Button className={classNames(
                     openPopover === 'individuals' ? 'text-btn-blue' : 'text-[#060315]',
+                    isPopoverActive ? 'text-btn-blue border-b-2 border-btn-blue' : 'text-[#060315]',
                     'flex items-center hover:text-[#00a1ef] ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR INDIVIDUALS
@@ -166,6 +185,7 @@ export default function Example () {
                 <>
                   <Popover.Button className={classNames(
                     openPopover === 'businesses' ? 'text-btn-blue' : 'text-gray-900',
+                    isPopoverBusinessesActive ? ' border-b-2 border-btn-blue text-btn-blue ' : 'text-[#060315]',
                     'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR BUSINESSES
@@ -210,6 +230,7 @@ export default function Example () {
                 <>
                   <Popover.Button className={classNames(
                     openPopover === 'whyUs' ? 'text-btn-blue' : 'text-gray-900',
+                    isPopoverWhyUsActive ? 'text-btn-blue border-b-2 border-btn-blue' : 'text-[#060315]',
                     'flex items-center hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     WHY US?
@@ -246,10 +267,12 @@ export default function Example () {
               )}
             </Popover>
 
-            <a href="/faqs/" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6">
+            <a href="/faqs/" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            ${currentPath === '/faqs/' ? 'border-b-2 border-btn-blue ' : ''}  `}>
               FAQS
             </a>
-            <a href="#" className="text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6">
+            <a href="#" className={`text-[16px] font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            ${currentPath === '/contact/' ? 'border-b-2 border-btn-blue ' : ''}    `}>
               CONTACT
             </a>
             <div className="flex ">
