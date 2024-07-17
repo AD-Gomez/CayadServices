@@ -153,7 +153,6 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       ],
     },
   });
-  console.log(dataSubmit)
   const { handleSubmit, control, getValues, setValue, watch } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
@@ -423,6 +422,7 @@ function separarCiudadYEstado (locationString: string) {
 }
 
 const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSubmit }: any) => {
+  const [disabled, setDisabled] = useState<boolean>(false)
   const validationSchema = yup.object().shape({
     first_name: yup.string()
       .required('Name is required')
@@ -467,8 +467,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dateObj = new Date(date);
     return format(dateObj, 'MM/dd/yyyy');
   };
-
+  console.log(disabled)
   const onSubmit = (data: any) => {
+    setDisabled(true)
     const formattedDate = formatDate(data.ship_date);
 
     const dataToSend = {
@@ -482,7 +483,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
   };
   const handleStepBack = (step: number) => {
     const datavalue = methods.getValues()
-    console.log(datavalue)
     setDataSubmit(datavalue);
     setActiveStep(step);
   };
@@ -513,13 +513,19 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             </small>
           </div>
           <button
-            id="submit_button"
-            className="bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white"
+            id="submit_button" disabled={disabled}
+            className={`bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white
+              ${disabled ? 'opacity-[0.6] hover:cursor-not-allowed ' : ''}
+              `}
             type="submit"
           >
-            <p className='mr-2'>
-              Submit
-            </p>
+
+            {disabled
+              ? <p className='mr-2'>Loading</p>
+              : <p className='mr-2'>Submit</p>
+            }
+
+
             <FaRegPaperPlane />
           </button>
         </form>
@@ -562,7 +568,7 @@ const extractLeadNumber = (response: string) => {
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [dataSubmit, setDataSubmit] = useState<any>({})
-
+  const [disabled, setDisabled] = useState(false)
   const updateFormData = (newData: any) => {
     setDataSubmit((prevData: any) => ({
       ...prevData,
@@ -571,6 +577,7 @@ const FormLanding = () => {
   };
 
   const handleSubmitLead = async (data: any) => {
+    setDisabled(true)
     const response = await sendLead(data)
     const { AuthKey, ...dataWithoutAuthKey } = data
     const numberLead = extractLeadNumber(response)
@@ -604,16 +611,15 @@ const FormLanding = () => {
           delete send[key];
         }
       });
-      const responseEmail = await sendEmail(send)
+      await sendEmail(send)
 
+      setDisabled(false)
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
         setDataSubmit({})
         window.location.href = '/quote2';
       }, 3000);
-
-      console.log(responseEmail)
     }
   }
 
@@ -622,7 +628,7 @@ const FormLanding = () => {
       case 1:
         return <Step2 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={updateFormData} />;
       case 2:
-        return <Step3 dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLead} setDataSubmit={updateFormData} />;
+        return <Step3 disabled={disabled} dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLead} setDataSubmit={updateFormData} />;
 
       default:
         return <Step1 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={setDataSubmit} />
