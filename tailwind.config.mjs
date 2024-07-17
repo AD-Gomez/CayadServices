@@ -57,9 +57,7 @@ export default {
 			marquee: 'marquee 8s linear infinite',
 			'spin-slow': 'spin 1s linear infinite',
 		},
-		boxShadow: {
-			custom: '0 4px 6px -1px rgba(0, 161, 239, 0.1), 0 2px 4px -1px rgba(0, 161, 239, 0.06)',
-		},
+
 	},
 	variants: {
 		extend: {
