@@ -274,7 +274,7 @@ export default function Example () {
             </a>
             <div className="flex p-2">
               <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
-              <a href="tel:813-333-1100" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
+              <a href="tel:469-619-0747" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
                 (469) 619-0747
               </a>
             </div>
@@ -407,7 +407,7 @@ export default function Example () {
                   </a>
                   <div className="flex ">
                     <FaPhone className="text-[#00a1ef] text-lg mr-2 mt-1" />
-                    <a href="tel:813-333-1100" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
+                    <a href="tel:469-619-0747" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
                       (469) 619-0747
                     </a>
                   </div>
