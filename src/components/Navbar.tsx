@@ -24,7 +24,6 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logoweb from '../../public/img/logo-cayad.png'
 import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
-import { getSectionNavbar } from '../services/localStorage'
 
 const weOffer = [
   { description: 'Door to door transport', href: '/for-individuals/door-to-door/', icon: ChartPieIcon },
@@ -73,11 +72,9 @@ export default function Example () {
   const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
   const pathsToCheckForIBusinesses = ['/for-businesses', ...forBusinesses.map(item => item.href)];
   const pathsToCheckWhyUs = ['/why-us', ...whyUs.map(item => item.href)];
-  const hrefForIndividuals = weOffer.map(item => item.href)
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
   const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
-  console.log(currentPath)
   return (
     <>
       <MarqueeText />
