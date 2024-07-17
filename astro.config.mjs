@@ -6,7 +6,7 @@ import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ad-gomez.github.io',
+  site: 'https://www.cayadservices.com/',
   base: '/docs',
   integrations: [tailwind(), react(), partytown()]
 });
