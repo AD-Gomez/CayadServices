@@ -27,14 +27,14 @@ import { FaPhone } from 'react-icons/fa'
 import { getSectionNavbar } from '../services/localStorage'
 
 const weOffer = [
-  { description: 'Door to door transport', href: '/for-individuals/door-to-door', icon: ChartPieIcon },
-  { description: 'Open car transport', href: '/for-individuals/open-car-transport', icon: CursorArrowRaysIcon },
+  { description: 'Door to door transport', href: '/for-individuals/door-to-door/', icon: ChartPieIcon },
+  { description: 'Open car transport', href: '/for-individuals/open-car-transport/', icon: CursorArrowRaysIcon },
   { description: 'Enclosed auto transport', href: '/for-individuals/enclosed-auto-transport/', icon: FingerPrintIcon },
   { description: 'Motorcycle shipping', href: '/for-individuals/motorcycle-shipping/', icon: SquaresPlusIcon }
 ]
 
 const weServe = [
-  { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport', icon: ChartPieIcon },
+  { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport/', icon: ChartPieIcon },
   { description: 'College students', href: '/for-individuals/students-auto-transport/', icon: CursorArrowRaysIcon },
   { description: 'Snowbirds', href: '/for-individuals/snowbirds-auto-transport/', icon: FingerPrintIcon },
   { description: 'Car collectors', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
@@ -77,6 +77,7 @@ export default function Example () {
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
   const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
+  console.log(currentPath)
   return (
     <>
       <MarqueeText />
