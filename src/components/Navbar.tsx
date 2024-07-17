@@ -64,7 +64,6 @@ export default function Example () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openPopover, setOpenPopover] = useState<string | null>(null)
   const [currentPath, setCurrentPath] = useState('');
-  const forIndividuals = '/for-individuals'
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
@@ -78,8 +77,6 @@ export default function Example () {
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
   const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
-
-  console.log(hrefForIndividuals, isPopoverWhyUsActive)
   return (
     <>
       <MarqueeText />
@@ -272,7 +269,7 @@ export default function Example () {
               FAQS
             </a>
             <a href="/contact" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
-            ${currentPath === '/contact' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
+            ${currentPath === '/contact/' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
               CONTACT
             </a>
             <div className="flex p-2">
