@@ -1,9 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Testimonials from "../../components/Testimonials";
-import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
-import GetQuote from "../../components/buttons/GetQuote.astro";
-import SecondFooter from "../../components/SecondFooter.astro";
+import Layout from "../../../layouts/Layout.astro";
+import Testimonials from "../../../components/Testimonials";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
 
 <style>
@@ -14,6 +13,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
     background-size: cover;
   }
 </style>
+
 <Layout title="Door To Door Auto Transport | Cayad Auto Transport">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
@@ -213,6 +213,5 @@ import SecondFooter from "../../components/SecondFooter.astro";
       </div>
     </div>
   </div>
-
   <ButtonScrollTop client:load />
 </Layout>

@@ -1,0 +1,83 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
+import SecondFooter from "../../components/SecondFooter.astro";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/copyright.webp") center center no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<Layout title="Copyright & TradeMark | Cayad Auto Transport">
+  <contaier
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h1
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+        data-aos="fade-down"
+      >
+        Our Privacy Policy
+      </h1>
+    </div>
+  </contaier>
+
+  <container
+    class="w-[80%] mt-8 xs:w-full xs:px-4 sm:w-full sm:px-4 flex flex-col mb-8 items-center mx-auto"
+  >
+    <p class="w-full text-[#555555]">
+      Cayad and the Cayad logo are registered trademarks of Cayad Auto
+      Transport, and are used under license.
+      <br />
+      <br />
+      COPYRIGHT © 2023 Cayad Auto Transport
+      <br />
+      <br />
+
+      Copyright in the pages of this website, the code, text, graphical
+      elements, and the material contained therein and in their arrangement is
+      owned by Cayad Auto Transport and / or its affiliates, unless otherwise
+      indicated.
+      <br />
+      <br />
+
+      In addition, the materials and elements contained on this website, the
+      design and the layout may not be copied, compiled, or distributed without
+      the prior written consent of Cayad Auto Transport.
+    </p>
+
+    <h3 class="text-[#19171fd2] mt-2 text-2xl font-semibold w-full">
+      Permitted Use of Materials Hereon or Herein
+    </h3>
+
+    <p class="w-full mt-4 text-[#555555]">
+      Any person is hereby authorized to view the information available on
+      cayad.com website for information purposes only. However, the text and
+      images resident on this site may not otherwise be copied, modified,
+      distributed, reproduced or reused without the expressed written permission
+      of Cayad Auto Transport.
+    </p>
+
+    <p class="w-full text-[#555555]">
+      Please direct any inquiries related to use of the materials on this site
+      to:
+
+      <br />
+      <br />
+      Cayad Auto Transport
+      <br />
+      <br />
+      9295 ASHLAND AVE, PENSACOLA, FL 32534
+      <br />
+      <br />
+      Phone: (469) 619-0747
+    </p>
+  </container>
+  <SecondFooter />
+  <ButtonScrollTop client:load />
+</Layout>
