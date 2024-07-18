@@ -475,7 +475,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dataToSend = {
       ...dataSubmit,
       ...data,
-      AuthKey: "849d9659-34b5-49c5-befd-1cd238e7f9fc",
+      AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0",
       data_ship: formattedDate
     };
     handleSubmitLeadAndEmail(dataToSend)
