@@ -57,6 +57,7 @@ export default {
 			marquee: 'marquee 8s linear infinite',
 			'spin-slow': 'spin 1s linear infinite',
 		},
+
 	},
 	variants: {
 		extend: {
