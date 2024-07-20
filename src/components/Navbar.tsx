@@ -140,7 +140,7 @@ export default function Example () {
                             className={`group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6  hover:bg-neutral-300`}
                           >
                             <div className="flex-auto">
-                              <a href={item.href} className={`block text-base  ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
+                              <a href={item.href} className={`block text-base ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
                                 {item.description}
                               </a>
                             </div>
