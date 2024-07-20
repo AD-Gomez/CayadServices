@@ -12,10 +12,11 @@ import NumberPhone from "../components/NumberPhone.astro";
 
 <head>
   <script
+    is:inline
     type="text/partytown"
     async
     src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
-  <script type="text/partytown">
+  <script is:inline type="text/partytown">
     window.dataLayer = window.dataLayer || [];
     function gtag() {
       dataLayer.push(arguments);
