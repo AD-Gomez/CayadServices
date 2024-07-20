@@ -1,7 +1,31 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <Layout title="Page Not Found | Cayad Auto Transport ">
   <container
     class="h-screen w-[80%] xs:px-4 sm:px-4 xs:h-max sm:h-max flex xs:flex-col sm:flex-col xs:w-full sm:w-full items-center mx-auto"
@@ -11,7 +35,7 @@ import Layout from "../layouts/Layout.astro";
     </div>
     <div class="w-[45%] xs:w-full sm:w-full h-max">
       <h2 class="text-5xl text-[#19171fd2] font-semibold">
-        We can’t seem to find the page you’re looking for.
+        We can not seem to find the page you are looking for.
       </h2>
       <p class="mt-4 font-semibold text-2xl text-[#555555]">
         but your car is still safe with us
@@ -30,3 +54,4 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </container>
 </Layout>
+</body>

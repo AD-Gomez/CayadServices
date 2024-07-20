@@ -4,7 +4,31 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -26,7 +50,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         Classic car transport and exotic car transport
       </h1>
       <p class="text-white text-lg font-semibold">
-        Nobody outshines Cayad Auto Transport’s top-rated classic car transport
+        Nobody outshines Cayad Auto Transport is top-rated classic car transport
         services
       </p>
       <GetQuoete />
@@ -159,7 +183,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <p class="text-base mt-4">
           When it comes to classic car transport and exotic car transport, Cayad
           Auto Transport takes things very seriously. We vet each and every one
-          of our 15k+ carriers to ensure you’re getting the reliable, classic
+          of our 15k+ carriers to ensure you are getting the reliable, classic
           car transport service that you paid for.
         </p>
 
@@ -167,7 +191,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           Fully-insured auto transport
         </h1>
         <p class="text-base mt-4">
-          Your car will be covered from transport damage with the carrier’s
+          Your car will be covered from transport damage with the carriers
           cargo insurance. Our compliance team ensures that ALL our carriers
           meet and maintain our insurance standards.
         </p>
@@ -252,3 +276,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

@@ -3,7 +3,31 @@ import Layout from "../../../layouts/Layout.astro";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -27,7 +51,7 @@ import Testimonials from "../../../components/Testimonials";
         Ship a Car to Another State
       </h1>
       <p class="text-white text-lg font-semibold">
-        Transport your vehicle to another state with the nation’s top-rated auto
+        Transport your vehicle to another state with the nations top-rated auto
         transport company
       </p>
       <GetQuote />
@@ -356,3 +380,4 @@ import Testimonials from "../../../components/Testimonials";
     </section>
   </container>
 </Layout>
+</body>

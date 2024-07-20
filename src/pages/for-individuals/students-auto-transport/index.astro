@@ -6,7 +6,31 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import NumberPhone from "../../../components/NumberPhone.astro";
 import CountNumber from "../../../components/CountNumber";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -33,7 +57,7 @@ import CountNumber from "../../../components/CountNumber";
         Head to college with Cayad Auto Transport
       </h1>
       <p class="text-white text-lg font-semibold">
-        Need to ship a car to college? We’re here to help
+        Need to ship a car to college? We are here to help
       </p>
       <GetQuoete />
     </div>
@@ -116,7 +140,7 @@ import CountNumber from "../../../components/CountNumber";
               Save time
             </h5>
             <p class="py-4" style="text-align: justify;">
-              If you drive across the country, you’ll shorten the lifespan of
+              If you drive across the country, you will shorten the lifespan of
               your car by adding miles and you will also have to go through the
               hassle of lenghty driving through different states.
             </p>
@@ -140,10 +164,10 @@ import CountNumber from "../../../components/CountNumber";
           </p>
         </div>
         <div class="mt-8">
-          <h3 class="text-[1.5rem] font-bold">Affordable auto transport ​</h3>
+          <h3 class="text-[1.5rem] font-bold">Affordable auto transport</h3>
           <p class="text-base mt-4">
-            We know that college students don’t exactly have deep pockets. With
-            benefits like our ‘Discounted Cash Price’ payment option, Cayad Auto
+            We know that college students do not exactly have deep pockets. With
+            benefits like our Discounted Cash Price payment option, Cayad Auto
             Transport is ready to work with any sized budget.
           </p>
         </div>
@@ -288,3 +312,4 @@ import CountNumber from "../../../components/CountNumber";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

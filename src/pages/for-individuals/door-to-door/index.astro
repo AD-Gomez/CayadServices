@@ -4,7 +4,31 @@ import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -67,7 +91,7 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
         data-aos="fade-up"
         class="text-[2.5rem] xs:text-xl text-[#19171fd2] font-semibold"
       >
-        What you’ll like about Door to door auto transport:
+        What you will like about Door to door auto transport:
       </h2>
 
       <div
@@ -84,7 +108,7 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
           <p class="py-4" style="text-align: justify;">
             With Door to door auto transport, your car will get from point A to
             point B quickly and safely. By having your car delivered straight to
-            your door, you’re allowing the experts to handle every step of the
+            your door, you are allowing the experts to handle every step of the
             process and ensure there are no speed bumps along the way.
           </p>
         </div>
@@ -215,3 +239,4 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

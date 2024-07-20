@@ -5,7 +5,31 @@ import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -29,7 +53,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
         Navigate obstacles and determine the best path
       </p>
       <p class="text-white text-lg font-semibold">
-        forward with Cayad Auto Transport’s Business Solutions.
+        forward with Cayad Auto Transports Business Solutions.
       </p>
       |<GetQuoete />
     </div>
@@ -57,11 +81,11 @@ import SecondFooter from "../../../components/SecondFooter.astro";
           <br />
           <br />
 
-          With Cayad’s portfolio of business solutions, you’ll find the
+          With Cayads portfolio of business solutions, you will find the
           resources you need to ensure you have the market resiliency and
           capacity necessary for future growth. We incorporate reliable service
           and powerful technology into our solutions at every stage of a
-          vehicle’s lifecycle to improve efficiency for shippers, carriers and
+          vehicles lifecycle to improve efficiency for shippers, carriers and
           end consumers.
         </p>
       </div>
@@ -98,7 +122,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
           Capacity with flexibility
         </h1>
         <p class="text-base mt-8">
-          Cayad’s extensive nationwide carrier network of over 15,000 ensures
+          Cayad is extensive nationwide carrier network of over 15,000 ensures
           consistent and available capacity along with the ability to weather
           market fluctuations with ease.
         </p>
@@ -122,7 +146,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
         </h1>
         <p class="text-base mt-8">
           With a foundation in the retail market, Cayad Auto Transport is the
-          industry’s leader in single vehicle moves. Even if you just have one
+          industrys leader in single vehicle moves. Even if you just have one
           or two units to move, you need transportation fast, Cayad Auto
           Transport fast.
         </p>
@@ -185,8 +209,8 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       </p>
 
       <p class="text-base mt-8">
-        Without the latest technology and experienced staff, it’s difficult to
-        successfully manage the transport of your wholesale units. That’s where
+        Without the latest technology and experienced staff, it is difficult to
+        successfully manage the transport of your wholesale units. That is where
         leveraging the services of a third party provider can be a game changer.
         Cayad Auto Transport brings together cutting-edge software,
         transportation expertise and a 15,000-carrier network to deliver value
@@ -252,3 +276,4 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
+</body>

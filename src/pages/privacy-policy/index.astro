@@ -3,7 +3,31 @@ import Layout from "../../layouts/Layout.astro";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../components/SecondFooter.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -36,7 +60,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
 
     <p class="text-[#555] mt-8">
       Welcome! Cayad Services LLC (“Cayad”) understands that your privacy is
-      important to you and to us. As part of the normal operation of Cayad’s
+      important to you and to us. As part of the normal operation of Cayad
       services, we collect and, in some cases, disclose information about you to
       third parties. This privacy policy (“Privacy Policy”) shows you what
       information we gather from you and how we protect it. By using this
@@ -50,7 +74,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
       areas of this Site. “We,” “our” means Cayad and its affiliates. “You,” “your,”
       ”visitor,” or “user” means the individual accessing this Site and/or using
       our services. This Privacy Policy is incorporated into and subject to the terms
-      of the Cayad’s Site Terms of Use.
+      of the Cayads Site Terms of Use.
     </p>
 
     <h3 class="text-2xl mt-4 font-semibold text-[#19171fd2] w-full">Minors</h3>
@@ -91,11 +115,11 @@ import SecondFooter from "../../components/SecondFooter.astro";
     <p class="text-[#555] mt-2">
       We automatically track certain information about you based upon your use
       of our Site. We use this information to conduct internal research on our
-      users’ demographics, interests, and behavior to better understand and
+      user demographics, interests, and behavior to better understand and
       serve our users. This information may include device information (e.g.,
       your web browser type and language), the URL that you just came from,
       which URL you next go to, what browser you are using, access times,
-      geolocation data, your IP address, pages viewed, details about how you’ve
+      geolocation data, your IP address, pages viewed, details about how you have
       used the Site and identifiers associated with cookies or other
       technologies that may uniquely identify your device or browser. We may
       combine this information with information obtained from other sources such
@@ -120,7 +144,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
 
     <p class="text-[#555] mt-2">
       If you send us e-mails, letters or other personal correspondence (e.g.,
-      through the Site’s chat functionality), or if other users or third parties
+      through the Site chat functionality), or if other users or third parties
       send us correspondence about your activities or postings on the Site, we
       may collect such information into a file specific to you or share them
       with third parties who provide services to us, such as web functionality.
@@ -144,8 +168,8 @@ import SecondFooter from "../../components/SecondFooter.astro";
     <p class="text-[#555] mt-2">
       We use cookies on certain pages of our Site. A cookie is a small piece of
       data that is stored on your device to help websites and mobile apps
-      remember things about you. Cookies can be used to track a user’s steps or
-      automatically generate a user’s password. Some features of our Site may
+      remember things about you. Cookies can be used to track a user steps or
+      automatically generate a user password. Some features of our Site may
       only be available through the use of a cookie. Cookies can also help us
       provide information to you which is targeted to your interests. Cookies
       are stored on your hard drive, not on our Site. Most, but not all, cookies
@@ -154,7 +178,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
       restricted (as noted above). We use Google Analytics and other data
       collection tools (such as tracking pixels) to help us understand how the
       Site is used. If you would like to opt-out from the use of your
-      information by Google analytics, you may use Google’s analytics opt-out
+      information by Google analytics, you may use Google analytics opt-out
       browser add-on designed for this purpose.
     </p>
 
@@ -166,7 +190,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
       Like most providers of online services, Cayad uses cookies for a number of
       reasons, like protecting your data and account, helping us see which
       features are most popular, counting visitors to a page, improving our
-      users’ experience, keeping our services secure, and just generally
+      users experience, keeping our services secure, and just generally
       providing you with a better, more intuitive, and satisfying experience.
       The cookies we use generally fall into one of the following categories.
     </p>
@@ -254,7 +278,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
     <p class="text-[#555] mt-2">
       Your mobile operating system may let you opt-out from having certain
       device identifiers used for interest-based advertising. You should refer
-      to the instructions provided by your mobile device’s manufacturer; this
+      to the instructions provided by your mobile devices manufacturer; this
       information is typically available under the “settings” function of your
       mobile device. If your mobile device offers an uninstall process, you can
       always stop us from collecting information through the app by uninstalling
@@ -392,7 +416,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
 
     <p class="text-[#555] w-full mt-2">
       We do not share your Personal Data with third parties for those third
-      parties’ direct marketing purposes.
+      parties direct marketing purposes.
     </p>
 
     <h3 class="text-2xl mt-8 font-semibold text-[#19171fd2] w-full">
@@ -498,7 +522,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
       Site analytics or digital advertising service providers may be considered a
       “sale” and is considered “sharing” under the CPRA. For example, we use Google
       Analytics to help us understand how our Site is used. To opt-out of the sale
-      of Personal Data by Cayad, you may go to Cayad’s “Do Not Sell or Share My Personal
+      of Personal Data by Cayad, you may go to Cayads “Do Not Sell or Share My Personal
       Information” web page. Cayad does not have actual knowledge that we sell or
       share Personal Data about minors under the age of 16.
       <br />
@@ -650,3 +674,4 @@ import SecondFooter from "../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
+</body>

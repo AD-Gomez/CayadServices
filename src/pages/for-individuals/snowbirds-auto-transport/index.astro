@@ -4,7 +4,31 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -131,7 +155,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <div class="mt-8">
           <h3 class="text-[1.5rem] font-bold">Returning customer discount​</h3>
           <p class="text-base mt-4">
-            Don’t miss our discounts for snowbirds car shipping again with us.
+            Do not miss our discounts for snowbirds car shipping again with us.
             Get in touch with one of our booking representatives on Live Chat or
             by calling (469) 619-0747 to answer all your questions.
           </p>
@@ -164,7 +188,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           Attention to customer support
         </h1>
         <p class="text-base mt-4">
-          Cayad Auto Transport’s friendly customer support team handles each
+          Cayad Auto Transport friendly customer support team handles each
           case individually and pays attention to every detail, giving you the
           very best in snowbirds auto transport.
         </p>
@@ -252,3 +276,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

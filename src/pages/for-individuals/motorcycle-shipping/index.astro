@@ -7,7 +7,31 @@ import CountNumber from "../../../components/CountNumber";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -100,7 +124,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
           When shipping a motorcycle Door to door, our assigned carrier will
           arrive at your location and load your motorcycle onto patented metal
           skids and specialized platforms made specifically for transporting
-          motorcycles, scooters and ATV’s.
+          motorcycles, scooters and ATVs.
         </p>
       </div>
       <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
@@ -141,7 +165,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
             <p class="py-4" style="text-align: justify;">
               At Cayad Auto Transport, we have built a reputation as the
               industry-leader in vehicle transport. With more than 3 years of
-              experience, we are the number one provider for many of the world’s
+              experience, we are the number one provider for many of the worlds
               largest OEM manufacturers.
             </p>
           </div>
@@ -220,3 +244,4 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
+</body>

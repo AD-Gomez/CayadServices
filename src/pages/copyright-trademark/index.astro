@@ -3,7 +3,21 @@ import Layout from "../../layouts/Layout.astro";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../components/SecondFooter.astro";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
 <style>
   .custom-background {
     background:

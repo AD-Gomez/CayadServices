@@ -4,7 +4,31 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <script
+    type="text/partytown"
+    async
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
+    gtag("config", "GTM-NT3H9XXW");
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -69,7 +93,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       <h1
         class="font-semibold xs:w-full sm:w-full xs:px-4 sm:px-4 xs:text-[1.8rem] sm:text-[1.8rem] text-[2.5rem]"
       >
-        What you’ll like about open auto transport:
+        What you will like about open auto transport:
       </h1>
     </div>
     <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
@@ -214,3 +238,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
+</body>
