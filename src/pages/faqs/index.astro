@@ -4,6 +4,22 @@ import Accordion from "../../components/Accordion";
 import GetQuote from "../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -96,6 +112,17 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
   }
 </style>
 
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
+
 <Layout title="Faqs | Cayad Auto Transport">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
@@ -175,7 +202,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
         <Accordion client:load title="What's the deal with insurance?">
           <p class="font-serif">
             Understanding auto transport insurance is important and we think
-            it’s valuable to explain how it works. As part of providing a great
+            it is valuable to explain how it works. As part of providing a great
             car transport service, it is our job to guarantee that the carrier
             we assign to pickup your vehicle is licensed and insured.
             <br />
@@ -185,7 +212,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
             the FMCSA (Federal Motor Carrier and Safety Administration).
             <br />
             <br />
-            Your vehicle is covered by the carrier’s insurance policy that is doing
+            Your vehicle is covered by the carriers insurance policy that is doing
             the shipping. Depending on the type and size of the truck/trailer that
             is shipping your car, the insurance policy can cover from $100,000 to
             $1,000,000 of damage.
@@ -203,7 +230,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
             <br />
             <br />
             It is rare but, time-to-time there may be accidental damage while in
-            transit and it is good to know that your carrier’s insurance will protect
+            transit and it is good to know that your carriers insurance will protect
             your auto shipment in that event.
             <br />
             <br />
@@ -234,7 +261,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
           </div>
           <Accordion client:load title="How does Cayad come up my quote?">
             <p class="mt-4 font-serif">
-              We feel it’s important for you to know how we determined your
+              We feel it is important for you to know how we determined your
               quote. Quotes are based on what the market demands for cars to be
               moved at a given time. Each quote is compared with the current
               rates on the National Load Board before being sent to our
@@ -331,7 +358,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
             title="Do the carriers accepts credit or debit cards for the balance due upon delivery?"
           >
             <p class="font-serif">
-              Most carriers doesn’t accept credit cards, and if they do, there
+              Most carriers does not accept credit cards, and if they do, there
               is often a 5% fee added including Paypal & Venmo. We recommend
               Cash, Zelle and Cash App.
             </p>
@@ -347,11 +374,11 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
               carrier for the lowest price possible.
               <br />
               <br />
-              We feel it’s important for you to know how we determine your quote.
+              We feel it is important for you to know how we determine your quote.
 
               <br />
               <br />
-              When you’re looking for a car shipping rate, you want to understand
+              When you are looking for a car shipping rate, you want to understand
               how auto transport works.
 
               <br />
@@ -401,7 +428,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
             <p class="mt-4 font-serif">
               Most auto transport trucks are quite large, up to 75 feet long.
               This sometimes makes it impossible to reach many residential
-              areas. If that’s the case with your auto move, your carrier will
+              areas. If that is the case with your auto move, your carrier will
               attempt to get as close as possible to your delivery location. We
               can also arrange a convenient location, like a shopping center, to
               either pick up or deliver your vehicle.
@@ -412,7 +439,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
               more accessible, convenient location that works for both of you.
             </p>
             <p class="mt-4 font-serif">
-              They won’t move your car – they just get you in contact with
+              They won not move your car – they just get you in contact with
               companies that will (like us).
             </p>
           </Accordion>
@@ -474,8 +501,8 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
               vehicle ultimately gets picked up.
             </p>
             <p class="mt-4 font-serif">
-              If you’re shopping around for the best price to ship your vehicle,
-              it’s likely that all of the quotes you are getting, including
+              If you are shopping around for the best price to ship your vehicle,
+              it is likely that all of the quotes you are getting, including
               ours, are from brokers.
             </p>
             <p class="mt-4 font-serif">
@@ -495,7 +522,7 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
               not be transported at all.
             </p>
             <p class="mt-4 font-serif">
-              They don’t have the time or resources to find customers, and they
+              They do not have the time or resources to find customers, and they
               rely quite heavily on us to find loads for them to transport.
             </p>
             <p class="mt-4 font-serif">
@@ -529,10 +556,10 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
               of their business; our website is here as an additional resource for
               our customers, but most of our customers find us through one of the
               online quote providers that we work with to find customers. They are
-              usually a customer’s first stop when looking for auto transporters.
+              usually a customers first stop when looking for auto transporters.
               <br />
               <br />
-              They won’t move your car – they just get you in contact with companies
+              They won not move your car they just get you in contact with companies
               that will (like us).
             </p>
           </Accordion>
@@ -588,3 +615,4 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
+</body>

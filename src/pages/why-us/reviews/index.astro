@@ -7,6 +7,22 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 import logoFb from "../../../../public/img/facebookReview2.jpeg";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -16,6 +32,17 @@ import logoFb from "../../../../public/img/facebookReview2.jpeg";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Reviews | Cayad Auto Transport" content="sasasa">
   <div
@@ -870,7 +897,7 @@ import logoFb from "../../../../public/img/facebookReview2.jpeg";
             </p>
 
             <p class="text-sm mt-4 text-[#555]">
-              you didn’t even charge me your company is the best thank u so much
+              you did not even charge me your company is the best thank u so much
             </p>
           </div>
 
@@ -1121,7 +1148,7 @@ import logoFb from "../../../../public/img/facebookReview2.jpeg";
               <h5 class="font-semibold">Personalized approach</h5>
               <p class="xs:text-start sm:text-start mb-0">
                 Why choose our auto transport company? Cayad Auto Transport
-                works with you through every step of your car or truck’s move.
+                works with you through every step of your car or trucks move.
                 Experience hassle-free shipping when you choose us as your car
                 transporter and enjoy an easy and painless shipment process.
               </p>
@@ -1135,7 +1162,7 @@ import logoFb from "../../../../public/img/facebookReview2.jpeg";
                 We're a top-rated auto transport company, so your car will get
                 from point A to point B without you having to break a single
                 sweat. By having your car delivered straight to your door,
-                you’re allowing the experts to handle every step of the process
+                you are allowing the experts to handle every step of the process
                 and ensure there are no speed bumps along the way.
               </p>
             </div>
@@ -1161,3 +1188,4 @@ import logoFb from "../../../../public/img/facebookReview2.jpeg";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
+</body>

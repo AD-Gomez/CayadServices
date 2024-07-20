@@ -4,6 +4,22 @@ import Testimonials from "../../../components/Testimonials";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -13,6 +29,17 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Auto Auction Shipping | Cayad Autro Transport">
   <div
@@ -44,11 +71,11 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           Transport vehicles quickly and conveniently
         </h1>
         <p class="text-base mt-8">
-          You’re not just running an auction business, you’re orchestrating
+          You are not just running an auction business, you are orchestrating
           hundreds of moves with such precision that top-rated surgeons would be
           impressed. One wrong move, miscommunication or delay and your
           business, as well as those of your buyers and sellers, could cost you
-          money. That’s why having the right transportation and specialist
+          money. That is why having the right transportation and specialist
           partner on your team is critically important.
         </p>
 
@@ -110,7 +137,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           We are the leader in single-unit moves and have the capacity to pickup
           or deliver vehicles just around the corner or more than 140 miles
           away. Whether you have a single vehicle to transport or one hundred,
-          Cayad’s scalable capacity provides quick response with skilled vehicle
+          Cayads scalable capacity provides quick response with skilled vehicle
           handling and average pickup and transit times lower than the
           competition.
         </p>
@@ -201,7 +228,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             <p class="py-4" style="text-align: justify;">
               We leverage the latest technology to make car shipping easier and
               more convenient for our customers. Our innovation and service
-              drive progress for our customers’ operations.
+              drive progress for our customers operations.
             </p>
           </div>
         </div>
@@ -216,7 +243,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             </h5>
             <p class="py-4" style="text-align: justify;">
               Our priority on product and service innovations fuels our
-              customers’ success. We were experts checking the market for get
+              customers success. We were experts checking the market for get
               the best rates.
             </p>
           </div>
@@ -351,3 +378,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
+</body>

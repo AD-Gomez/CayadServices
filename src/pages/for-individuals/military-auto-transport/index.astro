@@ -4,6 +4,22 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -13,6 +29,17 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Military Car Shipping | Cayad Auto Transport" content="sasa">
   <div
@@ -96,7 +123,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           data-wow-delay="0.3s"
         >
           <h5 class="mb-2 py-4 text-xl text-[#19171fd2] font-semibold">
-            Simple pick-up and delivery​
+            Simple pick-up and delivery
           </h5>
           <p class="py-4" style="text-align: justify;">
             Our drivers will follow your directions for pick-up and delivery,
@@ -116,7 +143,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             </h5>
             <p class="py-4" style="text-align: justify;">
               We offer PSC vehicle shipping discounts for active duty, veterans,
-              Reserves, National Guard, and military dependents. It’s the least
+              Reserves, National Guard, and military dependents. It is the least
               we can do for the brave men and women who protect our country.
             </p>
           </div>
@@ -170,13 +197,13 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             No carrier assignment, no charge
           </h3>
           <p class="text-base mt-8">
-            We work quickly to find carriers to ship your car, and we don’t
+            We work quickly to find carriers to ship your car, and we do not
             charge credit card payments until after we find a dependable car
             hauler for your vehicle.
           </p>
         </div>
         <div class="mt-8">
-          <h3 class="text-[1.5rem] font-bold">‌High compliance standards ​</h3>
+          <h3 class="text-[1.5rem] font-bold">High compliance standards</h3>
           <p class="text-base mt-4">
             We have a carrier compliance department that checks all carriers in
             our network to ensure we only work with the most professional,
@@ -185,10 +212,10 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         </div>
         <div class="mt-8">
           <h3 class="text-[1.5rem] font-bold">
-            Leaders in military PCS vehicle shipping ​
+            Leaders in military PCS vehicle shipping
           </h3>
           <p class="text-base mt-4">
-            A PCS relocation can be tough on families, but you shouldn’t have to
+            A PCS relocation can be tough on families, but you should not have to
             worry about whether your car will arrive on time. Our goal is always
             stress-free military car shipping
           </p>
@@ -320,3 +347,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>
