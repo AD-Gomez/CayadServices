@@ -4,20 +4,21 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../components/SecondFooter.astro";
 ---
 <head>
-  <script
-    type="text/partytown"
-    async
-    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
-  <script type="text/partytown">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "GTM-NT3H9XXW");
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
   </script>
-</head>
+  <!-- End Google Tag Manager --></head
+>
 <style>
   .custom-background {
     background:
@@ -26,6 +27,17 @@ import SecondFooter from "../../components/SecondFooter.astro";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Copyright & TradeMark | Cayad Auto Transport">
   <contaier
@@ -95,3 +107,4 @@ import SecondFooter from "../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
+</body>
