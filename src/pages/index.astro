@@ -7,24 +7,12 @@ import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
+import GoogleTagManager from "../components/GoogleTagManager.astro";
 import NumberPhone from "../components/NumberPhone.astro";
 ---
 
 <head>
-  <script
-    is:inline
-    type="text/partytown"
-    async
-    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
-  <script is:inline type="text/partytown">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "GTM-NT3H9XXW");
-  </script>
+  <GoogleTagManager />
 </head>
 
 <style>
