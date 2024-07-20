@@ -2,15 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Testimonials from "../components/Testimonials";
 import FormLanding from "../components/forms/FormLanding";
-import { FaPhone } from "react-icons/fa";
 import { FaCar } from "react-icons/fa6";
 import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 import NumberPhone from "../components/NumberPhone.astro";
-import GoogleTagManager from "../components/GoogleTagManager.astro";
 ---
+
 
 <style>
   .service-item:hover img,
@@ -191,7 +190,9 @@ import GoogleTagManager from "../components/GoogleTagManager.astro";
   }
 </style>
 
-<Layout title="Car Shipping Nationwide USA | Cayad Auto Transport">
+<Layout title="Car Shipping Nationwide USA | Cayad Auto Transport" 
+content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor."
+>
   <section
     class="relative image--banner h-screen xs:h-max md:h-max lg:h-max w-full"
   >

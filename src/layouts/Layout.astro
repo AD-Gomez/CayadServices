@@ -6,10 +6,11 @@ import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
 interface Props {
+  content: string;
   title: string;
 }
 
-const { title } = Astro.props;
+const { title, content } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,7 +18,7 @@ const { title } = Astro.props;
   <head>
     <GoogleTagManager />
     <meta charset="UTF-8" />
-    <meta name="description" content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor." />
+    <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
     <link
       rel="stylesheet"
