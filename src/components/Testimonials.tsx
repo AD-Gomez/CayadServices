@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     name: "Hhrg Ramirez",
-    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-1/102802572_665660624016806_3203696689356932331_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wuSSzH9Y3o8Q7kNvgHoBYi6&_nc_ht=scontent-hou1-1.xx&oh=00_AYBL4SHZtcW36yW1B-QkbWwN2bnKWSes7oFhbCxf73VZBA&oe=669943CC',
+    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t1.6435-1/102802572_665660624016806_3203696689356932331_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=100&ccb=1-7&_nc_sid=e4545e&_nc_ohc=oN-nXsY06JEQ7kNvgF16EIv&_nc_ht=scontent.fccs3-2.fna&oh=00_AYDBB7PI2_4cyLQPKNnZfKy7O5smOXaFvI1lyy-1IAM42Q&oe=66C5DE8C',
     rating: 5,
     comment: "Muy profesional y excelente servicio hasta ahora el mejor servicio de transporte que he contratado. Recomiendo 100%,. Muy rápida y buena comunicación.",
     link: "https://www.facebook.com/permalink.php?story_fbid=1548929205689939&id=100017186221123&ref=embed_post",
@@ -45,7 +45,7 @@ const testimonials = [
   },
   {
     name: "Kimmy Tennant",
-    image: 'https://scontent-ams2-1.xx.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=gS0ZteamRkwQ7kNvgHtyuSq&_nc_ht=scontent-ams2-1.xx&oh=00_AYApH2Q-sRZhjFyJi1XOKWD2Aq2UmSD57AGL27WnEgM87Q&oe=669B3AB6',
+    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=uGi_OPzEgpEQ7kNvgFByS8q&_nc_ht=scontent.fccs3-2.fna&oh=00_AYAAtynKgALiMmZb977tDwbHhaUsvHPbCoq_11wQaIy9bg&oe=66A43CF6',
     rating: 5,
     comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
     link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
@@ -65,7 +65,7 @@ const testimonials = [
   },
   {
     name: "Abir Khan",
-    image: 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-1/33920933_10215860728529327_6365152725356773376_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=K5MZivfpbEcQ7kNvgHQzwrv&_nc_ht=scontent-hou1-1.xx&oh=00_AYDzbvfa_mBLaU6nqfUpbrbac9DZj2Eei9bLDJ6PCITwDw&oe=66993E33',
+    image: 'https://scontent.fccs3-1.fna.fbcdn.net/v/t1.6435-1/33920933_10215860728529327_6365152725356773376_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=109&ccb=1-7&_nc_sid=e4545e&_nc_ohc=M7zWV1CqMPQQ7kNvgErr_4w&_nc_ht=scontent.fccs3-1.fna&oh=00_AYCPDgiDDVpiggt_M5tJ-jpM7lSwFBOkcNqm_W7UI7HN2Q&oe=66C5D8F3',
     rating: 5,
     comment: "11/10. Maiky was amazing in his communication and transparency. Car was delivered from IL to NY with no issues and they even provide live upates and location tracking! Would not hesitate to use their services again.",
     link: "https://www.facebook.com/adot.khan.7/posts/10232305783965435?ref=embed_post",
