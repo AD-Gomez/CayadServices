@@ -5,22 +5,7 @@ import { IoArrowRedo } from "react-icons/io5";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import SecondFooter from "../../../components/SecondFooter.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
+
 
 <style>
   .service-item:hover img,
@@ -92,35 +77,26 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
-
-<Layout title="Our Team | Cayad Auto Transport">
+<Layout title="Our Team | Cayad Auto Transport"
+content="Cayad boasts a team of seasoned professionals dedicated to delivering effective car shipping solutions for the industry. Get A Quote Now!">
   <div class="w-full flex flex-col items-center">
     <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mt-24">
-      <h1 class="text-[2.5rem] text-[#19171fd2] font-semibold">
+      <h2 class="text-[2.5rem] text-[#19171fd2] font-semibold">
         The Executive Team
-      </h1>
+      </h2>
       <p class="mt-2 text-sm">
         At Cayad, our executive team is a powerhouse of experienced
         professionals dedicated to providing industry-leading services and
         ensuring unmatched customer satisfaction. Comprised of seasoned
         individuals who have held key roles within the industry, each member
         brings a rich background of expertise and unique insights gained from
-        years of hands-on experience and strategic leadership.
+        years of hands-on experience and strategic leadership.</p>
         <br />
         <br />
-        Their collective efforts have been pivotal in shaping the industry, introducing
-        innovative solutions, and setting the gold standard for service delivery.
-      </p>
+      <h1>
+        Their collective efforts have been pivotal in car shipping inside U.S the industry, introducing
+        innovative solutions, and setting the standard for service delivery.
+      </h1>
       <div
         class="w-full grid grid-cols-3 mt-32 mb-12 gap-10 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1"
       >
@@ -167,9 +143,9 @@ import SecondFooter from "../../../components/SecondFooter.astro";
     </div>
 
     <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
-      <h1 class="text-[2.5rem] text-[#19171fd2] font-semibold">
+      <h2 class="text-[2.5rem] text-[#19171fd2] font-semibold">
         The Specialist Team
-      </h1>
+      </h2>
       <p class="mt-2 text-sm">
         At Cayad Auto Transport, we have a renowned workforce comprised of
         highly skilled professionals with unique abilities and extensive
@@ -303,4 +279,3 @@ import SecondFooter from "../../../components/SecondFooter.astro";
 
   <ButtonScrollTop client:load />
 </Layout>
-</body>
