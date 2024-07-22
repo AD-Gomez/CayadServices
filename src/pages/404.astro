@@ -2,33 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
   <!-- End Google Tag Manager (noscript) -->
-  <Layout title="Page Not Found | Cayad Auto Transport">
+  <Layout title="Page Not Found | Cayad Auto Transport"
+  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor.">
     <container
       class="h-screen w-[80%] xs:px-4 sm:px-4 xs:h-max sm:h-max flex xs:flex-col sm:flex-col xs:w-full sm:w-full items-center mx-auto"
     >
@@ -56,4 +32,3 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </container>
   </Layout>
-</body>

@@ -6,22 +6,6 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -32,18 +16,8 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
-
-<Layout title="Vision & Mission | Cayad Auto Transport">
+<Layout title="Vision & Mission | Cayad Auto Transport"
+content="Our mission is to become the most cost-effective car shipping industry in the U.S. by integrating top-notch tools with the highly expertise of specialists.">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
@@ -51,7 +25,7 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
       <h1
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
-        Over a Decade of Outstanding Delivery and Exponential Growth
+        Years of Exceptional Delivery and Rapid Growth
       </h1>
       <p class="text-white text-lg font-semibold">
         Rich History of Innovation, Dependability and Success
@@ -65,7 +39,7 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
       <h1
         class="text-[#232b36] text-[30px] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
-        Over a Decade of Outstanding Delivery and Exponential Growth
+        Years of Exceptional Delivery and Rapid Growth
       </h1>
     </div>
   </div>
@@ -83,4 +57,3 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
-</body>
