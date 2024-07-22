@@ -2,6 +2,6 @@ User-agent: *
 Allow: /
 # Sitemap
 
-https://cayad-2-0.vercel.app/sitemap_index.xml
+https://cayadservices.com/
 
 Disallow: /copyright-trademark
