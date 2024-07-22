@@ -4,6 +4,22 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -13,6 +29,17 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Auto Transport For Car Reseller | Cayad Auto Transport">
   <div
@@ -98,7 +125,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             </h5>
             <p class="py-4" style="text-align: justify;">
               Ship with us worry-free knowing that your vehicle will be insured
-              from the time it’s picked up to the time it’s delivered.
+              from the time it is picked up to the time it is delivered.
             </p>
           </div>
         </div>
@@ -119,13 +146,13 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           <p class="text-base mt-8">
             We have earned our place on the Inc. 500 list as one of the top 500
             fastest growing companies in America. We are also proud of our A+
-            rating with the BBB for good business practices. We’ve also received
+            rating with the BBB for good business practices. We have also received
             many 5-star ratings on Transport Reviews and My Moving Reviews for
             customer service and satisfaction.
           </p>
         </div>
         <div class="mt-8">
-          <h3 class="text-[1.5rem] font-bold">‌Easy shipping process ​</h3>
+          <h3 class="text-[1.5rem] font-bold">Easy shipping process </h3>
           <p class="text-base mt-4">
             Shipping cars is all we do. We have a simple four-step process that
             works for any possible car shipment situation.
@@ -151,7 +178,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         </h1>
         <p class="text-base mt-4">
           Cayad Auto Transport has special discounts for repeat customers, so
-          don’t hesitate to schedule your car shipment with us repeatedly.
+          don not hesitate to schedule your car shipment with us repeatedly.
         </p>
 
         <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
@@ -244,3 +271,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

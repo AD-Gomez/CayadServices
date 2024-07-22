@@ -6,6 +6,22 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import NumberPhone from "../../../components/NumberPhone.astro";
 import CountNumber from "../../../components/CountNumber";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -22,6 +38,17 @@ import CountNumber from "../../../components/CountNumber";
   }
 </style>
 
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
+
 <Layout title="Students Auto Transport | Cayad Service">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
@@ -33,7 +60,7 @@ import CountNumber from "../../../components/CountNumber";
         Head to college with Cayad Auto Transport
       </h1>
       <p class="text-white text-lg font-semibold">
-        Need to ship a car to college? We’re here to help
+        Need to ship a car to college? We are here to help
       </p>
       <GetQuoete />
     </div>
@@ -116,7 +143,7 @@ import CountNumber from "../../../components/CountNumber";
               Save time
             </h5>
             <p class="py-4" style="text-align: justify;">
-              If you drive across the country, you’ll shorten the lifespan of
+              If you drive across the country, you will shorten the lifespan of
               your car by adding miles and you will also have to go through the
               hassle of lenghty driving through different states.
             </p>
@@ -140,10 +167,10 @@ import CountNumber from "../../../components/CountNumber";
           </p>
         </div>
         <div class="mt-8">
-          <h3 class="text-[1.5rem] font-bold">Affordable auto transport ​</h3>
+          <h3 class="text-[1.5rem] font-bold">Affordable auto transport</h3>
           <p class="text-base mt-4">
-            We know that college students don’t exactly have deep pockets. With
-            benefits like our ‘Discounted Cash Price’ payment option, Cayad Auto
+            We know that college students do not exactly have deep pockets. With
+            benefits like our Discounted Cash Price payment option, Cayad Auto
             Transport is ready to work with any sized budget.
           </p>
         </div>
@@ -288,3 +315,4 @@ import CountNumber from "../../../components/CountNumber";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>

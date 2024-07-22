@@ -4,6 +4,22 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+  </script>
+  <!-- End Google Tag Manager --></head
+>
 
 <style>
   .custom-background {
@@ -13,6 +29,17 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     background-size: cover;
   }
 </style>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 
 <Layout title="Buy A Car | Cayad Auto Transport">
   <div
@@ -62,8 +89,8 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           <p class="py-4" style="text-align: justify;">
             Arranging transportation is the biggest obstacle when you buy a new
             car online and have it delivered. The numerous phone calls to deal
-            with the seller’s conditions take time and money. Avoid that hassle
-            with Cayad’s Door to door auto transport service.
+            with the sellers conditions take time and money. Avoid that hassle
+            with Cayads Door to door auto transport service.
           </p>
         </div>
         <div
@@ -95,7 +122,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
               Airplane fares are expensive if purchased last minute. Save the
               money for the flight if you plan to pick-up your car yourself. We
               can load anywhere in the United States and deliver to a convenient
-              place at a price you’ll love.
+              place at a price you will love.
             </p>
           </div>
         </div>
@@ -109,7 +136,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
               Buy your car from anywhere
             </h5>
             <p class="py-4" style="text-align: justify;">
-              Don’t want to waste time going to get your vehicle by yourself? No
+              Don not want to waste time going to get your vehicle by yourself? No
               problem. Cayad Auto Transport can deliver your auto from anywhere,
               making it even easier to buy a car online and have it delivered to
               your door.
@@ -311,3 +338,4 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
+</body>
