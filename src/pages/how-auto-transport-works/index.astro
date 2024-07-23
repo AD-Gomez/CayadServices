@@ -8,22 +8,6 @@ import NumberPhone from "../../components/NumberPhone.astro";
 import CountNumber from "../../components/CountNumber";
 import SecondFooter from "../../components/SecondFooter.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -34,27 +18,18 @@ import SecondFooter from "../../components/SecondFooter.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="How It Works? | Cayad Auto Transport">
+<Layout title="How Does Auto Transport Work? | Cayad Auto Transport"
+content="Get a quote and schedule your car shipping with Cayad today! We handle pickup and safe delivery. The cost-effective auto transport service in the U.S.!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         How does auto transport work?
-      </h1>
+      </h2>
       <p class="text-white text-lg font-semibold">
         You'll have to follow 3 simple steps
       </p>
@@ -65,7 +40,7 @@ import SecondFooter from "../../components/SecondFooter.astro";
   <section class="w-full flex flex-col items-center h-max">
     <div class="w-[80%] xs:w-[90%] sm:w-[90%] mt-8">
       <h1 class="text-[38px] font-bold leading-tight">
-        How do I book with cayad auto transport?
+        how do i ship my car with cayad auto transport?
       </h1>
       <h3 class="text-base font-bold mt-2">
         Cayad Auto Transport company guide to quick, easy and safe auto
@@ -366,9 +341,9 @@ import SecondFooter from "../../components/SecondFooter.astro";
       class="w-[80%] xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-around"
     >
       <div class="w-1/2 xs:w-full sm:w-full p-2">
-        <h1 class="text-[2.5rem] text-[#19171fd2]">
+        <h2 class="text-[2.5rem] text-[#19171fd2]">
           Why should you choose Cayad Auto Transport for your car shipment
-        </h1>
+        </h2>
         <p>
           In striving to be the best in the industry, Cayad Auto Transport has
           become one of the fastest growing companies in American market. Our
@@ -400,4 +375,3 @@ import SecondFooter from "../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
-</body>

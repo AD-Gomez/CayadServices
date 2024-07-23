@@ -3,22 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../components/SecondFooter.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -29,37 +13,27 @@ import SecondFooter from "../../components/SecondFooter.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
-
-<Layout title="Privacy Policy | Cayad Auto Transport">
+<Layout title="Privacy Policy | Cayad Auto Transport"
+content="Cayad Services LLC values your privacy and recognizes its importance to both you and us. In the course of our standard car shipping operations, Contact us!">
   <contaier
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
-        Our Privacy Policy
-      </h1>
+        Privacy Policy
+      </h2>
     </div>
   </contaier>
 
   <container
     class="w-[80%] xs:w-full xs:px-4 sm:w-full sm:px-4 flex flex-col mb-8 items-center mx-auto"
   >
-    <h3 class="text-3xl mt-8 font-semibold text-[#19171fd2] w-full">
-      Cayad Privacy Policy
-    </h3>
+    <h1 class="text-3xl mt-8 font-semibold text-[#19171fd2] w-full">
+      Cayad Auto Transport Privacy Policy
+    </h1>
 
     <p class="text-[#555] mt-8">
       Welcome! Cayad Services LLC (“Cayad”) understands that your privacy is
@@ -677,4 +651,3 @@ import SecondFooter from "../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
-</body>

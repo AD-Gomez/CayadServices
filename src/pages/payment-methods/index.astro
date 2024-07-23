@@ -4,22 +4,6 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import Testimonials from "../../components/Testimonials";
 import GetQuote from "../../components/buttons/GetQuote.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -30,33 +14,21 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
-
-<Layout title="Payment Methods | Cayad Auto Transport">
+<Layout title="Payment Methods | Cayad Auto Transport"
+content="Experience seamless car transport across the U.S. with Cayad Auto Transport Business Solutions. Get a quote NOW!">
   <contaier
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
-        Additional payment methods.
+        Cayad additional payments methods.
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Experience seamless car transport across the U.S. with Cayad Auto Transport Business Solutions.
       </h1>
-      <p class="text-white text-lg font-semibold">
-        We offer the flexibility of others financial structures..
-        <br />
-        forward with Cayad Auto Transport Business Solutions.
-      </p>
       <GetQuote />
     </div>
   </contaier>
@@ -73,7 +45,7 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
         <div class="w-full h-max flex flex-col items-center p-2">
           <img
             alt=""
-            src="https://drive.google.com/thumbnail?id=16YZej-6t7L_cHZzSOwETBby2cEVzcg0W"
+            src="/public/img/zelle.png"
             style="width: 220px; height: 220px;"
           />
           <br />
@@ -89,7 +61,7 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
         <div class="w-full h-max flex flex-col items-center p-2">
           <img
             alt=""
-            src="https://drive.google.com/thumbnail?id=19SwflbZ9YaPk3oYbynVnYqBQJBOWXoQr"
+            src="/public/img/cashapp.png"
             style="width: 220px; height: 215px;"
           />
           <br />
@@ -107,7 +79,7 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
             alt="affordable-Icon-money"
             class="CToWUd"
             data-bit="iit"
-            src="https://drive.google.com/thumbnail?id=1bNml8-IbA7XMJgl9Gd0hPGajabL-XR0c"
+            src="/public/img/paypal.png"
             style="border: 0px; outline: none; text-decoration: none; display: inline-block; width: 220px; height: 220px;"
           />
           <br />
@@ -124,7 +96,7 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
             alt="reputable-Icon-5-star"
             class="CToWUd"
             data-bit="iit"
-            src="https://drive.google.com/thumbnail?id=1mtvDqjQNFH8arguX7hyJ1akGt1GExmOv"
+            src="/public/img/venmo.png"
             style="border: 0px; outline: none; text-decoration: none; display: inline-block; width: 220px; height: 220px;"
           />
           <br />
@@ -149,4 +121,3 @@ import GetQuote from "../../components/buttons/GetQuote.astro";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
-</body>
