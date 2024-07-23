@@ -3,22 +3,6 @@ import Layout from "../../../layouts/Layout.astro";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -28,17 +12,6 @@ import Testimonials from "../../../components/Testimonials";
     background-size: cover;
   }
 </style>
-
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
 <Layout
   title="Ship Car To Another State | Cayad Auto Transport"
@@ -61,7 +34,7 @@ import Testimonials from "../../../components/Testimonials";
     </div>
   </container>
 
-  <div class="w-full mt-12 flex justify-center mb-8">
+  <div class="w-full h-max mt-12 flex justify-center mb-8">
     <Testimonials
       title="Read what other online car buyers say about their experience with Cayad"
       client:load
@@ -87,19 +60,19 @@ import Testimonials from "../../../components/Testimonials";
   </container>
 
   <container
-    class="w-[100%] h-[60vh] py-8 mt-12 bg-[#e2e6ec] flex flex-col items-center xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
+    class="w-[100%] h-max py-8 mt-12 bg-[#e2e6ec] flex flex-col items-center xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
   >
-    <section class="w-[80%]">
+    <section class="w-[80%] xs:w-full sm:w-full">
       <h2 class="text-4xl w-full text-[#555] font-semibold">
-        Transport your car to another state in 3 easy steps with Montway
+        Transport your car to another state in 3 easy steps with Cayad
       </h2>
       <p class="text-base mt-4 w-full">
         Transporting your vehicle from point A to point B is easier than you may
         think! In fact, there are just three simple steps – watch the video to
         learn more.
       </p>
-      <section class="w-full flex items-start">
-        <div class="w-[45%] mt-12 flex flex-col">
+      <section class="w-full flex xs:flex-col sm:flex-col items-start">
+        <div class="w-[45%] xs:w-full sm:w-full mt-12 flex flex-col">
           <div>
             <div class="flex mt-4">
               <div class="rounded-[50%]">
@@ -364,7 +337,7 @@ import Testimonials from "../../../components/Testimonials";
           </div>
         </div>
 
-        <div class="w-[45%] mt-12">
+        <div class="w-[45%] xs:w-full sm:w-full mt-12">
           <div class="w-full flex justify-center">
             <iframe
               id="js-video-iframe"
@@ -374,13 +347,323 @@ import Testimonials from "../../../components/Testimonials";
               title="How Auto Transport Works - Explained In 3 Simple Steps"
               width="860"
               height="284"
-              src="../img/video.mp4"
+              src="/img/video.mp4"
               class="video-how max-h-[281px] max-w-[577px] xs:max-w-[90%] xs:max-h-[288px]"
             ></iframe>
           </div>
         </div>
       </section>
+
+      <h3 class="text-4xl font-semibold mt-12 text-[#555]">
+        Choosing the best state-to-state auto transport company
+      </h3>
+      <p class="mt-8">
+        Your vehicle is very important to you and you’ll want to work with a
+        trustworthy auto transport company. When starting your research, look
+        for a company with years of experience, a good reputation and positive
+        reviews from previous customers. Always confirm that the company you are
+        considering is insured and licensed as well. Overall, they should work
+        with you to understand your budget and timeframe and recommend the best
+        auto transport option possible.
+      </p>
+      <GetQuote />
     </section>
   </container>
+
+  <section
+    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex justify-between xs:flex-col sm:flex-col"
+  >
+    <container class="w-[45%] xs:w-full sm:w-full">
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Distance</h3>
+        <p class="text-sm">
+          Total distance is the main factor in determining the cost of car
+          shipping. A distance of less than 500 miles is around $1.85/mile,
+          between 500 and 1,500 miles is about $.91/mile and distances more than
+          1,500 miles are roughly $.59/mile. While longer distances lead to a
+          higher overall price, the per-mile cost is discounted.
+        </p>
+      </div>
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">
+          Vehicle year/make/model
+        </h3>
+        <p class="text-sm">
+          Cars, vans and trucks come in all different sizes—an economy car will
+          be lighter and take up less space on a trailer than a full-sized,
+          luxury SUV. Longer and taller vehicles and those with modifications
+          like larger tires and roof racks may require vehicle transport
+          adjustments that could increase the shipping cost.
+        </p>
+      </div>
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Method of transport</h3>
+        <p class="text-sm">
+          Open and enclosed are the main auto transport options. Open transport
+          is most commonly used, but means vehicles will be exposed to
+          environmental elements and debris. Enclosed transport costs more, but
+          provides some basic protection. It is typically used for classic or
+          exotic vehicles or cars with low clearance
+        </p>
+      </div>
+    </container>
+
+    <container class="w-[45%] xs:w-full sm:w-full">
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Route</h3>
+        <p class="text-sm">
+          The route refers to what highways or roads the car carrier will need
+          to travel to transport your vehicle. Do you live in a congested city?
+          Or in a rural town up a steep mountain road? Both of these routes have
+          unique challenges that may determine the type of carrier needed and
+          impact transport time and costs.
+        </p>
+      </div>
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Date</h3>
+        <p class="text-sm">
+          It’s best to book your auto transport service at least two weeks in
+          advance as the availability of carriers fluctuates during certain
+          seasons and geographic locations. Having a flexible date for shipment
+          will be more economical, but if you do have timeline limintations, a
+          guaranteed pickup date can be arranged for a higher cost.
+        </p>
+      </div>
+      <div class="w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Condition of vehicle</h3>
+        <p class="text-sm">
+          It’s crucial to know the condition of the vehicle being transported.
+          Fully operational vehicles are less expensive to ship as they can be
+          driven and easily loaded and unloaded on and off trailers. Inoperable
+          vehicles that require special equipment such as a winch, forklift or
+          flatbed tow truck/wrecker to load, will increase shipping costs.
+        </p>
+      </div>
+    </container>
+  </section>
+
+  <section
+    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
+  >
+    <h3 class="text-4xl font-semibold text-[#555]">
+      How long does it take to ship a car to another state?
+    </h3>
+    <p class="mt-4">
+      The duration it takes to ship a car to another state can vary depending on
+      the distance between the pickup and delivery locations, the time of year
+      and other factors. A vehicle traveling a distance of 500 miles may take
+      two to four days while a distance of 2,000 miles may take a week or more.
+      This does not include the pickup time required to load all vehicles.
+    </p>
+
+    <h3 class="text-4xl font-semibold mt-12 text-[#555]">
+      Factors that affect how long your car shipping could take
+    </h3>
+    <container
+      class="mt-8 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
+    >
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Distance</h4>
+        <p class="mt-8">
+          Typically, the farther the distance between the pickup and delivery
+          locations, the longer the shipping time. An experienced auto
+          transporter will optimize the route to be as efficient as possible.
+          Keep in mind that longer shipping distances increase the potential for
+          delays caused by traffic jams, construction or rest schedules for
+          drivers.
+        </p>
+      </div>
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Route</h4>
+        <p class="mt-8">
+          A direct route is usually the fastest, but ones with steep inclines or
+          tight turns may require a different path or more time to navigate
+          safely. A reputable auto transport company with experience in your
+          intended shipping route can provide an estimated shipping time that
+          captures potential challenges along the shipping route to ensure
+          timely delivery.
+        </p>
+      </div>
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Seasonality/</h4>
+        <h4 class="text-3xl font-semibold">Weather</h4>
+        <p class="mt-8">
+          Typically, the farther the distance between the pickup and delivery
+          locations, the longer the shipping time. An experienced auto
+          transporter will optimize the route to be as efficient as possible.
+          Keep in mind that longer shipping distances increase the potential for
+          delays caused by traffic jams, construction or rest schedules for
+          drivers.
+        </p>
+      </div>
+    </container>
+
+    <container
+      class="w-full xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-between"
+    >
+      <div class="w-[45%] xs:w-full sm:w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">Open car transport</h3>
+        <p class="text-sm">
+          Open auto transport is the shipping of vehicles on an open-air trailer
+          that has no walls or roof. Your car is loaded onto the trailer,
+          secured with straps and then transported from the pickup to the
+          delivery location. Open auto transport is a commonly utilized method,
+          that is readily available and generally less expensive than enclosed
+          auto transport. It’s an efficient method of transportation for most
+          vehicles. However, vehicles are not protected from outdoor elements or
+          debris and will likely accumulate dust and dirt.
+        </p>
+
+        <p class="mt-4">
+          Learn more about <a
+            href="/for-individuals/open-car-transport/"
+            class="text-btn-blue hover:underline">open car shipping</a
+          >.
+        </p>
+      </div>
+
+      <div class="w-[45%] xs:w-full sm:w-full mt-8">
+        <img
+          src="/img/home-car.webp"
+          class="w-full rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold text-[#555]">
+          Enclosed car transport
+        </h3>
+        <p class="text-sm">
+          Enclosed auto transport is a premium shipping option that involves
+          shipping your car in a fully enclosed trailer, which provides extra
+          protection from the elements and debris. This type of service is ideal
+          for exotic or collector vehicles and luxury sports cars. The enclosed
+          trailer is equipped with soft straps and hydraulic lift gates to load
+          vehicles with low clearance. This method comes with higher costs as
+          compared to open car transport and limited availability due to the
+          number of enclosed carriers in the market.
+        </p>
+
+        <p class="mt-4">
+          Learn more about <a
+            href="/for-individuals/enclosed-auto-transport/"
+            class="text-btn-blue hover:underline"
+          >
+            enclosed car shipping</a
+          >.
+        </p>
+      </div>
+    </container>
+
+    <h3 class="text-4xl mt-12 font-semibold text-[#555]">
+      State-to-State Car Shipping Services
+    </h3>
+    <container
+      class="mt-8 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
+    >
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Door-to-door car shipping</h4>
+        <p class="mt-8">
+          Door-to-door service is a hassle-free way to transport your vehicle to
+          another state. Just provide specific pickup and delivery addresses and
+          the truck driver will safely and legally load and unload your car as
+          close to your doorstep as possible. Keep in mind that some residential
+          areas may have restrictions on large trucks, which can prohibit them
+          from entering certain neighbourhoods or cities.
+        </p>
+      </div>
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Expedited car shipping</h4>
+        <p class="mt-8">
+          If you have a strict schedule or timeline for your state-to-state auto
+          transport, consider expedited service. With this premium option, your
+          car will be a priority and scheduled for a guaranteed pickup date.The
+          advantages of expedited car shipping include minimum wait time,
+          stress-free process, open communication, door-to-door transport
+          potential and more. Expedited car shipping can make your life easier!
+        </p>
+      </div>
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Hawaii car shipping</h4>
+        <p class="mt-8">
+          Transporting your vehicle to such a far-off destination may seem
+          complicated, but it can be simple with Montway. We have experience
+          arranging door-to-port, port-to-door and port-to-port auto transport,
+          from anywhere in the U.S. to various locations in Hawaii. Whether you
+          need to move a car to or from Hawaii, Montway ensures safe
+          transportation of your vehicle while also providing peace of mind.
+        </p>
+      </div>
+      <div
+        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
+      >
+        <h4 class="text-3xl font-semibold">Military car shipping</h4>
+        <p class="mt-8">
+          Moving state-to-state can be challenging if you’re in the military.
+          Most Permanent Change of Station (PCS) moves are long-distance and
+          require significant planning. To simplify the process, Montway offers
+          PCS vehicle shipping discounts to active duty, Reserves and National
+          Guard members, as well as military dependents and veterans. It’s an
+          honor to serve those who serve our country.
+        </p>
+      </div>
+    </container>
+    <a
+      class="text-btn-blue hover:underline hover:cursor-pointer"
+      href="/how-auto-transport-works/">See all car shipping services</a
+    >
+  </section>
 </Layout>
-</body>
