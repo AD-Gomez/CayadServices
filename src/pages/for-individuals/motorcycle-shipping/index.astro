@@ -7,22 +7,6 @@ import CountNumber from "../../../components/CountNumber";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -41,31 +25,22 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Motorcycle Shipping | Cayad Auto Transport">
+<Layout title="Motorcycle Shipping In USA | Cayad Auto Transport"
+content="Cayad is the most cost effective auto transport for your bike, Quote now!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
-        Motorcycle Shipping: Easy and Convenient
+        The best transport for my bike!
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Shipping you motorcycles across the 50 states with Cayad Auto Transport
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Cayad ships motorcycles of all types across all 50 states
-      </p>
       <GetQuoete />
     </div>
   </div>
@@ -82,10 +57,10 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       class="w-[80%] xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-around"
     >
       <div class="w-1/2 xs:w-full sm:w-full p-2">
-        <h1 class="text-[2.5rem] leading-tight font-bold text-[#19171fd2]">
+        <h2 class="text-[2.5rem] leading-tight font-bold text-[#19171fd2]">
           Why should you choose Cayad Auto Transport for your motorcycle
           shipment?
-        </h1>
+        </h2>
         <p class="mt-8">
           With years of experience in the industry, we have honed our services
           to ensure safe and efficient motorcycle transportation. No matter
@@ -112,9 +87,9 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Motorcycle shipping services made easy
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           Nationwide motorcycle shipping has never been easier with Cayad Auto
           Transport. We offer two types of motorcycle transport services to our
@@ -183,9 +158,9 @@ import SecondFooter from "../../../components/SecondFooter.astro";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why should you choose Cayad Auto Transport for enclosed auto transport?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -247,4 +222,3 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
-</body>
