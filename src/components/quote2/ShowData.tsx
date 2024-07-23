@@ -53,7 +53,7 @@ const ShowDataQuote = () => {
         <div className="font-bold justify-center">Trailer</div>
         <tr className="w-full flex items-center justify-between">
           <td className="p-2">
-            {lead?.transport_type === '1'
+            {lead?.transport_type === '0'
               ? <img
                 src={truckFlatbed.src}
                 alt=""
@@ -72,7 +72,7 @@ const ShowDataQuote = () => {
               />
             }
             <div id="transportType">
-              {lead?.transport_type === '1' ? 'Open transport' : 'Enclosed transport'}
+              {lead?.transport_type === '0' ? 'Open transport' : 'Enclosed transport'}
             </div>
           </td>
           <td>

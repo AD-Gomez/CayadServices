@@ -61,7 +61,7 @@ const FormQuote = () => {
       transport_type: '1'
     },
   });
-  const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors } } = methods;
+  const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors }, reset } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Vehicles',
@@ -248,6 +248,7 @@ const FormQuote = () => {
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
+        reset()
         window.location.href = '/quote2';
       }, 2000);
     }
