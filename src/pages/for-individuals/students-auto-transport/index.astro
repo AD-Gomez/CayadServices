@@ -6,22 +6,6 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import NumberPhone from "../../../components/NumberPhone.astro";
 import CountNumber from "../../../components/CountNumber";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -38,30 +22,21 @@ import CountNumber from "../../../components/CountNumber";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Students Auto Transport | Cayad Service">
+<Layout title="College Students Car Shipping | Cayad Auto Transport"
+content="If you need to transport a car to campus for the school year, Cayad is the most cost-effective car shipping company. CLICK TO BOOK IT NOW!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         Head to college with Cayad Auto Transport
-      </h1>
-      <p class="text-white text-lg font-semibold">
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
         Need to ship a car to college? We are here to help
-      </p>
+      </h1>
       <GetQuoete />
     </div>
   </div>
@@ -69,7 +44,7 @@ import CountNumber from "../../../components/CountNumber";
   <div class="w-full mt-12 flex justify-center mb-8">
     <Testimonials
       position="left"
-      title="Read what other online car buyers say about their experience with Cayad"
+      title="Read what others college student say about their experience with Cayad"
       client:load
     />
   </div>
@@ -189,9 +164,9 @@ import CountNumber from "../../../components/CountNumber";
         <img src="/img/student2.webp" class="rounded-xl w-[90%] object-cover" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-bold text-base">
+        <h2 class="text-[#19171fd2] font-bold text-base">
           Flexible Door to door pickup and delivery options
-        </h1>
+        </h2>
         <p class="text-base mt-4">
           People who are moving and relocating book orders with Cayad Auto
           Transport every day. We have experience in transporting cars for both
@@ -199,9 +174,9 @@ import CountNumber from "../../../components/CountNumber";
           options.
         </p>
 
-        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+        <h2 class="text-[#19171fd2] font-bold mt-8 text-base">
           Excellent customer service available on Live Chat
-        </h1>
+        </h2>
         <p class="text-base mt-4">
           You can easily check what part of the journey your vehicle is through
           our Live Chat link, just asking for updates.
@@ -215,9 +190,9 @@ import CountNumber from "../../../components/CountNumber";
       class="w-[80%] xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-around"
     >
       <div class="w-1/2 xs:w-full sm:w-full p-2">
-        <h1 class="text-[2.5rem] text-[#19171fd2]">
+        <h2 class="text-[2.5rem] text-[#19171fd2]">
           Why should you choose Cayad Auto Transport for your car shipment
-        </h1>
+        </h2>
         <p>
           In striving to be the best in the industry, Cayad Auto Transport has
           become one of the fastest growing companies in American Market. A huge
@@ -245,9 +220,9 @@ import CountNumber from "../../../components/CountNumber";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why should you choose Cayad Auto Transport for students?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -315,4 +290,3 @@ import CountNumber from "../../../components/CountNumber";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
-</body>

@@ -1,37 +1,12 @@
 ---
 import FormQuote from "../../components/forms/FormQuote";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Cayad Auto Transport offers the most cost-effective solution for all your shipping needs across the USA, ensuring reliable service to every state." />
+    <meta name="description" content="Cayad Auto Transport offers the most cost-effective car shipping service across the USA, !Get A Quote Now!" />
     <meta name="viewport" content="width=device-width" />
     <link
       rel="icon"
@@ -39,12 +14,33 @@ import FormQuote from "../../components/forms/FormQuote";
       href="/img/title-icon.webp"
       sizes="120x120"
     />
-    <title>Get a Quote | Cayad Auto Transport</title>
+    <title>Car Shipping Quote | Cayad Auto Transport</title>
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+    </script>
   </head>
   <div
     class="flex w-full h-screen md:h-[max-content] lg:h-[110vh] xl:h-[110vh] justify-center box-border bg-[#cccccc]"
   >
     <FormQuote client:load />
   </div>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
 </html>
 </body>

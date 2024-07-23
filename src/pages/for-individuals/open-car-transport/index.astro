@@ -4,22 +4,6 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -30,31 +14,22 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Open Auto Transport | Cayad Auto Transport">
+<Layout title="Open Car Shipping in USA | Cayad Auto Transport"
+content="Is open auto transport safe? Absolutely, open auto transport is safe and one of the most common shipping methods. Call now!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
         Open auto transport
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Cayad is experienced in open auto transport been  the most cost effective solution
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Cayad is experienced in open car shipping
-      </p>
       <GetQuoete />
     </div>
   </div>
@@ -72,11 +47,11 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1
+        <h2
           class="text-[#19171fd2] font-semibold xs:text-[1.8rem] sm:text-[1.8rem] text-[2.5rem]"
         >
           What is open auto transport?
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           Open auto transport is the most common type of car shipping service.
           It's easier to arrange an open transport than an enclosed car shipping
@@ -93,11 +68,11 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <div class="w-full mt-12 mb-12 flex flex-col items-center">
     <div class="w-[80%] xs:w-full sm:w-full">
-      <h1
+      <h2
         class="font-semibold xs:w-full sm:w-full xs:px-4 sm:px-4 xs:text-[1.8rem] sm:text-[1.8rem] text-[2.5rem]"
       >
         What you will like about open auto transport:
-      </h1>
+      </h2>
     </div>
     <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
       <div
@@ -178,11 +153,11 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1
+      <h2
         class="text-4xl text-[#19171fd2] xs:text-[1.8rem] sm:text-[1.8rem] font-medium mb-10"
       >
         Why choose Cayad for open car shipping?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -241,4 +216,3 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
-</body>

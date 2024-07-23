@@ -6,31 +6,6 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
 ---
-<head>
-  <script
-    type="text/partytown"
-    async
-    src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"></script>
-  <script type="text/partytown">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "GTM-NT3H9XXW");
-  </script>
-</head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 <style>
   .custom-background {
     background:
@@ -40,16 +15,17 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   }
 </style>
 
-<Layout title="Reviews | Cayad Auto Transport">
+<Layout title="Car Shipping History | Cayad Auto Transport"
+content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA.">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         Over a Decade of Outstanding Delivery and Exponential Growth
-      </h1>
+      </h2>
       <p class="text-white text-lg font-semibold">
         Rich History of Innovation, Dependability and Success
       </p>
@@ -98,10 +74,10 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       <div
         class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
       >
-        <h1 class="text-3xl text-[#19171fd2] font-bold mb-3">
+        <h2 class="text-3xl text-[#19171fd2] font-bold mb-3">
           Why you should book with one of the top-rated auto transport
           companies:
-        </h1>
+        </h2>
         <p>
           In striving to be the best in the industry, Cayad Auto Transport has
           become of of the fastest growing companies in American market. A huge
@@ -159,7 +135,7 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
       <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
-        We Are Trusted Auto Transport Company
+        Cayad is the most cost effective auto transport in the industry of USA.
       </h1>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
@@ -223,4 +199,3 @@ import SecondFooter from "../../../components/SecondFooter.astro";
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
-</body>
