@@ -70,6 +70,7 @@ const FormQuote = () => {
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
+  const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
 
   // Generate years dynamically
   useEffect(() => {
@@ -258,6 +259,7 @@ const FormQuote = () => {
   };
 
   const onSubmit = (data: FormQuoteTypes) => {
+    setDisabledSubmit(true)
     const formattedDate = formatDate(data.ship_date);
 
     const dataToLead = {
@@ -450,7 +452,7 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <button className='bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300'>Submit Quote Request</button>
+          <button disabled={disabledSubmit} className={`bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>Submit Quote Request</button>
           <a className='text-btn-blue mb-12' href='/'>Cayad Auto Transport</a>
         </form>
       </div>
