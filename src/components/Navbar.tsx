@@ -25,6 +25,12 @@ import logoweb from '../../public/img/logo-cayad.png'
 import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
 
+const howItWork = [
+  { description: 'How To Ship a Car', href: '/how-auto-transport-works/', icon: ChartPieIcon },
+  { description: 'Car Shipping Cost', href: '/how-auto-transport-works/how-much-does-it-cost-ship-car/', icon: CursorArrowRaysIcon },
+  { description: 'Enclosed auto transport', href: '/how-auto-transport-works/ship-car-across-country/', icon: FingerPrintIcon },
+]
+
 const weOffer = [
   { description: 'Door to door transport', href: '/for-individuals/door-to-door/', icon: ChartPieIcon },
   { description: 'Open car transport', href: '/for-individuals/open-car-transport/', icon: CursorArrowRaysIcon },
@@ -72,10 +78,13 @@ export default function Example () {
 
   const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
   const pathsToCheckForIBusinesses = ['/for-businesses', ...forBusinesses.map(item => item.href)];
+  const pathsToCheckHowItWork = ['/how-auto-transport-works', ...whyUs.map(item => item.href)];
   const pathsToCheckWhyUs = ['/why-us', ...whyUs.map(item => item.href)];
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
   const isPopoverWhyUsActive = pathsToCheckWhyUs.some(path => isActive(path));
+  const isPopoverHowItWorkActive = pathsToCheckHowItWork.some(path => isActive(path));
+
   return (
     <>
       <MarqueeText />
@@ -99,10 +108,54 @@ export default function Example () {
             </button>
           </div>
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
-            <a href="/how-auto-transport-works/" className={`text-[16px] p-2 font-medium text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6 
-              ${currentPath === '/how-auto-transport-works/' ? ' text-btn-blue border-2 border-btn-blue  rounded ' : ''} `}>
-              HOW IT WORKS?
-            </a>
+
+            <Popover
+              className="relative"
+              onMouseEnter={() => setOpenPopover('how-it-work')}
+              onMouseLeave={() => setOpenPopover(null)}
+            >
+              {({ open }) => (
+                <>
+                  <Popover.Button className={classNames(
+                    openPopover === 'how-it-work' ? 'text-btn-blue' : '',
+                    isPopoverHowItWorkActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
+                    'flex items-center hover:text-[#00a1ef] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                  )}>
+                    HOW IT WORKS?
+                    <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                  </Popover.Button>
+
+                  <Transition
+                    show={openPopover === 'how-it-work'}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
+                      <div className="p-0">
+                        {howItWork.map((item) => (
+                          <div
+                            key={item.description}
+                            className={`group relative flex items-center gap-x-6 rounded-lg py-2 px-4 text-sm leading-6  hover:bg-neutral-300`}
+                          >
+                            <div className="flex-auto">
+                              <a href={item.href} className={`block text-base ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} `}>
+                                {item.description}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
+            </Popover>
+
             <Popover
               className="relative"
               onMouseEnter={() => setOpenPopover('individuals')}
