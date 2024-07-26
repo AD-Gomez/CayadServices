@@ -4,22 +4,6 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -30,31 +14,21 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Heavy Haul | Cayad Auto Transport">
+<Layout title="Heavy Haul | Cayad Auto Transport"
+content="Cayad Auto Transport is the most cost effective Heavy Equipment shipping company in U.S, Contact us today for a QUOTE!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
-        Heavy Haul Transport
+        Heavy Haul Transport in U.S
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Cayad Auto Transport is the most cost effective Heavy Equipment shipping company in U.S
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Discover the Cayad Services Advantage: Your Trusted Heavy Equipment
-        Moving Experts
-      </p>
       <GetQuoete />
     </div>
   </div>
@@ -68,11 +42,11 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Heavy haul with Cayad
-        </h1>
+        </h2>
         <p class="text-base mt-8">
-          At Cayad Services, we take pride in offering an extensive selection of
+          At Cayad Auto Transport, we take pride in offering an extensive selection of
           trailers, catering to all your heavy equipment moving needs. Our
           diverse fleet includes specialized options designed to ensure safe and
           efficient transportation for your valuable cargo. Our trailer
@@ -93,9 +67,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/winch-truck.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Winch truck
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           A specialized type of truck that contains a winch. A winch is a
           powered reel of cable that can be used to lift or pull heavy cargo.
@@ -108,7 +82,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">RGN</h1>
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">RGN</h2>
         <p class="text-base mt-8">
           RGN trailers are mainly used for transporting heavy equipment, cars,
           and trucks, among others. Heavy equipment that can't be driven through
@@ -130,7 +104,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/stepdeck.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Step deck</h1>
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">Step deck</h2>
         <p class="text-base mt-8">
           A step deck trailer is designed to carry cargo that is too tall to go
           on a flatbed truck. A step deck truck can help you haul loads without
@@ -144,7 +118,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Low boy</h1>
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">Low boy</h2>
         <p class="text-base mt-8">
           A lowboy trailer is a low platform flatbed trailer used to haul heavy,
           bulky and taller than normal items. They have carry capacities of 25
@@ -167,7 +141,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/dropdeck.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Drop deck</h1>
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">Drop deck</h2>
         <p class="text-base mt-8">
           Similar as a step-deck or lowboy trailer, a drop deck trailer is
           specially designed to transport taller cargo exceeding the maximum
@@ -182,9 +156,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Tanker trailer
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           Fuel tank trailers are built to hold liquids and dry materials for
           easy, safe transportation. They can transport a range of cargo, from
@@ -207,7 +181,7 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/flatbed.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">Flatbed</h1>
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">Flatbed</h2>
         <p class="text-base mt-8">
           A flatbed trailer is a typical open deck equipment that has no roof
           nor sides. It is mainly used for transporting heavy, oversized, wide
@@ -223,9 +197,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Double drop
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           Double drop trailers are designed to carry taller loads because their
           cargo bed can go as low as 18 inches off the ground. This adds a
@@ -246,9 +220,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why should you choose Cayad Auto Transport for heavy haul transport?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -318,4 +292,3 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
-</body>

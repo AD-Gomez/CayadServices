@@ -4,22 +4,6 @@ import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -30,32 +14,22 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Door To Door Auto Transport | Cayad Auto Transport">
+<Layout title="Door To Door Auto Transport | Cayad Auto Transport"
+content="Cayad Auto Transport offers the most cost-effective door-to-door car shipping service, Get a Quote now!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
         Door to door auto transport
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Cayad Auto Transport offers the most cost-effective door-to-door car shipping service.
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Cayad is known for safe and secure door to door auto transportation
-        services
-      </p>
       <GetQuote />
     </div>
   </div>
@@ -178,9 +152,9 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
     <div
       class="w-[90%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why choose Cayad for door-to-door auto transport?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -242,4 +216,3 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
-</body>
