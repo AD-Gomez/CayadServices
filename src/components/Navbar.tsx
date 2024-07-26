@@ -28,7 +28,7 @@ import { FaPhone } from 'react-icons/fa'
 const howItWork = [
   { description: 'How To Ship a Car', href: '/how-auto-transport-works/', icon: ChartPieIcon },
   { description: 'Car Shipping Cost', href: '/how-auto-transport-works/how-much-does-it-cost-ship-car/', icon: CursorArrowRaysIcon },
-  { description: 'Enclosed auto transport', href: '/how-auto-transport-works/ship-car-across-country/', icon: FingerPrintIcon },
+  { description: 'Cross country car shipping', href: '/how-auto-transport-works/ship-car-across-country/', icon: FingerPrintIcon },
 ]
 
 const weOffer = [
@@ -45,7 +45,7 @@ const weServe = [
   { description: 'Car collectors', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
   { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: ArrowPathIcon },
   { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ArrowPathIcon },
-  //{ description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state', icon: ArrowPathIcon },
+  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state', icon: ArrowPathIcon },
 ]
 
 const forBusinesses = [
