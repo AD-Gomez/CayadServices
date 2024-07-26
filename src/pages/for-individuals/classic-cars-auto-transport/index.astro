@@ -4,22 +4,6 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -31,31 +15,21 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Classic Car Auto Transport | Cayad Auto Transport">
+<Layout title="Classic Car Transport | Cayad Auto Transport"
+content="Classic car enthusiasts, Love Cayad Auto Transport for its superior safety features and his cost effective prices, Call us now!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         Classic car transport and exotic car transport
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Cayad Auto Transport is top-rated classic car shipping services
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Nobody outshines Cayad Auto Transport is top-rated classic car transport
-        services
-      </p>
       <GetQuoete />
     </div>
   </div>
@@ -180,9 +154,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/classic-car2.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-bold text-base">
+        <h2 class="text-[#19171fd2] font-bold text-base">
           Only work with approved car carriers
-        </h1>
+        </h2>
         <p class="text-base mt-4">
           When it comes to classic car transport and exotic car transport, Cayad
           Auto Transport takes things very seriously. We vet each and every one
@@ -190,9 +164,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           car transport service that you paid for.
         </p>
 
-        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+        <h2 class="text-[#19171fd2] font-bold mt-8 text-base">
           Fully-insured auto transport
-        </h1>
+        </h2>
         <p class="text-base mt-4">
           Your car will be covered from transport damage with the carriers
           cargo insurance. Our compliance team ensures that ALL our carriers
@@ -208,9 +182,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why should you choose Cayad Auto Transport for Classic car transport?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -279,4 +253,3 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
-</body>
