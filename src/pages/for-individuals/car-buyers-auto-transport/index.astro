@@ -4,22 +4,7 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
+
 
 <style>
   .custom-background {
@@ -30,30 +15,21 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Buy A Car | Cayad Auto Transport">
+<Layout title="Buy A Car Online In U.S | Cayad Auto Transport"
+content="Buying a car online? Cayad Auto Transport makes it easy with tech-savvy, cost-effective delivery solutions. Contact us now!">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         Buy a car online and have it delivered
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        Cayad Auto Transport is the most cost effective car shipping company in U.S
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Cayad Auto Transport makes things super easy for online buyers
-      </p>
       <GetQuoete />
     </div>
   </div>
@@ -152,9 +128,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Why you should buy a car online delivered with Cayad:
-        </h1>
+        </h2>
         <div class="mt-8">
           <h3 class="text-[1.5rem] font-bold">Pick-up from any dealership</h3>
           <p class="text-base mt-8">
@@ -248,16 +224,16 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             </svg>
           </div>
         </div>
-        <h1 class="text-[#19171fd2] font-bold text-base">Rated company</h1>
+        <h2 class="text-[#19171fd2] font-bold text-base">Rated company</h2>
         <p class="text-base mt-4">
           Our professional Auto Transport Advisors are here 365 days a year and
           will guide you through the shipping process if you choose to buy a new
           car online and have it delivered straight to your door.
         </p>
 
-        <h1 class="text-[#19171fd2] font-bold mt-8 text-base">
+        <h2 class="text-[#19171fd2] font-bold mt-8 text-base">
           Track your order on Live Chat
-        </h1>
+        </h2>
         <p class="text-base mt-4">
           Once you make that big purchase, you can track your car shipping order
           via calling your dedicated agent or ask questions about your order on
@@ -273,9 +249,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why choose Cayad for your car shipment
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -338,4 +314,3 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   </div>
   <ButtonScrollTop client:load />
 </Layout>
-</body>

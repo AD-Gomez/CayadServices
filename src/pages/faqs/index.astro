@@ -4,22 +4,6 @@ import Accordion from "../../components/Accordion";
 import GetQuote from "../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -112,30 +96,21 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Faqs | Cayad Auto Transport">
+<Layout title="Car Shipping Faqs | Cayad Auto Transport"
+content="">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         FAQs
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        How much is car shipping? and most commons questions..
       </h1>
-      <p class="text-white text-lg font-semibold">
-        The most common questions about the auto transport!
-      </p>
       <GetQuote />
     </div>
   </div>
@@ -615,4 +590,3 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
-</body>

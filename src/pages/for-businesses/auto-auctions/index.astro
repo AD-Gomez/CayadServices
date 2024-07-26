@@ -4,22 +4,6 @@ import Testimonials from "../../../components/Testimonials";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<head>
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
-  </script>
-  <!-- End Google Tag Manager --></head
->
 
 <style>
   .custom-background {
@@ -30,30 +14,21 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   }
 </style>
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"></iframe></noscript
-  >
-  <!-- End Google Tag Manager (noscript) -->
 
-<Layout title="Auto Auction Shipping | Cayad Autro Transport">
+<Layout title="Auto Auction Shipping | Cayad Autro Transport"
+content="">
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h1
+      <h2
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
-        When timing is everything, count on Cayad Auto Transport
+      Cayad ships vehicles from any auto auction.
+      </h2>
+      <h1 class="text-white text-lg font-semibold">
+        We offers nationwide vehicle shipping across the U.S, accommodating all types of vehicles from any auction.
       </h1>
-      <p class="text-white text-lg font-semibold">
-        Cayad Auto Transport delivers resold cars to new owners
-      </p>
       <GetQuote />
     </div>
   </div>
@@ -67,9 +42,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Transport vehicles quickly and conveniently
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           You are not just running an auction business, you are orchestrating
           hundreds of moves with such precision that top-rated surgeons would be
@@ -98,9 +73,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex flex-col justify-between"
     >
-      <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+      <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
         Transport vehicles quickly and conveniently
-      </h1>
+      </h2>
       <p class="text-base text-[#555] mt-4">
         Cayad can handle moves for any type of auction operation—large physical
         auctions and online marketplaces, as well as independent and specialty
@@ -130,9 +105,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/dealership_circle_3.avif" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Single-unit move expertise
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           We are the leader in single-unit moves and have the capacity to pickup
           or deliver vehicles just around the corner or more than 140 miles
@@ -150,9 +125,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Nationwide pickup and delivery coverage
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           Our vetted network of more than 15,000 carriers includes small,
           independent owner operators in markets from coast to coast. All
@@ -176,9 +151,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img src="/img/dealership_circle_6.webp" class="rounded-xl" />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+        <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
           Technologies for speed and efficiency
-        </h1>
+        </h2>
         <p class="text-base mt-8">
           If you leverage auction software, we can seamlessly integrate with
           your system so you can quickly book orders and gain visibility into
@@ -272,9 +247,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex flex-col justify-between"
     >
-      <h1 class="text-[#19171fd2] font-semibold text-[2.5rem]">
+      <h2 class="text-[#19171fd2] font-semibold text-[2.5rem]">
         How Cayad can help your auction business
-      </h1>
+      </h2>
       <p class="text-base text-[#555] mt-4">
         <span class="text-[#555] font-bold">End-to-end solutions:</span>
         Taking a consultative approach, we will work with your inside sales reps,
@@ -307,9 +282,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
         Why should you choose Cayad Auto Transport for auto auction shipping?
-      </h1>
+      </h2>
       <div
         class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
       >
@@ -378,4 +353,3 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 
   <ButtonScrollTop client:load />
 </Layout>
-</body>
