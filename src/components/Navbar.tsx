@@ -36,7 +36,7 @@ const weServe = [
   { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport/', icon: ChartPieIcon },
   { description: 'College students', href: '/for-individuals/students-auto-transport/', icon: CursorArrowRaysIcon },
   { description: 'Snowbirds', href: '/for-individuals/snowbirds-auto-transport/', icon: FingerPrintIcon },
-  { description: 'Car collectors', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
+  { description: 'Classic car shipping', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
   { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: ArrowPathIcon },
   { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ArrowPathIcon },
   //{ description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state', icon: ArrowPathIcon },
@@ -420,8 +420,9 @@ export default function Example () {
                 <div
                   className="flex w-full items-center flex-col md:flex-row md:justify-between text-center md:text-left"
                 >
+                  <div><p className="ml-2 text-black">IN GOD WE TRUST</p></div>
                   <div className="mb-3 flex text-black xs:text-xs sm:text-sm md:text-base md:mb-0">
-                    &copy;2023
+                    &copy;2024
                     <a
                       className="ml-2 mr-2"
                       href="https://www.cayadservices.com">Cayad Services LLC</a>
