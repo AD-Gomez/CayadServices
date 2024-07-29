@@ -588,6 +588,7 @@ const FormLanding = () => {
         ...dataWithoutAuthKey,
         origin: data.origin_city,
         destination: data.destination_city,
+        number_lead: numberLead,
         transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
       };
       if (data.Vehicles && Array.isArray(data.Vehicles)) {
@@ -618,7 +619,7 @@ const FormLanding = () => {
       saveLead(data)
       setTimeout(() => {
         setDataSubmit({})
-        window.location.href = '/quote2';
+        // window.location.href = '/quote2';
       }, 3000);
     }
   }
