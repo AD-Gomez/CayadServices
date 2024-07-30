@@ -2,6 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
 
 <style>
@@ -40,9 +41,9 @@ import Testimonials from "../../../components/Testimonials";
     />
   </div>
   <container
-    class="w-[80%] flex items-center justify-between xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
+    class="w-[80%] flex items-center justify-between xs:flex-col sm:flex-col xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
   >
-    <div class="w-[45%]">
+    <div class="w-[45%] xs:w-full sm:w-full F">
       <h2 class="text-4xl w-full text-[#555] font-semibold">
         How much does car shipping cost?
       </h2>
@@ -556,7 +557,9 @@ import Testimonials from "../../../components/Testimonials";
     </section>
   </container>
 
-  <h3 class="w-[80%] xs:w-full mt-12 sm:w-full mx-auto text-3xl font-semibold">
+  <h3
+    class="w-[80%] xs:w-full mt-12 xs:px-4 sm:px-4 sm:w-full mx-auto text-3xl font-semibold"
+  >
     What factors are used to calculate the cost of car shipping?
   </h3>
 
@@ -567,12 +570,12 @@ import Testimonials from "../../../components/Testimonials";
       <div class="w-full mt-8">
         <img
           src="/img/distance.png"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Distance</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl mt-4 font-semibold">Distance</h3>
+        <p class="text-sm mt-4">
           Total distance is the main component used in calculating a quote for
           car shipping. Longer distances generally lead to a higher overall car
           shipping price, but also include a discounted cost per mile. With our
@@ -581,17 +584,16 @@ import Testimonials from "../../../components/Testimonials";
           shipping prices might differ from ground vehicle transport.
         </p>
       </div>
-      
 
       <div class="w-full mt-8">
         <img
           src="/img/sd.png"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Shipping date</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Shipping date</h3>
+        <p class="text-sm mt-4">
           When you book a car transport service, the shipment date often plays a
           role in the cost. It’s best to book your car shipment as far in
           advance as possible. As soon as you know you’ll need to ship your
@@ -600,47 +602,18 @@ import Testimonials from "../../../components/Testimonials";
           dates will often result in car transport quote savings.
         </p>
       </div>
-
-
-
-      <div class="w-full mt-8">
-        <img
-          src="/img/vc.jpg"
-          class="w-full rounded-xl"
-          alt="distance"
-        />
-
-        <h3 class="text-3xl font-semibold text-[#555]">Vehicle condition</h3>
-        <p class="text-sm">
-          If your car is running, you will get a better auto shipping price from
-          car shippers for the allotted distance. If your car is inoperable, but
-          maintains the ability to roll, steer and brake, it will require a
-          winch and other accommodations to be loaded onto the carrier trailer,
-          which will increase the cost of shipment. To request a quote or to
-          arrange shipment for an inoperable vehicle, please contact a Cayad
-          representative at (469) 619-0747.
-        </p>
-      </div>
-      
-
-      
-
-
-
-
     </container>
 
     <container class="w-[45%] xs:w-full sm:w-full">
-      
       <div class="w-full mt-8">
         <img
           src="/img/route.png"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Route</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Route</h3>
+        <p class="text-sm mt-4">
           Different from distance, route refers to what highways and other roads
           will be traveled to transport the vehicle. Routes in highly populated
           areas may have increased traffic congestion, which could impact
@@ -649,20 +622,16 @@ import Testimonials from "../../../components/Testimonials";
           conditions, adverse weather and road construction.
         </p>
       </div>
-      
-      
-      
+
       <div class="w-full mt-8">
         <img
           src="/img/vmam.jpg"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">
-          Vehicle make and model
-        </h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Vehicle make and model</h3>
+        <p class="text-sm mt-4">
           When planning your auto transport, we ask for the exact vehicle
           specifications, because the truck driver must know how much space is
           required to safely secure your automobile and ensure proper trailer
@@ -672,13 +641,6 @@ import Testimonials from "../../../components/Testimonials";
           can also increase the cost.
         </p>
       </div>
-      
-
-
-
-
-
-
     </container>
   </section>
 
@@ -686,17 +648,15 @@ import Testimonials from "../../../components/Testimonials";
     class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex justify-between xs:flex-col sm:flex-col"
   >
     <container class="w-[45%] xs:w-full sm:w-full">
-      
-      
       <div class="w-full mt-8">
         <img
           src="/img/vd.png"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Vehicle details</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Vehicle details</h3>
+        <p class="text-sm mt-4">
           Taller, longer and heavier vehicles may require a specific trailer or
           trailer type to support the length and/or added weight. They may also
           need certain accommodations, like being transported in a specific
@@ -705,41 +665,53 @@ import Testimonials from "../../../components/Testimonials";
           requests and manage total allowable weight limits.
         </p>
       </div>
-      
-      
-      
-      
+
       <div class="w-full mt-8">
         <img
           src="/img/location.jpeg"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Location</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Location</h3>
+        <p class="text-sm mt-4">
           Metropolitan areas usually have plenty of trucks available to carry
           out car shipping orders for auto shippers, which lowers the car
           transport price. When transporting cars, we strive to find the best
           deal for residents of small towns.
         </p>
       </div>
-      
-      
-      
-      
+
+      <div class="w-full mt-8">
+        <img
+          src="/img/vc.jpg"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="distance"
+        />
+
+        <h3 class="text-3xl font-semibold mt-4">Vehicle condition</h3>
+        <p class="text-sm mt-4">
+          If your car is running, you will get a better auto shipping price from
+          car shippers for the allotted distance. If your car is inoperable, but
+          maintains the ability to roll, steer and brake, it will require a
+          winch and other accommodations to be loaded onto the carrier trailer,
+          which will increase the cost of shipment. To request a quote or to
+          arrange shipment for an inoperable vehicle, please contact a Cayad
+          representative at (469) 619-0747.
+        </p>
+      </div>
     </container>
 
     <container class="w-[45%] xs:w-full sm:w-full">
       <div class="w-full mt-8">
         <img
           src="/img/gc.jpeg"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Ground clearance</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Ground clearance</h3>
+        <p class="text-sm mt-4">
           Ground clearance, also called ride height, is the distance between the
           bottom of the vehicle’s body and the road or driving surface. Low
           vehicle ground clearance requires special attention and accommodation,
@@ -752,12 +724,12 @@ import Testimonials from "../../../components/Testimonials";
       <div class="w-full mt-8">
         <img
           src="/img/atp.jpg"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Auto transport type</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Auto transport type</h3>
+        <p class="text-sm mt-4">
           Most people shipping a car select open car transport, as it is the
           industry standard and cheapest way for car shippers to move your
           vehicle. For extra car shipment protection, we recommend using
@@ -768,35 +740,33 @@ import Testimonials from "../../../components/Testimonials";
         </p>
       </div>
 
-
       <div class="w-full mt-8">
         <img
           src="/img/seanson.png"
-          class="w-full rounded-xl"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
           alt="distance"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Seasonality</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Seasonality</h3>
+        <p class="text-sm mt-4">
           Car shipping costs vary greatly based on the time of year. For
           example, auto transport services to warmer states are very popular
           during the winter travel season, so the cost for transporting a car to
-          those destinations may be higher. Use Cayad’s car shipping
-          calculator to get the price for shipping a car. Depending on your
-          scheduling flexibility, we recommend trying different shipping dates
-          to see rate impact for choosing the best price.
+          those destinations may be higher. Use Cayad’s car shipping calculator
+          to get the price for shipping a car. Depending on your scheduling
+          flexibility, we recommend trying different shipping dates to see rate
+          impact for choosing the best price.
         </p>
       </div>
-
-
-      
     </container>
   </section>
 
   <section
     class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
   >
-    <div class="w-full mt-12 mb-12 flex justify-between items-center">
+    <div
+      class="w-full mt-12 mb-12 flex xs:flex-col sm:flex-col justify-between items-center"
+    >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
         <div class="mt-8">
           <h3 class="text-[1.5rem] font-bold">Auto transport insurance</h3>
@@ -828,7 +798,7 @@ import Testimonials from "../../../components/Testimonials";
     </div>
 
     <section
-      class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
+      class="w-[100%] xs:w-full sm:w-full mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
     >
       <h3 class="text-4xl mt-12 font-semibold text-[#555]">
         Cross country car shipping services
@@ -889,4 +859,6 @@ import Testimonials from "../../../components/Testimonials";
       </container>
     </section>
   </section>
+
+  <ButtonScrollTop client:load />
 </Layout>
