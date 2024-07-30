@@ -50,6 +50,15 @@ const validationSchema = yup.object().shape({
     .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value)))
 })
 
+const extractLeadNumber = (response: string) => {
+  const match = response.match(/Lead\s*:\s*(\d+)/);
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    throw new Error('No se pudo encontrar el número de lead en la respuesta.');
+  }
+};
+
 const FormQuote = () => {
   const methods = useForm<FormQuoteTypes>({
     resolver: yupResolver(validationSchema),
@@ -213,12 +222,15 @@ const FormQuote = () => {
   const handleSubmitLead = async (data: any) => {
     const response = await sendLead(data)
     const { AuthKey, ...dataWithoutAuthKey } = data
-    console.log(dataWithoutAuthKey)
+    const numberLead = extractLeadNumber(response)
+
+    console.log(numberLead)
     if (response) {
       showNotification({ text: 'success', icon: 'success' })
       let send = {
         ...dataWithoutAuthKey,
         origin: data.origin_city,
+        number_lead: numberLead,
         destination: data.destination_city,
         transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
       };

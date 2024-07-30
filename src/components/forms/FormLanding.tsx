@@ -619,7 +619,7 @@ const FormLanding = () => {
       saveLead(data)
       setTimeout(() => {
         setDataSubmit({})
-        // window.location.href = '/quote2';
+        window.location.href = '/quote2';
       }, 3000);
     }
   }
