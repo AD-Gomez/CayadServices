@@ -45,7 +45,7 @@ const testimonials = [
   },
   {
     name: "Kimmy Tennant",
-    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=uGi_OPzEgpEQ7kNvgFByS8q&_nc_ht=scontent.fccs3-2.fna&oh=00_AYAAtynKgALiMmZb977tDwbHhaUsvHPbCoq_11wQaIy9bg&oe=66A43CF6',
+    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=-eBWBWV7p3gQ7kNvgGod6Ii&_nc_ht=scontent.fccs3-2.fna&oh=00_AYATbNALqcrWIcpaB6SasGJkNdRuuY8BLOqrQXhfXtxeMw&oe=66B1A436',
     rating: 5,
     comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
     link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
