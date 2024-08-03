@@ -5,3 +5,8 @@ Allow: /
 https://cayadservices.com/
 
 Disallow: /copyright-trademark
+Disallow: /privacy-policy/
+Disallow: /pdfs/Terms-and-Conditions.pdf
+Disallow: /pdfs/Terms-of-use.pdf
+Disallow: /pdfs/Cayad_shippingInstructions.pdf
+Disallow: /pdfs/sample-bill-of-lading.pdf
