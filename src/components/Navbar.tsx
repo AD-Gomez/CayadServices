@@ -45,7 +45,7 @@ const weServe = [
   { description: 'Classic car shipping', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
   { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: ArrowPathIcon },
   { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ArrowPathIcon },
-  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state', icon: ArrowPathIcon },
+  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state/', icon: ArrowPathIcon },
 ]
 
 const forBusinesses = [
