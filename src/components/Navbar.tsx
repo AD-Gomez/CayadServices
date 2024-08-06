@@ -352,10 +352,34 @@ export default function Example () {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a href="/how-auto-transport-works/"
-                    className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] ${currentPath === '/how-auto-transport-works/' ? ' text-btn-blue border-2 border-btn-blue  rounded ' : ''} hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
-                    HOW IT WORKS?
-                  </a>
+                  <Disclosure as="div" className="-mx-3">
+                    {({ open }) => (
+                      <>
+                        <DisclosureButton
+                          className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315]
+                         hover:text-[#00a1ef] ease-in-out duration-100 delay-100 *:
+                         ${isPopoverHowItWorkActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
+                         `}>
+                          HOW IT WORKS?
+                          <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                        </DisclosureButton>
+                        <DisclosurePanel className="mt-2 space-y-2">
+
+                          {[...howItWork].map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+
+                        </DisclosurePanel>
+                      </>
+                    )}
+                  </Disclosure>
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>
