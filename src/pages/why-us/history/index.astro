@@ -26,17 +26,15 @@ import { HiChevronRight } from "react-icons/hi";
     font-weight: 700;
     margin-left: 8px;
     position: absolute; /* Posicionamiento absoluto */
-    transform: translateX(100%) translateY(35%);
+    transform: translateX(100%) translateY(46%);
   }
 
   .content--right::after {
     content: url("../../../../public/icons/leftArrow.svg");
-    width: 100%;
     color: #e5e7eb;
-    height: 100%;
     font-weight: 700;
     position: absolute; /* Posicionamiento absoluto */
-    transform: translateX(-3%) translateY(35%);
+    transform: translateX(-269%) translateY(35%);
   }
 
   @media (max-width: 767px) {
@@ -84,10 +82,15 @@ import { HiChevronRight } from "react-icons/hi";
       class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
     >
       <div
-        class="w-[45%] xs:w-full sm:w-full md:w-[40%] h-[200px] flex flex-col items-center p-4 relative border-4 content--left"
+        class="w-[45%] xs:w-full sm:w-full md:w-[40%] h-[200px] flex justify-center items-center p-4 relative border-4 content--left"
       >
-        <h4 class="text-3xl font-semibold">Great Place To Work.</h4>
-        <p>Certified in Feb 2024 - Feb 2025</p>
+        <div class="mr-4">
+          <img src="/public/img/insurance.webp" alt="insuance" class="w-24" />
+        </div>
+        <div>
+          <h4 class="text-3xl font-semibold">Great Place To Work.</h4>
+          <p>Certified in Feb 2024 - Feb 2025</p>
+        </div>
       </div>
       <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
         <FaDotCircle
@@ -95,16 +98,21 @@ import { HiChevronRight } from "react-icons/hi";
         />
       </div>
       <div
-        class="w-[45%] xs:w-full sm:w-full md:w-[50%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex flex-col items-center p-4 relative border-4 content--right"
+        class="w-[45%] xs:w-full sm:w-full md:w-[50%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex items-center p-4 relative border-4 content--right"
       >
-        <h4 class="text-3xl w-full font-semibold">
-          Great Place to Work Certified
-        </h4>
-        <p class="text-sm mt-2">
-          Montway became a Great Place To Work company, a certification that
-          recognizes employers who create an outstanding employee experience.
-          When surveyed, 87% of staff say that Montway is a great place to work.
-        </p>
+        <div>
+          <h4 class="text-3xl w-full font-semibold">
+            Great Place to Work Certified
+          </h4>
+          <p class="text-sm mt-2">
+            Montway became a Great Place To Work company, a certification that
+            recognizes employers who create an outstanding employee experience.
+            When surveyed, 87% of staff say that Montway is a great place to
+            work.
+          </p>
+        </div>
+
+        <img src="/public/img/insurance.webp" alt="insuance" class="w-24" />
       </div>
     </div>
   </div>
