@@ -8,6 +8,7 @@ import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 import NumberPhone from "../components/NumberPhone.astro";
+import SocialProof from "../components/SocialProof";
 ---
 
 <style>
@@ -577,9 +578,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Open Auto Transport</h4>
-              <p>
-                Cayad Auto Transport has open car shipping experience
-              </p>
+              <p>Cayad Auto Transport has open car shipping experience</p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/open-car-transport/"
@@ -828,7 +827,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part1.webp" class="w-[80%] mx-auto" alt="car shipping central dispatch logo" />
+              <img
+                src="../img/part1.webp"
+                class="w-[80%] mx-auto"
+                alt="car shipping central dispatch logo"
+              />
             </div>
           </a>
         </div>
@@ -842,7 +845,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part2.webp" class="bg-cover mx-auto" alt="car shipping chase bank logo" />
+              <img
+                src="../img/part2.webp"
+                class="bg-cover mx-auto"
+                alt="car shipping chase bank logo"
+              />
             </div>
           </a>
         </div>
@@ -856,7 +863,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full flex items-center rounded-lg hover:shadow-lg"
             >
-              <img src="../img/part3.webp" class="w-[70%] mx-auto" alt="auto transport iaa logo" />
+              <img
+                src="../img/part3.webp"
+                class="w-[70%] mx-auto"
+                alt="auto transport iaa logo"
+              />
             </div>
           </a>
         </div>
@@ -870,7 +881,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part4.webp" class="bg-contain mx-auto" alt="car shipping google logo" />
+              <img
+                src="../img/part4.webp"
+                class="bg-contain mx-auto"
+                alt="car shipping google logo"
+              />
             </div>
           </a>
         </div>
@@ -908,7 +923,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part6.webp" class="w-[70%] mx-auto" alt="car shipping fmcsa logo" />
+              <img
+                src="../img/part6.webp"
+                class="w-[70%] mx-auto"
+                alt="car shipping fmcsa logo"
+              />
             </div>
           </a>
         </div>
@@ -922,7 +941,11 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part7.webp" class="bg-contain mx-auto" alt="auto transport copart logo" />
+              <img
+                src="../img/part7.webp"
+                class="bg-contain mx-auto"
+                alt="auto transport copart logo"
+              />
             </div>
           </a>
         </div>
@@ -945,5 +968,7 @@ import NumberPhone from "../components/NumberPhone.astro";
       </div>
     </div>
   </div>
+
+  <SocialProof client:load />
   <ButtonScrollTop client:load />
 </Layout>
