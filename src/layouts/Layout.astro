@@ -1,5 +1,4 @@
 ---
-import GoogleTagManager from "../components/GoogleTagManager.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
@@ -17,7 +16,6 @@ const { title, content } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <GoogleTagManager />
     <meta charset="UTF-8" />
     <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
@@ -50,9 +48,9 @@ const { title, content } = Astro.props;
 
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     <!-- Google Maps -->
-    <script
+    <!-- <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY&libraries=places"
-    ></script>
+    ></script> -->
     <meta
       name="google-site-verification"
       content="mYTM7w20cgtRtlR9aFWNFViHfvRiKXcCrYxMptzOg2M"
