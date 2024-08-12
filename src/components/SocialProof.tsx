@@ -167,7 +167,7 @@ const SocialProof: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       showRandomReview();
-    }, 10); // 900000ms = 15 minutos
+    }, 3000); // 900000ms = 15 minutos
 
     return () => clearTimeout(timer);
   }, []);
