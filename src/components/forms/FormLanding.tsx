@@ -42,7 +42,6 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       transport_type: dataSubmit.transport_type || '1',
     },
   });
-  console.log(dataSubmit)
   const { handleSubmit, trigger, setError, clearErrors, formState: { errors } } = methods;
 
   const onSubmit = async (data: FormValues) => {
