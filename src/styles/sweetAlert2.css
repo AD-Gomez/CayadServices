@@ -1,0 +1,24 @@
+.swal2-custom-popup {
+  position: relative;
+}
+
+.swal2-close-button {
+  position: absolute;
+  top: 10px;
+  /* Ajusta según sea necesario */
+  right: 10px;
+  /* Ajusta según sea necesario */
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.swal2-custom-html {
+  position: relative;
+}
+
+.swal-close-button {
+  align-self: self-start;
+  width: 5rem;
+}
