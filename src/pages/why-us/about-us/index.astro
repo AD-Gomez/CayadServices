@@ -1,0 +1,114 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import Testimonials from "../../../components/Testimonials";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
+import SecondFooter from "../../../components/SecondFooter.astro";
+import { FaDotCircle } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
+import { HiChevronRight } from "react-icons/hi";
+---
+
+<style>
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/how.webp") center center no-repeat;
+    background-size: cover;
+  }
+
+  .content--left::after {
+    content: url("../../../../public/icons/rigthArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 99%;
+    font-weight: 700;
+    margin-left: 8px;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(100%) translateY(35%);
+  }
+
+  .content--right::after {
+    content: url("../../../../public/icons/leftArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 100%;
+    font-weight: 700;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(-3%) translateY(35%);
+  }
+
+  @media (max-width: 767px) {
+    .content--right::after {
+      content: none;
+    }
+
+    .content--left::after {
+      content: none;
+    }
+  }
+</style>
+
+<Layout
+  title="Car Shipping History | Cayad Auto Transport"
+  content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA."
+>
+  <div
+    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  >
+    <div class="w-[80%]">
+      <h2
+        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
+      >
+        Over a Decade of Outstanding Delivery and Exponential Growth
+      </h2>
+      <p class="text-white text-lg font-semibold">
+        Rich History of Innovation, Dependability and Success
+      </p>
+      <GetQuoete />
+    </div>
+  </div>
+
+  <div class="w-full mt-12 flex justify-center mb-8">
+    <Testimonials title="Our Customer Say" client:load />
+  </div>
+
+  <div
+    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
+  >
+    <div class="w-full flex items-center justify-center">
+      <h5 class="text-center w-[100px] p-2 rounded-full border-2">2024</h5>
+    </div>
+    <div
+      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
+    >
+      <div
+        class="w-[45%] xs:w-full sm:w-full md:w-[40%] h-[200px] flex flex-col items-center p-4 relative border-4 content--left"
+      >
+        <h4 class="text-3xl font-semibold">Great Place To Work.</h4>
+        <p>Certified in Feb 2024 - Feb 2025</p>
+      </div>
+      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
+        <FaDotCircle
+          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
+        />
+      </div>
+      <div
+        class="w-[45%] xs:w-full sm:w-full md:w-[50%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex flex-col items-center p-4 relative border-4 content--right"
+      >
+        <h4 class="text-3xl w-full font-semibold">
+          Great Place to Work Certified
+        </h4>
+        <p class="text-sm mt-2">
+          Montway became a Great Place To Work company, a certification that
+          recognizes employers who create an outstanding employee experience.
+          When surveyed, 87% of staff say that Montway is a great place to work.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <SecondFooter />
+  <ButtonScrollTop client:load />
+</Layout>
