@@ -11,7 +11,7 @@ const isAnyVehicleInop = (vehicles: vehicleTypes[]) => {
 
 const ShowDataQuote = () => {
   const lead = getLead()
-  const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Inoperable' : 'Operable';
+  const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Operable' : 'Inoperable';
 
   console.log(lead, operableStatus)
   return (
@@ -43,7 +43,7 @@ const ShowDataQuote = () => {
           lead.Vehicles.map((vehicles: vehicleTypes, i: any) => (
             <tr>
               <td className="bg-blue-100 p-2">Vehicle(s)</td>
-              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Operable' : 'Inoperable'}`}</td>
+              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Inoperable' : 'Operable'}`}</td>
             </tr>
           ))
         )}

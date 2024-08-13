@@ -6,9 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
 import axios from 'axios'
-import SelectInput from '../inputs/CustomSelect';
 import DateInput from '../inputs/CustomInputDate';
-import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, saveNumberLead, sendedEmail, sendedLead } from '../../services/localStorage';
+import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
@@ -478,7 +477,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       data_ship: formattedDate
     };
     handleSubmitLeadAndEmail(dataToSend)
-    console.log(data);
   };
   const handleStepBack = (step: number) => {
     const datavalue = methods.getValues()
