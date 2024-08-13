@@ -56,7 +56,7 @@ const forBusinesses = [
 
 const whyUs = [
   { description: 'Reviews', href: '/why-us/reviews/', icon: ChartPieIcon },
-  { description: 'History', href: '/why-us/history/', icon: CursorArrowRaysIcon },
+  { description: 'Growth', href: '/why-us/growth/', icon: CursorArrowRaysIcon },
   { description: 'Our team', href: '/why-us/our-team/', icon: FingerPrintIcon },
   { description: 'Vision and Mission', href: '/why-us/vision-mission/', icon: FingerPrintIcon },
   { description: 'Blog', href: '#', icon: FingerPrintIcon }

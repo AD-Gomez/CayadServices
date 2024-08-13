@@ -18,23 +18,12 @@ import { HiChevronRight } from "react-icons/hi";
     background-size: cover;
   }
 
-  .content--left::after {
-    content: url("../../../../public/icons/rigthArrow.svg");
-    width: 100%;
-    color: #e5e7eb;
-    height: 99%;
-    font-weight: 700;
-    margin-left: 8px;
-    position: absolute; /* Posicionamiento absoluto */
-    transform: translateX(100%) translateY(46%);
-  }
-
   .content--right::after {
     content: url("../../../../public/icons/leftArrow.svg");
     color: #e5e7eb;
     font-weight: 700;
     position: absolute; /* Posicionamiento absoluto */
-    transform: translateX(-269%) translateY(35%);
+    left: -16px;
   }
 
   @media (max-width: 767px) {
@@ -59,7 +48,7 @@ import { HiChevronRight } from "react-icons/hi";
       <h1
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
-        Cost Effective Car Shipping Service In U.S 
+        Cost Effective Car Shipping Service In U.S
       </h1>
       <p class="text-white text-lg font-semibold">
         Car shipping innovation, Dependability, Exponential Growth & Success
@@ -75,32 +64,43 @@ import { HiChevronRight } from "react-icons/hi";
   <div
     class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
   >
-    <div class="w-full flex items-center justify-center">
-      <h5 class="text-center w-[100px] p-2 rounded-full border-2">Effective</h5>
+    <div
+      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
+    >
+      <h5
+        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
+      >
+        Effective
+      </h5>
     </div>
     <div
       class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
     >
-      <div
-        class="w-[70%] xs:w-full sm:w-full md:w-[90%] h-[200px] flex justify-center items-center p-4 relative border-4 content--left"
-      >
-        
-        <div>
-          <h4 class="text-3xl font-semibold">Five-Star, Top-Rated Service
-          </h4>
-          <p>Cayad Auto TRansport has established itself as one of the leading auto transport companies in the country. We proudly serve thousands of satisfied customers, including individuals and corporate clients in the moving and relocation, dealership, and auction sectors, all backed by our impressive 5-star review rating.</p>
-        </div>
-      </div>
       <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
         <FaDotCircle
           className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
         />
       </div>
-      <div
-        class="w-[30%] xs:w-full sm:w-full md:w-[90%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex items-center p-4 relative border-4 content--right"
-      >
 
-        <img src="/public/img/review2.png" alt="car shipping 5 star review" class="w-24" />
+      <div
+        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
+      >
+        <div class="ml-8">
+          <h4 class="text-3xl font-semibold">Five-Star, Top-Rated Service</h4>
+          <p>
+            Cayad Auto TRansport has established itself as one of the leading
+            auto transport companies in the country. We proudly serve thousands
+            of satisfied customers, including individuals and corporate clients
+            in the moving and relocation, dealership, and auction sectors, all
+            backed by our impressive 5-star review rating.
+          </p>
+        </div>
+
+        <img
+          src="/public/img/review2.png"
+          alt="car shipping 5 star review"
+          class="w-48"
+        />
       </div>
     </div>
   </div>
@@ -108,40 +108,45 @@ import { HiChevronRight } from "react-icons/hi";
   <div
     class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
   >
-    <div class="w-full flex items-center justify-center">
-      <h5 class="text-center w-[100px] p-2 rounded-full border-2">Consistence</h5>
+    <div
+      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
+    >
+      <h5
+        class="text-center w-[100px] p-2 bg-btn-blue text-white rounded-full border-2"
+      >
+        Consistence
+      </h5>
     </div>
     <div
       class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
     >
-      <div
-        class="w-[30%] xs:w-full sm:w-full md:w-[90%] h-[200px] flex justify-center items-center p-4 relative border-4 content--left"
-      >
-        <div class="mr-4">
-          <img src="/public/img/bainw.png" alt="car transport web site" class="w-24" />
-        </div>
-        
-      </div>
       <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
         <FaDotCircle
           className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
         />
       </div>
-      <div
-        class="w-[70%] xs:w-full sm:w-full md:w-[90%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex items-center p-4 relative border-4 content--right"
-      >
-      <div>
-        <h4 class="text-3xl w-full font-semibold">
-          Better and intuitive new website
-        </h4>
-        <p class="text-sm mt-2">
-          The company has launched its new website, featuring a modern design, a focus on customer needs, and a seamless user experience.
-        </p>
-      </div>
 
+      <div
+        class="w-[85%] xs:w-full sm:w-full md:w-[90%] h-[200px] xs:flex-col sm:flex-col xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
+      >
+        <div class="mr-4">
+          <img
+            src="/public/img/bainw.png"
+            alt="car transport web site"
+            class="w-48"
+          />
+        </div>
+
+        <div>
+          <h4 class="text-3xl w-full font-semibold">
+            Better and intuitive new website
+          </h4>
+          <p class="text-sm mt-2">
+            The company has launched its new website, featuring a modern design,
+            a focus on customer needs, and a seamless user experience.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
-
 </Layout>
