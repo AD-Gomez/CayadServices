@@ -465,7 +465,7 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <button disabled={disabledSubmit} className={`bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>Submit Quote Request</button>
+          <button disabled={disabledSubmit} className={`bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>Submit</button>
           <a className='text-btn-blue mb-12' href='/'>Cayad Auto Transport</a>
         </form>
       </div>
