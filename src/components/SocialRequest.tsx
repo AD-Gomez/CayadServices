@@ -6,19 +6,59 @@ import ReactDOMServer from "react-dom/server";
 
 const request = [
   {
-    name: 'Miguel Marabay',
-    car: 'Ford Explorer',
-    origin_state: "Miami, Fl",
+    name: 'July',
+    car: '2 Vehicles',
+    origin_state: "Philadelphia, PA",
     userImage: userIcon,
-    destination_state: 'Minesota',
+    destination_state: 'Las Vegas, NV',
     onlyName: true
   },
   {
-    name: 'Jesus Salazar',
-    car: 'Mitsubichi Lancer',
-    origin_state: "Miami, Fl",
+    name: 'Carlo Aquino',
+    car: 'Mini Hardtop',
+    origin_state: "Ronkonkoma, NY",
     userImage: userIcon,
-    destination_state: 'Minesota',
+    destination_state: 'Germantown, MD',
+    onlyName: false
+  },
+  {
+    name: 'Ted Sheckler',
+    car: 'Honda Fit',
+    origin_state: "Seattle, WA",
+    userImage: userIcon,
+    destination_state: 'Memphis, MI',
+    onlyName: false
+  },
+  {
+    name: 'Juan Carlos Ortiz',
+    car: 'Dodge Grand Caravan',
+    origin_state: "Indianapolis, IN",
+    userImage: userIcon,
+    destination_state: 'Hemet, CA',
+    onlyName: false
+  },
+  {
+    name: 'Augusto',
+    car: 'volkswagen Passat',
+    origin_state: "Globe, AZ",
+    userImage: userIcon,
+    destination_state: 'San Diego, CA',
+    onlyName: false
+  },
+  {
+    name: 'Alan Nucci',
+    car: 'Chevrolet Corvette',
+    origin_state: "Franklin, WV",
+    userImage: userIcon,
+    destination_state: 'Winter Springs, FL',
+    onlyName: false
+  },
+  {
+    name: 'Javier Martin',
+    car: 'Ford f-350 Dually',
+    origin_state: "Edison, NJ",
+    userImage: userIcon,
+    destination_state: 'Hudson, FL',
     onlyName: false
   }
 ]
@@ -49,8 +89,8 @@ const SocialRequest: React.FC = () => {
 
     const title = ReactDOMServer.renderToString(
       review.onlyName
-        ? <><img src="/public/img/location.jpeg" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name} 6 others</strong></>
-        : <><img src="/public/img/location.jpeg" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name}</strong></>
+        ? <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name}</strong></>
+        : <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name}</strong></>
     );
 
     setRandomReview(review);
@@ -63,8 +103,8 @@ const SocialRequest: React.FC = () => {
         title: `<div class="w-full flex items-center justify-start" >${title}
           </div>`,
         html: `
-            <p class="text-sm">7 bookings on last 30 min</p>
-
+            <p class="text-sm">Just book it !</p>
+            <br>
             <div class="flex text-sm   items-center w-full justify-between">
               <div class='flex  items-center'>
                 <div><img src="../img/point_a.webp" alt="Point A" /> </div>
@@ -83,7 +123,7 @@ const SocialRequest: React.FC = () => {
               </div>
             </div>
 
-             <div class=" pr-8 text-sm">
+            <div class=" pr-8 text-sm">
               <div class=" flex justify-between">
                 <p class='mr-1'>${review.origin_state}</p>
                 <p class='mr-2'>${review.destination_state}</p>
