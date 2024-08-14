@@ -122,6 +122,7 @@ const testimonials = [
 ];
 
 
+
 const renderStars = (rating: number) => {
   return (
     <div className="flex flex-row">
@@ -139,7 +140,6 @@ const SocialProof: React.FC = () => {
   const [showingToast, setShowingToast] = useState(true);
 
   const sasa = () => {
-    console.log('sasas');
     Swal.close(); // Cierra el toast
     setShowingToast(false); // Actualiza el estado para detener el bucle
   };
