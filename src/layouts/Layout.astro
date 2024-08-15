@@ -5,6 +5,8 @@ import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
 import SocialProof from "../components/SocialProof";
+import SocialRequest from "../components/SocialRequest";
+
 interface Props {
   content: string;
   title: string;
@@ -73,6 +75,7 @@ const { title, content } = Astro.props;
     <ButtonChat client:load />
     <Footer />
     <SocialProof client:load />
+    <SocialRequest client:load />
     <script>
       import { aosInit } from "../lib/aos";
 

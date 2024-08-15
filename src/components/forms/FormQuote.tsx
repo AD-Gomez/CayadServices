@@ -16,7 +16,7 @@ import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead } from '../../services/localStorage';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
-
+import { FaRegPaperPlane } from "react-icons/fa";
 
 const validationSchema = yup.object().shape({
   origin_city: yup.string()
@@ -285,7 +285,7 @@ const FormQuote = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="h-max w-[60%] md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
+      <div className="h-max w-[60%] mt-4 xs:mt-0 sm:mt-0 md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
         <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-full justify-between px-8  mt-4">
             <div className='max-h-[50px] max-w-[200px]'>
@@ -465,8 +465,11 @@ const FormQuote = () => {
             </div>
           </div>
 
-          <button disabled={disabledSubmit} className={`bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>Submit Quote Request</button>
-          <a className='text-btn-blue mb-12' href='/'>Cayad Auto Transport</a>
+          <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
+            Submit
+            <FaRegPaperPlane className='ml-2' />
+
+          </button>
         </form>
       </div>
     </FormProvider>
