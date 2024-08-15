@@ -37,9 +37,24 @@ const { title, content } = Astro.props;
       {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": "Cayad Service",
-        "image": ["/public/img/why1.PNG"],
-        "description": "Cayad Services is the most cost-effective car shipper in the U.S"
+        "name": "Smartphone XYZ",
+        "image": [
+          "https://example.com/foto1.jpg",
+          "https://example.com/foto2.jpg"
+        ],
+        "description": "Un smartphone avanzado con características de última generación.",
+        "brand": {
+          "@type": "Brand",
+          "name": "TechBrand"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://example.com/producto/smartphone-xyz",
+          "priceCurrency": "USD",
+          "price": "499.99",
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/InStock"
+        }
       }
     </script>
 
