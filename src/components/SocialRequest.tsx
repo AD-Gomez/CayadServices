@@ -79,7 +79,7 @@ const SocialRequest: React.FC = () => {
 
     const intervalId = setInterval(() => {
       showRandomReview();
-    }, 300000); // 3000ms = 3 segundos 300000
+    }, 3000); // 3000ms = 3 segundos 300000
 
     return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
   }, [showingToast]);
@@ -89,8 +89,8 @@ const SocialRequest: React.FC = () => {
 
     const title = ReactDOMServer.renderToString(
       review.onlyName
-        ? <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name}</strong></>
-        : <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-6 " /> <strong>{review.name}</strong></>
+        ? <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
+        : <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
     );
 
     setRandomReview(review);
