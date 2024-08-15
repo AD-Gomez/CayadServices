@@ -33,6 +33,16 @@ const { title, content } = Astro.props;
       sizes="120x120"
     />
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Cayad Service",
+        "image": ["/public/img/why1.PNG"],
+        "description": "Cayad Services is the most cost-effective car shipper in the U.S"
+      }
+    </script>
+
     <!-- Google Tag Manager -->
     <script is:inline>
       (function (w, d, s, l, i) {
