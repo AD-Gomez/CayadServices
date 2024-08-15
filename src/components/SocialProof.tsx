@@ -139,7 +139,7 @@ const SocialProof: React.FC = () => {
   const [randomReview, setRandomReview] = useState<typeof testimonials[0] | null>(null);
   const [showingToast, setShowingToast] = useState(true);
 
-  const sasa = () => {
+  const closeSwal = () => {
     Swal.close(); // Cierra el toast
     setShowingToast(false); // Actualiza el estado para detener el bucle
   };
@@ -161,7 +161,7 @@ const SocialProof: React.FC = () => {
     if (review) {
       const starsHtml = ReactDOMServer.renderToString(renderStars(review.rating));
 
-      window.sasa = sasa;
+      window.closeSwal = closeSwal;
 
       Swal.fire({
         title: `<div class="w-full flex items-center justify-between" ><strong>${review.name}</strong>  <img src="${review.userImage.src}" alt="Custom Icon" class=" w-14 " />

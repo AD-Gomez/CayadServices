@@ -28,7 +28,7 @@ const SocialRequest: React.FC = () => {
   const [randomReview, setRandomReview] = useState<typeof request[0] | null>(null);
   const [showingToast, setShowingToast] = useState(true);
 
-  const sasa = () => {
+  const closeSwal = () => {
     console.log('sasas');
     Swal.close(); // Cierra el toast
     setShowingToast(false); // Actualiza el estado para detener el bucle
@@ -57,7 +57,7 @@ const SocialRequest: React.FC = () => {
 
     if (review) {
 
-      window.sasa = sasa;
+      window.closeSwal = closeSwal;
 
       Swal.fire({
         title: `<div class="w-full flex items-center justify-start" >${title}
