@@ -149,7 +149,7 @@ const SocialProof: React.FC = () => {
 
     const intervalId = setInterval(() => {
       showRandomReview();
-    }, 240000); // 3000ms = 3 segundos
+    }, 240000); // 3000ms = 3 segundos estaba en 240000
 
     return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
   }, [showingToast]);
