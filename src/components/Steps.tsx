@@ -1,7 +1,7 @@
 // App.tsx
 import React, { useState } from 'react';
 import VerticalStepper from './ProgressBar';
-import why1 from '../../public/img/why1.webp';
+import why1 from "../../public/img/why1.webp";
 import why2 from "../../public/img/why2.webp";
 import why3 from "../../public/img/why3.webp";
 const steps = [
