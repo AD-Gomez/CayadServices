@@ -1,6 +1,6 @@
 import part4 from '../../public/img/part4.webp'
 import ReactDOMServer from "react-dom/server";
-import facebookReview2 from '../../public/img/facebookReview2.jpeg'
+import facebookReview2 from '../../public/img/facebookReview2.webp'
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";

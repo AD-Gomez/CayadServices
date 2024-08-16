@@ -88,8 +88,8 @@ const SocialRequest: React.FC = () => {
 
     const title = ReactDOMServer.renderToString(
       review.onlyName
-        ? <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
-        : <><img src="/public/img/why1.png" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
+        ? <><img src="/public/img/why1.webp" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
+        : <><img src="/public/img/why1.webp" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
     );
 
     setRandomReview(review);
