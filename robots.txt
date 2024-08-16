@@ -12,4 +12,3 @@ Disallow: /pdfs/sample-bill-of-lading.pdf
 
 # Sitemap
 Sitemap: https://cayadservices.com/sitemap.xml
-
