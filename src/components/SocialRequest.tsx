@@ -106,7 +106,7 @@ const SocialRequest: React.FC = () => {
             <br>
             <div class="flex text-sm   items-center w-full justify-between">
               <div class='flex  items-center'>
-                <div><img src="../img/point_a.webp" alt="Point A" /> </div>
+                <div><img src="/public/img/point_a.webp" alt="Point A" /> </div>
                 <p class='ml-2' >
                   Origin
                 </p>
@@ -118,7 +118,7 @@ const SocialRequest: React.FC = () => {
                 <p class='  mr-2' >
                   Destination
                 </p>
-                <div class='w-9'> <img width="8px" src="../img/point_b.webp" alt="Point B" /></div>
+                <div class='w-9'> <img width="8px" src="/public/img/point_b.webp" alt="Point B" /></div>
               </div>
             </div>
 
