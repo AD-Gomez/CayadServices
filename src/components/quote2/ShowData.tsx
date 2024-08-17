@@ -1,6 +1,6 @@
 import { getLead } from "../../services/localStorage";
-import op from '../../../public/img/op.png'
-import inop from '../../../public/img/inop.png'
+import op from '../../../public/img/op.webp'
+import inop from '../../../public/img/inop.webp'
 import truckFlatbed from '../../../public/img/truck-flatbed.svg'
 import truck from '../../../public/img/truck.svg'
 import type { vehicleTypes } from "../../types/formQuote.type";

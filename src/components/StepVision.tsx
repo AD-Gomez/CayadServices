@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import VerticalStepper from './ProgressBar';
 import step1 from '../../public/img/open_circle_a.webp'
-import step2 from '../../public/img/open_circle_b.jpeg'
+import step2 from '../../public/img/open_circle_b.webp'
 import step3 from '../../public/img/open_circle_c.webp'
 
 const steps = [
