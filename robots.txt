@@ -10,6 +10,7 @@ Disallow: /pdfs/Terms-of-use.pdf
 Disallow: /pdfs/Cayad_shippingInstructions.pdf
 Disallow: /pdfs/sample-bill-of-lading.pdf
 Disallow: /payment-methods/
+Disallow: /quote2/
 
 # Sitemap
 Sitemap: https://cayadservices.com/sitemap.xml
