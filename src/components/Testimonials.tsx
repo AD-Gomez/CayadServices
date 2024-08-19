@@ -4,7 +4,7 @@ import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from 'swiper';
 import iconFacebookReview from '../../public/img/iconFacebookReview.svg'
 import part4 from '../../public/img/part4.webp'
-import facebookReview2 from '../../public/img/facebookReview2.jpeg'
+import facebookReview2 from '../../public/img/facebookReview2.webp'
 
 import 'swiper/css'
 import '../styles/animate.css'
@@ -21,7 +21,7 @@ const testimonials = [
     link: "https://www.google.com/maps/contrib/112079156209575097076/reviews?hl=en-GB",
     userImage: part4,
     altText: "Moe Omar",
-    id: 0
+    id: 0,
   },
   {
     name: "Hhrg Ramirez",
@@ -40,12 +40,12 @@ const testimonials = [
     comment: "Alex G at Cayad Auto Transport was amazing to work with. He helps me ship a car from Utah to Idaho without problems and with fair price. I’d definitely be using their services again.",
     link: "https://www.google.com/maps/contrib/102787767697976243009/reviews/@36.8332502,-101.4969573,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?hl=en-GB&entry=ttu",
     userImage: part4,
-    altText: "Paul Rosales",
+    altText: "Santiago Caceres",
     id: 1
   },
   {
     name: "Kimmy Tennant",
-    image: 'https://scontent.fccs3-1.fna.fbcdn.net/v/t39.30808-1/453873207_10168929951145481_4117795736379546033_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=ItLbtbmBTGIQ7kNvgEBdrZO&_nc_ht=scontent.fccs3-1.fna&oh=00_AYCAf_DlqeVjK4WOGN8-t_BNwA071MJhwSyDZYoVhRbpvA&oe=66BA93BE',
+    image: 'https://scontent.fccs1-2.fna.fbcdn.net/v/t39.30808-1/453873207_10168929951145481_4117795736379546033_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=A4XHLwx8jkcQ7kNvgH4l-zu&_nc_ht=scontent.fccs1-2.fna&oh=00_AYCy5Vvd2wJSmB5KA96GX7XCT2oRW8AoO2mWaohDlmVdhA&oe=66C7FAFE',
     rating: 5,
     comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
     link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
