@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import userIcon from '../../public/icons/userIcon.svg'
 import ReactDOMServer from "react-dom/server";
-import why1 from "../../public/img/why1.png"
+import why1 from "../../public/img/why1.webp"
 import point_a from "../../public/img/point_a.webp"
 import point_b from "../../public/img/point_b.webp"
 
