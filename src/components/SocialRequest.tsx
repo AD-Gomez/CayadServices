@@ -3,6 +3,9 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import userIcon from '../../public/icons/userIcon.svg'
 import ReactDOMServer from "react-dom/server";
+import why1 from "../../public/img/why1.webp"
+import point_a from "../../public/img/point_a.webp"
+import point_b from "../../public/img/point_b.webp"
 
 const request = [
   {
@@ -88,8 +91,8 @@ const SocialRequest: React.FC = () => {
 
     const title = ReactDOMServer.renderToString(
       review.onlyName
-        ? <><img src="/public/img/why1.webp" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
-        : <><img src="/public/img/why1.webp" alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
+        ? <><img src={why1.src} alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
+        : <><img src={why1.src} alt="Custom Icon" className="mr-4 w-12 " /> <strong>{review.name}</strong></>
     );
 
     setRandomReview(review);
@@ -106,7 +109,7 @@ const SocialRequest: React.FC = () => {
             <br>
             <div class="flex text-sm   items-center w-full justify-between">
               <div class='flex  items-center'>
-                <div><img src="/public/img/point_a.webp" alt="Point A" /> </div>
+                <div><img src="${point_a.src}" alt="Point A" /> </div>
                 <p class='ml-2' >
                   Origin
                 </p>
@@ -118,7 +121,7 @@ const SocialRequest: React.FC = () => {
                 <p class='  mr-2' >
                   Destination
                 </p>
-                <div class='w-9'> <img width="8px" src="/public/img/point_b.webp" alt="Point B" /></div>
+                <div class='w-9'> <img width="8px" src="${point_b.src}" alt="Point B" /></div>
               </div>
             </div>
 
