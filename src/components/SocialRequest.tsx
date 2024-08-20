@@ -78,7 +78,7 @@ const SocialRequest: React.FC = () => {
 
     const intervalId = setInterval(() => {
       showRandomReview();
-    }, 18000000); // 3000ms = 3 segundos 300000
+    }, 120000); // 3000ms = 3 segundos 300000
 
     return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
   }, [showingToast]);
