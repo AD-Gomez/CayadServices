@@ -47,6 +47,7 @@ const ButtonChat = () => {
             onClick={handleMessengerClick}
             className="h-12 w-12 flex items-center justify-center text-[1.8rem] text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open Facebook Messenger"
+            data-gtm="messenger-button"  // Atributo de datos para GTM
           >
             <FaFacebookMessenger />
           </button>
@@ -54,6 +55,7 @@ const ButtonChat = () => {
             onClick={handleWhatsappClick}
             className="h-12 w-12 flex items-center justify-center bg-green-500 text-[2rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open WhatsApp"
+            data-gtm="whatsapp-button"  // Atributo de datos para GTM
           >
             <IoLogoWhatsapp />
           </button>
