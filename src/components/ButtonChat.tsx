@@ -15,11 +15,31 @@ const ButtonChat = () => {
   };
 
   const handleMessengerClick = () => {
-    window.open('https://m.me/116222094837969', '_blank');
+    // Enviar evento a Google Analytics u otro servicio de tracking
+    window.dataLayer.push({
+      'event': 'click_messenger',
+      'eventCategory': 'Botón de Chat',
+      'eventAction': 'Clic',
+      'eventLabel': 'Messenger'
+    });
+
+    setTimeout(() => {
+      window.open('https://m.me/116222094837969', '_blank');
+    }, 300); // Retraso de 300 ms
   };
 
   const handleWhatsappClick = () => {
-    window.open('https://wa.me/14696190747', '_blank');
+    // Enviar evento a Google Analytics u otro servicio de tracking
+    window.dataLayer.push({
+      'event': 'click_whatsapp',
+      'eventCategory': 'Botón de Chat',
+      'eventAction': 'Clic',
+      'eventLabel': 'WhatsApp'
+    });
+
+    setTimeout(() => {
+      window.open('https://wa.me/14696190747', '_blank');
+    }, 300); // Retraso de 300 ms
   };
 
   useEffect(() => {
