@@ -2,3 +2,7 @@
 interface Window {
     closeSwal: () => void;
 }
+
+interface Window {
+    dataLayer: any[];
+}
