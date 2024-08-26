@@ -24,7 +24,7 @@ const ButtonChat = () => {
     });
 
     setTimeout(() => {
-      window.open('https://m.me/116222094837969', '_blank');
+    window.open('https://m.me/116222094837969', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
@@ -38,7 +38,7 @@ const ButtonChat = () => {
     });
 
     setTimeout(() => {
-      window.open('https://wa.me/14696190747', '_blank');
+    window.open('https://wa.me/14696190747', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
