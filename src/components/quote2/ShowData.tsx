@@ -13,7 +13,6 @@ const ShowDataQuote = () => {
   const lead = getLead()
   const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Operable' : 'Inoperable';
 
-  console.log(lead, operableStatus)
   return (
     <>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] bg-white text-black border border-gray-200 p-2">
