@@ -6,9 +6,11 @@ import { FaCar } from "react-icons/fa6";
 import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
+import GetQuote from "../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 import NumberPhone from "../components/NumberPhone.astro";
 ---
+
 <link rel="canonical" href="https://cayadservices.com" />
 <style>
   .service-item:hover img,
@@ -219,11 +221,7 @@ import NumberPhone from "../components/NumberPhone.astro";
               Cayad Auto Transport is the most cost-effective car shipper in the
               U.S
             </h1>
-            <a
-              href="/quote/"
-              class="mt-6 flex w-56 fadeInLeft items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >Get a Quote</a
-            >
+            <GetQuote />
           </div>
         </div>
       </div>
@@ -248,8 +246,7 @@ import NumberPhone from "../components/NumberPhone.astro";
       all times.
     </p>
     <div
-      class="flex flex-row justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
-      style="background-color: rgb(193, 194, 197);"
+      class="flex flex-row bg-gray-300 text-gray-800 justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
     >
       <div
         class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
@@ -272,29 +269,29 @@ import NumberPhone from "../components/NumberPhone.astro";
         <div class="row g-4 mb-5">
           <div data-wow-delay="0.5s">
             <h3 class="text-3xl text-h3-title font-medium">GPS tracking</h3>
-            <p class="m-0 text-p-landing">
+            <p class="m-0 text-gray-800">
               It's our new GPS tracking system. With it, you can have complete
               real-time tracking with full ETA inspection and <a
                 href="/pdfs/sample-bill-of-lading.pdf"
-                class="text-btn-blue hover:underline">BOL</a
+                class="text-btn-blue hover:underline text-lg">BOL</a
               >
               sharing all in one place.
               <br /><br />
               Using the GPS tracker you will be able to:
               <br /><br />
               <ol class="ml-4">
-                <li class="text-p-landing">
+                <li class="text-gray-800">
                   1. Get constant updates of your vehicle's location.
                 </li>
-                <li class="text-p-landing">2. Bill of lading (BOL).</li>
-                <li class="text-p-landing">
+                <li class="text-gray-800">2. Bill of lading (BOL).</li>
+                <li class="text-gray-800">
                   3. Estimated Time of Arrival (ETA).
                 </li>
-                <li class="text-p-landing">4. Shareable via link.</li>
+                <li class="text-gray-800">4. Shareable via link.</li>
               </ol>
               <br />
             </p>
-            <p class="text-p-landing">
+            <p class="text-gray-800">
               Within our systems, more than 70% of loads have guaranteed
               tracking and participation of the operator's GPS.
             </p>
@@ -448,7 +445,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <i class="fa fa-car fa-2x text-white mb-3"></i>
               <h5 class="text-white mb-2">he Size and Weight of the Vehicle</h5>
               <p class="text-white mb-0">
-                Longer, taller, or heavier vehicles require special accommodations, leading to tailored pricing. This ensures your vehicle receives the precise care it needs for a secure transportation experience.
+                Longer, taller, or heavier vehicles require special
+                accommodations, leading to tailored pricing. This ensures your
+                vehicle receives the precise care it needs for a secure
+                transportation experience.
               </p>
             </div>
             <div
@@ -459,7 +459,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
               <h5 class="text-white mb-2">Vehicle Condition</h5>
               <p class="text-white mb-0">
-                Inoperable vehicles that can’t roll, turn, or brake need extra tools and specialized care. Though this involves additional resources, it ensures your vehicle is handled with precision for a smooth, secure transport.
+                Inoperable vehicles that can’t roll, turn, or brake need extra
+                tools and specialized care. Though this involves additional
+                resources, it ensures your vehicle is handled with precision for
+                a smooth, secure transport.
               </p>
             </div>
             <div
@@ -470,7 +473,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
               <h5 class="text-white mb-2">Type of Transport</h5>
               <p class="text-white mb-0">
-                Choosing the right transport depends on your needs. Open transport is cost-effective for all vehicles, while enclosed transport, requiring special handling, is ideal for motorcycles and luxury cars.
+                Choosing the right transport depends on your needs. Open
+                transport is cost-effective for all vehicles, while enclosed
+                transport, requiring special handling, is ideal for motorcycles
+                and luxury cars.
               </p>
             </div>
             <div
@@ -481,7 +487,9 @@ import NumberPhone from "../components/NumberPhone.astro";
               <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
               <h5 class="text-white mb-2">Shipping Distance</h5>
               <p class="text-white mb-0">
-                Longer distances generally lead to higher total prices, but lower costs per mile. As your vehicle travels farther, you'll benefit from cost savings with an auto transporter.
+                Longer distances generally lead to higher total prices, but
+                lower costs per mile. As your vehicle travels farther, you'll
+                benefit from cost savings with an auto transporter.
               </p>
             </div>
           </div>
@@ -516,7 +524,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               </div>
               <h4 class="text-xl font-semibold mb-3">Door to Door Shipping</h4>
               <p>
-                Our door-to-door service is the most convenient way to ship your car. You just provide the addresses and the truck driver will pick up and drop off your vehicle as close as possible to your door.
+                Our door-to-door service is the most convenient way to ship your
+                car. You just provide the addresses and the truck driver will
+                pick up and drop off your vehicle as close as possible to your
+                door.
               </p>
               <a
                 class="btn-slide mt-4 text-blue-500 hover:underline"
@@ -549,7 +560,10 @@ import NumberPhone from "../components/NumberPhone.astro";
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Enclosed Car Transport</h4>
-              <p>Shipping your vehicle in an enclosed trailer ensures its better protected and arrives sooner to the destination.</p>
+              <p>
+                Shipping your vehicle in an enclosed trailer ensures its better
+                protected and arrives sooner to the destination.
+              </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/enclosed-auto-transport/"
@@ -581,7 +595,10 @@ import NumberPhone from "../components/NumberPhone.astro";
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Open Auto Transport</h4>
-              <p>Our open trailers offer the most cost-effective option to transport your car, making sure it arrives safely. </p>
+              <p>
+                Our open trailers offer the most cost-effective option to
+                transport your car, making sure it arrives safely.
+              </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/open-car-transport/"
@@ -614,7 +631,9 @@ import NumberPhone from "../components/NumberPhone.astro";
               </div>
               <h4 class="text-xl font-semibold mb-3">Motorcycle Shipping</h4>
               <p>
-                At Cayad we use experienced drivers who have the skills and equipment to properly load, secure and transport motorcycles, scooters, ATVs, UTVs and power-sports.
+                At Cayad we use experienced drivers who have the skills and
+                equipment to properly load, secure and transport motorcycles,
+                scooters, ATVs, UTVs and power-sports.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -646,9 +665,13 @@ import NumberPhone from "../components/NumberPhone.astro";
                   alt="classic car shipping"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Collectors Car Transport</h4>
+              <h4 class="text-xl font-semibold mb-3">
+                Collectors Car Transport
+              </h4>
               <p>
-                We transport classic and exotic cars all the time, these vehicles require special equipment and handling, we make sure they reach their destination in pristine condition.
+                We transport classic and exotic cars all the time, these
+                vehicles require special equipment and handling, we make sure
+                they reach their destination in pristine condition.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -680,8 +703,14 @@ import NumberPhone from "../components/NumberPhone.astro";
                   alt="car shipping for resellers"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Auction & Dealership Transport</h4>
-              <p>We offer special discounts to customers that need to haul multiple vehicles. We can pick up and deliver vehicles from dealerships, auctions, ports and businesses.</p>
+              <h4 class="text-xl font-semibold mb-3">
+                Auction & Dealership Transport
+              </h4>
+              <p>
+                We offer special discounts to customers that need to haul
+                multiple vehicles. We can pick up and deliver vehicles from
+                dealerships, auctions, ports and businesses.
+              </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/car-resellers-auto-transport/"
@@ -720,7 +749,7 @@ import NumberPhone from "../components/NumberPhone.astro";
         class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
       >
         <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
-        Why should you trust in Cayad auto transport?
+          Why should you trust in Cayad auto transport?
         </h2>
         <div
           class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
@@ -737,7 +766,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="ml-4">
                 <h5 class="font-semibold">Zero upfront payment</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  You read that right, no upfront payment! The best auto transport companies charge you once the carrier has been dispatched for your car shipping order. So, you can book with us now and not worry about the bill until later.
+                  You read that right, no upfront payment! The best auto
+                  transport companies charge you once the carrier has been
+                  dispatched for your car shipping order. So, you can book with
+                  us now and not worry about the bill until later.
                 </p>
               </div>
             </div>
@@ -752,7 +784,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="ml-4">
                 <h5 class="font-semibold">20K+ auto carriers</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  Cayad Auto Transport has a huge network of haulers who are personally vetted auto shipping experts, ensuring your vehicle is transported by trusted members of the industry. These shipping companies will treat your vehicles like their own.
+                  Cayad Auto Transport has a huge network of haulers who are
+                  personally vetted auto shipping experts, ensuring your vehicle
+                  is transported by trusted members of the industry. These
+                  shipping companies will treat your vehicles like their own.
                 </p>
               </div>
             </div>
@@ -767,7 +802,10 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="ml-4">
                 <h5 class="font-semibold">Personalized approach</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  Cayad Auto Transport works with you through every step of your vehicle route. Experience hassle-free shipping when you choose us as your car transporter and enjoy an easy and painless shipment process.
+                  Cayad Auto Transport works with you through every step of your
+                  vehicle route. Experience hassle-free shipping when you choose
+                  us as your car transporter and enjoy an easy and painless
+                  shipment process.
                 </p>
               </div>
             </div>
@@ -785,7 +823,11 @@ import NumberPhone from "../components/NumberPhone.astro";
                   Cayad is the most cost effective <a
                     href="/why-us/reviews/"
                     class="text-btn-blue underline">5 Stars</a
-                  > auto transport company, so your car will get from point A to point B without you having to break a single sweat. By having your car delivered straight to your door, you are allowing the specialists to handle every step of the process and ensure there are no speed bumps along the way.
+                  > auto transport company, so your car will get from point A to
+                  point B without you having to break a single sweat. By having your
+                  car delivered straight to your door, you are allowing the specialists
+                  to handle every step of the process and ensure there are no speed
+                  bumps along the way.
                 </p>
               </div>
             </div>
