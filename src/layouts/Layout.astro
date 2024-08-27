@@ -33,31 +33,6 @@ const { title, content } = Astro.props;
       sizes="120x120"
     />
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": "Smartphone XYZ",
-        "image": [
-          "https://example.com/foto1.webp",
-          "https://example.com/foto2.webp"
-        ],
-        "description": "Un smartphone avanzado con características de última generación.",
-        "brand": {
-          "@type": "Brand",
-          "name": "TechBrand"
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://example.com/producto/smartphone-xyz",
-          "priceCurrency": "USD",
-          "price": "499.99",
-          "itemCondition": "https://schema.org/NewCondition",
-          "availability": "https://schema.org/InStock"
-        }
-      }
-    </script>
-
     <!-- Google Tag Manager -->
     <script is:inline>
       (function (w, d, s, l, i) {
@@ -70,6 +45,20 @@ const { title, content } = Astro.props;
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+    </script>
+
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KR8PHJLS6S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-KR8PHJLS6S");
     </script>
     <!-- End Google Tag Manager -->
 
