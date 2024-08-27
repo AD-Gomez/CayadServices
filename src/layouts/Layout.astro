@@ -46,6 +46,20 @@ const { title, content } = Astro.props;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
     </script>
+
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KR8PHJLS6S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-KR8PHJLS6S");
+    </script>
     <!-- End Google Tag Manager -->
 
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->

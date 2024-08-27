@@ -24,7 +24,7 @@ const ButtonChat = () => {
     });
 
     setTimeout(() => {
-    window.open('https://m.me/116222094837969', '_blank');
+      window.open('https://m.me/116222094837969', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
@@ -37,8 +37,9 @@ const ButtonChat = () => {
       'eventLabel': 'WhatsApp'
     });
 
+    // Espera brevemente para asegurar que el evento se envíe antes de la redirección
     setTimeout(() => {
-    window.open('https://wa.me/14696190747', '_blank');
+      window.open('https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
