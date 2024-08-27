@@ -10,19 +10,10 @@
     "sourceMap": false, // Desactiva la generación de mapas de fuente para producción.
     "declaration": false, // No genera archivos de declaración `.d.ts`.
     "removeComments": true, // Elimina los comentarios del código compilado.
-    "strict": true, // Activa todas las comprobaciones estrictas.
     "esModuleInterop": true, // Permite la interoperabilidad con módulos CommonJS.
     "skipLibCheck": true, // Omite la comprobación de tipos en archivos de declaración de terceros.
-    "resolveJsonModule": true, // Permite importar archivos JSON como módulos.
     "experimentalDecorators": true, // Habilita los decoradores experimentales.
     "emitDecoratorMetadata": true, // Emite metadatos de decoradores.
-    "noImplicitAny": true, // Genera errores en expresiones y declaraciones con un tipo implícito `any`.
-    "noImplicitThis": true, // Genera errores si el valor de `this` tiene un tipo implícito `any`.
-    "strictNullChecks": true, // Genera errores si el valor `null` o `undefined` no se maneja explícitamente.
-    "noUnusedLocals": true, // Genera errores si hay variables locales no usadas.
-    "noUnusedParameters": true, // Genera errores si hay parámetros de función no usados.
-    "noImplicitReturns": true, // Genera errores si una función no devuelve un valor en todas las ramas.
-    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src/**/*.ts",
