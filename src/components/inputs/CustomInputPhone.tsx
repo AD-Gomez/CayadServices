@@ -12,7 +12,7 @@ interface CustomInputProps {
 }
 
 const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max, defaultValue }) => {
-  const { register, formState: { errors, dirtyFields, touchedFields }, setValue, trigger, watch } = useFormContext();
+  const { register, formState: { errors, dirtyFields }, setValue, trigger } = useFormContext();
   const [maskedValue, setMaskedValue] = useState(defaultValue || '');
 
   useEffect(() => {

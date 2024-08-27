@@ -120,17 +120,6 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
 };
 
 // Definición de la interfaz de los datos del formulario
-interface VehicleForm {
-  vehicle_model_year: string;
-  vehicle_make: string;
-  vehicle_model: string;
-  vehicleOperable: string;
-}
-
-interface FormStep2 {
-  Vehicles: VehicleForm[];
-}
-
 const validationSchema = yup.object().shape({
   Vehicles: yup.array().of(
     yup.object().shape({
@@ -282,7 +271,6 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   }, [allFields, modelField]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     setDataSubmit(data);
     setActiveStep(2);
   };
@@ -403,13 +391,6 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-interface FormStep3 {
-  first_name: string
-  phone: string
-  email: string
-  ship_date: Date
-}
-
 function separarCiudadYEstado (locationString: string) {
   const [city, state] = locationString.split(',').map(part => part.trim());
 
@@ -450,13 +431,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     },
   });
 
-  const { handleSubmit, formState: { isValid }, getValues, setValue, trigger } = methods;
-
-  useEffect(() => {
-    if (isValid) {
-      console.log(isValid);
-    }
-  }, [isValid]);
+  const { handleSubmit, formState: { isValid } } = methods;
 
   const originCityAndState = dataSubmit?.origin_city;
   const location = separarCiudadYEstado(originCityAndState);
@@ -465,7 +440,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dateObj = new Date(date);
     return format(dateObj, 'MM/dd/yyyy');
   };
-  console.log(disabled)
   const onSubmit = (data: any) => {
     setDisabled(true)
     const formattedDate = formatDate(data.ship_date);

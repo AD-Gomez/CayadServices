@@ -40,7 +40,7 @@ const ShowDataQuote = () => {
         <div className="w-full justify-center"><p className=" font-bold">Vehicles</p></div>
 
         {lead && Array.isArray(lead.Vehicles) && (
-          lead.Vehicles.map((vehicles: vehicleTypes, i: any) => (
+          lead.Vehicles.map((vehicles: vehicleTypes) => (
             <tr>
               <td className="bg-blue-100 p-2">Vehicle(s)</td>
               <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Inoperable' : 'Operable'}`}</td>

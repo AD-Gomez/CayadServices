@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Dialog,
   DialogPanel,
@@ -6,9 +6,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
   Popover,
-  PopoverButton,
   PopoverGroup,
-  PopoverPanel,
   Transition,
 } from '@headlessui/react'
 import {

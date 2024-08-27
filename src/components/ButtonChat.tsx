@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaFacebookMessenger, FaPlus, FaCommentDots } from "react-icons/fa";
+import { FaFacebookMessenger } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 const ButtonChat = () => {
