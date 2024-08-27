@@ -34,7 +34,7 @@ const { title, content } = Astro.props;
     />
 
     <!-- Google Tag Manager -->
-    <script is:inline>
+    <script is:inline defer>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -51,7 +51,8 @@ const { title, content } = Astro.props;
     <script
       is:inline
       async
-      src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
+      src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"
+      defer></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
