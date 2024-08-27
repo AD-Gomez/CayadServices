@@ -4,7 +4,11 @@ import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-<link rel="canonical" href="https://cayadservices.com/for-individuals/classic-cars-auto-transport" />
+
+<link
+  rel="canonical"
+  href="https://cayadservices.com/for-individuals/classic-cars-auto-transport"
+/>
 <style>
   .custom-background {
     background:
@@ -143,7 +147,9 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
         <img
           src="/img/classic-car1.webp"
           class="rounded-xl"
-          width="634" height="422"
+          srcset="image-400w.jpg 400w, image-800w.jpg 800w, image-1200w.jpg 1200w"
+          sizes="(max-width: 600px) 100vw, 50vw"
+          alt="Descripción de la imagen"
           alt="classic car transport in a enclosed trailer"
         />
       </div>
@@ -155,7 +161,13 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/classic-car2.webp" width="650" height="442" class="rounded-xl" alt="clasicc auto transport car blue"/>
+        <img
+          src="/img/classic-car2.webp"
+          width="650"
+          height="442"
+          class="rounded-xl"
+          alt="clasicc auto transport car blue"
+        />
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
         <h2 class="text-[#19171fd2] font-bold text-base">
@@ -196,7 +208,8 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
             <img
               src="/img/dollar.webp"
-              width="1080" height="1080"
+              width="1080"
+              height="1080"
               class="w-24 h-20 mb-2"
               alt="classic car transport dollar logo"
             />
@@ -217,7 +230,8 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             <img
               src="/img/easy.webp"
               class="w-24 h-20 mb-2"
-              width="1080" height="1080"
+              width="1080"
+              height="1080"
               alt="classic auto shipping easy logo"
             />
             <div class="ml-4">
@@ -234,7 +248,13 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
             </div>
           </div>
           <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
-            <img src="/img/call.webp" width="120" height="120" class="w-24 h-24 mb-2" alt="classic car transport call logo"/>
+            <img
+              src="/img/call.webp"
+              width="120"
+              height="120"
+              class="w-24 h-24 mb-2"
+              alt="classic car transport call logo"
+            />
             <div class="ml-4">
               <h5 class="font-semibold">Expert Assistance</h5>
               <p class="xs:text-start sm:text-start mb-0">
@@ -257,7 +277,8 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
           <div class="h-full">
             <img
               src="/img/classic-car.webp"
-              width="479" height="640"
+              width="479"
+              height="640"
               class="object-cover rounded-xl w-full h-full"
               alt="classic car shipping"
             />
