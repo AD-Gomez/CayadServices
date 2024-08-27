@@ -21,54 +21,56 @@ const { title, content } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
-    />
-
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/img/title-icon.webp"
-      sizes="120x120"
-    />
 
     <!-- Google Tag Manager -->
-    <script is:inline defer>
+    <script is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
         var f = d.getElementsByTagName(s)[0],
           j = d.createElement(s),
           dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
+        j.defer = true;
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
     </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Google tag (gtag.js) -->
     <script
-      is:inline
       async
       src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"
       defer></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "AW-11465331667");
+      window.addEventListener("load", function () {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "AW-11465331667");
+      });
     </script>
-    <!-- End Google Tag Manager -->
+    <!-- End Google tag -->
 
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     <!-- Google Maps -->
+    <!-- Descomenta si es necesario -->
     <!-- <script
+      defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY&libraries=places"
     ></script> -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/img/title-icon.webp"
+      sizes="120x120"
+    />
     <meta
       name="google-site-verification"
       content="mYTM7w20cgtRtlR9aFWNFViHfvRiKXcCrYxMptzOg2M"
@@ -92,11 +94,13 @@ const { title, content } = Astro.props;
     <Footer />
     <SocialProof client:load />
     <SocialRequest client:load />
-    <script>
-      import { aosInit } from "../lib/aos";
 
-      // runs on initial page load
-      aosInit();
+    <script defer>
+      import { aosInit } from "../lib/aos";
+      // Initialize AOS after the page is fully loaded
+      window.addEventListener("load", function () {
+        aosInit();
+      });
     </script>
   </body>
 </html>
