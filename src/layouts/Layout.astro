@@ -24,8 +24,6 @@ const { title, content } = Astro.props;
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
-      media="print"
-      onload="this.media='all'"
     />
 
     <link
@@ -55,7 +53,7 @@ const { title, content } = Astro.props;
       defer
       is:inline
       src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
-    <script defer is:inline>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
