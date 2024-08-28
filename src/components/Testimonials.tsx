@@ -154,7 +154,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                 <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
                 <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
                   <div className="w-16">
-                    <img src={testimonial.image} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img" />
+                    <img src={testimonial.image} width={50} height={50} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img" />
                   </div>
                   <div className="text-center md:text-left">
                     <h4 className="text-xl font-normal mb-2">
@@ -163,7 +163,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                     {renderStars(testimonial.rating)}
                   </div>
                   <div className="w-16 mt-4">
-                    <img src={testimonial.userImage.src} className="bg-cover" alt="image google" />
+                    <img src={testimonial.userImage.src} width={50} height={50} className="bg-cover" alt="image google" />
                   </div>
                 </div>
                 <div className="flex flex-col p-4  text-p-landing">
