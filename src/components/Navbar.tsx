@@ -91,7 +91,7 @@ export default function Example () {
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img className="h-10 w-auto" src={logoweb.src} alt="" />
+              <img className="h-10 w-auto" width={50} height={50} src={logoweb.src} alt="" />
             </a>
           </div>
 
