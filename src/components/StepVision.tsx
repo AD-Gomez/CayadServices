@@ -46,7 +46,6 @@ const StepVision: React.FC = () => {
         activeStep={activeStep}
         onNext={handleNext}
         onBack={handleBack}
-        onComplete={handleComplete}
       />
     </div>
   );

@@ -224,7 +224,6 @@ const FormQuote = () => {
     const { AuthKey, ...dataWithoutAuthKey } = data
     const numberLead = extractLeadNumber(response)
 
-    console.log(numberLead)
     if (response) {
       showNotification({ text: 'success', icon: 'success' })
       let send = {
@@ -256,7 +255,6 @@ const FormQuote = () => {
         }
       });
       await sendEmail(send)
-      console.log(data)
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
