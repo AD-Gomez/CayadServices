@@ -18,7 +18,6 @@ const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, di
   };
 
   const hasError = !!errors[name];
-  console.log(defaultValue)
   return (
     <div className="flex relative flex-col mb-4">
       <Controller
