@@ -149,7 +149,7 @@ const SocialProof: React.FC = () => {
 
     const intervalId = setInterval(() => {
       showRandomReview();
-    }, 60000); // 3000ms = 3 segundos estaba en 240000
+    }, 3000); // 3000ms = 3 segundos estaba en 240000  60000
 
     return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
   }, [showingToast]);
@@ -164,7 +164,7 @@ const SocialProof: React.FC = () => {
       window.closeSwal = closeSwal;
 
       Swal.fire({
-        title: `<div class="w-full flex items-center justify-between" ><strong>${review.name}</strong>  <img src="${review.userImage.src}" alt="Custom Icon" class=" w-14 " />
+        title: `<div class="w-full flex items-center justify-between" ><strong>${review.name}</strong>  <img width={50} height={50} src="${review.userImage.src}" alt="Custom Icon" class=" w-14 " />
         </div>`,
         html: `
           <div>${starsHtml}</div>
