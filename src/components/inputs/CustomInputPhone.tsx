@@ -24,10 +24,6 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'tex
     }
   }, [defaultValue, name, setValue]);
 
-  useEffect(() => {
-    console.log('dirtyFields updated:', dirtyFields);
-  }, [dirtyFields]);
-
   // Función para manejar el cambio en el input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, ''); // Eliminar todos los caracteres que no sean dígitos
@@ -49,8 +45,6 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, type = 'tex
 
   // Chequear si el campo es válido
   const isFieldValid = (!errors[name] || errors[name] === undefined) && (dirtyFields[name] === undefined || dirtyFields[name]) && maskedValue && maskedValue.length >= 14;
-  console.log(isFieldValid, errors[name], dirtyFields[name], maskedValue)
-  console.log(errors[name])
   return (
     <div className="relative mb-2">
       <input
