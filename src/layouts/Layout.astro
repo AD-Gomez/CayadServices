@@ -10,9 +10,10 @@ import SocialRequest from "../components/SocialRequest";
 interface Props {
   content: string;
   title: string;
+  img: string;
 }
 
-const { title, content } = Astro.props;
+const { title, content, img } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,12 +27,7 @@ const { title, content } = Astro.props;
       href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
     />
 
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/img/title-icon.webp"
-      sizes="120x120"
-    />
+    <link rel="icon" type="image/webp" href={img} sizes="120x120" />
 
     <!-- Google Tag Manager -->
     <script async defer is:inline>
