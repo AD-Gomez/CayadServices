@@ -461,13 +461,14 @@ const FormQuote = () => {
 
               <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
             </div>
+            
           </div>
-
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
-
+              
           </button>
+          
         </form>
       </div>
     </FormProvider>
