@@ -463,6 +463,9 @@ const FormQuote = () => {
             </div>
             
           </div>
+
+          <small className='mb-4 px-8' id="termsAndConditions">By providing your phone number/email and clicking through, you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing products, goods or services. You may opt out at any time.</small>
+
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
@@ -473,6 +476,6 @@ const FormQuote = () => {
       </div>
     </FormProvider>
   )
-};
+}
 
 export default FormQuote;
