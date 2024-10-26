@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import axios from 'axios'
-import logoCayad from '../../../public/img/logo-cayad.webp'
+import logoCayad from '../../../public/img/logo-cayad.svg'
 import type { FormQuoteTypes } from '../../types/formQuote.type';
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
@@ -461,6 +461,7 @@ const FormQuote = () => {
 
               <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
             </div>
+            
           </div>
 
           <small className='mb-4 px-8' id="termsAndConditions">By providing your phone number/email and clicking through, you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing products, goods or services. You may opt out at any time.</small>
@@ -468,8 +469,9 @@ const FormQuote = () => {
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
-
+              
           </button>
+          
         </form>
       </div>
     </FormProvider>
