@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import axios from 'axios'
-import logoCayad from '../../../public/img/logo-cayad.svg'
+import logoCayad from '../../../public/img/logo-cayad.webp'
 import type { FormQuoteTypes } from '../../types/formQuote.type';
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
