@@ -39,7 +39,7 @@ const ButtonChat = () => {
 
     // Espera brevemente para asegurar que el evento se envíe antes de la redirección
     setTimeout(() => {
-      window.open('https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0', '_blank');
+      window.open('https://api.whatsapp.com/send/?phone=14482043723&text&type=phone_number&app_absent=0', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
