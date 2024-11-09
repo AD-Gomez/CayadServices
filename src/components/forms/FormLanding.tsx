@@ -466,11 +466,11 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' defaultValue={methods.getValues('phone')}
+            <CustomInputPhone name='phone' type='text' max={14} label='Phone' defaultValue={methods.getValues('phone')}
             />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='email' max={30} label='Email Address' />
+            <CustomInput name='email' max={30} label='Email' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <DateInput name='ship_date' label='Date' />

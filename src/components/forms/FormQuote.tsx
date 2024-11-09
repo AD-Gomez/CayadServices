@@ -457,9 +457,9 @@ const FormQuote = () => {
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
 
-              <CustomInput name='email' max={30} label='Email Address' />
+              <CustomInput name='email' max={30} label='Email' />
 
-              <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+              <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
             </div>
             
           </div>
