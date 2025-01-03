@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Dialog,
   DialogPanel,
@@ -6,9 +6,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
   Popover,
-  PopoverButton,
   PopoverGroup,
-  PopoverPanel,
   Transition,
 } from '@headlessui/react'
 import {
@@ -21,7 +19,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import logoweb from '../../public/img/logo-cayad.png'
+import logoweb from '../../public/img/logo-cayad.webp'
 import MarqueeText from './Marquee'
 import { FaPhone } from 'react-icons/fa'
 
@@ -45,7 +43,7 @@ const weServe = [
   { description: 'Classic car shipping', href: '/for-individuals/classic-cars-auto-transport/', icon: SquaresPlusIcon },
   { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: ArrowPathIcon },
   { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ArrowPathIcon },
-  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state', icon: ArrowPathIcon },
+  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state/', icon: ArrowPathIcon },
 ]
 
 const forBusinesses = [
@@ -93,7 +91,7 @@ export default function Example () {
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img className="h-10 w-auto" src={logoweb.src} alt="" />
+              <img className="h-10 w-auto" width={50} height={50} src={logoweb.src} alt="" />
             </a>
           </div>
 
@@ -352,10 +350,34 @@ export default function Example () {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a href="/how-auto-transport-works/"
-                    className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-[#060315] ${currentPath === '/how-auto-transport-works/' ? ' text-btn-blue border-2 border-btn-blue  rounded ' : ''} hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
-                    HOW IT WORKS?
-                  </a>
+                  <Disclosure as="div" className="-mx-3">
+                    {({ open }) => (
+                      <>
+                        <DisclosureButton
+                          className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-[#060315]
+                         hover:text-[#00a1ef] ease-in-out duration-100 delay-100 *:
+                         ${isPopoverHowItWorkActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
+                         `}>
+                          HOW IT WORKS?
+                          <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
+                        </DisclosureButton>
+                        <DisclosurePanel className="mt-2 space-y-2">
+
+                          {[...howItWork].map((item) => (
+                            <DisclosureButton
+                              key={item.description}
+                              as="a"
+                              href={item.href}
+                              className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 ${currentPath === item.href ? 'text-btn-blue' : 'text-gray-600'} hover:bg-neutral-300`}
+                            >
+                              {item.description}
+                            </DisclosureButton>
+                          ))}
+
+                        </DisclosurePanel>
+                      </>
+                    )}
+                  </Disclosure>
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                       <>

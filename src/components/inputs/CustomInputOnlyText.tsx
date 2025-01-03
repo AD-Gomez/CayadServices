@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface CustomInputProps {
@@ -9,7 +8,7 @@ interface CustomInputProps {
 }
 
 const CustomInputOnlyText: React.FC<CustomInputProps> = ({ name, label, type = 'text', max }) => {
-  const { register, formState: { errors, dirtyFields }, watch, trigger, setValue } = useFormContext();
+  const { register, formState: { errors }, watch, trigger, setValue } = useFormContext();
   const value = watch(name);
 
   // Función para validar si el valor contiene solo letras y espacios

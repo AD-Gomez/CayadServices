@@ -6,9 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
 import axios from 'axios'
-import SelectInput from '../inputs/CustomSelect';
 import DateInput from '../inputs/CustomInputDate';
-import { getEmail, getLead, getSendedEmail, getSendedLead, saveEmail, saveLead, saveNumberLead, sendedEmail, sendedLead } from '../../services/localStorage';
+import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
 import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
@@ -42,7 +41,6 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       transport_type: dataSubmit.transport_type || '1',
     },
   });
-  console.log(dataSubmit)
   const { handleSubmit, trigger, setError, clearErrors, formState: { errors } } = methods;
 
   const onSubmit = async (data: FormValues) => {
@@ -108,7 +106,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
           </div>
           <button
             type="submit"
-            className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer mb-4 w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer text-lg mb-4 w-full h-10 mt-5 text-white"
           >
             Add Vehicle Details
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
@@ -122,17 +120,6 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
 };
 
 // Definición de la interfaz de los datos del formulario
-interface VehicleForm {
-  vehicle_model_year: string;
-  vehicle_make: string;
-  vehicle_model: string;
-  vehicleOperable: string;
-}
-
-interface FormStep2 {
-  Vehicles: VehicleForm[];
-}
-
 const validationSchema = yup.object().shape({
   Vehicles: yup.array().of(
     yup.object().shape({
@@ -284,7 +271,6 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   }, [allFields, modelField]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     setDataSubmit(data);
     setActiveStep(2);
   };
@@ -405,13 +391,6 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-interface FormStep3 {
-  first_name: string
-  phone: string
-  email: string
-  ship_date: Date
-}
-
 function separarCiudadYEstado (locationString: string) {
   const [city, state] = locationString.split(',').map(part => part.trim());
 
@@ -452,13 +431,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     },
   });
 
-  const { handleSubmit, formState: { isValid }, getValues, setValue, trigger } = methods;
-
-  useEffect(() => {
-    if (isValid) {
-      console.log(isValid);
-    }
-  }, [isValid]);
+  const { handleSubmit, formState: { isValid } } = methods;
 
   const originCityAndState = dataSubmit?.origin_city;
   const location = separarCiudadYEstado(originCityAndState);
@@ -467,7 +440,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     const dateObj = new Date(date);
     return format(dateObj, 'MM/dd/yyyy');
   };
-  console.log(disabled)
   const onSubmit = (data: any) => {
     setDisabled(true)
     const formattedDate = formatDate(data.ship_date);
@@ -479,7 +451,6 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       data_ship: formattedDate
     };
     handleSubmitLeadAndEmail(dataToSend)
-    console.log(data);
   };
   const handleStepBack = (step: number) => {
     const datavalue = methods.getValues()
@@ -495,11 +466,11 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' defaultValue={methods.getValues('phone')}
+            <CustomInputPhone name='phone' type='text' max={14} label='Phone' defaultValue={methods.getValues('phone')}
             />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='email' max={30} label='Email Address' />
+            <CustomInput name='email' max={30} label='Email' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <DateInput name='ship_date' label='Date' />
@@ -588,6 +559,7 @@ const FormLanding = () => {
         ...dataWithoutAuthKey,
         origin: data.origin_city,
         destination: data.destination_city,
+        number_lead: numberLead,
         transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
       };
       if (data.Vehicles && Array.isArray(data.Vehicles)) {

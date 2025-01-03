@@ -2,13 +2,14 @@
 import Layout from "../../../layouts/Layout.astro";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
+import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 ---
-
+<link rel="canonical" href="https://cayadservices.com/how-auto-transport-works/how-much-does-it-cost-ship-car" />
 <style>
   .custom-background {
     background:
       linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
-      url("/img/online.webp") center center no-repeat;
+      url("/img/csc.webp") center center no-repeat;
     background-size: cover;
   }
 </style>
@@ -21,11 +22,11 @@ import Testimonials from "../../../components/Testimonials";
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h2
+      <p
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
       >
         Car Shipping Cost
-      </h2>
+      </p>
       <h1 class="text-white text-lg font-semibold">
         Find your car shipping cost in seconds with Cayad Auto Transport.
       </h1>
@@ -35,49 +36,29 @@ import Testimonials from "../../../components/Testimonials";
 
   <div class="w-full h-max mt-12 flex justify-center mb-8">
     <Testimonials
-      title="Read what others customer say about their experience with Cayad"
+      title="Real Auto Transport Testimonials"
       client:load
     />
   </div>
   <container
-    class="w-[80%] flex items-center justify-between xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
+    class="w-[80%] flex items-center justify-between xs:flex-col sm:flex-col xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
   >
-    <div class="w-[45%]">
-      <h2 class="text-4xl w-full text-[#555] font-semibold">
+    <div class="w-[45%] xs:w-full sm:w-full F">
+      <h2 class="text-4xl w-full font-semibold">
         How much does car shipping cost?
       </h2>
       <p class="text-base mt-2 w-full">
-        Car shipping costs in 2024, specifically for open car shipping, are
-        estimated around $1.85/mile for short distances (1-500 miles) or $555
-        for a 300-mile trip. Medium distances average about $.91/mile (500-1500
-        miles) or $910 for 1000 miles. Long distances (1500+ miles) are about
-        $.59/mile or $1,180 for a 2000-mile trip. It’s important to note that
-        car shipping costs may vary and the rates for enclosed car shipping will
-        be higher.
+        In 2024, shipping your vehicle is more straightforward than ever. These costs can vary depending on the type of vehicle, the transport method, and current market conditions.
       </p>
 
       <p class="text-base mt-2 w-full">
-        When it comes to shipping your vehicle, there are several factors that
-        come into play when determining the cost. Everything from the type of
-        vehicle you’re shipping to the type of shipping method you choose will
-        affect the price.
-      </p>
-
-      <p class="text-base mt-2 w-full">
-        To get a clear idea of what your final cost will be, we recommend using
-        our free instant quote calculator for an estimate. You can also speak
-        with a Cayad representative via live chat or at (469) 619-0747 to
-        discuss your shipment and request a quote. This will give you the most
-        accurate estimate possible, taking into account factors such as the
-        distance of the shipment, seasonal demand, any additional services
-        required and current market rates.
+        Use our free instant quote calculator or chat with a friendly Cayad Auto Transport expert today! We're just a click or call away at <a href="tel:469-619-0747"
+        class="text-btn-blue hover:underline">(469) 619-0747</a>. We'll ensure your rate reflects factors like distance, seasonal demand, and any additional services you may require.
       </p>
     </div>
 
     <div class="w-[45%] xs:w-full sm:w-full">
-      <h4 class="text-xl text-[#555] font-semibold">
-        Average car shipping cost per mile
-      </h4>
+      <h4 class="text-xl font-semibold">Average car shipping cost per mile</h4>
       <table class="mt-2 w-full border-slate-400">
         <thead>
           <tr>
@@ -112,24 +93,17 @@ import Testimonials from "../../../components/Testimonials";
       class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/snowbird1.webp" class="rounded-xl" />
+        <img src="/img/wict.webp" width="480" height="360" class="rounded-xl" alt="enclosed car transport "/>
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
         <h2 class="text-[#19171fd2] text-[1.5rem] font-bold">
           What is car transport?
         </h2>
         <p class="text-base mt-4">
-          Car transport or car shipping, is a service that moves cars from one
-          destination to another. The best car transport involves licensed
-          professionals with the right experience and equipment to safely move
-          your vehicle. The type of transport you choose will affect your car
-          shipping cost. You can ship via open transport (more cost effective)
-          or enclosed transport (more protection). Typically, enclosed auto
-          transport will cost 10-40% more than open transport. Open transport is
-          the most common type of transport, used by most customers, including
-          car dealerships. Enclosed transport is the preferred method for anyone
-          shipping luxury, exotic or collector vehicles that want added
-          protection.
+          Car transport, or car shipping, is the easiest way to move your vehicle safely from one place to another, handled by licensed professionals who have the expertise and equipment to get the job done right. <br><br>When choosing a transport method, you have two options: <a href="/for-individuals/open-car-transport/"
+          class="text-btn-blue hover:underline">open transport</a> , which is the most common and cost-effective, or <a href="/for-individuals/enclosed-auto-transport/"
+          class="text-btn-blue hover:underline">enclosed transport</a> for added protection. Open transport is used by most customers, including dealerships, and is ideal for everyday vehicles. <br><br>On the other hand, if you're shipping a <a href="/for-individuals/classic-cars-auto-transport/"
+          class="text-btn-blue hover:underline">luxury, exotic, or collector car,</a> enclosed transport offers the peace of mind that comes with added protection, typically costing 10-40% more.
         </p>
       </div>
     </div>
@@ -144,40 +118,28 @@ import Testimonials from "../../../components/Testimonials";
               How to get a car transport quote
             </h3>
             <p class="text-base mt-4">
-              Car transport quotes can be calculated a few different ways. You
-              can get an accurate estimate of your car shipping by using our
-              instant quote calculator or speaking with a Cayad representative
-              via live chat. When discussing your shipment be sure to mention
-              any special requirements you may have, as these could affect the
-              price. Some examples of special requirements include expedited
-              pickup, vehicle modifications or inoperable vehicles.
+              Getting a car transport quote is simple and fast. You can use our instant quote calculator for a quick estimate, or chat with a Cayad representative via live chat to discuss the details of your shipment. 
             </p>
             <p class="text-base mt-4">
-              In order to get the most accurate and up-to-date car shipping
-              quote, it’s important to know and have the following information
-              available:
+              For the most accurate and up-to-date quote, have the following information ready:
             </p>
 
             <ol class="list-decimal px-4 mt-4">
               <li>
-                Vehicle pickup and delivery destinations (zip codes are
-                preferred for increased quoting accuracy)
-              </li>
-              <li>Car transport preference (open or enclosed trailer)</li>
+                Pickup and delivery locations (zip codes are preferred for precision, also if is it from house/dealer/yard/etc)
+              </li><br>
               <li>
-                Vehicle year, make and model (ensures availability of required
-                transport trailer size)
-              </li>
+                Vehicle make, and model (ensures the right trailer size, also is is operable or not)              
+              </li><br>
               <li>
-                Operational status (can be driven forward and in reverse, with
-                basic steering for truck loading and unloading)
-              </li>
-              <li>Earliest available pickup date</li>
+                Earliest date available for pickup
+              </li><br>
             </ol>
+            With this info, you'll get a customized quote that reflects your exact needs. We make sure you have the most accurate pricing to ensure a smooth, stress-free shipping experience.
           </div>
         </div>
         <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-          <img src="/img/snowbird.webp" class="rounded-xl" />
+          <img src="/img/htgactc.webp" width="1000" height="600" class="rounded-xl" alt="car shipping paperwork"/>
         </div>
       </div>
     </div>
@@ -186,7 +148,7 @@ import Testimonials from "../../../components/Testimonials";
       class="w-[80%] mt-12 xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
     >
       <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/snowbird.webp" class="rounded-xl" />
+        <img src="/img/atiov.webp" width="1200" height="800" class="rounded-xl" alt="car transport highway"/>
       </div>
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
         <h3
@@ -197,68 +159,30 @@ import Testimonials from "../../../components/Testimonials";
         <div class="mt-8">
           <p class="text-base mt-4">
             There are three types of companies you might work with to ship your
-            vehicle: lead providers, carriers and brokers.
+            vehicle: lead providers, carriers and brokers. Here’s what you need to know about each.
           </p>
           <p class="text-base mt-4">
-            In exchange for providing your contact information, lead providers
-            supply vehicle owners with a list of “leads” or potential carriers,
-            based on the owner’s search criteria. The owner is responsible from
-            there to further research or contact the carriers on the list to
-            determine the best option for their needs and budget. Lead providers
-            will typically share your contact information with their network, so
-            you will likely receive phone calls and emails from the various
-            transport companies.
+            <b>Lead Providers</b> gather your contact information and give you a list of potential carriers that fit your needs. From there, it’s up to you to research, compare, and contact the carriers directly. Be prepared for follow-up calls and emails, as your contact info is often shared with their network of companies.
           </p>
           <p class="text-base mt-4">
-            Carriers employ the truckers who do the actual transportation of
-            your car, picking it up and dropping it off at the designated
-            locations. You can work directly with a carrier company—from
-            requesting a quote for shipment, to working out details, to the
-            actual transport—but without some industry knowledge it can be hard
-            to identify the best carrier for your unique vehicle shipment. This
-            is why you might choose to work with an auto transport broker.
-            Brokers work as the middle man between vehicle owners and a network
-            of carriers, finding the best-suited solution for the highest value.
+            <b>Carriers</b> are the companies that physically transport your car, employing the drivers and handling pick-up and delivery. While you can work directly with a carrier, finding the right one can be tricky without insider knowledge of the industry. This is where brokers come in.
           </p>
+          <p class="text-base mt-4">
+            <b>Brokers</b> act as your personal guide, connecting you with the best carriers for your specific needs. They handle the legwork—sourcing quotes, managing logistics, and ensuring you get the best value. By tapping into their network of trusted carriers, brokers make the shipping process smoother and more efficient.
+          </p><br>
         </div>
+        In short, brokers offer a one-stop solution for finding reliable transport, while lead providers and carriers require a more hands-on approach. The choice is yours based on how much assistance you prefer in navigating the process.
       </div>
     </div>
 
-    <div
-      class="w-[80%] mt-12 xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h3
-          class="text-4xl w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 font-semibold"
-        >
-          Calculating car shipping costs
-        </h3>
-        <div class="mt-8">
-          <p class="text-base mt-4">
-            Auto transport quotes and car shipment rates are calculated using
-            unique considerations for each customer. Your car shipping estimate
-            will be based on several different transport factors. This includes,
-            but isn’t limited to: trip distance, car size (sedan, pickup truck,
-            SUV, etc.), vehicle condition (operable or inoperable), transport
-            type (open or enclosed), location (i.e. rural or urban) and the time
-            of year you ship. Cayad’s instant quote calculator lets you enter
-            all the details about your vehicle, allowing us to generate the most
-            accurate and cost-optimized price—without hidden fees.
-          </p>
-        </div>
-      </div>
-
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/snowbird.webp" class="rounded-xl" />
-      </div>
-    </div>
+    
   </div>
 
   <container
     class="w-[100%] h-max py-8 mt-12 bg-[#e2e6ec] flex flex-col items-center xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
   >
     <section class="w-[80%] xs:w-full sm:w-full">
-      <h2 class="text-4xl w-full text-[#555] font-semibold">
+      <h2 class="text-4xl w-full font-semibold">
         How to use the Cayad car shipping cost calculator
       </h2>
       <p class="text-base mt-4 w-full">
@@ -270,7 +194,7 @@ import Testimonials from "../../../components/Testimonials";
       </p>
       <section class="w-full flex xs:flex-col sm:flex-col items-start">
         <div class="w-[45%] xs:w-full sm:w-full mt-12 flex flex-col">
-          <h2 class="text-4xl w-full text-[#555] font-semibold">
+          <h2 class="text-4xl w-full font-semibold">
             The car transport process
           </h2>
           <div>
@@ -361,7 +285,7 @@ import Testimonials from "../../../components/Testimonials";
               </div>
               <div class="ml-4">
                 <p class="text-[24px] text-btn-blue font-bold">Step 1</p>
-                <p class="text-[16px] text-[#555] font-semibold">
+                <p class="text-[16px] font-semibold">
                   Quote and book your order
                 </p>
               </div>
@@ -429,9 +353,7 @@ import Testimonials from "../../../components/Testimonials";
 
               <div class="ml-4">
                 <p class="text-[24px] text-btn-blue font-bold">Step 2</p>
-                <p class="text-[16px] text-[#555] font-semibold">
-                  We pick up your vehicle
-                </p>
+                <p class="text-[16px] font-semibold">We pick up your vehicle</p>
               </div>
             </div>
             <div class="flex mt-4">
@@ -529,9 +451,7 @@ import Testimonials from "../../../components/Testimonials";
 
               <div class="ml-4">
                 <p class="text-[24px] text-btn-blue font-bold">Step 3</p>
-                <p class="text-[16px] text-[#555] font-semibold">
-                  Receive your vehicle
-                </p>
+                <p class="text-[16px] font-semibold">Receive your vehicle</p>
               </div>
             </div>
           </div>
@@ -556,7 +476,9 @@ import Testimonials from "../../../components/Testimonials";
     </section>
   </container>
 
-  <h3 class="w-[80%] xs:w-full mt-12 sm:w-full mx-auto text-3xl font-semibold">
+  <h3
+    class="w-[80%] xs:w-full mt-12 xs:px-4 sm:px-4 sm:w-full mx-auto text-3xl font-semibold"
+  >
     What factors are used to calculate the cost of car shipping?
   </h3>
 
@@ -566,13 +488,14 @@ import Testimonials from "../../../components/Testimonials";
     <container class="w-[45%] xs:w-full sm:w-full">
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/distance.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="auto transport distance map"
+          width="1292" height="627"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Distance</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl mt-4 font-semibold">Distance</h3>
+        <p class="text-sm mt-4">
           Total distance is the main component used in calculating a quote for
           car shipping. Longer distances generally lead to a higher overall car
           shipping price, but also include a discounted cost per mile. With our
@@ -581,53 +504,17 @@ import Testimonials from "../../../components/Testimonials";
           shipping prices might differ from ground vehicle transport.
         </p>
       </div>
+
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/sd.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car transport calendar"
+          width="940" height="622"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Route</h3>
-        <p class="text-sm">
-          Different from distance, route refers to what highways and other roads
-          will be traveled to transport the vehicle. Routes in highly populated
-          areas may have increased traffic congestion, which could impact
-          transport time and shipping costs. Additional route considerations
-          that can be factored into shipping costs include: physical road
-          conditions, adverse weather and road construction.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
-        />
-
-        <h3 class="text-3xl font-semibold text-[#555]">Seasonality</h3>
-        <p class="text-sm">
-          Car shipping costs vary greatly based on the time of year. For
-          example, auto transport services to warmer states are very popular
-          during the winter travel season, so the cost for transporting a car to
-          those destinations may be higher. Use Cayad’s car shipping
-          calculator to get the price for shipping a car. Depending on your
-          scheduling flexibility, we recommend trying different shipping dates
-          to see rate impact for choosing the best price.
-        </p>
-      </div>
-    </container>
-
-    <container class="w-[45%] xs:w-full sm:w-full">
-      <div class="w-full mt-8">
-        <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
-        />
-
-        <h3 class="text-3xl font-semibold text-[#555]">Shipping date</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Shipping date</h3>
+        <p class="text-sm mt-4">
           When you book a car transport service, the shipment date often plays a
           role in the cost. It’s best to book your car shipment as far in
           advance as possible. As soon as you know you’ll need to ship your
@@ -636,17 +523,38 @@ import Testimonials from "../../../components/Testimonials";
           dates will often result in car transport quote savings.
         </p>
       </div>
+    </container>
+
+    <container class="w-[45%] xs:w-full sm:w-full">
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/route.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car transport route map"
+          width="450" height="224"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">
-          Vehicle make and model
-        </h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Route</h3>
+        <p class="text-sm mt-4">
+          Different from distance, route refers to what highways and other roads
+          will be traveled to transport the vehicle. Routes in highly populated
+          areas may have increased traffic congestion, which could impact
+          transport time and shipping costs. Additional route considerations
+          that can be factored into shipping costs include: physical road
+          conditions, adverse weather and road construction.
+        </p>
+      </div>
+
+      <div class="w-full mt-8">
+        <img
+          src="/img/vmam.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="auto shipping dealerships"
+          width="450" height="265"
+        />
+
+        <h3 class="text-3xl font-semibold mt-4">Vehicle make and model</h3>
+        <p class="text-sm mt-4">
           When planning your auto transport, we ask for the exact vehicle
           specifications, because the truck driver must know how much space is
           required to safely secure your automobile and ensure proper trailer
@@ -654,24 +562,6 @@ import Testimonials from "../../../components/Testimonials";
           vehicle transport adjustments, which may slightly increase car
           shipping costs. Vehicle modifications like larger tires and roof racks
           can also increase the cost.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
-        />
-
-        <h3 class="text-3xl font-semibold text-[#555]">Auto transport type</h3>
-        <p class="text-sm">
-          Most people shipping a car select open car transport, as it is the
-          industry standard and cheapest way for car shippers to move your
-          vehicle. For extra car shipment protection, we recommend using
-          enclosed car transportation services that shield vehicles from weather
-          and debris. Enclosed auto transport can increase the cost of car
-          shipping, but is worth the peace of mind for delicate, exotic or
-          luxury car transportation.
         </p>
       </div>
     </container>
@@ -683,31 +573,14 @@ import Testimonials from "../../../components/Testimonials";
     <container class="w-[45%] xs:w-full sm:w-full">
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/vd.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car shipping hauler"
+          width="1200" height="788"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Vehicle condition</h3>
-        <p class="text-sm">
-          If your car is running, you will get a better auto shipping price from
-          car shippers for the allotted distance. If your car is inoperable, but
-          maintains the ability to roll, steer and brake, it will require a
-          winch and other accommodations to be loaded onto the carrier trailer,
-          which will increase the cost of shipment. To request a quote or to
-          arrange shipment for an inoperable vehicle, please contact a Cayad
-          representative at (469) 619-0747.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
-        />
-
-        <h3 class="text-3xl font-semibold text-[#555]">Vehicle details</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Vehicle details</h3>
+        <p class="text-sm mt-4">
           Taller, longer and heavier vehicles may require a specific trailer or
           trailer type to support the length and/or added weight. They may also
           need certain accommodations, like being transported in a specific
@@ -716,18 +589,57 @@ import Testimonials from "../../../components/Testimonials";
           requests and manage total allowable weight limits.
         </p>
       </div>
+
+      <div class="w-full mt-8">
+        <img
+          src="/img/location.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car transport location"
+          width="640" height="360"
+        />
+
+        <h3 class="text-3xl font-semibold mt-4">Location</h3>
+        <p class="text-sm mt-4">
+          Metropolitan areas usually have plenty of trucks available to carry
+          out car shipping orders for auto shippers, which lowers the car
+          transport price. When transporting cars, we strive to find the best
+          deal for residents of small towns.
+        </p>
+      </div>
+
+      <div class="w-full mt-8">
+        <img
+          src="/img/vc.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car shipping condition report"
+          width="1024" height="523"
+        />
+
+        <h3 class="text-3xl font-semibold mt-4">Vehicle condition</h3>
+        <p class="text-sm mt-4">
+          If your car is running, you will get a better auto shipping price from
+          car shippers for the allotted distance. If your car is inoperable, but
+          maintains the ability to roll, steer and brake, it will require a
+          winch and other accommodations to be loaded onto the carrier trailer,
+          which will increase the cost of shipment. To request a quote or to
+          arrange shipment for an inoperable vehicle, please contact a Cayad
+          representative at <span class="text-btn-blue mb-2 hover:underline hover:cursor-pointer"
+          ><a href="tel:469-619-0747">(469) 619-0747</a></span>
+        </p>
+      </div>
     </container>
 
     <container class="w-[45%] xs:w-full sm:w-full">
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/gc.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="shipping a lowered or modified car"
+          width="298" height="169"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Ground clearance</h3>
-        <p class="text-sm">
+        <h3 class="text-3xl font-semibold mt-4">Ground clearance</h3>
+        <p class="text-sm mt-4">
           Ground clearance, also called ride height, is the distance between the
           bottom of the vehicle’s body and the road or driving surface. Low
           vehicle ground clearance requires special attention and accommodation,
@@ -736,19 +648,44 @@ import Testimonials from "../../../components/Testimonials";
           a lift gate, which open trailers do not have.
         </p>
       </div>
+
       <div class="w-full mt-8">
         <img
-          src="/img/home-car.webp"
-          class="w-full rounded-xl"
-          alt="distance"
+          src="/img/open-car.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="open car transport"
+          width="1600" height="900"
         />
 
-        <h3 class="text-3xl font-semibold text-[#555]">Location</h3>
-        <p class="text-sm">
-          Metropolitan areas usually have plenty of trucks available to carry
-          out car shipping orders for auto shippers, which lowers the car
-          transport price. When transporting cars, we strive to find the best
-          deal for residents of small towns.
+        <h3 class="text-3xl font-semibold mt-4">Auto transport type</h3>
+        <p class="text-sm mt-4">
+          Most people shipping a car select open car transport, as it is the
+          industry standard and cheapest way for car shippers to move your
+          vehicle. For extra car shipment protection, we recommend using
+          enclosed car transportation services that shield vehicles from weather
+          and debris. Enclosed auto transport can increase the cost of car
+          shipping, but is worth the peace of mind for delicate, exotic or
+          luxury car transportation.
+        </p>
+      </div>
+
+      <div class="w-full mt-8">
+        <img
+          src="/img/seanson.webp"
+          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
+          alt="car shipping seasons"
+          width="640" height="338"
+        />
+
+        <h3 class="text-3xl font-semibold mt-4">Seasonality</h3>
+        <p class="text-sm mt-4">
+          Car shipping costs vary greatly based on the time of year. For
+          example, auto transport services to warmer states are very popular
+          during the winter travel season, so the cost for transporting a car to
+          those destinations may be higher. Use Cayad’s car shipping calculator
+          to get the price for shipping a car. Depending on your scheduling
+          flexibility, we recommend trying different shipping dates to see rate
+          impact for choosing the best price.
         </p>
       </div>
     </container>
@@ -757,7 +694,9 @@ import Testimonials from "../../../components/Testimonials";
   <section
     class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
   >
-    <div class="w-full mt-12 mb-12 flex justify-between items-center">
+    <div
+      class="w-full mt-12 mb-12 flex xs:flex-col sm:flex-col justify-between items-center"
+    >
       <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
         <div class="mt-8">
           <h3 class="text-[1.5rem] font-bold">Auto transport insurance</h3>
@@ -784,21 +723,21 @@ import Testimonials from "../../../components/Testimonials";
         </div>
       </div>
       <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/snowbird.webp" class="rounded-xl" />
+        <img src="/img/ati.webp" width="842" height="350" class="rounded-xl" alt="car shipping insurance coverage"/>
       </div>
     </div>
 
     <section
-      class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
+      class="w-[100%] xs:w-full sm:w-full mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
     >
-      <h3 class="text-4xl mt-12 font-semibold text-[#555]">
+      <h3 class="text-4xl mt-12 font-semibold">
         Cross country car shipping services
       </h3>
       <container
         class="mt-8 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
       >
         <div
-          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
         >
           <h4 class="text-3xl font-semibold">Door-to-door car shipping</h4>
           <p class="mt-8">
@@ -811,7 +750,7 @@ import Testimonials from "../../../components/Testimonials";
           </p>
         </div>
         <div
-          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
+          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
         >
           <h4 class="text-3xl font-semibold">Open car transport</h4>
           <p class="mt-8">
@@ -823,7 +762,7 @@ import Testimonials from "../../../components/Testimonials";
           </p>
         </div>
         <div
-          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
+          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8 group"
         >
           <h4 class="text-3xl font-semibold">Expedited car shipping</h4>
           <p class="mt-8">
@@ -833,12 +772,14 @@ import Testimonials from "../../../components/Testimonials";
           </p>
 
           <p class="mt-8">
-            Call us at <span class="text-btn-blue">(469) 619-0747</span> to schedule
-            car pickup exactly when you need it.
+            Call us at <span class="text-btn-blue group-hover:text-white"
+              >(469) 619-0747</span
+            > to schedule car pickup exactly when you need it.
           </p>
         </div>
+
         <div
-          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
+          class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
         >
           <h4 class="text-3xl font-semibold">Enclosed car shipping</h4>
           <p class="mt-8">
@@ -850,4 +791,6 @@ import Testimonials from "../../../components/Testimonials";
       </container>
     </section>
   </section>
+
+  <ButtonScrollTop client:load />
 </Layout>

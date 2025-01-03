@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import axios from 'axios'
-import logoCayad from '../../../public/img/logo-cayad.png'
+import logoCayad from '../../../public/img/logo-cayad.webp'
 import type { FormQuoteTypes } from '../../types/formQuote.type';
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
@@ -16,7 +16,7 @@ import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead } from '../../services/localStorage';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
-
+import { FaRegPaperPlane } from "react-icons/fa";
 
 const validationSchema = yup.object().shape({
   origin_city: yup.string()
@@ -50,6 +50,15 @@ const validationSchema = yup.object().shape({
     .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value)))
 })
 
+const extractLeadNumber = (response: string) => {
+  const match = response.match(/Lead\s*:\s*(\d+)/);
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    throw new Error('No se pudo encontrar el número de lead en la respuesta.');
+  }
+};
+
 const FormQuote = () => {
   const methods = useForm<FormQuoteTypes>({
     resolver: yupResolver(validationSchema),
@@ -61,7 +70,7 @@ const FormQuote = () => {
       transport_type: '1'
     },
   });
-  const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors } } = methods;
+  const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors }, reset } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Vehicles',
@@ -213,12 +222,14 @@ const FormQuote = () => {
   const handleSubmitLead = async (data: any) => {
     const response = await sendLead(data)
     const { AuthKey, ...dataWithoutAuthKey } = data
-    console.log(dataWithoutAuthKey)
+    const numberLead = extractLeadNumber(response)
+
     if (response) {
       showNotification({ text: 'success', icon: 'success' })
       let send = {
         ...dataWithoutAuthKey,
         origin: data.origin_city,
+        number_lead: numberLead,
         destination: data.destination_city,
         transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
       };
@@ -244,10 +255,10 @@ const FormQuote = () => {
         }
       });
       await sendEmail(send)
-      console.log(data)
       saveEmail(data)
       saveLead(data)
       setTimeout(() => {
+        reset()
         window.location.href = '/quote2';
       }, 2000);
     }
@@ -272,7 +283,7 @@ const FormQuote = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="h-max w-[60%] md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
+      <div className="h-max w-[60%] mt-4 xs:mt-0 sm:mt-0 md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
         <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-full justify-between px-8  mt-4">
             <div className='max-h-[50px] max-w-[200px]'>
@@ -446,18 +457,25 @@ const FormQuote = () => {
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
 
-              <CustomInput name='email' max={30} label='Email Address' />
+              <CustomInput name='email' max={30} label='Email' />
 
-              <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+              <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
             </div>
+            
           </div>
 
-          <button disabled={disabledSubmit} className={`bg-btn-blue mb-2 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>Submit Quote Request</button>
-          <a className='text-btn-blue mb-12' href='/'>Cayad Auto Transport</a>
+          <small className='mb-4 px-8' id="termsAndConditions">By providing your phone number/email and clicking through, you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing products, goods or services. You may opt out at any time.</small>
+
+          <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
+            Submit
+            <FaRegPaperPlane className='ml-2' />
+              
+          </button>
+          
         </form>
       </div>
     </FormProvider>
   )
-};
+}
 
 export default FormQuote;

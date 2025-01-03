@@ -6,11 +6,13 @@ import { FaCar } from "react-icons/fa6";
 import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
+import GetQuote from "../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
-import GoogleTagManager from "../components/GoogleTagManager.astro";
 import NumberPhone from "../components/NumberPhone.astro";
+import ImageOg from "../../public/img/banner.webp";
 ---
 
+<link rel="canonical" href="https://cayadservices.com" />
 <style>
   .service-item:hover img,
   .team-item:hover img {
@@ -192,7 +194,7 @@ import NumberPhone from "../components/NumberPhone.astro";
 
 <Layout
   title="Car Shipping Nationwide In USA | Cayad Auto Transport"
-  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor. Call us"
+  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about. Call us"
 >
   <section
     class="relative image--banner h-screen xs:h-max md:h-max lg:h-max w-full"
@@ -205,7 +207,7 @@ import NumberPhone from "../components/NumberPhone.astro";
       >
         <div class="row justify-start">
           <div class="col-10 lg:col-8 xs:px-2 px-20">
-            <h2 class="changing-text text-white text-4xl">
+            <p class="changing-text text-white text-4xl">
               WE DELIVER
               <div class="texts-container">
                 <span>
@@ -215,16 +217,12 @@ import NumberPhone from "../components/NumberPhone.astro";
                   ...
                 </span>
               </div>
-            </h2>
+            </p>
             <h1 class="text-lg font-medium text-white mb-3 mt-2 pb-2">
-              Cayad Auto Transport is the most cost-effective car shipper in
-              the U.S
+              Cayad Auto Transport is the most cost-effective car shipper in the
+              U.S
             </h1>
-            <a
-              href="/quote/"
-              class="mt-6 flex w-56 fadeInLeft items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >Get a Quote</a
-            >
+            <GetQuote />
           </div>
         </div>
       </div>
@@ -237,22 +235,19 @@ import NumberPhone from "../components/NumberPhone.astro";
     data-aos="fade-up"
     data-wow-delay="0.1s"
   >
-    <Testimonials title="Our Customers say" client:load />
+    <Testimonials title="Real Auto Transport Testimonials" client:load />
   </div>
-
+ 
   <div
     class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
   >
-    <h2 class="text-5xl text-h1-landing font-normal mb-4">
-      Tracking
-    </h2>
+    <h2 class="text-5xl text-h1-landing font-normal mb-4">GPS Tracking</h2>
     <p class="text-xl font-normal mb-4">
-      Tracking vehicle status and driver location for instant visibility and be
-      updates all the time.
+      The best way to verify the location of your auto transport on the road at
+      all times.
     </p>
     <div
-      class="flex flex-row justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
-      style="background-color: rgb(193, 194, 197);"
+      class="flex flex-row bg-gray-300 text-gray-800 justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
     >
       <div
         class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
@@ -260,10 +255,12 @@ import NumberPhone from "../components/NumberPhone.astro";
         data-wow-delay="0.1s"
       >
         <img
-          src="/img/track.jpeg"
+          src="/img/track.webp"
           class="rounded-xl"
           style="object-fit: cover; width: 100%;"
-          alt="image info"
+          alt="car shipping gps tracking"
+          width="1080"
+          height="810"
         />
       </div>
       <div
@@ -273,31 +270,31 @@ import NumberPhone from "../components/NumberPhone.astro";
         <div class="row g-4 mb-5">
           <div data-wow-delay="0.5s">
             <h3 class="text-3xl text-h3-title font-medium">GPS tracking</h3>
-            <p class="m-0 text-p-landing">
-              It is the future of auto transport and a single feature that could
-              change their daily operation. So we got it.
+            <p class="m-0 text-gray-800">
+              It's our new GPS tracking system. With it, you can have complete
+              real-time tracking with full ETA inspection and <a
+                href="/pdfs/sample-bill-of-lading.pdf"
+                class="text-btn-blue hover:underline text-lg">BOL</a
+              >
+              sharing all in one place.
               <br /><br />
-              Cayad Auto Transport is excited to announce the newest feature GPS
-              tracking. Visibility has never been easier. Customers can have full,
-              real-time tracking with accurate ETA, full imspection, BOL sharing,
-              all in one place, for the very first time.
-              <br /><br />
-              Within our systems, over 70% of loads have guaranteed tracking and
-              carrier GPS participation. Customers will be able to access and provide:
+              Using the GPS tracker you will be able to:
               <br /><br />
               <ol class="ml-4">
-                <li class="text-p-landing">1. Updates on late deliveries</li>
-                <li class="text-p-landing">2. Map view tracking and BOL</li>
-                <li class="text-p-landing">
-                  3. Shareable ETAs through the link
+                <li class="text-gray-800">
+                  1. Get constant updates of your vehicle's location.
                 </li>
+                <li class="text-gray-800">2. Bill of lading (BOL).</li>
+                <li class="text-gray-800">
+                  3. Estimated Time of Arrival (ETA).
+                </li>
+                <li class="text-gray-800">4. Shareable via link.</li>
               </ol>
               <br />
             </p>
-            <p class="text-p-landing">
-              GPS tracking is the number one requested feature in the auto
-              industry. It solves numerous problems around communication, wasted
-              time, and our customers experiences.
+            <p class="text-gray-800">
+              Within our systems, more than 70% of loads have guaranteed
+              tracking and participation of the operator's GPS.
             </p>
           </div>
         </div>
@@ -334,9 +331,11 @@ import NumberPhone from "../components/NumberPhone.astro";
         data-aos-delay="100"
       >
         <img
-          src="img/img-home.jpg"
+          src="img/img-home.webp"
           class="adjust--img rounded-xl w-full h-[80%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
-          alt=""
+          alt="car shipping hotshot"
+          width="1600"
+          height="708"
         />
       </div>
       <div
@@ -353,7 +352,13 @@ import NumberPhone from "../components/NumberPhone.astro";
         >
           <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
             <!-- <i class="fa fa-globe fa-3x text-primary mb-3"></i> -->
-            <img src="../img/call.webp" class="w-24 mb-2" />
+            <img
+              src="../img/call.webp"
+              class="w-24 mb-2"
+              width="120"
+              height="120"
+              alt="car shipping call logo"
+            />
             <h5 class="text-lg font-semibold text-[#19171fd2]">
               Dedicated advisors
             </h5>
@@ -367,7 +372,13 @@ import NumberPhone from "../components/NumberPhone.astro";
           </div>
           <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
             <!-- <i class="fa fa-shipping-fast fa-3x text-primary mb-3"></i> -->
-            <img src="../img/insurance.webp" class="w-24 mb-2" />
+            <img
+              src="../img/insurance.webp"
+              class="w-24 mb-2"
+              width="120"
+              height="120"
+              alt="car transport insurance logo"
+            />
             <h5 class="text-lg font-semibold text-[#19171fd2]">
               Insurance coverage
             </h5>
@@ -393,29 +404,31 @@ import NumberPhone from "../components/NumberPhone.astro";
       >
         <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
           <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
-          <h2 class="text-3xl font-bold mb-3">
-            How much do car transport companies charge?
-          </h2>
+          <h2 class="text-3xl font-bold mb-3">Auto shipping costs</h2>
           <p class="mb-2">
-            Auto transport company prices are based on current market trends for
-            nationwide auto transport. Your total cost from auto shipping
-            companies will depend on the type of
+            The prices of car transport companies are based on current trends in
+            the national vehicle transport industry. The total cost from car
+            shipping companies will depend on:
             <ol class="list-decimal list-inside">
-              <li>Car you want to move</li>
-              <li>Where it needs to go</li>
-              <li>It's size</li>
-              <li>Condition (or if it has any modifications)</li>
-              <li>Total transport distance</li>
-              <li>Transport type (open, enclosed, heavy haul shipment)</li>
-              <li>The time of the year when you book it</li>
+              <li>Size and weight of the vehicle to be transported.</li>
+              <li>Distance to be covered.</li>
+              <li>Availability of the route.</li>
+              <li>Condition of the vehicle (modifications).</li>
+              <li>
+                Type of transport (open, enclosed, <a
+                  href="/for-businesses/heavy-haul/"
+                  class="text-btn-blue hover:underline">heavy-duty shipping).</a
+                >
+              </li>
+              <li>The time of year when you make the reservation.</li>
             </ol>
           </p><br />
           <p class="mb-4">
-            Don not forget to check for additional promotions and savings. Get
-            Free Quote with our
-            <a href="/quote/index.html" class="text-btn-blue hover:underline"
-              >Quote request form</a
-            >, or use our Live Chat
+            Get a <a
+              href="/quote/index.html"
+              class="text-btn-blue hover:underline">free quote</a
+            > using our quote request form or use our live chat to inquire about
+            our promotions and additional savings.
           </p>
 
           <NumberPhone />
@@ -431,11 +444,12 @@ import NumberPhone from "../components/NumberPhone.astro";
             >
               <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
               <i class="fa fa-car fa-2x text-white mb-3"></i>
-              <h5 class="text-white mb-2">The Size and weight of vehicle</h5>
+              <h5 class="text-white mb-2">he Size and Weight of the Vehicle</h5>
               <p class="text-white mb-0">
-                Longer, taller or heavier-than-average vehicles require special
-                accommodations by car transport companies and, as a result, the
-                price may vary.
+                Longer, taller, or heavier vehicles require special
+                accommodations, leading to tailored pricing. This ensures your
+                vehicle receives the precise care it needs for a secure
+                transportation experience.
               </p>
             </div>
             <div
@@ -444,12 +458,12 @@ import NumberPhone from "../components/NumberPhone.astro";
               data-aos-delay="500"
             >
               <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">The car condition</h5>
+              <h5 class="text-white mb-2">Vehicle Condition</h5>
               <p class="text-white mb-0">
-                Shipping inoperable vehicles costs more because it requires
-                extra tools and labor for car shipping companies to accommodate
-                the cargo. But if your car rolls, steers, and brakes, we can
-                ship it.
+                Inoperable vehicles that can’t roll, turn, or brake need extra
+                tools and specialized care. Though this involves additional
+                resources, it ensures your vehicle is handled with precision for
+                a smooth, secure transport.
               </p>
             </div>
             <div
@@ -458,11 +472,12 @@ import NumberPhone from "../components/NumberPhone.astro";
               data-aos-delay="700"
             >
               <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">The transport type</h5>
+              <h5 class="text-white mb-2">Type of Transport</h5>
               <p class="text-white mb-0">
-                Open transport is standard and more affordable option. Enclosed
-                transport requires specific handling, so the price might be
-                different.
+                Choosing the right transport depends on your needs. Open
+                transport is cost-effective for all vehicles, while enclosed
+                transport, requiring special handling, is ideal for motorcycles
+                and luxury cars.
               </p>
             </div>
             <div
@@ -471,11 +486,11 @@ import NumberPhone from "../components/NumberPhone.astro";
               data-aos-delay="700"
             >
               <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">The shipping distance</h5>
+              <h5 class="text-white mb-2">Shipping Distance</h5>
               <p class="text-white mb-0">
-                Longer runs have a higher overall price but lower cost per mile.
-                The further your vehicle travels, the more you save on an auto
-                transporter.
+                Longer distances generally lead to higher total prices, but
+                lower costs per mile. As your vehicle travels farther, you'll
+                benefit from cost savings with an auto transporter.
               </p>
             </div>
           </div>
@@ -491,27 +506,29 @@ import NumberPhone from "../components/NumberPhone.astro";
       <div class="container xs:min-w-[100%] sm:min-w-[100%] py-0">
         <div class="text-center wow" data-aos="fade-up" data-aos-delay="100">
           <h2 class="text-3xl text-[#19171fd2] font-bold mb-10">
-            Popular vehicle shipping services
+            Popular auto transport services
           </h2>
         </div>
         <div
           class="grid grid-cols-3 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <div class="wow" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item shadow-sm p-4">
-              <div class="overflow-hidden max-h-[300px] mb-4">
+            <div class="service-item shadow p-4">
+              <div class="overflow-hidden mb-4">
                 <img
                   class="w-full rounded-xl h-auto"
-                  src="../img/door-image.jpg"
-                  alt=""
+                  src="../img/door-image.webp"
+                  width="543"
+                  height="724"
+                  alt="door to door car shipping"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Door to door Transport</h4>
+              <h4 class="text-xl font-semibold mb-3">Door to Door Shipping</h4>
               <p>
-                Door-to-door service is a convenient way to ship your car. You
-                provide specific addresses and the truck driver will pickup and
-                drop off your vehicle as close to your door as safely and
-                legally possible.
+                Our door-to-door service is the most convenient way to ship your
+                car. You just provide the addresses and the truck driver will
+                pick up and drop off your vehicle as close as possible to your
+                door.
               </p>
               <a
                 class="btn-slide mt-4 text-blue-500 hover:underline"
@@ -537,12 +554,17 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="overflow-hidden mb-4">
                 <img
                   class="w-full rounded-xl h-auto"
-                  src="../img/enclosed-car.jpg"
-                  alt=""
+                  src="../img/enclosed-car.webp"
+                  width="1600"
+                  height="1200"
+                  alt="enclosed car shipping"
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Enclosed Car Transport</h4>
-              <p>Enclosed auto transport protects your car during shipping</p>
+              <p>
+                Shipping your vehicle in an enclosed trailer ensures its better
+                protected and arrives sooner to the destination.
+              </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/enclosed-auto-transport/"
@@ -567,13 +589,16 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="overflow-hidden mb-4">
                 <img
                   class="w-full rounded-xl h-auto"
-                  src="/img/open-car.jpg"
-                  alt=""
+                  src="/img/open-car.webp"
+                  width="1600"
+                  height="900"
+                  alt="open auto transport hotshot"
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Open Auto Transport</h4>
               <p>
-                Cayad Auto Transport has years of open car shipping experience
+                Our open trailers offer the most cost-effective option to
+                transport your car, making sure it arrives safely.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -600,14 +625,16 @@ import NumberPhone from "../components/NumberPhone.astro";
                 <img
                   class="w-full rounded-xl h-auto"
                   src="/img/motorcycle1.webp"
-                  alt=""
+                  width="2560"
+                  height="1920"
+                  alt="motorcycle transport"
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">Motorcycle Shipping</h4>
               <p>
-                Cayad use experienced drivers who have the skills and equipment
-                to properly load, secure and transport motorcycles, scooters,
-                ATVs, UTVs and powersports.
+                At Cayad we use experienced drivers who have the skills and
+                equipment to properly load, secure and transport motorcycles,
+                scooters, ATVs, UTVs and power-sports.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -633,14 +660,19 @@ import NumberPhone from "../components/NumberPhone.astro";
               <div class="overflow-hidden mb-4">
                 <img
                   class="w-full rounded-xl h-auto"
-                  src="/img/car-collector.jpg"
-                  alt=""
+                  src="/img/classic-car5.webp"
+                  width="1978"
+                  height="1085"
+                  alt="classic car shipping"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Car Collectors</h4>
+              <h4 class="text-xl font-semibold mb-3">
+                Collectors Car Transport
+              </h4>
               <p>
-                Classic car transport and exotic car transport from Cayad Auto
-                Transport
+                We transport classic and exotic cars all the time, these
+                vehicles require special equipment and handling, we make sure
+                they reach their destination in pristine condition.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -667,11 +699,19 @@ import NumberPhone from "../components/NumberPhone.astro";
                 <img
                   class="w-full rounded-xl h-auto"
                   src="/img/resellerx360.webp"
-                  alt=""
+                  width="1024"
+                  height="576"
+                  alt="car shipping for resellers"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Car Resellers Shipping</h4>
-              <p>Cayad Auto Transport delivers resold cars to new owners</p>
+              <h4 class="text-xl font-semibold mb-3">
+                Auction & Dealership Transport
+              </h4>
+              <p>
+                We offer special discounts to customers that need to haul
+                multiple vehicles. We can pick up and deliver vehicles from
+                dealerships, auctions, ports and businesses.
+              </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/car-resellers-auto-transport/"
@@ -710,27 +750,38 @@ import NumberPhone from "../components/NumberPhone.astro";
         class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
       >
         <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
-          We Are Trusted Auto Transport Company
+          Why should you trust in Cayad auto transport?
         </h2>
         <div
           class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
         >
           <div class="wow" data-aos="fade-up" data-aos-delay="100">
             <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-              <img src="../img/dollar.webp" class="w-24 h-20 mb-2" />
+              <img
+                src="../img/dollar.webp"
+                width="1080"
+                height="1080"
+                class="w-24 h-20 mb-2"
+                alt="vehicle shipping dollar logo"
+              />
               <div class="ml-4">
                 <h5 class="font-semibold">Zero upfront payment</h5>
                 <p class="xs:text-start sm:text-start mb-0">
                   You read that right, no upfront payment! The best auto
                   transport companies charge you once the carrier has been
                   dispatched for your car shipping order. So, you can book with
-                  your auto transport company now and not worry about the bill
-                  until later.
+                  us now and not worry about the bill until later.
                 </p>
               </div>
             </div>
             <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-              <img src="../img/countries.webp" class="w-24 h-20 mb-2" />
+              <img
+                src="../img/countries.webp"
+                width="1080"
+                height="1080"
+                class="w-24 h-20 mb-2"
+                alt="car transport usa map logo"
+              />
               <div class="ml-4">
                 <h5 class="font-semibold">20K+ auto carriers</h5>
                 <p class="xs:text-start sm:text-start mb-0">
@@ -742,19 +793,31 @@ import NumberPhone from "../components/NumberPhone.astro";
               </div>
             </div>
             <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
-              <img src="../img/easy.webp" class="w-24 h-24 mb-2" />
+              <img
+                src="../img/easy.webp"
+                width="1080"
+                height="1080"
+                class="w-24 h-24 mb-2"
+                alt="car shipping easy logo"
+              />
               <div class="ml-4">
                 <h5 class="font-semibold">Personalized approach</h5>
                 <p class="xs:text-start sm:text-start mb-0">
                   Cayad Auto Transport works with you through every step of your
-                  car or trucks route. Experience hassle-free shipping when you
-                  choose us as your car transporter and enjoy an easy and
-                  painless shipment process.
+                  vehicle route. Experience hassle-free shipping when you choose
+                  us as your car transporter and enjoy an easy and painless
+                  shipment process.
                 </p>
               </div>
             </div>
             <div class="flex mb-0 wow" data-aos="fade-up" data-aos-delay="700">
-              <img src="../img/badge.webp" class="w-24 h-24 mb-2" />
+              <img
+                src="../img/stars.webp"
+                width="500"
+                height="500"
+                class="w-24 h-24 mb-2"
+                alt="auto transport stars logo"
+              />
               <div class="ml-4">
                 <h5 class="font-semibold">The most cost effective company</h5>
                 <p class="xs:text-start sm:text-start mb-0">
@@ -778,9 +841,11 @@ import NumberPhone from "../components/NumberPhone.astro";
           >
             <div class="h-full">
               <img
-                src="img/company.jpeg"
+                src="img/company.webp"
+                width="1080"
+                height="810"
                 class="object-cover rounded-xl w-full h-full"
-                alt=""
+                alt="auto transport hauler 9 spots"
               />
             </div>
           </div>
@@ -788,7 +853,7 @@ import NumberPhone from "../components/NumberPhone.astro";
       </div>
     </div>
 
-    <div
+    <!-- <div
       class="container xs:min-w-[100%] xs:mt-4 sm:mt-4 xs:py-0 sm:py-0 xs:items-center xs:flex xs:flex-col sm:min-w-[100%] sm:items-center sm:flex sm:flex-col mx-auto py-10"
     >
       <div class="text-center mb-10" data-aos="fade-up" data-aos-delay="100">
@@ -807,7 +872,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part1.webp" class="w-[80%] mx-auto" alt="" />
+              <img
+                src="../img/part1.webp"
+                width="357"
+                height="274"
+                class="w-[80%] mx-auto"
+                alt="car shipping central dispatch logo"
+              />
             </div>
           </a>
         </div>
@@ -821,7 +892,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part2.webp" class="bg-cover mx-auto" alt="" />
+              <img
+                src="../img/part2.webp"
+                width="640"
+                height="427"
+                class="bg-cover mx-auto"
+                alt="car shipping chase bank logo"
+              />
             </div>
           </a>
         </div>
@@ -835,7 +912,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full flex items-center rounded-lg hover:shadow-lg"
             >
-              <img src="../img/part3.webp" class="w-[70%] mx-auto" alt="" />
+              <img
+                src="../img/part3.webp"
+                width="512"
+                height="329"
+                class="w-[70%] mx-auto"
+                alt="auto transport iaa logo"
+              />
             </div>
           </a>
         </div>
@@ -849,7 +932,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part4.webp" class="bg-contain mx-auto" alt="" />
+              <img
+                src="../img/part4.webp"
+                width="382"
+                height="391"
+                class="bg-contain mx-auto"
+                alt="car shipping google logo"
+              />
             </div>
           </a>
         </div>
@@ -867,9 +956,11 @@ import NumberPhone from "../components/NumberPhone.astro";
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
               <img
-                src="/img/facebookReview2.jpeg"
+                src="/img/facebookReview2.webp"
                 class="bg-contain mx-auto"
-                alt=""
+                width="311"
+                height="162"
+                alt="car shipping facebook reviews"
               />
             </div>
           </a>
@@ -887,7 +978,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part6.webp" class="w-[70%] mx-auto" alt="" />
+              <img
+                src="../img/part6.webp"
+                class="w-[70%] mx-auto"
+                width="269"
+                height="269"
+                alt="car shipping fmcsa logo"
+              />
             </div>
           </a>
         </div>
@@ -901,7 +998,13 @@ import NumberPhone from "../components/NumberPhone.astro";
             <div
               class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
             >
-              <img src="../img/part7.webp" class="bg-contain mx-auto" alt="" />
+              <img
+                src="../img/part7.webp"
+                width="361"
+                height="163"
+                class="bg-contain mx-auto"
+                alt="auto transport copart logo"
+              />
             </div>
           </a>
         </div>
@@ -915,14 +1018,17 @@ import NumberPhone from "../components/NumberPhone.astro";
             class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
           >
             <img
-              src="/img/super-dispatch.jpg"
+              src="/img/super-dispatch.webp"
+              width="2560"
+              height="754"
               class="w-[100%] mx-auto"
-              alt=""
+              alt="auto transport super dispatch partner"
             />
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
+
   <ButtonScrollTop client:load />
 </Layout>

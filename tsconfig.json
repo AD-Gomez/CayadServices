@@ -2,6 +2,18 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "jsx": "react-jsx",
+    "target": "ES6", // Establece el nivel de ECMAScript al que se compila.
+    "module": "ESNext", // Usa el módulo de ECMAScript más moderno.
+    "moduleResolution": "node", // Resuelve módulos de la misma forma que Node.js.
+    "outDir": "./dist", // Carpeta de salida para los archivos compilados.
+    "rootDir": "./src", // Carpeta raíz de los archivos fuente.
+    "sourceMap": false, // Desactiva la generación de mapas de fuente para producción.
+    "declaration": false, // No genera archivos de declaración `.d.ts`.
+    "removeComments": true, // Elimina los comentarios del código compilado.
+    "esModuleInterop": true, // Permite la interoperabilidad con módulos CommonJS.
+    "skipLibCheck": true, // Omite la comprobación de tipos en archivos de declaración de terceros.
+    "experimentalDecorators": true, // Habilita los decoradores experimentales.
+    "emitDecoratorMetadata": true, // Emite metadatos de decoradores.
   },
   "include": [
     "src/**/*.ts",

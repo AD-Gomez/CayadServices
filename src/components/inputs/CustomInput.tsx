@@ -10,7 +10,7 @@ interface CustomInputProps {
   max?: number; // Hacer el max opcional
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', onBlur, onChange, max }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ name, label, type = 'text', max }) => {
   const { register, formState: { errors, dirtyFields }, watch } = useFormContext();
   const value = watch(name);
   const isFieldValid = !errors[name] && dirtyFields[name] && value;

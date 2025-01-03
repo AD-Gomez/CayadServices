@@ -6,7 +6,7 @@ interface DateInputProps {
   label: string;
 }
 
-const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label }, ref) => {
+const DateInput = forwardRef<HTMLInputElement, DateInputProps>(({ name, label }) => {
   const { register, formState: { errors } } = useFormContext();
 
   const today = new Date().toISOString().split('T')[0];

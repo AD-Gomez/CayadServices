@@ -1,10 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from 'swiper';
-import iconFacebookReview from '../../public/img/iconFacebookReview.svg'
 import part4 from '../../public/img/part4.webp'
-import facebookReview2 from '../../public/img/facebookReview2.jpeg'
+import facebookReview2 from '../../public/img/facebookReview2.webp'
+import santiago from '../../public/img/santiago.webp'
+import moe from '../../public/img/moe.webp'
+import hhrg from '../../public/img/hhrg.webp'
+import kimmy from '../../public/img/kimmy.webp'
+import jordan from '../../public/img/jordan.webp'
+import jose from '../../public/img/jose.webp'
+import abir from '../../public/img/abir.webp'
+
 
 import 'swiper/css'
 import '../styles/animate.css'
@@ -15,17 +22,17 @@ import { FaQuoteRight } from "react-icons/fa6";
 const testimonials = [
   {
     name: "Moe Omar",
-    image: 'https://lh3.googleusercontent.com/a-/ALV-UjUE9WfAxktuUTQHRbSJFbO9coZvY1Bzo6ZBTTfh2XheXCm7u1GV=w60-h60-p-rp-mo-br100',
+    image: moe,
     rating: 5,
     comment: "Awesome service, second time using the service",
     link: "https://www.google.com/maps/contrib/112079156209575097076/reviews?hl=en-GB",
     userImage: part4,
     altText: "Moe Omar",
-    id: 0
+    id: 0,
   },
   {
     name: "Hhrg Ramirez",
-    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t1.6435-1/102802572_665660624016806_3203696689356932331_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=100&ccb=1-7&_nc_sid=e4545e&_nc_ohc=oN-nXsY06JEQ7kNvgF16EIv&_nc_ht=scontent.fccs3-2.fna&oh=00_AYDBB7PI2_4cyLQPKNnZfKy7O5smOXaFvI1lyy-1IAM42Q&oe=66C5DE8C',
+    image: hhrg,
     rating: 5,
     comment: "Muy profesional y excelente servicio hasta ahora el mejor servicio de transporte que he contratado. Recomiendo 100%,. Muy rápida y buena comunicación.",
     link: "https://www.facebook.com/permalink.php?story_fbid=1548929205689939&id=100017186221123&ref=embed_post",
@@ -35,17 +42,17 @@ const testimonials = [
   },
   {
     name: "Santiago Caceres",
-    image: 'https://lh3.googleusercontent.com/a-/ALV-UjXwNOMW8_aQSW7tzSra1biY72AhZoCGHXFkMNORG8S9WVOpSoRn=w60-h60-p-rp-mo-br100',
+    image: santiago,
     rating: 5,
     comment: "Alex G at Cayad Auto Transport was amazing to work with. He helps me ship a car from Utah to Idaho without problems and with fair price. I’d definitely be using their services again.",
     link: "https://www.google.com/maps/contrib/102787767697976243009/reviews/@36.8332502,-101.4969573,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?hl=en-GB&entry=ttu",
     userImage: part4,
-    altText: "Paul Rosales",
+    altText: "Santiago Caceres",
     id: 1
   },
   {
     name: "Kimmy Tennant",
-    image: 'https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-1/448155056_10168704373515481_4194682595358495062_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=108&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=uGi_OPzEgpEQ7kNvgFByS8q&_nc_ht=scontent.fccs3-2.fna&oh=00_AYAAtynKgALiMmZb977tDwbHhaUsvHPbCoq_11wQaIy9bg&oe=66A43CF6',
+    image: kimmy,
     rating: 5,
     comment: "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
     link: "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
@@ -55,7 +62,7 @@ const testimonials = [
   },
   {
     name: "Jordan Allen",
-    image: 'https://lh3.googleusercontent.com/a-/ALV-UjVXyptdS-K6uObP24Vy6KPgzXcGBGX5urCyOiOLdBwiDglgv-gS=w60-h60-p-rp-mo-br100',
+    image: jordan,
     rating: 5,
     comment: "I've worked with AD for a couple years now, he's shipped 10 or so rigs for me. First time I was a little worried doing all this through messenger, but now he's my go to guy.",
     link: "https://www.google.com/maps/contrib/115116084854189813969/reviews/@37.0668996,-96.2086757,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?entry=ttu",
@@ -65,7 +72,7 @@ const testimonials = [
   },
   {
     name: "Abir Khan",
-    image: 'https://scontent.fccs3-1.fna.fbcdn.net/v/t1.6435-1/33920933_10215860728529327_6365152725356773376_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=109&ccb=1-7&_nc_sid=e4545e&_nc_ohc=M7zWV1CqMPQQ7kNvgErr_4w&_nc_ht=scontent.fccs3-1.fna&oh=00_AYCPDgiDDVpiggt_M5tJ-jpM7lSwFBOkcNqm_W7UI7HN2Q&oe=66C5D8F3',
+    image: abir,
     rating: 5,
     comment: "11/10. Maiky was amazing in his communication and transparency. Car was delivered from IL to NY with no issues and they even provide live upates and location tracking! Would not hesitate to use their services again.",
     link: "https://www.facebook.com/adot.khan.7/posts/10232305783965435?ref=embed_post",
@@ -75,7 +82,7 @@ const testimonials = [
   },
   {
     name: "Jose Santiago",
-    image: 'https://lh3.googleusercontent.com/a-/ALV-UjXusMMqJ6c8Fws5d8PSARGHm01MN_yaeQGkgytYUqhhoBm-qTc=w60-h60-p-rp-mo-br100',
+    image: jose,
     rating: 5,
     comment: "Call  Leo Took care of me. They brought my vehicle to my house. The best service I ever have. These are the great people that you can trust on",
     link: "https://www.google.com/maps/contrib/105406262029060010977/reviews?hl=en-GB",
@@ -155,7 +162,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                 <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
                 <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
                   <div className="w-16">
-                    <img src={testimonial.image} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img" />
+                    <img src={testimonial.image.src} width={50} height={50} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img customer" />
                   </div>
                   <div className="text-center md:text-left">
                     <h4 className="text-xl font-normal mb-2">
@@ -164,7 +171,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                     {renderStars(testimonial.rating)}
                   </div>
                   <div className="w-16 mt-4">
-                    <img src={testimonial.userImage.src} className="bg-cover" alt="image google" />
+                    <img src={testimonial.userImage.src} width={50} height={50} className="bg-cover" alt="image google" />
                   </div>
                 </div>
                 <div className="flex flex-col p-4  text-p-landing">

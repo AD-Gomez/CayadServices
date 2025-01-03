@@ -1,10 +1,12 @@
 ---
-import GoogleTagManager from "../components/GoogleTagManager.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
+import SocialProof from "../components/SocialProof";
+import SocialRequest from "../components/SocialRequest";
+
 interface Props {
   content: string;
   title: string;
@@ -16,7 +18,6 @@ const { title, content } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <GoogleTagManager />
     <meta charset="UTF-8" />
     <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
@@ -33,7 +34,7 @@ const { title, content } = Astro.props;
     />
 
     <!-- Google Tag Manager -->
-    <script is:inline>
+    <script async defer is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -45,18 +46,48 @@ const { title, content } = Astro.props;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      defer
+      is:inline
+      src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "AW-11465331667");
+    </script>
     <!-- End Google Tag Manager -->
 
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <!-- Google Maps -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0VUs3BClENXZNUGnZzsgXvxcw3fVnSQY&libraries=places"
-    ></script>
     <meta
       name="google-site-verification"
       content="mYTM7w20cgtRtlR9aFWNFViHfvRiKXcCrYxMptzOg2M"
     />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- open graph general -->
+    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
+    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
+    <meta property="og:url" content="https://cayadservices.com/" />
+    <meta property="og:type" content="website" />
+    <!-- open graph general-->
+    <!-- twitter card open graph -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@cayadservices" />
+    <meta name="twitter:creator" content="@cayadservices" />
+    <meta property="og:url" content="http://www.cayadservices.com" />
+    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
+    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
+<!-- twitter card open graph -->
+
+
     <title>{title}</title>
   </head>
   <body class="relative">
@@ -73,6 +104,8 @@ const { title, content } = Astro.props;
     <slot />
     <ButtonChat client:load />
     <Footer />
+    <SocialProof client:load />
+    <SocialRequest client:load />
     <script>
       import { aosInit } from "../lib/aos";
 

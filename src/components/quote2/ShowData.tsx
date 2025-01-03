@@ -1,6 +1,6 @@
 import { getLead } from "../../services/localStorage";
-import op from '../../../public/img/op.png'
-import inop from '../../../public/img/inop.png'
+import op from '../../../public/img/op.webp'
+import inop from '../../../public/img/inop.webp'
 import truckFlatbed from '../../../public/img/truck-flatbed.svg'
 import truck from '../../../public/img/truck.svg'
 import type { vehicleTypes } from "../../types/formQuote.type";
@@ -11,9 +11,8 @@ const isAnyVehicleInop = (vehicles: vehicleTypes[]) => {
 
 const ShowDataQuote = () => {
   const lead = getLead()
-  const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Inoperable' : 'Operable';
+  const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Operable' : 'Inoperable';
 
-  console.log(lead, operableStatus)
   return (
     <>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] bg-white text-black border border-gray-200 p-2">
@@ -40,10 +39,10 @@ const ShowDataQuote = () => {
         <div className="w-full justify-center"><p className=" font-bold">Vehicles</p></div>
 
         {lead && Array.isArray(lead.Vehicles) && (
-          lead.Vehicles.map((vehicles: vehicleTypes, i: any) => (
+          lead.Vehicles.map((vehicles: vehicleTypes) => (
             <tr>
               <td className="bg-blue-100 p-2">Vehicle(s)</td>
-              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Operable' : 'Inoperable'}`}</td>
+              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Inoperable' : 'Operable'}`}</td>
             </tr>
           ))
         )}
@@ -53,7 +52,7 @@ const ShowDataQuote = () => {
         <div className="font-bold justify-center">Trailer</div>
         <tr className="w-full flex items-center justify-between">
           <td className="p-2">
-            {lead?.transport_type === '1'
+            {lead?.transport_type === '0'
               ? <img
                 src={truckFlatbed.src}
                 alt=""
@@ -72,7 +71,7 @@ const ShowDataQuote = () => {
               />
             }
             <div id="transportType">
-              {lead?.transport_type === '1' ? 'Open transport' : 'Enclosed transport'}
+              {lead?.transport_type === '0' ? 'Open transport' : 'Enclosed transport'}
             </div>
           </td>
           <td>

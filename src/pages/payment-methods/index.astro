@@ -4,30 +4,32 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
 import Testimonials from "../../components/Testimonials";
 import GetQuote from "../../components/buttons/GetQuote.astro";
 ---
-
+<link rel="canonical" href="https://cayadservices.com/payment-methods" />
 <style>
   .custom-background {
     background:
       linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
-      url("/img/payment.jpeg") center center no-repeat;
+      url("/img/payment.webp") center center no-repeat;
     background-size: cover;
   }
 </style>
 
-<Layout title="Payment Methods | Cayad Auto Transport"
-content="Experience seamless car transport across the U.S. with Cayad Auto Transport Business Solutions. Get a quote NOW!">
+<Layout
+  title="Payment Methods | Cayad Auto Transport"
+  content="Experience seamless car transport across the U.S. with Cayad Auto Transport Business Solutions. Get a quote NOW!"
+>
   <contaier
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
     <div class="w-[80%]">
-      <h2
+      <p
         class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
         data-aos="fade-down"
       >
         Cayad additional payments methods.
-      </h2>
+      </p>
       <h1 class="text-white text-lg font-semibold">
-        Experience seamless car transport across the U.S. with Cayad Auto Transport Business Solutions.
+        Experience seamless car transport across the U.S.
       </h1>
       <GetQuote />
     </div>
@@ -44,8 +46,10 @@ content="Experience seamless car transport across the U.S. with Cayad Auto Trans
       >
         <div class="w-full h-max flex flex-col items-center p-2">
           <img
-            alt=""
-            src="/public/img/zelle2.png"
+            alt="car shipping zelle account information"
+            src="/img/zelle.webp"
+            width="230"
+            height="230"    
             style="width: 220px; height: 220px;"
           />
           <br />
@@ -60,8 +64,10 @@ content="Experience seamless car transport across the U.S. with Cayad Auto Trans
 
         <div class="w-full h-max flex flex-col items-center p-2">
           <img
-            alt=""
-            src="./public/img/cashapp.png"
+            alt="car shipping cashapp account information"
+            src="/img/cashapp.webp"
+            width="408"
+            height="399"
             style="width: 220px; height: 215px;"
           />
           <br />
@@ -76,10 +82,12 @@ content="Experience seamless car transport across the U.S. with Cayad Auto Trans
 
         <div class="w-full h-max flex flex-col items-center p-2">
           <img
-            alt="affordable-Icon-money"
+            alt="car shipping paypal account information"
             class="CToWUd"
             data-bit="iit"
-            src="/public/img/paypal.png"
+            width="250"
+            height="250"
+            src="/img/paypal.webp"
             style="border: 0px; outline: none; text-decoration: none; display: inline-block; width: 220px; height: 220px;"
           />
           <br />
@@ -93,17 +101,20 @@ content="Experience seamless car transport across the U.S. with Cayad Auto Trans
         </div>
         <div class="w-full flex flex-col items-center h-max p-2">
           <img
-            alt="reputable-Icon-5-star"
+            alt="car shipping venmo account information"
             class="CToWUd"
             data-bit="iit"
-            src="/public/img/venmo.png"
+            width="231"
+            height="233"
+            src="/img/venmo.webp"
             style="border: 0px; outline: none; text-decoration: none; display: inline-block; width: 220px; height: 220px;"
           />
           <br />
           <p class="text-[#555555]">
             <p class="font-bold text-[#555555]">
               Venmo<br />
-              Not available yet<br />
+              Cayad_Services<br />
+              sales@cayadservices.com
             </p>
           </p>
         </div>
@@ -117,7 +128,7 @@ content="Experience seamless car transport across the U.S. with Cayad Auto Trans
     No fee will be charged over Zelle and Cash App.
   </p>
   <div class="w-full mt-8 flex justify-center mb-8">
-    <Testimonials title="Our Customers Say" client:load />
+    <Testimonials title="Real Auto Transport Testimonials" client:load />
   </div>
   <ButtonScrollTop client:load />
 </Layout>

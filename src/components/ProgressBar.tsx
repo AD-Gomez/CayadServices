@@ -14,10 +14,9 @@ interface VerticalStepperProps {
   activeStep: number;
   onNext: () => void;
   onBack: () => void;
-  onComplete: () => void;
 }
 
-const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, onNext, onBack, onComplete }) => {
+const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, onNext, onBack }) => {
   return (
     <div className="flex flex-col">
       {steps.map((step, index) => (
