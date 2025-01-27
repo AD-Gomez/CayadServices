@@ -477,10 +477,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <div className="flex text-xs gap-4 py-2 border-b border-dashed">
             <small id="termsAndConditions">
-              By providing your phone number/email and clicking through,
-              you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and
-              prerecorded voicemails to that number using an automated system. Your agreement is not a
-              condition of purchasing products, goods or services. You may opt out at any time.
+            By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's 
+            <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+            and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
             </small>
           </div>
           <button
