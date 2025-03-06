@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const sendEmail = async (data: any) => {
   try {
-    const response = await axios.post("https://backupnode-production.up.railway.app/api/lead/send-email/",
+    const response = await axios.post("http://localhost:8000/api/lead/send-email/",
       JSON.stringify(data)
       , {
         headers: {
@@ -15,7 +15,6 @@ const sendEmail = async (data: any) => {
     return false;
   }
 }
-
 async function sendLead (data: any): Promise<any> {
   try {
     const response = await fetch(`https://api.batscrm.com/leads`, {

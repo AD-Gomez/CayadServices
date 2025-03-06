@@ -584,13 +584,13 @@ const FormLanding = () => {
       });
       await sendEmail(send)
 
-      setDisabled(false)
+      // setDisabled(false)
       saveEmail(data)
       saveLead(data)
-      setTimeout(() => {
-        setDataSubmit({})
-        window.location.href = '/quote2';
-      }, 3000);
+      // setTimeout(() => {
+      //   setDataSubmit({})
+      //   window.location.href = '/quote2';
+      // }, 3000);
     }
   }
 
