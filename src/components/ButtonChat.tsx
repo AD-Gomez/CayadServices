@@ -24,7 +24,7 @@ const ButtonChat = () => {
     });
 
     setTimeout(() => {
-      window.open('https://m.me/116222094837969', '_blank');
+      window.open('https://www.facebook.com/cayadservices/', '_blank');
     }, 300); // Retraso de 300 ms
   };
 
