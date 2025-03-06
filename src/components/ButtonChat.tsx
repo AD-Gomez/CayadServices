@@ -15,7 +15,6 @@ const ButtonChat = () => {
   };
 
   const handleMessengerClick = () => {
-    // Enviar evento a Google Analytics u otro servicio de tracking
     window.dataLayer.push({
       'event': 'click_messenger',
       'eventCategory': 'Botón de Chat',
@@ -25,11 +24,10 @@ const ButtonChat = () => {
 
     setTimeout(() => {
       window.open('https://m.me/116222094837969', '_blank');
-    }, 300); // Retraso de 300 ms
+    }, 300);
   };
 
   const handleWhatsappClick = () => {
-    // Enviar evento a Google Analytics u otro servicio de tracking
     window.dataLayer.push({
       'event': 'click_whatsapp',
       'eventCategory': 'Botón de Chat',
@@ -37,10 +35,9 @@ const ButtonChat = () => {
       'eventLabel': 'WhatsApp'
     });
 
-    // Espera brevemente para asegurar que el evento se envíe antes de la redirección
     setTimeout(() => {
       window.open('https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0', '_blank');
-    }, 300); // Retraso de 300 ms
+    }, 300);
   };
 
   useEffect(() => {
@@ -68,7 +65,7 @@ const ButtonChat = () => {
             onClick={handleMessengerClick}
             className="h-12 w-12 flex items-center justify-center text-[1.8rem] text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open Facebook Messenger"
-            data-gtm="messenger-button"  // Atributo de datos para GTM
+            data-gtm="messenger-button"
           >
             <FaFacebookMessenger />
           </button>
@@ -76,7 +73,7 @@ const ButtonChat = () => {
             onClick={handleWhatsappClick}
             className="h-12 w-12 flex items-center justify-center bg-green-500 text-[2rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open WhatsApp"
-            data-gtm="whatsapp-button"  // Atributo de datos para GTM
+            data-gtm="whatsapp-button"
           >
             <IoLogoWhatsapp />
           </button>
