@@ -457,19 +457,24 @@ const FormQuote = () => {
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
 
-              <CustomInput name='email' max={30} label='Email Address' />
+              <CustomInput name='email' max={30} label='Email' />
 
-              <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+              <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
             </div>
+            
           </div>
 
-          <small className='mb-4 px-8' id="termsAndConditions">By providing your phone number/email and clicking through, you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing products, goods or services. You may opt out at any time.</small>
+          <small className='mb-4 px-8'>By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's 
+            <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+            and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
+            </small>
 
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
-
+              
           </button>
+          
         </form>
       </div>
     </FormProvider>

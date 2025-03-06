@@ -466,21 +466,20 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
             <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' defaultValue={methods.getValues('phone')}
+            <CustomInputPhone name='phone' type='text' max={14} label='Phone' defaultValue={methods.getValues('phone')}
             />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
-            <CustomInput name='email' max={30} label='Email Address' />
+            <CustomInput name='email' max={30} label='Email' />
           </div>
           <div className="flex flex-col mb-1 relative bg-white p-4 border border-gray-200">
             <DateInput name='ship_date' label='Date' />
           </div>
           <div className="flex text-xs gap-4 py-2 border-b border-dashed">
             <small id="termsAndConditions">
-              By providing your phone number/email and clicking through,
-              you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and
-              prerecorded voicemails to that number using an automated system. Your agreement is not a
-              condition of purchasing products, goods or services. You may opt out at any time.
+            By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's 
+            <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+            and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
             </small>
           </div>
           <button
