@@ -403,7 +403,7 @@ const FormQuote = () => {
                   </div>
 
                   <div className="flex w-full mb-8 ">
-                    <p className='xs:text-sm ml-2'>Is The <b className=''>Vehicle Operable?</b></p>
+                    <p className='xs:text-sm ml-2'>Is it<b className=''>Running?</b></p>
                     <div className='ml-2'>
                       <Controller
                         name={`Vehicles.${index}.vehicle_inop`}

@@ -90,7 +90,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
           </div>
           <div className="flex gap-4 py-2">
             <p className='text-sm'>
-              Select <b>Transport Type</b>
+              <b>Transport Type</b>
             </p>
             <Controller
               name="transport_type"
@@ -319,7 +319,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               </div>
 
               <div className="flex w-full justify-around">
-                <p className='xs:text-sm'>Is The <b className=''>Vehicle Operable?</b></p>
+                <p className='xs:text-sm'>Is it <b className=''>Running?</b></p>
                 <div>
                   <Controller
                     name={`Vehicles.${index}.vehicle_inop`}
@@ -568,7 +568,7 @@ const FormLanding = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Running";
           send = { ...send, ...vehicleData };
         });
       }

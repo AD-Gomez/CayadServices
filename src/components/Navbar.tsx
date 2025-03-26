@@ -280,7 +280,7 @@ export default function Example () {
                     isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
                     'flex items-center p-2 hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
-                    WHY US?
+                    ABOUT US
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                   </Popover.Button>
 
@@ -454,7 +454,7 @@ export default function Example () {
                         <DisclosureButton
                           className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold ${isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
                         leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
-                          WHY US?
+                          ABOUT US
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
