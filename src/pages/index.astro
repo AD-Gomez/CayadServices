@@ -11,7 +11,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 import NumberPhone from "../components/NumberPhone.astro";
 import ImageOg from "../../public/img/banner.webp";
 ---
-
+<!-- R-4/1/25 -->
 <link rel="canonical" href="https://cayadservices.com" />
 <style>
   .service-item:hover img,
@@ -193,8 +193,8 @@ import ImageOg from "../../public/img/banner.webp";
 </style>
 
 <Layout
-  title="Car Shipping Nationwide In USA | Cayad Auto Transport"
-  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about. Call us"
+  title="Cayad Auto Transport"
+  content="Cayad Auto Transport is the top-rated car shipping company in the USA. Fast, safe, reliable and cheap. Get your free quote now!"
 >
   <section
     class="relative image--banner h-screen xs:h-max md:h-max lg:h-max w-full"
@@ -207,9 +207,10 @@ import ImageOg from "../../public/img/banner.webp";
       >
         <div class="row justify-start">
           <div class="col-10 lg:col-8 xs:px-2 px-20">
+          
             <p class="changing-text text-white text-4xl">
               WE DELIVER
-              <div class="texts-container">
+              <div class="texts-container text-1xl">
                 <span>
                   CARS-SUVS-TRUCKS<br />
                   MOTORCYCLES-ATV<br />
@@ -219,8 +220,7 @@ import ImageOg from "../../public/img/banner.webp";
               </div>
             </p>
             <h1 class="text-lg font-medium text-white mb-3 mt-2 pb-2">
-              Cayad Auto Transport is the most cost-effective car shipper in the
-              U.S
+              The #1 Cost-Effective Car Shipping Company in the U.S.
             </h1>
             <GetQuote />
           </div>
@@ -229,22 +229,130 @@ import ImageOg from "../../public/img/banner.webp";
       <FormLanding client:load />
     </div>
   </section>
+  <br>
+  <div
 
+  class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
+  >
   <div
     class="w-full h-[450px] flex items-center justify-center"
     data-aos="fade-up"
     data-wow-delay="0.1s"
   >
-    <Testimonials title="Real Auto Transport Testimonials" client:load />
+    <Testimonials title="Real Stories from Real Auto Transport Customers" client:load />
   </div>
 
-  <div
-    class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
-  >
-    <h2 class="text-5xl text-h1-landing font-normal mb-4">GPS and update every second?</h2>
+  <div>
+    <div class="container xs:min-w-[100%] xs:py-0 sm:py-0 xs:px-2 sm:min-w-[100%] sm:px-4 md:w-full md:px-4 mx-auto py-5"
+    >
+      <div
+        class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 py-5"
+      >
+        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
+          <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
+          <h2 class="text-3xl font-bold mb-3">How Much Does It Cost to Ship a Car?</h2>
+          <p class="mb-2">
+            The cost of car transport services is based on real-time trends within the national auto transport industry. Each quote is personalized, and pricing depends on several key factors:
+            <ol class="list-decimal list-inside">
+              <li>📏 Size and weight of the vehicle.</li>
+              <li>📍 Total distance from pickup to delivery.</li>
+              <li>🛣️ Route availability and demand.</li>
+              <li>🔧 Vehicle condition (e.g., custom mods or non-running status).</li>
+              <li>🚚 Type of transport (<a
+                href="/for-individuals/open-car-transport/"
+                class="text-btn-blue hover:underline">open</a>, <a
+                href="/for-individuals/enclosed-auto-transport/"
+                class="text-btn-blue hover:underline">enclosed</a>, or <a
+                href="/for-businesses/heavy-haul/"
+                class="text-btn-blue hover:underline">heavy-haul</a>).</li>
+              <li>📆 Time of year when you book the service.</li>
+            </ol>
+          </p><br />
+          <p class="mb-4">
+            💬 Get your <a
+            href="/quote/index.html"
+            class="text-btn-blue hover:underline">free quote</a> now using our online form — or chat with us live to learn about current promotions and ways to save. 
+          </p>
+          <br><br>
+          <NumberPhone />
+        </div>
+        <div>
+          <div
+            class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
+          >
+            <div
+              class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
+              <i class="fa fa-car fa-2x text-white mb-3"></i>
+              <h5 class="text-white mb-2">Size and Weight of the Vehicle</h5>
+              <p class="text-white mb-0">
+                Larger, taller, or heavier vehicles often require special handling or equipment, which can affect the overall <a
+                href="/how-auto-transport-works/how-much-does-it-cost-ship-car/"
+                class="hover:underline" style="color: #000000;">shipping cost</a>. Our pricing is tailored to ensure your vehicle gets the precise care it needs — guaranteeing a safe and secure transport from start to finish.
+              </p>
+            </div>
+            <div
+              class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
+              <h5 class="text-white mb-2">Vehicle Condition</h5>
+              <p class="text-white mb-0">
+                If your vehicle can’t roll, steer, or brake, it needs special equipment like <a
+                href="https://en.wikipedia.org/wiki/Forklift"
+                class="hover:underline" style="color: #000000;">(forklift)</a> and extra handling. We use the right tools to load and transport non-running vehicles safely, ensuring a smooth and secure shipping experience from start to finish.
+              </p>
+            </div>
+            <div
+              class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow"
+              data-aos="fade-up"
+              data-aos-delay="700"
+            >
+              <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
+              <h5 class="text-white mb-2">Type of Transport</h5>
+              <p class="text-white mb-0">
+                You choose the transport that fits your needs. <a
+                href="/for-individuals/open-car-transport/"
+                class="hover:underline" style="color: #000000;">Open carriers</a> offer a cost-effective option for most vehicles, while <a
+                href="/for-individuals/enclosed-auto-transport/"
+                class="hover:underline" style="color: #000000;">enclosed transport</a> provides added protection — perfect for <a
+                href="/for-individuals/classic-cars-auto-transport/"
+                class="hover:underline" style="color: #000000;">luxury cars</a>, <a
+                href="/for-individuals/motorcycle-shipping/"
+                class="hover:underline" style="color: #000000;">motorcycles</a>, and high-value vehicles that need extra care.
+              </p>
+            </div>
+            <div
+              class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
+              data-aos="fade-up"
+              data-aos-delay="700"
+            >
+              <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
+              <h5 class="text-white mb-2">Shipping Distance</h5>
+              <p class="text-white mb-0">
+                Longer distances increase the total cost, but reduce the price per mile. The farther your vehicle travels, the more you save per mile — especially on <a
+                href="/how-auto-transport-works/ship-car-across-country/"
+                class="hover:underline" style="color: #000000;">cross-country shipments</a>. Whether you're moving coast to coast or anywhere in between, shipping your car with a trusted auto transporter is both efficient and cost-effective.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-5xl text-h1-landing font-normal mb-4">Know Where Your Car Is — Live 
+      <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracking</a
+    >, Updated Every Second</h2>
     <p class="text-xl font-normal mb-4">
-      BOOK it today and keep the peace of mind
+      Book Now and Relax — We've Got Your Car Covered
     </p>
+
+    
+
     <div
       class="flex flex-row bg-gray-300 text-gray-800 justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
     >
@@ -268,32 +376,28 @@ import ImageOg from "../../public/img/banner.webp";
       >
         <div class="row g-4 mb-5">
           <div data-wow-delay="0.5s">
-            <h3 class="text-3xl text-h3-title font-medium">GPS tracking</h3>
+            <h3 class="text-3xl text-h3-title font-medium">Real-Time <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracking</a> You Can Rely On</h3>
             <p class="m-0 text-gray-800">
-              It's our new GPS tracking system. With it, you can have complete
-              real-time tracking with full ETA inspection and <a
-                href="/pdfs/sample-bill-of-lading.pdf"
-                class="text-btn-blue hover:underline text-lg">BOL</a
-              >
-              sharing all in one place.
+              <br>
+              Our new <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS tracking</a> system gives you complete visibility over your vehicle’s journey — all in one place. Stay informed, share updates, and gain peace of mind every step of the way.
               <br /><br />
-              Using the GPS tracker you will be able to:
+              With our <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracker</a>, you can:
               <br /><br />
               <ol class="ml-4">
                 <li class="text-gray-800">
-                  1. Get constant updates of your vehicle's location.
+                  1. 🚗 Track your vehicle’s location in real time – updated constantly.
                 </li>
-                <li class="text-gray-800">2. Bill of lading (BOL).</li>
+                <li class="text-gray-800">2. 📄 Access the full <a href="https://en.wikipedia.org/wiki/Bill_of_lading" class="text-btn-blue hover:underline text-lg">Bill of Lading </a> <a href="/pdfs/sample-bill-of-lading.pdf" class="text-btn-blue hover:underline text-lg">(BOL)</a> at any time.</li>
                 <li class="text-gray-800">
-                  3. Estimated Time of Arrival (ETA).
+                  3. ⏱️ See the Estimated Time of Arrival (ETA) with precision.
                 </li>
-                <li class="text-gray-800">4. Shareable via link.</li>
+                <li class="text-gray-800">4. 🔗 Easily share tracking info via a <a href="https://bol.superdispatch.com/3aL7pk8evY46QByzNWqeqVyj?utm_source=Online+BOL&utm_medium=Copied+Link&source=stms" class="text-btn-blue hover:underline text-lg">secure link </a></li>
               </ol>
               <br />
             </p>
             <p class="text-gray-800">
               Within our systems, more than 70% of loads have guaranteed
-              tracking and participation of the operator's GPS.
+              tracking and participation of the operator's <a href="https://en.wikipedia.org/wiki/Global_Positioning_System" class="text-btn-blue hover:underline text-lg">GPS </a>.
             </p>
           </div>
         </div>
@@ -342,8 +446,7 @@ import ImageOg from "../../public/img/banner.webp";
       >
         <!-- <h6 class="text-secondary text-uppercase mb-3">About us</h6> -->
         <h2 class="text-3xl text-[#19171fd2] font-bold mb-3">
-          Why you should book with the most cost effective auto shipping
-          company:
+          Stop Overpaying — Discover What Makes Cayad the Most Cost-Effective Auto Transport Option
         </h2>
         <!-- <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p> -->
         <div
@@ -359,14 +462,16 @@ import ImageOg from "../../public/img/banner.webp";
               alt="car shipping call logo"
             />
             <h5 class="text-lg font-semibold text-[#19171fd2]">
-              Dedicated advisors
+              Dedicated specialists
             </h5>
             <p class="xs:text-justify sm:text-justify">
-              Our auto transport specialists led by <a
-                href="/why-us/our-team/"
-                class="text-btn-blue hover:underline">the executive team</a
-              > work passionately to ensure you are with the most cost-effective
-              auto transport company.
+              Our dedicated specialists — guided by our <a
+              href="/why-us/our-team/"
+              class="text-btn-blue hover:underline">executive team</a> — work closely with you to make sure you're choosing a transport company for cars that offers unmatched value, efficiency, and care. Whether you need automotive <a
+              href="/how-auto-transport-works/"
+              class="text-btn-blue hover:underline">transport service</a> for short hauls or <a
+              href="/how-auto-transport-works/ship-car-across-country/"
+              class="text-btn-blue hover:underline">cross-country</a> automobile transportation services, we’ve got you covered.
             </p>
           </div>
           <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
@@ -382,9 +487,9 @@ import ImageOg from "../../public/img/banner.webp";
               Insurance coverage
             </h5>
             <p class="xs:text-justify sm:text-justify">
-              Car transport companies include insurance coverage in your
-              shipping quote. Our selected auto haulers must meet insurance
-              standards before qualifying to be part of our carrier network.
+              Cayad Auto Transport includes essential <a
+              href="https://en.wikipedia.org/wiki/Insurance"
+              class="text-btn-blue hover:underline">insurance</a> coverage with every shipment, giving you peace of mind from pickup to delivery. We carefully vet each car freight company before adding them to our network, making sure they meet strict safety and compliance standards. That’s how you get reliable, secure, and cost-effective service — every time you ship.
             </p>
           </div>
         </div>
@@ -395,107 +500,7 @@ import ImageOg from "../../public/img/banner.webp";
       </div>
     </div>
 
-    <div
-      class="container xs:min-w-[100%] xs:py-0 sm:py-0 xs:px-2 sm:min-w-[100%] sm:px-4 md:w-full md:px-4 mx-auto py-5"
-    >
-      <div
-        class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 py-5"
-      >
-        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
-          <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
-          <h2 class="text-3xl font-bold mb-3">Auto shipping costs</h2>
-          <p class="mb-2">
-            The prices of car transport companies are based on current trends in
-            the national vehicle transport industry. The total cost from car
-            shipping companies will depend on:
-            <ol class="list-decimal list-inside">
-              <li>Size and weight of the vehicle to be transported.</li>
-              <li>Distance to be covered.</li>
-              <li>Availability of the route.</li>
-              <li>Condition of the vehicle (modifications).</li>
-              <li>
-                Type of transport (open, enclosed, <a
-                  href="/for-businesses/heavy-haul/"
-                  class="text-btn-blue hover:underline">heavy-duty shipping).</a
-                >
-              </li>
-              <li>The time of year when you make the reservation.</li>
-            </ol>
-          </p><br />
-          <p class="mb-4">
-            Get a <a
-              href="/quote/index.html"
-              class="text-btn-blue hover:underline">free quote</a
-            > using our quote request form or use our live chat to inquire about
-            our promotions and additional savings.
-          </p>
-
-          <NumberPhone />
-        </div>
-        <div>
-          <div
-            class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
-          >
-            <div
-              class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
-              <i class="fa fa-car fa-2x text-white mb-3"></i>
-              <h5 class="text-white mb-2">he Size and Weight of the Vehicle</h5>
-              <p class="text-white mb-0">
-                Longer, taller, or heavier vehicles require special
-                accommodations, leading to tailored pricing. This ensures your
-                vehicle receives the precise care it needs for a secure
-                transportation experience.
-              </p>
-            </div>
-            <div
-              class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
-              <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Vehicle Condition</h5>
-              <p class="text-white mb-0">
-                Inoperable vehicles that can’t roll, turn, or brake need extra
-                tools and specialized care. Though this involves additional
-                resources, it ensures your vehicle is handled with precision for
-                a smooth, secure transport.
-              </p>
-            </div>
-            <div
-              class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="700"
-            >
-              <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Type of Transport</h5>
-              <p class="text-white mb-0">
-                Choosing the right transport depends on your needs. Open
-                transport is cost-effective for all vehicles, while enclosed
-                transport, requiring special handling, is ideal for motorcycles
-                and luxury cars.
-              </p>
-            </div>
-            <div
-              class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="700"
-            >
-              <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Shipping Distance</h5>
-              <p class="text-white mb-0">
-                Longer distances generally lead to higher total prices, but
-                lower costs per mile. As your vehicle travels farther, you'll
-                benefit from cost savings with an auto transporter.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <div
       class="container xs:mt-4 sm:mt-4 xs:min-w-[100%] sm:min-w-[100% mx-auto py-0"
@@ -522,12 +527,9 @@ import ImageOg from "../../public/img/banner.webp";
                   alt="door to door car shipping"
                 />
               </div>
-              <h4 class="text-xl font-semibold mb-3">Door to Door Shipping</h4>
+              <h4 class="text-xl font-semibold mb-3">Door-to-Door Shipping</h4>
               <p>
-                Our door-to-door service is the most convenient way to ship your
-                car. You just provide the addresses and the truck driver will
-                pick up and drop off your vehicle as close as possible to your
-                door.
+                Our door-to-door car shipping service offers the ultimate convenience. Simply provide the pickup and delivery addresses, and our trusted auto car transporters will handle the rest. A professional driver picks up your vehicle and delivers it as close to your door as safety and accessibility allow — no terminals, no extra hassle.
               </p>
               <a
                 class="btn-slide mt-4 text-blue-500 hover:underline"
@@ -561,8 +563,7 @@ import ImageOg from "../../public/img/banner.webp";
               </div>
               <h4 class="text-xl font-semibold mb-3">Enclosed Car Transport</h4>
               <p>
-                Shipping your vehicle in an enclosed trailer ensures its better
-                protected and arrives sooner to the destination.
+                Choose enclosed car transport when your vehicle needs maximum protection. Enclosed trailers shield your car from weather, road debris, and external elements — ideal for luxury, classic, or specialty vehicles. With priority handling, your vehicle often arrives faster and in showroom condition.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -596,8 +597,7 @@ import ImageOg from "../../public/img/banner.webp";
               </div>
               <h4 class="text-xl font-semibold mb-3">Open Auto Transport</h4>
               <p>
-                Our open trailers offer the most cost-effective option to
-                transport your car, making sure it arrives safely.
+                Our open auto transport service is the most cost-effective way to ship your vehicle. Using open carriers — the industry standard — we ensure your car arrives safely and efficiently. It's the preferred choice for most customers and perfect for everyday vehicles.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -631,9 +631,7 @@ import ImageOg from "../../public/img/banner.webp";
               </div>
               <h4 class="text-xl font-semibold mb-3">Motorcycle Shipping</h4>
               <p>
-                At Cayad we use experienced drivers who have the skills and
-                equipment to properly load, secure and transport motorcycles,
-                scooters, ATVs, UTVs and power-sports.
+                At Cayad Auto Transport, we rely on experienced drivers equipped to handle your motorcycle with care. From motorcycles and scooters to ATVs, UTVs, and other power-sport vehicles, we ensure each ride is properly loaded, secured, and shipped safely to its destination.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -666,12 +664,10 @@ import ImageOg from "../../public/img/banner.webp";
                 />
               </div>
               <h4 class="text-xl font-semibold mb-3">
-                Collectors Car Transport
+                Classic & Luxury Car Transport
               </h4>
               <p>
-                We transport classic and exotic cars all the time, these
-                vehicles require special equipment and handling, we make sure
-                they reach their destination in pristine condition.
+                At Cayad Auto Transport, we specialize in transporting classic, luxury, and exotic cars with the highest level of care. These valuable vehicles require expert handling and specialized equipment — and that’s exactly what we deliver. Our team ensures your collector car reaches its destination in pristine condition, protected every mile of the journey.
               </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
@@ -707,10 +703,8 @@ import ImageOg from "../../public/img/banner.webp";
                 Auction & Dealership Transport
               </h4>
               <p>
-                We offer special discounts to customers that need to haul
-                multiple vehicles. We can pick up and deliver vehicles from
-                dealerships, auctions, ports and businesses.
-              </p>
+                Cayad Auto Transport offers tailored solutions and special discounts for customers shipping multiple vehicles. Whether you're moving inventory from dealerships, auto auctions, ports, or commercial businesses, our team coordinates reliable pickup and delivery — on time and on budget.
+                </p>
               <a
                 class="btn-slide mt-2 text-blue-500 hover:underline"
                 href="/for-individuals/car-resellers-auto-transport/"
@@ -749,7 +743,7 @@ import ImageOg from "../../public/img/banner.webp";
         class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
       >
         <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
-          Why should you trust in Cayad auto transport?
+          Why Trust Cayad Auto Transport?
         </h2>
         <div
           class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
@@ -764,12 +758,9 @@ import ImageOg from "../../public/img/banner.webp";
                 alt="vehicle shipping dollar logo"
               />
               <div class="ml-4">
-                <h5 class="font-semibold">Zero upfront payment</h5>
+                <h5 class="font-semibold">Zero Upfront Payment</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  You read that right, no upfront payment! The best auto
-                  transport companies charge you once the carrier has been
-                  dispatched for your car shipping order. So, you can book with
-                  us now and not worry about the bill until later.
+                  That’s right — you don’t pay anything upfront. Unlike other companies, the best auto transport services only charge once a carrier is assigned to your shipment. At Cayad Auto Transport, you can book your car shipping order today with total peace of mind — and take care of the payment later.
                 </p>
               </div>
             </div>
@@ -782,12 +773,9 @@ import ImageOg from "../../public/img/banner.webp";
                 alt="car transport usa map logo"
               />
               <div class="ml-4">
-                <h5 class="font-semibold">20K+ auto carriers</h5>
+                <h5 class="font-semibold">20,000+ Trusted Auto Carriers</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  Cayad Auto Transport has a huge network of haulers who are
-                  personally vetted auto shipping experts, ensuring your vehicle
-                  is transported by trusted members of the industry. These
-                  shipping companies will treat your vehicles like their own.
+                  At Cayad Auto Transport, we work with a vast network of over 20,000 personally vetted auto shipping experts. Each car transport company in our network meets strict safety, insurance, and reliability standards — so you can trust that your vehicle is in the hands of experienced professionals who treat every car like their own.
                 </p>
               </div>
             </div>
@@ -800,12 +788,11 @@ import ImageOg from "../../public/img/banner.webp";
                 alt="car shipping easy logo"
               />
               <div class="ml-4">
-                <h5 class="font-semibold">Personalized approach</h5>
+                <h5 class="font-semibold">A Personalized Approach to Auto Transport</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  Cayad Auto Transport works with you through every step of your
-                  vehicle route. Experience hassle-free shipping when you choose
-                  us as your car transporter and enjoy an easy and painless
-                  shipment process.
+                  At Cayad Auto Transport, we guide you through <a
+                  href="/how-auto-transport-works/"
+                  class="text-btn-blue hover:underline">every step</a> of your vehicle’s journey. From the moment you request a quote to the final delivery, our team stays connected and responsive. When you choose us as your car transporter, you get a smooth, hassle-free shipping experience tailored to your needs — simple, secure, and stress-free.
                 </p>
               </div>
             </div>
@@ -818,16 +805,13 @@ import ImageOg from "../../public/img/banner.webp";
                 alt="auto transport stars logo"
               />
               <div class="ml-4">
-                <h5 class="font-semibold">The most cost effective company</h5>
+                <h5 class="font-semibold">The Most Cost-Effective <a
+                  href="/why-us/reviews/"
+                  class="text-btn-blue hover:underline">5-Star</a> Auto Transport Company</h5>
                 <p class="xs:text-start sm:text-start mb-0">
-                  Cayad is the most cost effective <a
-                    href="/why-us/reviews/"
-                    class="text-btn-blue underline">5 Stars</a
-                  > auto transport company, so your car will get from point A to
-                  point B without you having to break a single sweat. By having your
-                  car delivered straight to your door, you are allowing the specialists
-                  to handle every step of the process and ensure there are no speed
-                  bumps along the way.
+                  Cayad Auto Transport delivers unbeatable value without compromising service. As a top-rated, cost-effective auto shipping company, we make sure your vehicle gets from point A to point B smoothly and safely — without you lifting a finger. With direct <a
+                  href="/for-individuals/door-to-door/"
+                  class="text-btn-blue hover:underline">door-to-door</a> delivery, our experienced specialists handle every detail, so you can relax while we take care of the road ahead.
                 </p>
               </div>
             </div>
@@ -852,181 +836,6 @@ import ImageOg from "../../public/img/banner.webp";
       </div>
     </div>
 
-    <!-- <div
-      class="container xs:min-w-[100%] xs:mt-4 sm:mt-4 xs:py-0 sm:py-0 xs:items-center xs:flex xs:flex-col sm:min-w-[100%] sm:items-center sm:flex sm:flex-col mx-auto py-10"
-    >
-      <div class="text-center mb-10" data-aos="fade-up" data-aos-delay="100">
-        <h2 class="text-3xl font-bold mb-5">Our Partners</h2>
-      </div>
-
-      <div
-        class="grid grid-cols-4 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4"
-      >
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] items-center max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          <a href="https://www.movecars.com/cayadservicesLLC" target="_blank">
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="../img/part1.webp"
-                width="357"
-                height="274"
-                class="w-[80%] mx-auto"
-                alt="car shipping central dispatch logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
-          <a href="https://www.chase.com/" target="_blank">
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="../img/part2.webp"
-                width="640"
-                height="427"
-                class="bg-cover mx-auto"
-                alt="car shipping chase bank logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="700"
-        >
-          <a href="https://www.iaai.com/" target="_blank">
-            <div
-              class="bg-white h-full w-full flex items-center rounded-lg hover:shadow-lg"
-            >
-              <img
-                src="../img/part3.webp"
-                width="512"
-                height="329"
-                class="w-[70%] mx-auto"
-                alt="auto transport iaa logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="900"
-        >
-          <a href="https://g.page/r/Cf5Y4UM2AWGtEAI/review" target="_blank">
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="../img/part4.webp"
-                width="382"
-                height="391"
-                class="bg-contain mx-auto"
-                alt="car shipping google logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          <a
-            href="https://www.facebook.com/cayadservices/reviews"
-            target="_blank"
-          >
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="/img/facebookReview2.webp"
-                class="bg-contain mx-auto"
-                width="311"
-                height="162"
-                alt="car shipping facebook reviews"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
-          <a
-            href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&original_query_param=NAME&query_string=4091368&original_query_string=CAYAD%20SERVICES%20LLC"
-            target="_blank"
-          >
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="../img/part6.webp"
-                class="w-[70%] mx-auto"
-                width="269"
-                height="269"
-                alt="car shipping fmcsa logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="700"
-        >
-          <a href="https://www.copart.com" target="_blank">
-            <div
-              class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-            >
-              <img
-                src="../img/part7.webp"
-                width="361"
-                height="163"
-                class="bg-contain mx-auto"
-                alt="auto transport copart logo"
-              />
-            </div>
-          </a>
-        </div>
-
-        <div
-          class="col min-w-[300px] max-w-[350px] min-h-[300px] max-h-[320px]"
-          data-aos="fade-up"
-          data-aos-delay="900"
-        >
-          <div
-            class="bg-white h-full w-full rounded-lg flex items-center hover:shadow-lg"
-          >
-            <img
-              src="/img/super-dispatch.webp"
-              width="2560"
-              height="754"
-              class="w-[100%] mx-auto"
-              alt="auto transport super dispatch partner"
-            />
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 
   <ButtonScrollTop client:load />
