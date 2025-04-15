@@ -497,7 +497,7 @@ export default function Example () {
                 >
                   <div><p className="ml-2 text-black">IN GOD WE TRUST</p></div>
                   <div className="mb-3 flex text-black xs:text-xs sm:text-sm md:text-base md:mb-0">
-                    &copy;2024
+                    &copy; 2023-2025
                     <a
                       className="ml-2 mr-2"
                       href="https://www.cayadservices.com">Cayad Services LLC</a>

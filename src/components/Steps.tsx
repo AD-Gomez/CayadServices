@@ -6,22 +6,25 @@ import why2 from "../../public/img/why2.webp";
 import why3 from "../../public/img/why3.webp";
 const steps = [
   {
-    label: 'Step 1', title: 'Quote and book your order',
-    description: 'in just seconds—fast, easy, and seamless! Need assistance? Our specialist team is ready to provide personalized support. With unbeatable market prices and top-tier service, you’re in great hands.',
-    span: 'Click—or tap—here to get an instant online quote',
+    label: 'Step 1',
+  title: 'Quote and Book Your Auto Transport',
+  description: ' Enter your pickup and delivery info to get a free quote in seconds. Choose your transport type, confirm your price, and book online — fast, secure, and backed by a reliable car transportation company.',
+  span: 'Tap or click to get your instant vehicle shipping quote',
     img: why1,
     hasButton: true
   },
   {
     label: 'Step 2',
-    description: 'Easily schedule your pickup date, time, and a convenient location with your trucker. You can even hand over your keys while you are at work—hassle-free and completely on your terms.',
-    title: 'We’ll pick up your car',
+  title: 'We’ll Pick Up Your Car',
+  description: 'Our Driver meets you where it’s most convenient — even at home or work. It’s flexible, secure, and handled by trusted vehicle transport pros.',
+
     img: why2
   },
   {
     label: 'Step 3',
-    description: 'At Cayad Auto Transport, we make reuniting you with your car an effortless experience. Your trucker will give you a call as your car approaches, so you can welcome it right in your driveway—or at a nearby agreed location. Fast, reliable, and stress-free service from start to finish!',
-    title: 'Receive your car',
+  title: 'Receive Your Car',
+  description: 'The driver will call ahead as your car arrives. Meet them at your driveway or any agreed spot. Fast, reliable vehicle delivery — handled by trusted auto transport professionals.',
+
     img: why3
   },
 ];
