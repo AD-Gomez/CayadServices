@@ -6,6 +6,7 @@ import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
 import SocialProof from "../components/SocialProof";
 import SocialRequest from "../components/SocialRequest";
+import '../styles/animate.css';
 
 interface Props {
   content: string;
@@ -112,5 +113,65 @@ const { title, content } = Astro.props;
       // runs on initial page load
       aosInit();
     </script>
+
+
+      <!-- Social Floating Bottom Toggle -->
+<div class="social-bottom-wrapper">
+  <button id="toggleShareMenu" class="social-toggle-btn" title="Share this page">➕</button>
+  <div id="socialMenu" class="social-menu hidden">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com" target="_blank" title="Facebook">
+      <img src="/img/fb.png" alt="Facebook" />
+    </a>
+    <a href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com" target="_blank" title="WhatsApp">
+      <img src="/img/wa.png" alt="WhatsApp" />
+    </a>
+    <a href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out" target="_blank" title="Reddit">
+      <img src="/img/re.png" alt="Reddit" />
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com" target="_blank" title="LinkedIn">
+      <img src="/img/li.png" alt="LinkedIn" />
+    </a>
+    <a href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad" target="_blank" title="X">
+      <img src="/img/tw.png" alt="X" />
+    </a>
+  </div>
+</div>
+
+
+
+    <script>
+      const btn = document.getElementById("toggleShareMenu");
+      const menu = document.getElementById("socialMenu");
+
+      // Mostrar u ocultar menú
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+        btn.classList.toggle("clicked");
+      });
+
+      // Vibrar cada 7 segundos hasta 7 veces
+      let vibrationCount = 0;
+      const maxVibrations = 14;
+
+      const vibrateInterval = setInterval(() => {
+        // Si el menú sigue oculto y no hemos llegado al límite
+        if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
+          btn.classList.remove("vibrate");
+          void btn.offsetWidth; // Fuerza reflow
+          btn.classList.add("vibrate");
+          vibrationCount++;
+        }
+
+        // Detener intervalo si se llegó al máximo
+        if (vibrationCount >= maxVibrations) {
+          clearInterval(vibrateInterval);
+        }
+      }, 3000);
+    </script>
+
+
+
+      
+    
   </body>
 </html>
