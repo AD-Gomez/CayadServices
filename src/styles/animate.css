@@ -29,19 +29,25 @@
   flex-direction: column-reverse;
   align-items: flex-start;
 }
+
 .social-toggle-btn:hover {
-  background-color: #0080c9; /* Azul un poco más oscuro para hover */
+  background-color: #0080c9;
+  /* Azul un poco más oscuro para hover */
 }
 
 /* Botón de toggle */
 .social-toggle-btn {
-  background-color: #00a1ee; /* Tu color azul corregido */
+  background-color: #00a1ee;
+  /* Tu color azul corregido */
   color: white;
   font-size: 20px;
   border: none;
   border-radius: 50%;
   width: 44px;
   height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -52,6 +58,33 @@
   background-color: #0080c9;
   transform: rotate(20deg);
 }
+
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.vibrate {
+  animation: vibrate 0.3s ease-in-out;
+}
+
 
 
 /* Redes vertical en despliegue */
@@ -80,9 +113,17 @@
 
 /* Animación de entrada */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .social-toggle-btn.clicked {
   transform: rotate(360deg);
 }
@@ -90,12 +131,29 @@
 
 
 @keyframes vibrate {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 .vibrate {

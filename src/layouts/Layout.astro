@@ -6,7 +6,7 @@ import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
 import SocialProof from "../components/SocialProof";
 import SocialRequest from "../components/SocialRequest";
-import '../styles/animate.css';
+import "../styles/animate.css";
 
 interface Props {
   content: string;
@@ -72,8 +72,14 @@ const { title, content } = Astro.props;
     <meta name="generator" content={Astro.generator} />
 
     <!-- open graph general -->
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <meta
+      property="og:title"
+      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
+    />
+    <meta
+      property="og:description"
+      content="The most cost effective auto transport company in US"
+    />
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <meta property="og:url" content="https://cayadservices.com/" />
     <meta property="og:type" content="website" />
@@ -83,11 +89,16 @@ const { title, content } = Astro.props;
     <meta name="twitter:site" content="@cayadservices" />
     <meta name="twitter:creator" content="@cayadservices" />
     <meta property="og:url" content="http://www.cayadservices.com" />
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <meta
+      property="og:title"
+      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
+    />
+    <meta
+      property="og:description"
+      content="The most cost effective auto transport company in US"
+    />
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
-<!-- twitter card open graph -->
-
+    <!-- twitter card open graph -->
 
     <title>{title}</title>
   </head>
@@ -114,30 +125,61 @@ const { title, content } = Astro.props;
       aosInit();
     </script>
 
-
-      <!-- Social Floating Bottom Toggle -->
-<div class="social-bottom-wrapper">
-  <button id="toggleShareMenu" class="social-toggle-btn" title="Share this page">➕</button>
-  <div id="socialMenu" class="social-menu hidden">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com" target="_blank" title="Facebook">
-      <img src="/img/fb.png" alt="Facebook" />
-    </a>
-    <a href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com" target="_blank" title="WhatsApp">
-      <img src="/img/wa.png" alt="WhatsApp" />
-    </a>
-    <a href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out" target="_blank" title="Reddit">
-      <img src="/img/re.png" alt="Reddit" />
-    </a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com" target="_blank" title="LinkedIn">
-      <img src="/img/li.png" alt="LinkedIn" />
-    </a>
-    <a href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad" target="_blank" title="X">
-      <img src="/img/tw.png" alt="X" />
-    </a>
-  </div>
-</div>
-
-
+    <!-- Social Floating Bottom Toggle -->
+    <div class="social-bottom-wrapper">
+      <button
+        id="toggleShareMenu"
+        class="social-toggle-btn"
+        title="Share this page"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="size-8"
+        >
+          <path
+            d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+          ></path>
+        </svg></button
+      >
+      <div id="socialMenu" class="social-menu hidden">
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com"
+          target="_blank"
+          title="Facebook"
+        >
+          <img src="/img/fb.png" alt="Facebook" />
+        </a>
+        <a
+          href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com"
+          target="_blank"
+          title="WhatsApp"
+        >
+          <img src="/img/wa.png" alt="WhatsApp" />
+        </a>
+        <a
+          href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out"
+          target="_blank"
+          title="Reddit"
+        >
+          <img src="/img/re.png" alt="Reddit" />
+        </a>
+        <a
+          href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com"
+          target="_blank"
+          title="LinkedIn"
+        >
+          <img src="/img/li.png" alt="LinkedIn" />
+        </a>
+        <a
+          href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad"
+          target="_blank"
+          title="X"
+        >
+          <img src="/img/tw.png" alt="X" />
+        </a>
+      </div>
+    </div>
 
     <script>
       const btn = document.getElementById("toggleShareMenu");
@@ -155,7 +197,10 @@ const { title, content } = Astro.props;
 
       const vibrateInterval = setInterval(() => {
         // Si el menú sigue oculto y no hemos llegado al límite
-        if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
+        if (
+          menu.classList.contains("hidden") &&
+          vibrationCount < maxVibrations
+        ) {
           btn.classList.remove("vibrate");
           void btn.offsetWidth; // Fuerza reflow
           btn.classList.add("vibrate");
@@ -168,10 +213,5 @@ const { title, content } = Astro.props;
         }
       }, 3000);
     </script>
-
-
-
-      
-    
   </body>
 </html>
