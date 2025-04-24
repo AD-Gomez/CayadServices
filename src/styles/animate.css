@@ -15,3 +15,89 @@
   animation-duration: 1s;
   animation-fill-mode: both;
 }
+
+
+/* mobile */
+
+/* Wrapper abajo a la izquierda */
+.social-bottom-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+.social-toggle-btn:hover {
+  background-color: #0080c9; /* Azul un poco más oscuro para hover */
+}
+
+/* Botón de toggle */
+.social-toggle-btn {
+  background-color: #00a1ee; /* Tu color azul corregido */
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.social-toggle-btn:hover {
+  background-color: #0080c9;
+  transform: rotate(20deg);
+}
+
+
+/* Redes vertical en despliegue */
+.social-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.social-menu img {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-menu img:hover {
+  transform: scale(1.1);
+}
+
+/* Oculto por defecto */
+.hidden {
+  display: none;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.social-toggle-btn.clicked {
+  transform: rotate(360deg);
+}
+
+
+
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.vibrate {
+  animation: vibrate 0.4s;
+}
