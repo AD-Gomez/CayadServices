@@ -95,7 +95,7 @@ export default function Example() {
             </a>
           </div>
 
-          <div className="flex lg:hidden">
+          <div className="flex md:hidden lg:hidden xl:hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -105,6 +105,7 @@ export default function Example() {
               <Bars3Icon className="h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
             </button>
           </div>
+
 
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
 
