@@ -60,11 +60,11 @@ const whyUs = [
   { description: 'Blog 🚧', href: '#', icon: FingerPrintIcon }
 ]
 
-function classNames (...classes: any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example () {
+export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openPopover, setOpenPopover] = useState<string | null>(null)
   const [currentPath, setCurrentPath] = useState('');
@@ -95,16 +95,17 @@ export default function Example () {
             </a>
           </div>
 
-          <div className="hidden lg:hidden md:flex xs:flex sm:flex xl:hidden">
+          <div className="flex lg:hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon className=" h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
+              <Bars3Icon className="h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
             </button>
           </div>
+
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
 
             <Popover

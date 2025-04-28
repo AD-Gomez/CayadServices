@@ -22,43 +22,54 @@ const { title, content } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link rel="icon" type="image/webp" href="/img/title-icon.webp" sizes="120x120" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/img/title-icon.webp"
+      sizes="120x120"
+    />
 
     <!-- ✅ Google Tag Manager -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      window.dataLayer.push({
+        "gtm.start": new Date().getTime(),
+        event: "gtm.js",
+      });
 
       (function (w, d, s, l, i) {
         var f = d.getElementsByTagName(s)[0],
           j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
+          dl = l != "dataLayer" ? "&l=" + l : "";
         j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-NT3H9XXW');
+      })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
     </script>
 
     <!-- ✅ Google Ads tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
-      gtag('config', 'AW-11465331667');
+      gtag("js", new Date());
+      gtag("config", "AW-11465331667");
     </script>
 
-    <meta name="google-site-verification" content="mYTM7w20cgtRtlR9aFWNFViHfvRiKXcCrYxMptzOg2M" />
+    <meta
+      name="google-site-verification"
+      content="mYTM7w20cgtRtlR9aFWNFViHfvRiKXcCrYxMptzOg2M"
+    />
     <meta name="generator" content={Astro.generator} />
 
-<<<<<<< HEAD
-    <!-- ✅ Open Graph -->
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
-=======
     <!-- open graph general -->
     <meta
       property="og:title"
@@ -68,7 +79,6 @@ const { title, content } = Astro.props;
       property="og:description"
       content="The most cost effective auto transport company in US"
     />
->>>>>>> 5cc0423f4a8bc74d8aa76ca7501e479fabbd34af
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <meta property="og:url" content="https://cayadservices.com/" />
     <meta property="og:type" content="website" />
@@ -77,8 +87,6 @@ const { title, content } = Astro.props;
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@cayadservices" />
     <meta name="twitter:creator" content="@cayadservices" />
-<<<<<<< HEAD
-=======
     <meta property="og:url" content="http://www.cayadservices.com" />
     <meta
       property="og:title"
@@ -90,16 +98,17 @@ const { title, content } = Astro.props;
     />
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <!-- twitter card open graph -->
->>>>>>> 5cc0423f4a8bc74d8aa76ca7501e479fabbd34af
 
     <title>{title}</title>
   </head>
   <body class="relative">
     <!-- ✅ Google Tag Manager (noscript) -->
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-              height="0" width="0"
-              style="display:none;visibility:hidden"></iframe>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
     </noscript>
 
     <Navbar client:load />
@@ -115,25 +124,6 @@ const { title, content } = Astro.props;
       aosInit();
     </script>
 
-<<<<<<< HEAD
-    <!-- ✅ Social Floating Bottom Toggle -->
-    <div class="social-bottom-wrapper">
-      <button id="toggleShareMenu" class="social-toggle-btn" title="Share this page">➕</button>
-      <div id="socialMenu" class="social-menu hidden">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com" target="_blank" title="Facebook">
-          <img src="/img/fb.png" alt="Facebook" />
-        </a>
-        <a href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com" target="_blank" title="WhatsApp">
-          <img src="/img/wa.png" alt="WhatsApp" />
-        </a>
-        <a href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out" target="_blank" title="Reddit">
-          <img src="/img/re.png" alt="Reddit" />
-        </a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com" target="_blank" title="LinkedIn">
-          <img src="/img/li.png" alt="LinkedIn" />
-        </a>
-        <a href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad" target="_blank" title="X">
-=======
     <!-- Social Floating Bottom Toggle -->
     <div class="social-bottom-wrapper">
       <button
@@ -185,7 +175,6 @@ const { title, content } = Astro.props;
           target="_blank"
           title="X"
         >
->>>>>>> 5cc0423f4a8bc74d8aa76ca7501e479fabbd34af
           <img src="/img/tw.png" alt="X" />
         </a>
       </div>
@@ -203,15 +192,11 @@ const { title, content } = Astro.props;
       let vibrationCount = 0;
       const maxVibrations = 14;
       const vibrateInterval = setInterval(() => {
-<<<<<<< HEAD
-        if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
-=======
         // Si el menú sigue oculto y no hemos llegado al límite
         if (
           menu.classList.contains("hidden") &&
           vibrationCount < maxVibrations
         ) {
->>>>>>> 5cc0423f4a8bc74d8aa76ca7501e479fabbd34af
           btn.classList.remove("vibrate");
           void btn.offsetWidth;
           btn.classList.add("vibrate");
