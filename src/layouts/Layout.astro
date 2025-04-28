@@ -70,21 +70,9 @@ const { title, content } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
 
-<<<<<<< HEAD
     <!-- ✅ Open Graph -->
     <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
     <meta property="og:description" content="The most cost effective auto transport company in US" />
-=======
-    <!-- open graph general -->
-    <meta
-      property="og:title"
-      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
-    />
-    <meta
-      property="og:description"
-      content="The most cost effective auto transport company in US"
-    />
->>>>>>> 2cc9bf6710fff5f5f806a160e06eb9f478ba94a5
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <meta property="og:url" content="https://cayadservices.com/" />
     <meta property="og:type" content="website" />
@@ -93,20 +81,6 @@ const { title, content } = Astro.props;
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@cayadservices" />
     <meta name="twitter:creator" content="@cayadservices" />
-<<<<<<< HEAD
-=======
-    <meta property="og:url" content="http://www.cayadservices.com" />
-    <meta
-      property="og:title"
-      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
-    />
-    <meta
-      property="og:description"
-      content="The most cost effective auto transport company in US"
-    />
-    <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
-    <!-- twitter card open graph -->
->>>>>>> 2cc9bf6710fff5f5f806a160e06eb9f478ba94a5
 
     <title>{title}</title>
   </head>
@@ -133,25 +107,6 @@ const { title, content } = Astro.props;
       aosInit();
     </script>
 
-<<<<<<< HEAD
-    <!-- ✅ Social Floating Bottom Toggle -->
-    <div class="social-bottom-wrapper">
-      <button id="toggleShareMenu" class="social-toggle-btn" title="Share this page">➕</button>
-      <div id="socialMenu" class="social-menu hidden">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com" target="_blank" title="Facebook">
-          <img src="/img/fb.png" alt="Facebook" />
-        </a>
-        <a href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com" target="_blank" title="WhatsApp">
-          <img src="/img/wa.png" alt="WhatsApp" />
-        </a>
-        <a href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out" target="_blank" title="Reddit">
-          <img src="/img/re.png" alt="Reddit" />
-        </a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com" target="_blank" title="LinkedIn">
-          <img src="/img/li.png" alt="LinkedIn" />
-        </a>
-        <a href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad" target="_blank" title="X">
-=======
     <!-- Social Floating Bottom Toggle -->
     <div class="social-bottom-wrapper">
       <button
@@ -203,7 +158,6 @@ const { title, content } = Astro.props;
           target="_blank"
           title="X"
         >
->>>>>>> 2cc9bf6710fff5f5f806a160e06eb9f478ba94a5
           <img src="/img/tw.png" alt="X" />
         </a>
       </div>
@@ -221,15 +175,11 @@ const { title, content } = Astro.props;
       let vibrationCount = 0;
       const maxVibrations = 14;
       const vibrateInterval = setInterval(() => {
-<<<<<<< HEAD
-        if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
-=======
         // Si el menú sigue oculto y no hemos llegado al límite
         if (
           menu.classList.contains("hidden") &&
           vibrationCount < maxVibrations
         ) {
->>>>>>> 2cc9bf6710fff5f5f806a160e06eb9f478ba94a5
           btn.classList.remove("vibrate");
           void btn.offsetWidth;
           btn.classList.add("vibrate");
