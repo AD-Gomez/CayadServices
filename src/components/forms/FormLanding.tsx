@@ -606,9 +606,27 @@ const FormLanding = () => {
     }
   }, [activeStep]);
   return (
-    <div className="max-w-[500px] mb-8 min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap xs:min-w-[95%] sm:min-w-[90%] md:min-w-[60%] overflow-auto bg-white flex justify-between items-center flex-col rounded-lg">
+    <div className="
+      mx-auto 
+      mb-8 
+      flex 
+      flex-col 
+      items-center 
+      justify-between 
+      overflow-auto 
+      rounded-lg 
+      bg-white 
+      min-h-96 
+      max-h-[450px] 
+      w-[95%] 
+      sm:w-[90%] 
+      md:w-[60%] 
+      lg:w-[500px] 
+      max-w-[500px]
+    ">
       {renderContent()}
     </div>
+
   );
 };
 

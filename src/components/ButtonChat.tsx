@@ -6,7 +6,7 @@ const ButtonChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [vibrationCount, setVibrationCount] = useState(0);
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMouseEnter = () => setIsOpen(true);
   const handleMouseLeave = () => setIsOpen(false);
@@ -48,6 +48,7 @@ const ButtonChat = () => {
   // 🔁 Vibración cada 7 segundos, hasta 14 veces
   useEffect(() => {
     const maxVibrations = 14;
+
     const interval = setInterval(() => {
       if (!isOpen && vibrationCount < maxVibrations && buttonRef.current) {
         buttonRef.current.classList.remove("vibrate");
