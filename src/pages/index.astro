@@ -11,6 +11,7 @@ import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 import NumberPhone from "../components/NumberPhone.astro";
 import ImageOg from "../../public/img/banner.webp";
 ---
+
 <!-- R-4/1/25 -->
 <link rel="canonical" href="https://cayadservices.com" />
 <style>
@@ -200,14 +201,13 @@ import ImageOg from "../../public/img/banner.webp";
     class="relative image--banner h-screen xs:h-max md:h-max lg:h-max w-full"
   >
     <div
-      class="inset-0 w-full h-full flex flex-row justify-around xs:flex-col sm:flex-col md:flex-col items-center bg-[rgba(6,3,21,0.5)]"
+      class="inset-0 w-full h-full py-8 flex flex-col lg:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
     >
       <div
         class="w-[65%] xl:w-[50%] lg:w-[50%] xs:w-full sm:w-full md:w-2/1 p-4 md:p-8"
       >
         <div class="row justify-start">
           <div class="col-10 lg:col-8 xs:px-2 px-20">
-          
             <p class="changing-text text-white text-6xl">
               WE DELIVER
               <div class="texts-container text-3xl">
@@ -220,11 +220,12 @@ import ImageOg from "../../public/img/banner.webp";
               </div>
             </p>
             <h1 class="text-lg font-medium text-white mb-3 mt-2 pb-2">
-              The #1 <strong>Cost-Effective</strong> <strong> Car Shipping Company</strong> in the U.S. You Can Trust
+              The #1 <strong>Cost-Effective</strong>
+              <strong> Car Shipping Company</strong> in the U.S. You Can Trust
             </h1>
             <!-- Ocultar en móviles -->
             <div class="hidden sm:block">
-            <GetQuote />
+              <GetQuote />
             </div>
           </div>
         </div>
@@ -232,635 +233,878 @@ import ImageOg from "../../public/img/banner.webp";
       <FormLanding client:load />
     </div>
   </section>
-  <br>
+  <br />
   <div
-
-  class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
+    class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
   >
-  <div
-    class="w-full h-[450px] flex items-center justify-center"
-    data-aos="fade-up"
-    data-wow-delay="0.1s"
-  >
-    <Testimonials title="Real Stories from Real Auto Transport Customers" client:load />
-  </div>
-
-  <div>
-    <div class="container xs:min-w-[100%] xs:py-0 sm:py-0 xs:px-2 sm:min-w-[100%] sm:px-4 md:w-full md:px-4 mx-auto py-5"
+    <div
+      class="w-full h-[450px] flex items-center justify-center"
+      data-aos="fade-up"
+      data-wow-delay="0.1s"
     >
+      <Testimonials
+        title="Real Stories from Real Auto Transport Customers"
+        client:load
+      />
+    </div>
+
+    <div>
       <div
-        class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 py-5"
+        class="container xs:min-w-[100%] xs:py-0 sm:py-0 xs:px-2 sm:min-w-[100%] sm:px-4 md:w-full md:px-4 mx-auto py-5"
       >
-        <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
-          <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
-          <h2 class="text-3xl font-bold mb-3">How Much Does It Cost to Ship a Car?</h2>
-          <p class="mb-2">
-            The cost of <strong>car transport services</strong> depends on real-time trends in the national <strong>auto and transport</strong> industry. Each quote is personalized to your shipment, and pricing is determined by several key factors:
-          </p>
-          <ol class="list-decimal list-inside">
-            <li>📏 <strong>Size and weight</strong> of your vehicle.</li>
-            <li>📍 <strong>Total distance</strong> from pickup to delivery.</li>
-            <li>🛣️ <strong>Route availability</strong> and demand.</li>
-            <li>🔧 <strong>Vehicle condition</strong> (e.g., custom mods or non-running status).</li>
-            <li>🚚 <strong>Type of transport</strong> (<a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">open</a>, <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a>, or <a href="/for-businesses/heavy-haul/" class="text-btn-blue hover:underline">heavy-haul</a>).</li>
-            <li>📆 <strong>Time of year</strong> when you book the service.</li>
-          </ol>
-          <br />          
-          <p class="mb-4">
-            💬 Get your <a
-            href="/quote/index.html"
-            class="text-btn-blue hover:underline">free quote</a> now using our online form or chat with us live to learn about current promotions and ways to save. 
-          </p>
-          <br><br>
-          <NumberPhone />
-        </div>
-        <div>
-          <div
-            class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
-          >
-            <div
-              class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
-              <i class="fa fa-car fa-2x text-white mb-3"></i>
-              <h5 class="text-white mb-2">Size and Weight of the Vehicle</h5>
-              <p class="text-white mb-0">
-                Larger, taller, or heavier vehicles often require special handling or equipment, which can influence the overall <a
-                  href="/how-auto-transport-works/how-much-does-it-cost-ship-car/"
-                  class="hover:underline" style="color: #000000;"><strong>shipping cost</strong></a>. We tailor our pricing to make sure your vehicle gets the precise care it needs, ensuring a safe and secure transport experience from start to finish.
-              </p>
-            </div>
-            <div
-              class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
-              <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Vehicle Condition</h5>
-              <p class="text-white mb-0">
-                If your vehicle can’t roll, steer, or brake, it requires special equipment, such as a <a
-                  href="https://en.wikipedia.org/wiki/Forklift"
-                  class="hover:underline" style="color: #000000;">forklift</a> along with extra handling. We use the right tools to safely load and transport non-running vehicles, ensuring a smooth and secure shipping experience from start to finish.
-              </p>
-              
-            </div>
-            <div
-              class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="700"
-            >
-              <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Type of Transport</h5>
-              <p class="text-white mb-0">
-                Choose the type of transport that best fits your needs. <a
+        <div
+          class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 py-5"
+        >
+          <div class="wow fadeInUp" data-aos="fade-up" data-aos-delay="100">
+            <!-- <h6 class="text-secondary text-uppercase mb-3">Some Facts</h6> -->
+            <h2 class="text-3xl font-bold mb-3">
+              How Much Does It Cost to Ship a Car?
+            </h2>
+            <p class="mb-2">
+              The cost of <strong>car transport services</strong> depends on real-time
+              trends in the national <strong>auto and transport</strong> industry.
+              Each quote is personalized to your shipment, and pricing is determined
+              by several key factors:
+            </p>
+            <ol class="list-decimal list-inside">
+              <li>📏 <strong>Size and weight</strong> of your vehicle.</li>
+              <li>
+                📍 <strong>Total distance</strong> from pickup to delivery.
+              </li>
+              <li>🛣️ <strong>Route availability</strong> and demand.</li>
+              <li>
+                🔧 <strong>Vehicle condition</strong> (e.g., custom mods or non-running
+                status).
+              </li>
+              <li>
+                🚚 <strong>Type of transport</strong> (<a
                   href="/for-individuals/open-car-transport/"
-                  class="hover:underline" style="color: #000000;">Open carriers</a> are a cost-effective option for most vehicles, offering safe and efficient shipping. For added protection, <a
+                  class="text-btn-blue hover:underline">open</a
+                >, <a
                   href="/for-individuals/enclosed-auto-transport/"
-                  class="hover:underline" style="color: #000000;">enclosed transport</a> is ideal, especially for <a
-                  href="/for-individuals/classic-cars-auto-transport/"
-                  class="hover:underline" style="color: #000000;">luxury cars</a>, <a
-                  href="/for-individuals/motorcycle-shipping/"
-                  class="hover:underline" style="color: #000000;">motorcycles</a>, and other high-value vehicles that require extra care.
-              </p>
-              
-            </div>
+                  class="text-btn-blue hover:underline">enclosed</a
+                >, or <a
+                  href="/for-businesses/heavy-haul/"
+                  class="text-btn-blue hover:underline">heavy-haul</a
+                >).
+              </li>
+              <li>
+                📆 <strong>Time of year</strong> when you book the service.
+              </li>
+            </ol>
+            <br />
+            <p class="mb-4">
+              💬 Get your <a
+                href="/quote/index.html"
+                class="text-btn-blue hover:underline">free quote</a
+              > now using our online form or chat with us live to learn about current
+              promotions and ways to save.
+            </p>
+            <br /><br />
+            <NumberPhone />
+          </div>
+          <div>
             <div
-              class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
-              data-aos="fade-up"
-              data-aos-delay="700"
+              class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-2 gap-4 items-center"
             >
-              <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
-              <h5 class="text-white mb-2">Shipping Distance</h5>
-              <p class="text-white mb-0">
-                Longer distances may raise the total cost, but they lower the price per mile. The farther your vehicle travels, the more you save especially on <a
-                  href="/how-auto-transport-works/ship-car-across-country/"
-                  class="hover:underline" style="color: #000000;">cross-country shipments</a>. Whether you're moving coast to coast or anywhere in between, shipping your car with a trusted auto transporter is a smart, efficient, and cost-effective choice.
-              </p>
-              
+              <div
+                class="bg-btn-blue p-4 min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] mb-4 wow"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <FaCar className=" text-4xl mb-2 text-[#FFFF]" />
+                <i class="fa fa-car fa-2x text-white mb-3"></i>
+                <h5 class="text-white mb-2">Size and Weight of the Vehicle</h5>
+                <p class="text-white mb-0">
+                  Larger, taller, or heavier vehicles often require special
+                  handling or equipment, which can influence the overall <a
+                    href="/how-auto-transport-works/how-much-does-it-cost-ship-car/"
+                    class="hover:underline"
+                    style="color: #000000;"><strong>shipping cost</strong></a
+                  >. We tailor our pricing to make sure your vehicle gets the
+                  precise care it needs, ensuring a safe and secure transport
+                  experience from start to finish.
+                </p>
+              </div>
+              <div
+                class="bg-[#51CFED] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
+                data-aos="fade-up"
+                data-aos-delay="500"
+              >
+                <IoBoat className=" text-4xl mb-2 text-[#FFFF]" />
+                <h5 class="text-white mb-2">Vehicle Condition</h5>
+                <p class="text-white mb-0">
+                  If your vehicle can’t roll, steer, or brake, it requires
+                  special equipment, such as a <a
+                    href="https://en.wikipedia.org/wiki/Forklift"
+                    class="hover:underline"
+                    style="color: #000000;">forklift</a
+                  > along with extra handling. We use the right tools to safely load
+                  and transport non-running vehicles, ensuring a smooth and secure
+                  shipping experience from start to finish.
+                </p>
+              </div>
+              <div
+                class="bg-[#198754] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 mb-4 wow"
+                data-aos="fade-up"
+                data-aos-delay="700"
+              >
+                <FaStar className=" text-4xl mb-2 text-[#FFFF]" />
+                <h5 class="text-white mb-2">Type of Transport</h5>
+                <p class="text-white mb-0">
+                  Choose the type of transport that best fits your needs. <a
+                    href="/for-individuals/open-car-transport/"
+                    class="hover:underline"
+                    style="color: #000000;">Open carriers</a
+                  > are a cost-effective option for most vehicles, offering safe
+                  and efficient shipping. For added protection, <a
+                    href="/for-individuals/enclosed-auto-transport/"
+                    class="hover:underline"
+                    style="color: #000000;">enclosed transport</a
+                  > is ideal, especially for <a
+                    href="/for-individuals/classic-cars-auto-transport/"
+                    class="hover:underline"
+                    style="color: #000000;">luxury cars</a
+                  >, <a
+                    href="/for-individuals/motorcycle-shipping/"
+                    class="hover:underline"
+                    style="color: #000000;">motorcycles</a
+                  >, and other high-value vehicles that require extra care.
+                </p>
+              </div>
+              <div
+                class="bg-[#dc3545] min-w-[300px] hover:scale-y-110 hover:scale-x-105 transition delay-150 duration-300 ease-in-out max-w-[400px] lg:min-w-[250px] lg:max-w-[300px] xs:min-w-[100%] p-4 wow"
+                data-aos="fade-up"
+                data-aos-delay="700"
+              >
+                <FaMapMarked className=" text-4xl mb-2 text-[#FFFF]" />
+                <h5 class="text-white mb-2">Shipping Distance</h5>
+                <p class="text-white mb-0">
+                  Longer distances may raise the total cost, but they lower the
+                  price per mile. The farther your vehicle travels, the more you
+                  save especially on <a
+                    href="/how-auto-transport-works/ship-car-across-country/"
+                    class="hover:underline"
+                    style="color: #000000;">cross-country shipments</a
+                  >. Whether you're moving coast to coast or anywhere in
+                  between, shipping your car with a trusted auto transporter is
+                  a smart, efficient, and cost-effective choice.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <h3 class="text-3xl sm:text-4xl md:text-5xl text-h1-landing font-normal mb-4 leading-snug">
-  Know Where Your Car Is Live 
-  <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracking</a>, Updated Every Second
-</h3>
-
-    <p class="text-xl font-normal mb-4">
-      Book Now and Relax, We've Got Your Car Covered
-    </p>
-
-    
-
-    <div
-      class="flex flex-row bg-gray-300 text-gray-800 justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
-    >
-      <div
-        class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
-        data-aos="fade-right"
-        data-wow-delay="0.1s"
+      <h3
+        class="text-3xl sm:text-4xl md:text-5xl text-h1-landing font-normal mb-4 leading-snug"
       >
-        <img
-          src="/img/track.webp"
-          class="rounded-xl"
-          style="object-fit: cover; width: 100%;"
-          alt="car shipping gps tracking"
-          width="1080"
-          height="810"
-        />
-      </div>
-      <div
-        class="w-2/5 xs:w-full sm:w-full md:w-11/12 xl:w-1/2 xl:mt-8 ml-4"
-        data-wow-delay="0.5s"
-      >
-        <div class="row g-4 mb-5">
-          <div data-wow-delay="0.5s">
-            <h3 class="text-3xl text-h3-title font-medium">Real-Time <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracking</a> You Can Rely On</h3>
-            <p class="m-0 text-gray-800">
-              <br>
-              Our new <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS tracking</a> system gives you complete visibility over your vehicle’s journey, all in one place. Stay informed, share updates, and gain peace of mind every step of the way.
-              <br /><br />
-              With our <a href="https://en.wikipedia.org/wiki/GPS_tracking_unit" class="text-btn-blue hover:underline">GPS Tracker</a>, you can:
-              <br /><br />
-              <ol class="ml-4">
-                <li class="text-gray-800">
-                  1. 🚗 Track your vehicle’s location in real time – updated constantly.
-                </li>
-                <li class="text-gray-800">2. 📄 Access the full <a href="https://en.wikipedia.org/wiki/Bill_of_lading" class="text-btn-blue hover:underline text-lg">Bill of Lading </a> <a href="/pdfs/sample-bill-of-lading.pdf" class="text-btn-blue hover:underline text-lg">(BOL)</a> at any time.</li>
-                <li class="text-gray-800">
-                  3. ⏱️ See the Estimated Time of Arrival (ETA) with precision.
-                </li>
-                <li class="text-gray-800">4. 🔗 Easily share tracking info via a <a href="https://bol.superdispatch.com/3aL7pk8evY46QByzNWqeqVyj?utm_source=Online+BOL&utm_medium=Copied+Link&source=stms" class="text-btn-blue hover:underline text-lg">secure link </a></li>
-              </ol>
-              <br />
-            </p>
-            <p class="text-gray-800">
-              Within our systems, more than 70% of loads have guaranteed
-              tracking and participation of the operator's <a href="https://en.wikipedia.org/wiki/Global_Positioning_System" class="text-btn-blue hover:underline text-lg">GPS </a>.
-            </p>
-          </div>
-        </div>
-        <div
-          class="hiw-cta-wrap xs:mb-4 md:mb-4 sm:mb-4 sm:flex-col xl:mb-8 xl:flex-row flex flex-row w-full items-center justify-end"
-        >
-          <a
-            href="/quote/"
-            id="Get Free Quote - Desktop - In Content"
-            class="with-mb-24 mr-1 js-animate-cta button-primary button-hover-effect tg-pcta-incontent cta-animation"
-          >
-            <span
-              class="mt-6 flex w-42 rounded items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
-              >Get a Quote</span
-            >
-            <a
-              class="mt-6 ml-1 flex w-42 items-center rounded justify-center border border-btn-blue hover:bg-btn-hover hover:text-white transition-colors duration-500 ease-in-out focus:outline-none bg-white px-8 py-3 text-base font-medium text-btn-blue focus:ring-2 focus:ring-offset-2"
-              href="/how-auto-transport-works/"
-              class="with-mb-24 button-secondary button-hover-effect tg-scta-how-auto-transport-works"
-            >
-              <span class="button-text">Learn more</span>
-            </a>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="py-5 w-full flex xs:mt-12 sm:mt-12 xs:py-0 sm:py-0 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
-    >
-      <div
-        class="w-[60%] h-[550px] xs:w-[100%] px-2 xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
-        data-aos="fade-right"
-        data-aos-delay="100"
-      >
-        <img
-          src="img/open-trailer.webp"
-          class="adjust--img rounded-xl w-full h-[80%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
-          alt="car shipping hotshot"
-          width="1600"
-          height="708"
-        />
-      </div>
-      <div
-        class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
-      >
-        <!-- <h6 class="text-secondary text-uppercase mb-3">About us</h6> -->
-        <h2 class="text-3xl text-[#19171fd2] font-bold mb-3">
-          Stop Overpaying, Discover What Makes Cayad the Most Cost-Effective Auto Transport Option
-        </h2>
-        <!-- <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p> -->
-        <div
-          class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 xs:px-0 sm:px-0 gap-8"
-        >
-          <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
-            <!-- <i class="fa fa-globe fa-3x text-primary mb-3"></i> -->
-            <img
-              src="../img/call.webp"
-              class="w-24 mb-2"
-              width="120"
-              height="120"
-              alt="car shipping call logo"
-            />
-            <h5 class="text-lg font-semibold text-[#19171fd2]">
-              Dedicated specialists
-            </h5>
-            <p class="xs:text-justify sm:text-justify">
-              Our dedicated specialists guided by our <a
-                href="/why-us/our-team/"
-                class="text-btn-blue hover:underline">executive team</a>, work closely with you to ensure you're choosing a <strong>transport company for cars</strong> that delivers unmatched value, efficiency, and care. Whether you need <strong>automotive </strong> <a
-                href="/how-auto-transport-works/"
-                class="text-btn-blue hover:underline">transport service</a> for local moves or <a
-                href="/how-auto-transport-works/ship-car-across-country/"
-                class="text-btn-blue hover:underline">cross-country</a> <strong> automobile transportation services</strong>, our specialists have you covered every step of the way.
-            </p>
-            
-          </div>
-          <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
-            <!-- <i class="fa fa-shipping-fast fa-3x text-primary mb-3"></i> -->
-            <img
-              src="../img/insurance.webp"
-              class="w-24 mb-2"
-              width="120"
-              height="120"
-              alt="car transport insurance logo"
-              title="insurance car shipping icon"
-            />
-            <h5 class="text-lg font-semibold text-[#19171fd2]">
-              <a
-              href="https://en.wikipedia.org/wiki/Insurance"
-              class="text-btn-blue hover:underline">Insurance</a> coverage
-            </h5>
-            <p class="xs:text-justify sm:text-justify">
-              <strong>Cayad Auto Transport</strong> includes essential <a
-                href="https://en.wikipedia.org/wiki/Insurance"
-                class="text-btn-blue hover:underline">insurance</a> coverage with every shipment, giving you peace of mind from pickup to delivery. We thoroughly vet each <strong>car freight company</strong> before adding them to our network, ensuring they meet strict safety and compliance standards. That’s how our specialists deliver reliable, secure, and cost-effective service every time you ship with us.
-            </p>
-            
-          </div>
-        </div>
+        Know Where Your Car Is Live
         <a
-          href="/quote/index.html"
-          class="btn bg-primary text-white py-3 px-5 me-3">Get a Quote</a
+          href="https://en.wikipedia.org/wiki/GPS_tracking_unit"
+          class="text-btn-blue hover:underline">GPS Tracking</a
+        >, Updated Every Second
+      </h3>
+
+      <p class="text-xl font-normal mb-4">
+        Book Now and Relax, We've Got Your Car Covered
+      </p>
+
+      <div
+        class="flex flex-row bg-gray-300 text-gray-800 justify-center xs:flex-col xs:px-3 xs:h-max sm:w-full sm:flex-col sm:px-3 sm:h-max md:w-full md:flex-col md:justify-center md:h-max xl:flex-row items-center h-700 mb-3"
+      >
+        <div
+          class="min-w-300px xs:mr-0 xs:mt-4 xs:mb-2 sm:mt-4 sm:mb-4 md:mt-4 xl:min-w-[300px] xl:px-4 md:mr-0 max-w-xl min-h-64 mr-4 mb-14"
+          data-aos="fade-right"
+          data-wow-delay="0.1s"
         >
-      </div>
-    </div>
-
-    
-
-    <div
-      class="container xs:mt-4 sm:mt-4 xs:min-w-[100%] sm:min-w-[100% mx-auto py-0"
-      id="services"
-      style="padding-bottom: 0rem;"
-    >
-      <div class="container xs:min-w-[100%] sm:min-w-[100%] py-0">
-        <div class="text-center wow" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="text-3xl text-[#19171fd2] font-bold mb-10">
-            Popular auto transport services
-          </h2>
+          <img
+            src="/img/track.webp"
+            class="rounded-xl"
+            style="object-fit: cover; width: 100%;"
+            alt="car shipping gps tracking"
+            width="1080"
+            height="810"
+          />
         </div>
         <div
-          class="grid grid-cols-3 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          class="w-2/5 xs:w-full sm:w-full md:w-11/12 xl:w-1/2 xl:mt-8 ml-4"
+          data-wow-delay="0.5s"
         >
-          <div class="wow" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item shadow p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="../img/door-image.webp"
-                  width="543"
-                  height="724"
-                  alt="door to door car shipping"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3"><a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">Door-to-Door</a> Shipping</h4>
-              <p>
-                Our <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">door-to-door</a> <strong> car shipping service</strong> offers the ultimate convenience. Simply provide the pickup and delivery addresses, and our trusted <strong>auto car transporters</strong> will handle the rest. A professional driver picks up your vehicle and delivers it as close to your door as safety and accessibility allow no terminals, no extra hassle. With <strong>Shipping Cayad</strong>, you get a seamless experience from start to finish.
+          <div class="row g-4 mb-5">
+            <div data-wow-delay="0.5s">
+              <h3 class="text-3xl text-h3-title font-medium">
+                Real-Time <a
+                  href="https://en.wikipedia.org/wiki/GPS_tracking_unit"
+                  class="text-btn-blue hover:underline">GPS Tracking</a
+                > You Can Rely On
+              </h3>
+              <p class="m-0 text-gray-800">
+                <br />
+                Our new <a
+                  href="https://en.wikipedia.org/wiki/GPS_tracking_unit"
+                  class="text-btn-blue hover:underline">GPS tracking</a
+                > system gives you complete visibility over your vehicle’s journey,
+                all in one place. Stay informed, share updates, and gain peace of
+                mind every step of the way.
+                <br /><br />
+                With our <a
+                  href="https://en.wikipedia.org/wiki/GPS_tracking_unit"
+                  class="text-btn-blue hover:underline">GPS Tracker</a
+                >, you can:
+                <br /><br />
+                <ol class="ml-4">
+                  <li class="text-gray-800">
+                    1. 🚗 Track your vehicle’s location in real time – updated
+                    constantly.
+                  </li>
+                  <li class="text-gray-800">
+                    2. 📄 Access the full <a
+                      href="https://en.wikipedia.org/wiki/Bill_of_lading"
+                      class="text-btn-blue hover:underline text-lg"
+                      >Bill of Lading
+                    </a>
+                    <a
+                      href="/pdfs/sample-bill-of-lading.pdf"
+                      class="text-btn-blue hover:underline text-lg">(BOL)</a
+                    > at any time.
+                  </li>
+                  <li class="text-gray-800">
+                    3. ⏱️ See the Estimated Time of Arrival (ETA) with
+                    precision.
+                  </li>
+                  <li class="text-gray-800">
+                    4. 🔗 Easily share tracking info via a <a
+                      href="https://bol.superdispatch.com/3aL7pk8evY46QByzNWqeqVyj?utm_source=Online+BOL&utm_medium=Copied+Link&source=stms"
+                      class="text-btn-blue hover:underline text-lg"
+                      >secure link
+                    </a>
+                  </li>
+                </ol>
+                <br />
               </p>
-              
-              <a
-                class="btn-slide mt-4 text-blue-500 hover:underline"
-                href="/for-individuals/door-to-door/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </i><span>Read More</span></a
-              >
+              <p class="text-gray-800">
+                Within our systems, more than 70% of loads have guaranteed
+                tracking and participation of the operator's <a
+                  href="https://en.wikipedia.org/wiki/Global_Positioning_System"
+                  class="text-btn-blue hover:underline text-lg"
+                  >GPS
+                </a>.
+              </p>
             </div>
           </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="700">
-            <div class="service-item shadow-sm p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="../img/enclosed-car.webp"
-                  width="1600"
-                  height="1200"
-                  alt="enclosed car shipping"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3"><a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">Enclosed</a> Car Transport</h4>
-              <p>
-                Choose <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a> trailers to shield your vehicle from weather, road debris, and other external elements, the ideal solution for <a href="/for-individuals/classic-cars-auto-transport/" class="text-btn-blue hover:underline">classic</a>, luxury, or specialty vehicles. As trusted <strong>auto car transporters</strong>, we make your vehicle’s safety our top priority with dependable <strong>auto and transport</strong> solutions. With <strong>transport auto</strong> services like those provided by <strong>Cayad Auto Shipping</strong>, your car arrives faster and in showroom condition.
-              </p>
-              
-              <a
-                class="btn-slide mt-2 text-blue-500 hover:underline"
-                href="/for-individuals/enclosed-auto-transport/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg></i
-                ><span>Read More</span></a
+          <div
+            class="hiw-cta-wrap xs:mb-4 md:mb-4 sm:mb-4 sm:flex-col xl:mb-8 xl:flex-row flex flex-row w-full items-center justify-end"
+          >
+            <a
+              href="/quote/"
+              id="Get Free Quote - Desktop - In Content"
+              class="with-mb-24 mr-1 js-animate-cta button-primary button-hover-effect tg-pcta-incontent cta-animation"
+            >
+              <span
+                class="mt-6 flex w-42 rounded items-center justify-center border border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
+                >Get a Quote</span
               >
-            </div>
+              <a
+                class="mt-6 ml-1 flex w-42 items-center rounded justify-center border border-btn-blue hover:bg-btn-hover hover:text-white transition-colors duration-500 ease-in-out focus:outline-none bg-white px-8 py-3 text-base font-medium text-btn-blue focus:ring-2 focus:ring-offset-2"
+                href="/how-auto-transport-works/"
+                class="with-mb-24 button-secondary button-hover-effect tg-scta-how-auto-transport-works"
+              >
+                <span class="button-text">Learn more</span>
+              </a>
+            </a>
           </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item shadow-sm p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="/img/open-car.webp"
-                  width="1600"
-                  height="900"
-                  alt="open auto transport hotshot"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3"><a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">Open</a> Auto Transport</h4>
-              <p>
-                Our <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline"><strong>open auto transport</strong></a> service is the most cost-effective way to ship your vehicle. We use <strong>open carriers</strong>, the industry standard, to ensure your car arrives safely and efficiently. This method is the preferred choice for most customers and works perfectly for everyday vehicles.
-              </p>
-              
-              <a
-                class="btn-slide mt-2 text-blue-500 hover:underline"
-                href="/for-individuals/open-car-transport/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg></i
-                ><span>Read More</span></a
-              >
-            </div>
-          </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="900">
-            <div class="service-item shadow-sm p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="/img/motorcycle1.webp"
-                  width="2560"
-                  height="1920"
-                  alt="motorcycle transport"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3"><a href="/for-individuals/motorcycle-shipping/" class="text-btn-blue hover:underline">Motorcycle</a> Shipping</h4>
-              <p>
-                At <strong>Cayad Auto Transport</strong>, we rely on experienced drivers equipped to handle your <a href="/for-individuals/motorcycle-shipping/" class="text-btn-blue hover:underline"><strong>motorcycle</strong></a> with care. From <a href="/for-individuals/motorcycle-shipping/" class="text-btn-blue hover:underline"><strong>motorcycles</strong></a> and scooters to <a
-                  href="https://en.wikipedia.org/wiki/All-terrain_vehicle"
-                  class="text-btn-blue hover:underline">ATVs</a>, <a
-                  href="https://en.wikipedia.org/wiki/Side-by-side_(vehicle)"
-                  class="text-btn-blue hover:underline">UTVs</a>, and other power-sport vehicles, we make sure each ride is properly loaded, securely fastened, and transported safely using our trusted <strong>auto and transport</strong> expertise.
-              </p>
-              
-              <a
-                class="btn-slide mt-2 text-blue-500 hover:underline"
-                href="/for-individuals/motorcycle-shipping/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg></i
-                ><span>Read More</span></a
-              >
-            </div>
-          </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="1000">
-            <div class="service-item shadow-sm p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="/img/classic-car5.webp"
-                  width="1978"
-                  height="1085"
-                  alt="classic car shipping"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3">
-                <a href="/for-individuals/classic-cars-auto-transport/" class="text-btn-blue hover:underline">Classic</a> & Luxury Car Transport
-              </h4>
-              <p>
-                At <strong>Cayad Transport</strong>, we specialize in transporting <a href="/for-individuals/classic-cars-auto-transport/" class="text-btn-blue hover:underline"><strong>classic</strong></a>, luxury, and exotic cars with the highest level of care. These valuable vehicles require expert handling and specialized equipment and that’s exactly what we deliver. With <strong>Cayad Car Transport</strong>, your collector car is protected every mile of the journey and arrives at its destination in pristine condition. Trust <strong>Cayad Cars</strong> to handle your vehicle with precision and professionalism.
-              </p>
-              
-              <a
-                class="btn-slide mt-2 text-blue-500 hover:underline"
-                href="/for-individuals/classic-cars-auto-transport/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg></i
-                ><span>Read More</span></a
-              >
-            </div>
-          </div>
-          <div class="wow" data-aos="fade-up" data-aos-delay="1100">
-            <div class="service-item h-max shadow-sm p-4">
-              <div class="overflow-hidden mb-4">
-                <img
-                  class="w-full rounded-xl h-auto"
-                  src="/img/resellerx360.webp"
-                  width="1024"
-                  height="576"
-                  alt="car shipping for resellers"
-                />
-              </div>
-              <h4 class="text-xl font-semibold mb-3">
-                <a href="/for-businesses/auto-auctions/" class="text-btn-blue hover:underline">Auction</a> & <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">Dealership</a> Transport
-              </h4>
-              <p>
-                At <strong>Cayad Auto Transport</strong>, we understand how important it is to move multiple vehicles quickly, safely, and without breaking your budget. That’s why we offer tailored solutions and special discounts just for you, whether you're moving inventory from <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">dealerships</a>, <a href="https://en.wikipedia.org/wiki/Auto_auction" class="text-btn-blue hover:underline">auto auctions</a>, ports, or commercial businesses. With years of experience in <strong>auto and transport</strong>, we provide a seamless <strong>automotive transport service</strong> designed to meet your unique needs. You can count on us to <strong>transport automotive</strong> fleets reliably, on time, and with the care they deserve.
-              </p>
-              
-              <a
-                class="btn-slide mt-2 text-blue-500 hover:underline"
-                href="/for-individuals/car-resellers-auto-transport/"
-                ><i class="fa fa-arrow-right"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-5 stroke-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg></i
-                ><span>Read More</span></a
-              >
-              <br />
-              <div class="mt-8">
+        </div>
+      </div>
+
+      <div
+        class="py-5 w-full flex xs:mt-12 sm:mt-12 xs:py-0 sm:py-0 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
+      >
+        <div
+          class="w-[60%] h-[550px] xs:w-[100%] px-2 xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
+          data-aos="fade-right"
+          data-aos-delay="100"
+        >
+          <img
+            src="img/open-trailer.webp"
+            class="adjust--img rounded-xl w-full h-[80%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
+            alt="car shipping hotshot"
+            width="1600"
+            height="708"
+          />
+        </div>
+        <div
+          class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
+        >
+          <!-- <h6 class="text-secondary text-uppercase mb-3">About us</h6> -->
+          <h2 class="text-3xl text-[#19171fd2] font-bold mb-3">
+            Stop Overpaying, Discover What Makes Cayad the Most Cost-Effective
+            Auto Transport Option
+          </h2>
+          <!-- <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p> -->
+          <div
+            class="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 xs:px-0 sm:px-0 gap-8"
+          >
+            <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
+              <!-- <i class="fa fa-globe fa-3x text-primary mb-3"></i> -->
+              <img
+                src="../img/call.webp"
+                class="w-24 mb-2"
+                width="120"
+                height="120"
+                alt="car shipping call logo"
+              />
+              <h5 class="text-lg font-semibold text-[#19171fd2]">
+                Dedicated specialists
+              </h5>
+              <p class="xs:text-justify sm:text-justify">
+                Our dedicated specialists guided by our <a
+                  href="/why-us/our-team/"
+                  class="text-btn-blue hover:underline">executive team</a
+                >, work closely with you to ensure you're choosing a <strong
+                  >transport company for cars</strong
+                > that delivers unmatched value, efficiency, and care. Whether you
+                need <strong>automotive </strong>
                 <a
-                  class="text-btn-blue hover:underline mt-4"
-                  href="./how-auto-transport-works/"
-                  >Find out how auto transport works</a
+                  href="/how-auto-transport-works/"
+                  class="text-btn-blue hover:underline">transport service</a
+                > for local moves or <a
+                  href="/how-auto-transport-works/ship-car-across-country/"
+                  class="text-btn-blue hover:underline">cross-country</a
+                >
+                <strong> automobile transportation services</strong>, our
+                specialists have you covered every step of the way.
+              </p>
+            </div>
+            <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
+              <!-- <i class="fa fa-shipping-fast fa-3x text-primary mb-3"></i> -->
+              <img
+                src="../img/insurance.webp"
+                class="w-24 mb-2"
+                width="120"
+                height="120"
+                alt="car transport insurance logo"
+                title="insurance car shipping icon"
+              />
+              <h5 class="text-lg font-semibold text-[#19171fd2]">
+                <a
+                  href="https://en.wikipedia.org/wiki/Insurance"
+                  class="text-btn-blue hover:underline">Insurance</a
+                > coverage
+              </h5>
+              <p class="xs:text-justify sm:text-justify">
+                <strong>Cayad Auto Transport</strong> includes essential <a
+                  href="https://en.wikipedia.org/wiki/Insurance"
+                  class="text-btn-blue hover:underline">insurance</a
+                > coverage with every shipment, giving you peace of mind from pickup
+                to delivery. We thoroughly vet each <strong
+                  >car freight company</strong
+                > before adding them to our network, ensuring they meet strict safety
+                and compliance standards. That’s how our specialists deliver reliable,
+                secure, and cost-effective service every time you ship with us.
+              </p>
+            </div>
+          </div>
+          <a
+            href="/quote/index.html"
+            class="btn bg-primary text-white py-3 px-5 me-3">Get a Quote</a
+          >
+        </div>
+      </div>
+
+      <div
+        class="container xs:mt-4 sm:mt-4 xs:min-w-[100%] sm:min-w-[100% mx-auto py-0"
+        id="services"
+        style="padding-bottom: 0rem;"
+      >
+        <div class="container xs:min-w-[100%] sm:min-w-[100%] py-0">
+          <div class="text-center wow" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="text-3xl text-[#19171fd2] font-bold mb-10">
+              Popular auto transport services
+            </h2>
+          </div>
+          <div
+            class="grid grid-cols-3 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <div class="wow" data-aos="fade-up" data-aos-delay="300">
+              <div class="service-item shadow p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="../img/door-image.webp"
+                    width="543"
+                    height="724"
+                    alt="door to door car shipping"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-individuals/door-to-door/"
+                    class="text-btn-blue hover:underline">Door-to-Door</a
+                  > Shipping
+                </h4>
+                <p>
+                  Our <a
+                    href="/for-individuals/door-to-door/"
+                    class="text-btn-blue hover:underline">door-to-door</a
+                  >
+                  <strong> car shipping service</strong> offers the ultimate convenience.
+                  Simply provide the pickup and delivery addresses, and our trusted
+                  <strong>auto car transporters</strong> will handle the rest. A
+                  professional driver picks up your vehicle and delivers it as close
+                  to your door as safety and accessibility allow no terminals, no
+                  extra hassle. With <strong>Shipping Cayad</strong>, you get a
+                  seamless experience from start to finish.
+                </p>
+
+                <a
+                  class="btn-slide mt-4 text-blue-500 hover:underline"
+                  href="/for-individuals/door-to-door/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                  </i><span>Read More</span></a
                 >
               </div>
             </div>
+            <div class="wow" data-aos="fade-up" data-aos-delay="700">
+              <div class="service-item shadow-sm p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="../img/enclosed-car.webp"
+                    width="1600"
+                    height="1200"
+                    alt="enclosed car shipping"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-individuals/enclosed-auto-transport/"
+                    class="text-btn-blue hover:underline">Enclosed</a
+                  > Car Transport
+                </h4>
+                <p>
+                  Choose <a
+                    href="/for-individuals/enclosed-auto-transport/"
+                    class="text-btn-blue hover:underline">enclosed</a
+                  > trailers to shield your vehicle from weather, road debris, and
+                  other external elements, the ideal solution for <a
+                    href="/for-individuals/classic-cars-auto-transport/"
+                    class="text-btn-blue hover:underline">classic</a
+                  >, luxury, or specialty vehicles. As trusted <strong
+                    >auto car transporters</strong
+                  >, we make your vehicle’s safety our top priority with
+                  dependable <strong>auto and transport</strong> solutions. With
+                  <strong>transport auto</strong> services like those provided by
+                  <strong>Cayad Auto Shipping</strong>, your car arrives faster
+                  and in showroom condition.
+                </p>
+
+                <a
+                  class="btn-slide mt-2 text-blue-500 hover:underline"
+                  href="/for-individuals/enclosed-auto-transport/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg></i
+                  ><span>Read More</span></a
+                >
+              </div>
+            </div>
+            <div class="wow" data-aos="fade-up" data-aos-delay="500">
+              <div class="service-item shadow-sm p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="/img/open-car.webp"
+                    width="1600"
+                    height="900"
+                    alt="open auto transport hotshot"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-individuals/open-car-transport/"
+                    class="text-btn-blue hover:underline">Open</a
+                  > Auto Transport
+                </h4>
+                <p>
+                  Our <a
+                    href="/for-individuals/open-car-transport/"
+                    class="text-btn-blue hover:underline"
+                    ><strong>open auto transport</strong></a
+                  > service is the most cost-effective way to ship your vehicle.
+                  We use <strong>open carriers</strong>, the industry standard,
+                  to ensure your car arrives safely and efficiently. This method
+                  is the preferred choice for most customers and works perfectly
+                  for everyday vehicles.
+                </p>
+
+                <a
+                  class="btn-slide mt-2 text-blue-500 hover:underline"
+                  href="/for-individuals/open-car-transport/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg></i
+                  ><span>Read More</span></a
+                >
+              </div>
+            </div>
+            <div class="wow" data-aos="fade-up" data-aos-delay="900">
+              <div class="service-item shadow-sm p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="/img/motorcycle1.webp"
+                    width="2560"
+                    height="1920"
+                    alt="motorcycle transport"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-individuals/motorcycle-shipping/"
+                    class="text-btn-blue hover:underline">Motorcycle</a
+                  > Shipping
+                </h4>
+                <p>
+                  At <strong>Cayad Auto Transport</strong>, we rely on
+                  experienced drivers equipped to handle your <a
+                    href="/for-individuals/motorcycle-shipping/"
+                    class="text-btn-blue hover:underline"
+                    ><strong>motorcycle</strong></a
+                  > with care. From <a
+                    href="/for-individuals/motorcycle-shipping/"
+                    class="text-btn-blue hover:underline"
+                    ><strong>motorcycles</strong></a
+                  > and scooters to <a
+                    href="https://en.wikipedia.org/wiki/All-terrain_vehicle"
+                    class="text-btn-blue hover:underline">ATVs</a
+                  >, <a
+                    href="https://en.wikipedia.org/wiki/Side-by-side_(vehicle)"
+                    class="text-btn-blue hover:underline">UTVs</a
+                  >, and other power-sport vehicles, we make sure each ride is
+                  properly loaded, securely fastened, and transported safely
+                  using our trusted <strong>auto and transport</strong> expertise.
+                </p>
+
+                <a
+                  class="btn-slide mt-2 text-blue-500 hover:underline"
+                  href="/for-individuals/motorcycle-shipping/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg></i
+                  ><span>Read More</span></a
+                >
+              </div>
+            </div>
+            <div class="wow" data-aos="fade-up" data-aos-delay="1000">
+              <div class="service-item shadow-sm p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="/img/classic-car5.webp"
+                    width="1978"
+                    height="1085"
+                    alt="classic car shipping"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-individuals/classic-cars-auto-transport/"
+                    class="text-btn-blue hover:underline">Classic</a
+                  > & Luxury Car Transport
+                </h4>
+                <p>
+                  At <strong>Cayad Transport</strong>, we specialize in
+                  transporting <a
+                    href="/for-individuals/classic-cars-auto-transport/"
+                    class="text-btn-blue hover:underline"
+                    ><strong>classic</strong></a
+                  >, luxury, and exotic cars with the highest level of care.
+                  These valuable vehicles require expert handling and
+                  specialized equipment and that’s exactly what we deliver. With <strong
+                    >Cayad Car Transport</strong
+                  >, your collector car is protected every mile of the journey
+                  and arrives at its destination in pristine condition. Trust <strong
+                    >Cayad Cars</strong
+                  > to handle your vehicle with precision and professionalism.
+                </p>
+
+                <a
+                  class="btn-slide mt-2 text-blue-500 hover:underline"
+                  href="/for-individuals/classic-cars-auto-transport/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg></i
+                  ><span>Read More</span></a
+                >
+              </div>
+            </div>
+            <div class="wow" data-aos="fade-up" data-aos-delay="1100">
+              <div class="service-item h-max shadow-sm p-4">
+                <div class="overflow-hidden mb-4">
+                  <img
+                    class="w-full rounded-xl h-auto"
+                    src="/img/resellerx360.webp"
+                    width="1024"
+                    height="576"
+                    alt="car shipping for resellers"
+                  />
+                </div>
+                <h4 class="text-xl font-semibold mb-3">
+                  <a
+                    href="/for-businesses/auto-auctions/"
+                    class="text-btn-blue hover:underline">Auction</a
+                  > & <a
+                    href="/for-businesses/auto-dealers/"
+                    class="text-btn-blue hover:underline">Dealership</a
+                  > Transport
+                </h4>
+                <p>
+                  At <strong>Cayad Auto Transport</strong>, we understand how
+                  important it is to move multiple vehicles quickly, safely, and
+                  without breaking your budget. That’s why we offer tailored
+                  solutions and special discounts just for you, whether you're
+                  moving inventory from <a
+                    href="/for-businesses/auto-dealers/"
+                    class="text-btn-blue hover:underline">dealerships</a
+                  >, <a
+                    href="https://en.wikipedia.org/wiki/Auto_auction"
+                    class="text-btn-blue hover:underline">auto auctions</a
+                  >, ports, or commercial businesses. With years of experience
+                  in <strong>auto and transport</strong>, we provide a seamless <strong
+                    >automotive transport service</strong
+                  > designed to meet your unique needs. You can count on us to <strong
+                    >transport automotive</strong
+                  > fleets reliably, on time, and with the care they deserve.
+                </p>
+
+                <a
+                  class="btn-slide mt-2 text-blue-500 hover:underline"
+                  href="/for-individuals/car-resellers-auto-transport/"
+                  ><i class="fa fa-arrow-right"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-5 stroke-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg></i
+                  ><span>Read More</span></a
+                >
+                <br />
+                <div class="mt-8">
+                  <a
+                    class="text-btn-blue hover:underline mt-4"
+                    href="./how-auto-transport-works/"
+                    >Find out how auto transport works</a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div
-      class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 mx-auto overflow-hidden px-0"
-    >
       <div
-        class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
+        class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 mx-auto overflow-hidden px-0"
       >
-        <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
-          Trust Backed by Experience in Automotive Transport Service
-        </h2>
         <div
-          class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
+          class="container xs:min-w-[100%] xs:px-2 sm:min-w-[100%] sm:px-2 py-10 px-0"
         >
-          <div class="wow" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-              <img
-                src="../img/dollar.webp"
-                width="1080"
-                height="1080"
-                class="w-24 h-20 mb-2"
-                alt="vehicle shipping dollar logo"
-              />
-              <div class="ml-4">
-                <h5 class="font-semibold">Zero Upfront Payment</h5>
-                <p class="xs:text-start sm:text-start mb-0">
-                  That’s right, you don’t pay anything upfront. Unlike other companies, the best <strong>auto transport services</strong> only charge once a carrier is assigned to your shipment. At <strong>Cayad Auto Transport</strong>, you can book your <strong>car shipping</strong> order today with total peace of mind and take care of the payment later.
-                </p>
-                
-              </div>
-            </div>
-            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-              <img
-                src="../img/countries.webp"
-                width="1080"
-                height="1080"
-                class="w-24 h-20 mb-2"
-                alt="car transport usa map logo"
-              />
-              <div class="ml-4">
-                <h5 class="font-semibold">20,000+ Trusted Auto Carriers</h5>
-                <p class="xs:text-start sm:text-start mb-0">
-                  At <strong>Cayad Auto Transport</strong>, we work with a vast network of over 20,000 personally vetted <strong>auto shipping</strong> experts. Each <strong>company that transports cars</strong> in our network meets strict safety, <a
-                    href="https://en.wikipedia.org/wiki/Insurance"
-                    class="text-btn-blue hover:underline">insurance</a>, and reliability standards. We partner only with the most trusted <strong>automobile transportation companies</strong> and <strong>car transport agencies</strong> to ensure your vehicle is handled with care, and professionalism every step of the way.
-                </p>
-                
-              </div>
-            </div>
-            <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
-              <img
-                src="../img/easy.webp"
-                width="1080"
-                height="1080"
-                class="w-24 h-24 mb-2"
-                alt="car shipping easy logo"
-              />
-              <div class="ml-4">
-                <h5 class="font-semibold">A Personalized Approach to Auto Transport</h5>
-                <p class="xs:text-start sm:text-start mb-0">
-                  At <strong>Cayad Auto Transport</strong>, we guide you through <a
-                    href="/how-auto-transport-works/"
-                    class="text-btn-blue hover:underline">every step</a> of your vehicle’s journey. From the moment you request a quote to the final delivery, our team stays connected and responsive. When you choose us as your <strong>car transporter</strong>, you get a smooth, hassle-free <strong>auto transport</strong> experience tailored to your needs simple, secure, and stress-free.
-                </p>
-                
-              </div>
-            </div>
-            <div class="flex mb-0 wow" data-aos="fade-up" data-aos-delay="700">
-              <img
-                src="../img/stars.webp"
-                width="500"
-                height="500"
-                class="w-24 h-24 mb-2"
-                alt="auto transport stars logo"
-              />
-              <div class="ml-4">
-                <h5 class="font-semibold">The Most Cost-Effective <a
-                  href="/why-us/reviews/"
-                  class="text-btn-blue hover:underline">5-Star</a> Auto Transport Company</h5>
-                  <p class="xs:text-start sm:text-start mb-0">
-                    <strong>Cayad Auto Transport</strong> delivers unbeatable value without compromising service. As a top-rated, cost-effective <strong>auto shipping company</strong>, we make sure your vehicle gets from point A to point B smoothly and safely without you lifting a finger. With direct <a
-                      href="/for-individuals/door-to-door/"
-                      class="text-btn-blue hover:underline">door-to-door</a> delivery, our experienced specialists handle every detail, so you can relax while we take care of the road ahead.
-                  </p>
-                  
-              </div>
-            </div>
-          </div>
+          <h2 class="text-4xl text-[#19171fd2] font-medium mb-10">
+            Trust Backed by Experience in Automotive Transport Service
+          </h2>
           <div
-            class="relative wow"
-            data-aos="fade-right"
-            data-aos-delay="100"
-            style="min-height: 400px;"
+            class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
           >
-            <div class="h-full">
-              <img
-                src="img/company.webp"
-                width="1080"
-                height="810"
-                class="object-cover rounded-xl w-full h-full"
-                alt="auto transport hauler 9 spots"
-              />
+            <div class="wow" data-aos="fade-up" data-aos-delay="100">
+              <div
+                class="flex mb-10 wow"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <img
+                  src="../img/dollar.webp"
+                  width="1080"
+                  height="1080"
+                  class="w-24 h-20 mb-2"
+                  alt="vehicle shipping dollar logo"
+                />
+                <div class="ml-4">
+                  <h5 class="font-semibold">Zero Upfront Payment</h5>
+                  <p class="xs:text-start sm:text-start mb-0">
+                    That’s right, you don’t pay anything upfront. Unlike other
+                    companies, the best <strong>auto transport services</strong>
+                    only charge once a carrier is assigned to your shipment. At <strong
+                      >Cayad Auto Transport</strong
+                    >, you can book your <strong>car shipping</strong> order today
+                    with total peace of mind and take care of the payment later.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex mb-10 wow"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <img
+                  src="../img/countries.webp"
+                  width="1080"
+                  height="1080"
+                  class="w-24 h-20 mb-2"
+                  alt="car transport usa map logo"
+                />
+                <div class="ml-4">
+                  <h5 class="font-semibold">20,000+ Trusted Auto Carriers</h5>
+                  <p class="xs:text-start sm:text-start mb-0">
+                    At <strong>Cayad Auto Transport</strong>, we work with a
+                    vast network of over 20,000 personally vetted <strong
+                      >auto shipping</strong
+                    > experts. Each <strong>company that transports cars</strong
+                    > in our network meets strict safety, <a
+                      href="https://en.wikipedia.org/wiki/Insurance"
+                      class="text-btn-blue hover:underline">insurance</a
+                    >, and reliability standards. We partner only with the most
+                    trusted <strong>automobile transportation companies</strong>
+                    and <strong>car transport agencies</strong> to ensure your vehicle
+                    is handled with care, and professionalism every step of the way.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex mb-10 wow"
+                data-aos="fade-up"
+                data-aos-delay="500"
+              >
+                <img
+                  src="../img/easy.webp"
+                  width="1080"
+                  height="1080"
+                  class="w-24 h-24 mb-2"
+                  alt="car shipping easy logo"
+                />
+                <div class="ml-4">
+                  <h5 class="font-semibold">
+                    A Personalized Approach to Auto Transport
+                  </h5>
+                  <p class="xs:text-start sm:text-start mb-0">
+                    At <strong>Cayad Auto Transport</strong>, we guide you
+                    through <a
+                      href="/how-auto-transport-works/"
+                      class="text-btn-blue hover:underline">every step</a
+                    > of your vehicle’s journey. From the moment you request a quote
+                    to the final delivery, our team stays connected and responsive.
+                    When you choose us as your <strong>car transporter</strong>,
+                    you get a smooth, hassle-free <strong>auto transport</strong
+                    > experience tailored to your needs simple, secure, and stress-free.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex mb-0 wow"
+                data-aos="fade-up"
+                data-aos-delay="700"
+              >
+                <img
+                  src="../img/stars.webp"
+                  width="500"
+                  height="500"
+                  class="w-24 h-24 mb-2"
+                  alt="auto transport stars logo"
+                />
+                <div class="ml-4">
+                  <h5 class="font-semibold">
+                    The Most Cost-Effective <a
+                      href="/why-us/reviews/"
+                      class="text-btn-blue hover:underline">5-Star</a
+                    > Auto Transport Company
+                  </h5>
+                  <p class="xs:text-start sm:text-start mb-0">
+                    <strong>Cayad Auto Transport</strong> delivers unbeatable value
+                    without compromising service. As a top-rated, cost-effective
+                    <strong>auto shipping company</strong>, we make sure your
+                    vehicle gets from point A to point B smoothly and safely
+                    without you lifting a finger. With direct <a
+                      href="/for-individuals/door-to-door/"
+                      class="text-btn-blue hover:underline">door-to-door</a
+                    > delivery, our experienced specialists handle every detail,
+                    so you can relax while we take care of the road ahead.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative wow"
+              data-aos="fade-right"
+              data-aos-delay="100"
+              style="min-height: 400px;"
+            >
+              <div class="h-full">
+                <img
+                  src="img/company.webp"
+                  width="1080"
+                  height="810"
+                  class="object-cover rounded-xl w-full h-full"
+                  alt="auto transport hauler 9 spots"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <ButtonScrollTop client:load />
   </div>
-
-  <ButtonScrollTop client:load />
 </Layout>
