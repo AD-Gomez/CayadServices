@@ -6,34 +6,10 @@ const ButtonChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [vibrationCount, setVibrationCount] = useState(0);
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMouseEnter = () => setIsOpen(true);
   const handleMouseLeave = () => setIsOpen(false);
-
-  const handleMessengerClick = () => {
-    window.dataLayer.push({
-      'event': 'click_messenger',
-      'eventCategory': 'Botón de Chat',
-      'eventAction': 'Clic',
-      'eventLabel': 'Messenger'
-    });
-    setTimeout(() => {
-      window.open('https://m.me/116222094837969', '_blank');
-    }, 300);
-  };
-
-  const handleWhatsappClick = () => {
-    window.dataLayer.push({
-      'event': 'click_whatsapp',
-      'eventCategory': 'Botón de Chat',
-      'eventAction': 'Clic',
-      'eventLabel': 'WhatsApp'
-    });
-    setTimeout(() => {
-      window.open('https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0', '_blank');
-    }, 300);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +24,7 @@ const ButtonChat = () => {
   // 🔁 Vibración cada 7 segundos, hasta 14 veces
   useEffect(() => {
     const maxVibrations = 14;
+
     const interval = setInterval(() => {
       if (!isOpen && vibrationCount < maxVibrations && buttonRef.current) {
         buttonRef.current.classList.remove("vibrate");
@@ -72,25 +49,30 @@ const ButtonChat = () => {
     >
       {isOpen && (
         <div className="mb-2 flex flex-col items-end space-y-2 transition-all duration-300">
-          <button
-            onClick={handleMessengerClick}
+          <a
+            href="https://m.me/116222094837969"
+            target="_blank"
+            rel="noopener noreferrer"
             className="h-12 w-12 flex items-center justify-center text-[1.8rem] text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open Facebook Messenger"
             data-gtm="messenger-button"
           >
             <FaFacebookMessenger />
-          </button>
-          <button
-            onClick={handleWhatsappClick}
+          </a>
+          <a
+            href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
             className="h-12 w-12 flex items-center justify-center bg-green-500 text-[2rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open WhatsApp"
             data-gtm="whatsapp-button"
             
           >
             <IoLogoWhatsapp />
-          </button>
+          </a>
         </div>
       )}
+
       <button
         ref={buttonRef}
         className={`h-12 w-12 flex items-center justify-center bg-btn-blue text-white rounded-full shadow-lg transform transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'
