@@ -8,7 +8,7 @@ const steps = [
   {
     label: 'Step 1',
   title: 'Quote and Book Your Auto Transport',
-  description: ' Enter your pickup and delivery info to get a free quote in seconds. Choose your transport type, confirm your price, and book online fast, secure, and backed by a reliable car transportation company.',
+  description: ' Enter your pickup and delivery info to get a premium quote in seconds. Choose your transport type, confirm your price, and book online fast, secure, and backed by a reliable car transportation company.',
   span: 'Tap or click to get your instant vehicle shipping quote',
     img: why1,
     hasButton: true
