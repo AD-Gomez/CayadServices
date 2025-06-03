@@ -60,7 +60,7 @@ const CountNumber = () => {
               className="text-white mb-2 text-[2rem] font-semibold "
               data-toggle="counter-up"
             >
-              <CountUpComponent start={0} end={100} duration={2} />
+              <CountUpComponent start={0} end={250} duration={2} />
             </h2>
             <h2
               className="text-white mb-2 text-[2rem] font-semibold"
