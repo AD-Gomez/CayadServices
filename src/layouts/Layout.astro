@@ -84,6 +84,29 @@ const { title, content } = Astro.props;
 
     <title>{title}</title>
   </head>
+      <!-- ✅ google tag help from support -->
+  <script>
+  document.addEventListener(
+    "click",
+    function (e) {
+      if (e.target.closest('[href*="https://m.me/"]')) {
+        gtag("event", "conversion", {
+          send_to: "AW-11465331667/oBZ-CLzjjc8aENOnjNsq",
+        })
+      }
+
+      if (e.target.closest('[href*="https://api.whatsapp.com"]')) {
+        gtag("event", "conversion", {
+          send_to: "AW-11465331667/JEp1CIe0ms8aENOnjNsq",
+        })
+      }
+    },
+    {
+      capture: true,
+    },
+  )
+</script>
+
   <body class="relative">
     
     <!-- ✅ Google Tag Manager (noscript) -->
