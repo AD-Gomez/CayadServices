@@ -95,7 +95,7 @@ const ShowDestination = () => {
 
           <span className='text-sm'>
             That's ok! You can change at any time with one of our friendly specialists! <a
-              href="tel:(469) 619-0747"
+              href="tel:+14696190747"
             >
               <h5 class="text-primary text-base font-semibold m-0 text-btn-blue mt-4">
                 Call now (469) 619-0747
