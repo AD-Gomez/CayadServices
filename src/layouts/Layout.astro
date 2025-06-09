@@ -19,46 +19,6 @@ const { title, content } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google Ads Global Site Tag - 06/08/2025 -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-4959119331"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'AW-4959119331');
-      </script>
-<!-- End Google Ads Global Site Tag -->
-
-
-    <!-- Meta Pixel Code 6/8/25 -->
-      <script>
-        !function(f,b,e,v,n,t,s) {
-          if(f.fbq)return;n=f.fbq=function() {
-            n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
-          };
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)
-        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        
-        fbq('init', '1530888377447464');
-        fbq('track', 'PageView');
-      </script>
-    <!-- Meta Pixel Code 6/8/25 -->
-
-    <!-- Google Analytics tag (gtag.js) 6/8/25-->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-KR8PHJLS6S"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-KR8PHJLS6S');
-      </script>
-<!-- Google Analytics tag (gtag.js) 6/8/25-->
     <!-- Google Tag Manager 6/8/25-->
       <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -67,7 +27,7 @@ const { title, content } = Astro.props;
         'https://www.googletagmanager.com/gtm.js?id=GTM-NT3H9XXW'+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-NT3H9XXW');
       </script>
-<!-- End Google Tag Manager 6/8/25-->
+    <!-- End Google Tag Manager 6/8/25-->
     <meta charset="UTF-8" />
     <meta name="description" content={content} />
     <meta name="viewport" content="width=device-width" />
@@ -104,20 +64,14 @@ const { title, content } = Astro.props;
   </head>
 
   <body class="relative">
-        <!-- Meta Pixel Code 6/8/25 -->
-    <noscript>
-  <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1530888377447464&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- Meta Pixel Code 6/8/25 -->
-
+        
 
     <!-- Google Tag Manager (noscript) 6/8/25-->
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
       height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- End Google Tag Manager (noscript) -->
 
     <Navbar client:load />
     <slot />
@@ -188,33 +142,37 @@ const { title, content } = Astro.props;
       </div>
     </div>
     <!-- shared socials -->
-    <script>
-      const btn = document.getElementById("toggleShareMenu");
-      const menu = document.getElementById("socialMenu");
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const btn = document.getElementById("toggleShareMenu");
+          const menu = document.getElementById("socialMenu");
 
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-        btn.classList.toggle("clicked");
-      });
+          if (!btn || !menu) return; // Salir si no existen los elementos
 
-      let vibrationCount = 0;
-      const maxVibrations = 14;
-      const vibrateInterval = setInterval(() => {
-        // Si el menú sigue oculto y no hemos llegado al límite
-        if (
-          menu.classList.contains("hidden") &&
-          vibrationCount < maxVibrations
-        ) {
-          btn.classList.remove("vibrate");
-          void btn.offsetWidth;
-          btn.classList.add("vibrate");
-          vibrationCount++;
-        }
-        if (vibrationCount >= maxVibrations) {
-          clearInterval(vibrateInterval);
-        }
-      }, 3000);
-    </script>
-        <!-- shared socials -->
+          btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+            btn.classList.toggle("clicked");
+          });
+
+          let vibrationCount = 0;
+          const maxVibrations = 14;
+
+          const vibrateInterval = setInterval(() => {
+            if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
+              btn.classList.remove("vibrate");
+
+              // Forzar reflow para reiniciar la animación
+              void btn.offsetWidth;
+
+              btn.classList.add("vibrate");
+              vibrationCount++;
+            } else if (vibrationCount >= maxVibrations || !menu.classList.contains("hidden")) {
+              clearInterval(vibrateInterval);
+            }
+          }, 3000);
+        });
+      </script>
+<!-- shared socials -->
+
   </body>
 </html>
