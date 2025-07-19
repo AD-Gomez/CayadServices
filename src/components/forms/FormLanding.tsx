@@ -90,7 +90,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
           </div>
           <div className="flex gap-4 py-2">
             <p className='text-sm'>
-              Select <b>Transport Type</b>
+              <b>Transport Type</b>
             </p>
             <Controller
               name="transport_type"
@@ -319,7 +319,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               </div>
 
               <div className="flex w-full justify-around">
-                <p className='xs:text-sm'>Is The <b className=''>Vehicle Operable?</b></p>
+                <p className='xs:text-sm'>Is it <b className=''>Running?</b></p>
                 <div>
                   <Controller
                     name={`Vehicles.${index}.vehicle_inop`}
@@ -391,7 +391,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-function separarCiudadYEstado (locationString: string) {
+function separarCiudadYEstado(locationString: string) {
   const [city, state] = locationString.split(',').map(part => part.trim());
 
   return {
@@ -477,10 +477,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <div className="flex text-xs gap-4 py-2 border-b border-dashed">
             <small id="termsAndConditions">
-              By providing your phone number/email and clicking through,
-              you agree to our Terms, Privacy Policy, and authorize us to make or initiate sales calls, text msgs, and
-              prerecorded voicemails to that number using an automated system. Your agreement is not a
-              condition of purchasing products, goods or services. You may opt out at any time.
+              By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
+              <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+              and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
             </small>
           </div>
           <button
@@ -569,7 +568,7 @@ const FormLanding = () => {
           vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
           vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
           vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
+          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Running";
           send = { ...send, ...vehicleData };
         });
       }
@@ -607,10 +606,32 @@ const FormLanding = () => {
     }
   }, [activeStep]);
   return (
-    <div className="max-w-[500px] mb-8 min-w-[450px] mx-auto min-h-96 max-h-[450px] flex-nowrap  xs:min-w-[95%] sm:min-w-[90%] md:min-w-[60%]	overflow-auto	 bg-white flex justify-between items-center flex-col">
+    <div className="
+      mx-auto 
+      mb-8 
+      flex 
+      flex-col 
+      items-center 
+      justify-between 
+      overflow-auto 
+      rounded-lg 
+      bg-white 
+      min-h-96 
+      max-h-[450px] 
+      w-[95%] 
+      sm:w-[90%] 
+      md:w-[60%] 
+      lg:w-[500px] 
+      max-w-[500px]
+    ">
       {renderContent()}
     </div>
+
   );
 };
 
 export default FormLanding;
+
+
+
+

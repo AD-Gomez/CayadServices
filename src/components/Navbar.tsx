@@ -57,14 +57,14 @@ const whyUs = [
   { description: 'Growth', href: '/why-us/growth/', icon: CursorArrowRaysIcon },
   { description: 'Our team', href: '/why-us/our-team/', icon: FingerPrintIcon },
   { description: 'Vision and Mission', href: '/why-us/vision-mission/', icon: FingerPrintIcon },
-  { description: 'Blog', href: '#', icon: FingerPrintIcon }
+  { description: 'Blog 🚧', href: '#', icon: FingerPrintIcon }
 ]
 
-function classNames (...classes: any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example () {
+export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openPopover, setOpenPopover] = useState<string | null>(null)
   const [currentPath, setCurrentPath] = useState('');
@@ -95,16 +95,18 @@ export default function Example () {
             </a>
           </div>
 
-          <div className="hidden lg:hidden md:flex xs:flex sm:flex xl:hidden">
+          <div className="flex  xl:hidden lg:hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon className=" h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
+              <Bars3Icon className="h-12 w-12 text-btn-blue font-bold" aria-hidden="true" />
             </button>
           </div>
+
+
           <PopoverGroup className="flex gap-x-6 xs:hidden sm:hidden md:hidden lg:flex  lg:gap-6 xl:gap-6">
 
             <Popover
@@ -280,7 +282,7 @@ export default function Example () {
                     isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
                     'flex items-center p-2 hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
-                    WHY US?
+                    ABOUT US
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                   </Popover.Button>
 
@@ -324,7 +326,7 @@ export default function Example () {
             </a>
             <div className="flex p-2">
               <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
-              <a href="tel:469-619-0747" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
+              <a href="tel:+14696190747" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
                 (469) 619-0747
               </a>
             </div>
@@ -454,7 +456,7 @@ export default function Example () {
                         <DisclosureButton
                           className={`flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold ${isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]'}
                         leading-7 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100`}>
-                          WHY US?
+                          ABOUT US
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
@@ -481,7 +483,7 @@ export default function Example () {
                   </a>
                   <div className="flex ">
                     <FaPhone className="text-[#00a1ef] text-lg mr-2 mt-1" />
-                    <a href="tel:469-619-0747" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
+                    <a href="tel:+14696190747" className="text-[18px] text-[#00a1ef] font-semibold leading-6 ">
                       (469) 619-0747
                     </a>
                   </div>
@@ -497,7 +499,7 @@ export default function Example () {
                 >
                   <div><p className="ml-2 text-black">IN GOD WE TRUST</p></div>
                   <div className="mb-3 flex text-black xs:text-xs sm:text-sm md:text-base md:mb-0">
-                    &copy;2024
+                    &copy; 2023-2025
                     <a
                       className="ml-2 mr-2"
                       href="https://www.cayadservices.com">Cayad Services LLC</a>
