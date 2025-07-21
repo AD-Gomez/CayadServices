@@ -13,7 +13,11 @@
     "@astrojs/check": "0.7.0",
     "@astrojs/partytown": "2.1.1",
     "@astrojs/react": "3.4.0",
+<<<<<<< HEAD
+    "@astrojs/sitemap": "^3.1.6",
+=======
     "@astrojs/sitemap": "3.1.6",
+>>>>>>> d2d1f696c8c9bf01d629e91e36f71e0bb93e95d3
     "@astrojs/tailwind": "5.1.0",
     "@googlemaps/js-api-loader": "1.16.6",
     "@headlessui/react": "2.0.4",

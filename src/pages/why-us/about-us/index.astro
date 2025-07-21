@@ -5,7 +5,11 @@ import Testimonials from "../../../components/Testimonials";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
+import { FaDotCircle } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
+import { HiChevronRight } from "react-icons/hi";
 ---
+
 <style>
   .custom-background {
     background:
@@ -13,10 +17,43 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       url("/img/how.webp") center center no-repeat;
     background-size: cover;
   }
+
+  .content--left::after {
+    content: url("../../../../public/icons/rigthArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 99%;
+    font-weight: 700;
+    margin-left: 8px;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(100%) translateY(35%);
+  }
+
+  .content--right::after {
+    content: url("../../../../public/icons/leftArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 100%;
+    font-weight: 700;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(-3%) translateY(35%);
+  }
+
+  @media (max-width: 767px) {
+    .content--right::after {
+      content: none;
+    }
+
+    .content--left::after {
+      content: none;
+    }
+  }
 </style>
 
-<Layout title="Car Shipping History | Cayad Auto Transport"
-content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA.">
+<Layout
+  title="Car Shipping History | Cayad Auto Transport"
+  content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA."
+>
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
@@ -37,6 +74,13 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
     <Testimonials title="Real Auto Transport Testimonials" client:load />
   </div>
 
+<<<<<<< HEAD
+  <div
+    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
+  >
+    <div class="w-full flex items-center justify-center">
+      <h5 class="text-center w-[100px] p-2 rounded-full border-2">2024</h5>
+=======
   <div class="w-full mt-12 h-max flex justify-center">
     <div
       class="w-[80%] xs:w-[100%] sm:w-[100%] xs:px-4 sm:px-4 py-8 min-h-[300px] max-h-[360px] rounded bg-[#f5f7fa] shadow-xl"
@@ -53,27 +97,35 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
           <GetQuote />
         </div>
       </div>
+>>>>>>> a48e2293441cf3cf879696840bbaf67875f91336
     </div>
-  </div>
-
-  <div class="w-full mt-12 flex justify-center">
     <div
-      class="w-[80%] flex xs:mt-12 sm:mt-12 xs:px-4 sm:px-4 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
+      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
     >
       <div
-        class="w-[60%] h-[100%] xl:h-[90%] xs:w-[100%] xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
-        data-aos="fade-right"
-        data-aos-delay="100"
+        class="w-[45%] xs:w-full sm:w-full md:w-[40%] h-[200px] flex flex-col items-center p-4 relative border-4 content--left"
       >
-        <img
-          src="/img/Cayad3.webp"
-          class="adjust--img rounded-xl w-full h-[100%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
-          alt=""
+        <h4 class="text-3xl font-semibold">Great Place To Work.</h4>
+        <p>Certified in Feb 2024 - Feb 2025</p>
+      </div>
+      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
+        <FaDotCircle
+          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
         />
       </div>
       <div
-        class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
+        class="w-[45%] xs:w-full sm:w-full md:w-[50%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex flex-col items-center p-4 relative border-4 content--right"
       >
+<<<<<<< HEAD
+        <h4 class="text-3xl w-full font-semibold">
+          Great Place to Work Certified
+        </h4>
+        <p class="text-sm mt-2">
+          Montway became a Great Place To Work company, a certification that
+          recognizes employers who create an outstanding employee experience.
+          When surveyed, 87% of staff say that Montway is a great place to work.
+        </p>
+=======
         <h2 class="text-3xl text-[#00000] font-bold mb-3">
           Why you should book with one of the top-rated auto transport
           companies:
@@ -124,10 +176,13 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
             <i class="fa fa-phone-alt mr-3"></i> Call Now
           </a>
         </div>
+>>>>>>> a48e2293441cf3cf879696840bbaf67875f91336
       </div>
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
   <div
     class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
   >
@@ -196,6 +251,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
       </div>
     </div>
   </div>
+>>>>>>> d2d1f696c8c9bf01d629e91e36f71e0bb93e95d3
   <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>
