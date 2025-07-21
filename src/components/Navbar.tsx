@@ -54,7 +54,7 @@ const forBusinesses = [
 
 const whyUs = [
   { description: 'Reviews', href: '/why-us/reviews/', icon: ChartPieIcon },
-  //{ description: 'About us', href: '/why-us/about-us/', icon: CursorArrowRaysIcon },
+  { description: 'Growth', href: '/why-us/growth/', icon: CursorArrowRaysIcon },
   { description: 'Our team', href: '/why-us/our-team/', icon: FingerPrintIcon },
   { description: 'Vision and Mission', href: '/why-us/vision-mission/', icon: FingerPrintIcon },
   { description: 'Blog 🚧', href: '#', icon: FingerPrintIcon }
@@ -76,7 +76,7 @@ export default function Example() {
 
   const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
   const pathsToCheckForIBusinesses = ['/for-businesses', ...forBusinesses.map(item => item.href)];
-  const pathsToCheckHowItWork = ['/how-auto-transport-works', ...whyUs.map(item => item.href)];
+  const pathsToCheckHowItWork = ['/how-auto-transport-works', ...howItWork.map(item => item.href)];
   const pathsToCheckWhyUs = ['/why-us', ...whyUs.map(item => item.href)];
   const isPopoverActive = pathsToCheckForIndividuals.some(path => isActive(path));
   const isPopoverBusinessesActive = pathsToCheckForIBusinesses.some(path => isActive(path));
