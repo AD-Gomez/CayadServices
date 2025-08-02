@@ -15,18 +15,17 @@ import FormQuote from "../../components/forms/FormQuote";
       sizes="120x120"
     />
     <title>Car Shipping Quote | Cayad Auto Transport</title>
-    <script is:inline>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+    
+    <!--google tag head -->
+        <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-N3DG6F8M');
     </script>
+    <!--google tag head -->
+
   </head>
   <link rel="canonical" href="https://cayadservices.com/quote" />
   <div
@@ -35,13 +34,11 @@ import FormQuote from "../../components/forms/FormQuote";
     <FormQuote client:load />
   </div>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"></iframe></noscript
-    >
+    <!--google tag body -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!--google tag body -->
 </html>
 </body>
