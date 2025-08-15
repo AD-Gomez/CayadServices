@@ -39,11 +39,6 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://cayadservices.com/why-us/our-team/</loc>
-  <lastmod>2024-08-15T16:54:46+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
   <loc>https://cayadservices.com/for-businesses/heavy-haul/</loc>
   <lastmod>2024-08-15T16:54:46+00:00</lastmod>
   <priority>0.80</priority>
@@ -55,11 +50,6 @@
 </url>
 <url>
   <loc>https://cayadservices.com/for-individuals/enclosed-auto-transport/</loc>
-  <lastmod>2024-08-15T16:54:46+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://cayadservices.com/for-individuals/car-buyers-auto-transport/</loc>
   <lastmod>2024-08-15T16:54:46+00:00</lastmod>
   <priority>0.80</priority>
 </url>
@@ -99,6 +89,11 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://cayadservices.com/for-individuals/car-buyers-auto-transport/</loc>
+  <lastmod>2024-08-15T16:54:46+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://cayadservices.com/for-individuals/car-resellers-auto-transport/</loc>
   <lastmod>2024-08-15T16:54:46+00:00</lastmod>
   <priority>0.80</priority>
@@ -119,7 +114,12 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://cayadservices.com/why-us/vision-mission/</loc>
+  <loc>https://cayadservices.com/why-us/growth/</loc>
+  <lastmod>2024-08-15T16:54:46+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://cayadservices.com/why-us/our-team/</loc>
   <lastmod>2024-08-15T16:54:46+00:00</lastmod>
   <priority>0.80</priority>
 </url>
