@@ -15,6 +15,9 @@ import AutoSuggestInput from '../inputs/AutoSuggestInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
+import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
+import { buildLandingPayloadWithRoute, type LandingFormInput } from '../../utils/buildLandingPayload';
+import { sendLeadToLanding } from '../../services/lead';
 
 
 interface FormValues {
@@ -34,6 +37,8 @@ const validationSchemaStep1 = yup.object().shape({
 
 const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   const methods = useForm<FormValues>({
+    mode: 'onChange',         // <- importante
+    reValidateMode: 'onChange',
     resolver: yupResolver(validationSchemaStep1),
     defaultValues: {
       origin_city: dataSubmit.origin_city || '',
@@ -61,7 +66,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       <section id="paso1" className="w-full mt-4 flex flex-col items-center">
         <form onSubmit={handleSubmit(onSubmit)} className='w-[90%]'>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
-            <AutocompleteInput
+            {/* <AutocompleteInput
               name='origin_city'
               label='Transport Vehicle FROM'
               placeholder="Miami, Florida, EE. UU."
@@ -69,13 +74,19 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               clearErrors={clearErrors}
               setError={setError}
               defaultValue={methods.getValues('origin_city')}
-            />
-            <div id="validationOrigin" className="invalid-feedback">
+            /> */}
+            {/* <div id="validationOrigin" className="invalid-feedback">
               {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-            </div>
+              </div> */}
+
+            <ZipcodeAutocompleteRHF
+              fieldNames={{ value: "origin_city" }}
+              label="Transport Vehicle FROM"
+              placeholder="Miami, FL 33101"
+            />
           </div>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
-            <AutocompleteInput
+            {/* <AutocompleteInput
               name='destination_city'
               label='Transport Vehicle TO'
               placeholder="Alameda, California, EE. UU."
@@ -83,10 +94,16 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               clearErrors={clearErrors}
               setError={setError}
               defaultValue={methods.getValues('destination_city')}
-            />
-            <div id="validationDestination" className="invalid-feedback">
+            /> */}
+            {/* <div id="validationDestination" className="invalid-feedback">
               {errors.destination_city && <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>}
-            </div>
+            </div> */}
+
+            <ZipcodeAutocompleteRHF
+              fieldNames={{ value: "destination_city" }}
+              label="Transport Vehicle TO"
+              placeholder="Alameda, CA 94501"
+            />
           </div>
           <div className="flex gap-4 py-2">
             <p className='text-sm'>
@@ -537,8 +554,9 @@ const extractLeadNumber = (response: string) => {
 
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [dataSubmit, setDataSubmit] = useState<any>({})
-  const [disabled, setDisabled] = useState(false)
+  const [dataSubmit, setDataSubmit] = useState<any>({});
+  const [disabled, setDisabled] = useState(false);
+
   const updateFormData = (newData: any) => {
     setDataSubmit((prevData: any) => ({
       ...prevData,
@@ -546,91 +564,85 @@ const FormLanding = () => {
     }));
   };
 
-  const handleSubmitLead = async (data: any) => {
-    setDisabled(true)
-    const response = await sendLead(data)
-    const { AuthKey, ...dataWithoutAuthKey } = data
-    const numberLead = extractLeadNumber(response)
-    saveNumberLead(numberLead)
-    if (response) {
-      showNotification({ text: 'success', icon: 'success' })
-      let send = {
-        ...dataWithoutAuthKey,
-        origin: data.origin_city,
-        destination: data.destination_city,
-        number_lead: numberLead,
-        transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
-      };
-      if (data.Vehicles && Array.isArray(data.Vehicles)) {
-        data.Vehicles.map((vehicle: any, index: any) => {
-          let vehicleData: any = {};
+  const handleSubmitLead = async (data: LandingFormInput) => {
+    try {
+      setDisabled(true);
 
-          vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
-          vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
-          vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Running";
-          send = { ...send, ...vehicleData };
-        });
+      // El formateo (route, inop boolean, "Open/Enclosed", fechas) lo hace sendLeadToLanding
+      const resp = await sendLeadToLanding(data); // -> { status: "success", id }
+
+      if (resp?.status === "success" && typeof resp.id !== "undefined") {
+        // ✅ guardar ID para usarlo luego (quote2, etc.)
+        saveNumberLead(String(resp.id));
+
+        showNotification({ text: "success", icon: "success" });
+
+        // opcional: persistir lo que ya guardabas
+        saveLead?.(data);
+        saveEmail?.({ ...data, crm_lead_id: resp.id });
+
+        // si quieres redirigir como antes
+        setTimeout(() => {
+          window.location.href = "/quote2";
+        }, 2000);
+      } else {
+        showNotification({ text: "Error", icon: "error" });
       }
-      delete send.Vehicles;
-      delete send.origin_city;
-      delete send.origin_postal_code;
-      delete send.destination_city;
-      delete send.destination_postal_code;
-      Object.keys(send).map((key) => {
-        if (send[key] === "") {
-          delete send[key];
-        }
-      });
-      await sendEmail(send)
-
-      setDisabled(false)
-      saveEmail(data)
-      saveLead(data)
-      setTimeout(() => {
-        setDataSubmit({})
-        window.location.href = '/quote2';
-      }, 3000);
+    } catch (err) {
+      console.error(err);
+      showNotification({ text: "Error sending lead", icon: "error" });
+    } finally {
+      setDisabled(false);
     }
-  }
+  };
 
   const renderContent = useCallback(() => {
     switch (activeStep) {
       case 1:
-        return <Step2 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={updateFormData} />;
+        return (
+          <Step2
+            setActiveStep={setActiveStep}
+            dataSubmit={dataSubmit}
+            setDataSubmit={updateFormData}
+          />
+        );
       case 2:
-        return <Step3 disabled={disabled} dataSubmit={dataSubmit} setActiveStep={setActiveStep} handleSubmitLeadAndEmail={handleSubmitLead} setDataSubmit={updateFormData} />;
-
+        return (
+          <Step3
+            disabled={disabled}
+            dataSubmit={dataSubmit}
+            setActiveStep={setActiveStep}
+            // ⬇️ mantiene la misma prop que tenías
+            handleSubmitLeadAndEmail={handleSubmitLead}
+            setDataSubmit={updateFormData}
+          />
+        );
       default:
-        return <Step1 setActiveStep={setActiveStep} dataSubmit={dataSubmit} setDataSubmit={setDataSubmit} />
+        return (
+          <Step1
+            setActiveStep={setActiveStep}
+            dataSubmit={dataSubmit}
+            setDataSubmit={setDataSubmit}
+          />
+        );
     }
-  }, [activeStep]);
+  }, [activeStep, dataSubmit, disabled]);
+
   return (
-    <div className="
-      mx-auto 
-      mb-8 
-      flex 
-      flex-col 
-      items-center 
-      justify-between 
-      overflow-auto 
-      rounded-lg 
-      bg-white 
-      min-h-96 
-      max-h-[450px] 
-      w-[95%] 
-      sm:w-[90%] 
-      md:w-[60%] 
-      lg:w-[500px] 
-      max-w-[500px]
-    ">
+    <div
+      className="
+        mx-auto mb-8 flex flex-col items-center justify-between
+        overflow-auto rounded-lg bg-white min-h-96 max-h-[450px]
+        w-[95%] sm:w-[90%] md:w-[60%] lg:w-[500px] max-w-[500px]
+      "
+    >
       {renderContent()}
     </div>
-
   );
 };
 
 export default FormLanding;
+
 
 
 
