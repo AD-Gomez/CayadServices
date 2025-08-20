@@ -13,10 +13,12 @@ import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
-import { saveEmail, saveLead } from '../../services/localStorage';
+import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
 import { FaRegPaperPlane } from "react-icons/fa";
+import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
+import { sendLeadToLanding } from '../../services/lead';
 
 const validationSchema = yup.object().shape({
   origin_city: yup.string()
@@ -62,7 +64,8 @@ const extractLeadNumber = (response: string) => {
 const FormQuote = () => {
   const methods = useForm<FormQuoteTypes>({
     resolver: yupResolver(validationSchema),
-    mode: 'onBlur',
+    mode: 'onChange',          // ← revalida al escribir/seleccionar
+    reValidateMode: 'onChange',
     defaultValues: {
       Vehicles: [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
@@ -220,49 +223,34 @@ const FormQuote = () => {
   }, [allFields, modelField]);
 
   const handleSubmitLead = async (data: any) => {
-    const response = await sendLead(data)
-    const { AuthKey, ...dataWithoutAuthKey } = data
-    const numberLead = extractLeadNumber(response)
+    try {
+      setDisabled(true);
+      const resp = await sendLeadToLanding(data); // -> { status: "success", id }
 
-    if (response) {
-      showNotification({ text: 'success', icon: 'success' })
-      let send = {
-        ...dataWithoutAuthKey,
-        origin: data.origin_city,
-        number_lead: numberLead,
-        destination: data.destination_city,
-        transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
-      };
-      if (data.Vehicles && Array.isArray(data.Vehicles)) {
-        data.Vehicles.map((vehicle: any, index: any) => {
-          let vehicleData: any = {};
+      if (resp?.status === "success" && resp.id) {
+        // ✅ guarda el id como string
+        saveNumberLead(String(resp.id));
 
-          vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
-          vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
-          vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
-          send = { ...send, ...vehicleData };
-        });
+        showNotification({ text: "success", icon: "success" });
+        saveLead?.(data);
+        saveEmail?.({ ...data, crm_lead_id: resp.id });
+
+        setTimeout(() => {
+          reset?.();
+          window.location.href = "/quote2";
+        }, 2000);
+      } else {
+        showNotification({ text: "Error", icon: "error" });
       }
-      delete send.Vehicles;
-      delete send.origin_postal_code;
-      delete send.origin_city;
-      delete send.destination_city;
-      delete send.destination_postal_code;
-      Object.keys(send).map((key) => {
-        if (send[key] === "") {
-          delete send[key];
-        }
-      });
-      await sendEmail(send)
-      saveEmail(data)
-      saveLead(data)
-      setTimeout(() => {
-        reset()
-        window.location.href = '/quote2';
-      }, 2000);
+    } catch (e) {
+      console.error(e);
+      showNotification({ text: "Error sending lead", icon: "error" });
+    } finally {
+      setDisabled(false);
+      setDisabledSubmit?.(false);
     }
-  }
+  };
+
 
   const formatDate = (date: string) => {
     const dateObj = new Date(date);
@@ -309,32 +297,27 @@ const FormQuote = () => {
             </div>
             <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2'>
               <div>
-                <AutocompleteInput
-                  name='origin_city'
+                <ZipcodeAutocompleteRHF
+                  fieldNames={{ value: 'origin_city' }}
                   label='Transport Vehicle FROM'
-                  placeholder="Miami, Florida, EE. UU."
-                  trigger={trigger}
-                  clearErrors={clearErrors}
-                  setError={setError}
+                  placeholder='Miami, FL 33101'
                 />
-                <div id="validationOrigin" className="invalid-feedback">
-                  {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-                </div>
+                {errors.origin_city && (
+                  <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>
+                )}
               </div>
 
               <div>
-                <AutocompleteInput
-                  name='destination_city'
+                <ZipcodeAutocompleteRHF
+                  fieldNames={{ value: 'destination_city' }}
                   label='Transport Vehicle TO'
-                  placeholder="Alameda, California, EE. UU."
-                  trigger={trigger}
-                  clearErrors={clearErrors}
-                  setError={setError}
+                  placeholder='Alameda, CA 94501'
                 />
-                <div id="validationOrigin" className="invalid-feedback">
-                  {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-                </div>
+                {errors.destination_city && (   // ← ojo, aquí era origin_city por error
+                  <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>
+                )}
               </div>
+
               <div className="flex w-full">
                 <p className='xs:text-sm'>Select Transport Type</p>
                 <div className='ml-2'>
@@ -461,20 +444,20 @@ const FormQuote = () => {
 
               <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
             </div>
-            
+
           </div>
 
-          <small className='mb-4 px-8'>By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's 
+          <small className='mb-4 px-8'>By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
             <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
             and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
-            </small>
+          </small>
 
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
-              
+
           </button>
-          
+
         </form>
       </div>
     </FormProvider>

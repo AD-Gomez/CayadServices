@@ -15,6 +15,7 @@ const sendEmail = async (data: any) => {
     return false;
   }
 }
+
 async function sendLead(data: any): Promise<any> {
   try {
     const response = await fetch(`https://api.batscrm.com/leads`, {
