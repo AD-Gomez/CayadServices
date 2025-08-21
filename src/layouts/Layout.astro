@@ -20,12 +20,17 @@ const { title, content } = Astro.props;
 <html lang="en">
   <head>
     <!--google tag head -->
-        <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N3DG6F8M');
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-N3DG6F8M");
     </script>
     <!--google tag head -->
     <meta charset="UTF-8" />
@@ -49,8 +54,14 @@ const { title, content } = Astro.props;
     <meta name="generator" content={Astro.generator} />
 
     <!-- ✅ Open Graph -->
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <meta
+      property="og:title"
+      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
+    />
+    <meta
+      property="og:description"
+      content="The most cost effective auto transport company in US"
+    />
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <meta property="og:url" content="https://cayadservices.com/" />
     <meta property="og:type" content="website" />
@@ -64,11 +75,13 @@ const { title, content } = Astro.props;
   </head>
 
   <body class="relative">
-        
     <!--google tag body -->
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!--google tag body -->
     <Navbar client:load />
@@ -140,37 +153,42 @@ const { title, content } = Astro.props;
       </div>
     </div>
     <!-- shared socials -->
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const btn = document.getElementById("toggleShareMenu");
-          const menu = document.getElementById("socialMenu");
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("toggleShareMenu");
+        const menu = document.getElementById("socialMenu");
 
-          if (!btn || !menu) return; // Salir si no existen los elementos
+        if (!btn || !menu) return; // Salir si no existen los elementos
 
-          btn.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-            btn.classList.toggle("clicked");
-          });
-
-          let vibrationCount = 0;
-          const maxVibrations = 14;
-
-          const vibrateInterval = setInterval(() => {
-            if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
-              btn.classList.remove("vibrate");
-
-              // Forzar reflow para reiniciar la animación
-              void btn.offsetWidth;
-
-              btn.classList.add("vibrate");
-              vibrationCount++;
-            } else if (vibrationCount >= maxVibrations || !menu.classList.contains("hidden")) {
-              clearInterval(vibrateInterval);
-            }
-          }, 3000);
+        btn.addEventListener("click", () => {
+          menu.classList.toggle("hidden");
+          btn.classList.toggle("clicked");
         });
-      </script>
-<!-- shared socials -->
 
+        let vibrationCount = 0;
+        const maxVibrations = 14;
+
+        const vibrateInterval = setInterval(() => {
+          if (
+            menu.classList.contains("hidden") &&
+            vibrationCount < maxVibrations
+          ) {
+            btn.classList.remove("vibrate");
+
+            // Forzar reflow para reiniciar la animación
+            void btn.offsetWidth;
+
+            btn.classList.add("vibrate");
+            vibrationCount++;
+          } else if (
+            vibrationCount >= maxVibrations ||
+            !menu.classList.contains("hidden")
+          ) {
+            clearInterval(vibrateInterval);
+          }
+        }, 3000);
+      });
+    </script>
+    <!-- shared socials -->
   </body>
 </html>
