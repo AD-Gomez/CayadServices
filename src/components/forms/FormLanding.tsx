@@ -67,18 +67,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       <section id="paso1" className="w-full mt-4 flex flex-col items-center">
         <form onSubmit={handleSubmit(onSubmit)} className='w-[90%]'>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
-            {/* <AutocompleteInput
-              name='origin_city'
-              label='Transport Vehicle FROM'
-              placeholder="Miami, Florida, EE. UU."
-              trigger={trigger}
-              clearErrors={clearErrors}
-              setError={setError}
-              defaultValue={methods.getValues('origin_city')}
-            /> */}
-            {/* <div id="validationOrigin" className="invalid-feedback">
-              {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-              </div> */}
+
 
             <ZipcodeAutocompleteRHF
               fieldNames={{ value: "origin_city" }}
@@ -87,18 +76,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
             />
           </div>
           <div className="flex flex-col mb-1 w-full relative bg-white p-4 border border-gray-200">
-            {/* <AutocompleteInput
-              name='destination_city'
-              label='Transport Vehicle TO'
-              placeholder="Alameda, California, EE. UU."
-              trigger={trigger}
-              clearErrors={clearErrors}
-              setError={setError}
-              defaultValue={methods.getValues('destination_city')}
-            /> */}
-            {/* <div id="validationDestination" className="invalid-feedback">
-              {errors.destination_city && <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>}
-            </div> */}
+
 
             <ZipcodeAutocompleteRHF
               fieldNames={{ value: "destination_city" }}
