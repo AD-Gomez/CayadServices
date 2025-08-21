@@ -1,7 +1,7 @@
 import * as yup from 'yup'
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CustomInput from "../inputs/CustomInput";
-import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { Controller, FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
@@ -16,9 +16,10 @@ import CustomInputPhone from '../inputs/CustomInputPhone';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
 import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
-import { buildLandingPayloadWithRoute, type LandingFormInput } from '../../utils/buildLandingPayload';
+import { type LandingFormInput } from '../../utils/buildLandingPayload';
 import { sendLeadToLanding } from '../../services/lead';
-
+import MakeAsyncSelect from '../MakeAsyncSelect';
+import ModelAsyncSelect from '../ModelAsyncSelect';
 
 interface FormValues {
   origin_city: string;
@@ -136,7 +137,6 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-// Definición de la interfaz de los datos del formulario
 const validationSchema = yup.object().shape({
   Vehicles: yup.array().of(
     yup.object().shape({
@@ -148,233 +148,189 @@ const validationSchema = yup.object().shape({
   ).required()
 });
 
-const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
-  const methods = useForm({
+const BASE = import.meta.env.PUBLIC_API_URL
+
+type Vehicle = {
+  vehicle_model_year: string;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_inop: string;
+};
+
+type FormValuesVehicle = { Vehicles: Vehicle[] };
+
+type Props = {
+  setActiveStep: (n: number) => void;
+  setDataSubmit: (data: any) => void;
+  dataSubmit: { Vehicles?: Vehicle[] };
+};
+
+function VehicleRow({
+  index,
+  control,
+  setValue,
+  remove,
+  years,
+}: {
+  index: number;
+  control: any;
+  setValue: any;
+  remove: (i: number) => void;
+  years: { value: string; label: string }[];
+}) {
+  const make: string = useWatch({ control, name: `Vehicles.${index}.vehicle_make` });
+
+  return (
+    <div className="border p-4 my-4">
+      <div className="form--group form--group--section mb-4 mt-4">
+        <AutoSuggestInput
+          name={`Vehicles.${index}.vehicle_model_year`}
+          label="Vehicle Year"
+          options={years}
+        />
+      </div>
+
+      {/* Make (async) */}
+      <div className="form--group form--group--section">
+        <MakeAsyncSelect
+          name={`Vehicles.${index}.vehicle_make`}
+          label="Vehicle Make"
+          endpoint={`${BASE}/api/vehicles/makes`}
+          onPickedMake={() => {
+            setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
+          }}
+        />
+      </div>
+
+      <div className="form--group mt-4 form--group--section">
+        <ModelAsyncSelect
+          name={`Vehicles.${index}.vehicle_model`}
+          label="Vehicle Model"
+          endpoint={`${BASE}/api/vehicles/models`}
+          make={make}
+          disabled={!make}
+        />
+      </div>
+
+      <div className="flex w-full justify-around mt-2">
+        <p className="xs:text-sm">Is it <b>Running?</b></p>
+
+        <Controller
+          name={`Vehicles.${index}.vehicle_inop`}
+          control={control}
+          render={({ field }) => (
+            <CheckboxInput
+              {...field}
+              id={`vehicleIsOperable${index}`}
+              value="0"
+              label="Yes"
+              checked={field.value === '0'}
+              onChange={() => field.onChange('0')}
+            />
+          )}
+        />
+
+        <Controller
+          name={`Vehicles.${index}.vehicle_inop`}
+          control={control}
+          render={({ field }) => (
+            <CheckboxInput
+              {...field}
+              id={`vehicleIsNotOperable${index}`}
+              value="1"
+              label="No"
+              checked={field.value === '1'}
+              onChange={() => field.onChange('1')}
+            />
+          )}
+        />
+      </div>
+
+      <div className="d-flex end dashed mt-2">
+        <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
+          Remove car
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+
+const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) => {
+  const methods = useForm<FormValuesVehicle>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      Vehicles: dataSubmit.Vehicles || [
+      Vehicles: dataSubmit?.Vehicles || [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
     },
+    mode: 'onChange',
   });
-  const { handleSubmit, control, getValues, setValue, watch } = methods;
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'Vehicles',
-  });
+
+  const { handleSubmit, control, setValue, watch } = methods;
+  const { fields, append, remove } = useFieldArray({ control, name: 'Vehicles' });
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
-  const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
-  const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
-
-  // Generate years dynamically
   useEffect(() => {
     const currentYear = new Date().getFullYear();
-    const yearsArray = Array.from(new Array(30), (val, index) => {
-      const year = currentYear - index;
-      return { value: year.toString(), label: year.toString() };
-    });
-    setYears(yearsArray);
+    setYears(
+      Array.from({ length: 30 }, (_, i) => {
+        const y = String(currentYear - i);
+        return { value: y, label: y };
+      })
+    );
   }, []);
 
-  // Update vehicle marks when year is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.endsWith('vehicle_model_year')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const marksData = [
-          { label: "Ford", value: "ford" },
-          { label: "Chevrolet", value: "chevrolet" },
-          { label: "Dodge", value: "dodge" },
-          { label: "Jeep", value: "jeep" },
-          { label: "Tesla", value: "tesla" },
-          { label: "Cadillac", value: "cadillac" },
-          { label: "Buick", value: "buick" },
-          { label: "GMC", value: "gmc" },
-          { label: "Chrysler", value: "chrysler" },
-          { label: "Lincoln", value: "lincoln" },
-          { label: "Ram", value: "ram" },
-          { label: "BMW", value: "bmw" },
-          { label: "Mercedes-Benz", value: "mercedes-benz" },
-          { label: "Audi", value: "audi" },
-          { label: "Volkswagen", value: "volkswagen" },
-          { label: "Porsche", value: "porsche" },
-          { label: "Volvo", value: "volvo" },
-          { label: "Land Rover", value: "land rover" },
-          { label: "Jaguar", value: "jaguar" },
-          { label: "Mini", value: "mini" },
-          { label: "Alfa Romeo", value: "alfa romeo" },
-          { label: "Ferrari", value: "ferrari" },
-          { label: "Lamborghini", value: "lamborghini" },
-          { label: "Bentley", value: "bentley" },
-          { label: "Rolls-Royce", value: "rolls-royce" },
-          { label: "Toyota", value: "toyota" },
-          { label: "Honda", value: "honda" },
-          { label: "Nissan", value: "nissan" },
-          { label: "Subaru", value: "subaru" },
-          { label: "Mazda", value: "mazda" },
-          { label: "Mitsubishi", value: "mitsubishi" },
-          { label: "Lexus", value: "lexus" },
-          { label: "Infiniti", value: "infiniti" },
-          { label: "Acura", value: "acura" },
-          { label: "Hyundai", value: "hyundai" },
-          { label: "Kia", value: "kia" },
-          { label: "Genesis", value: "genesis" },
-        ];
-        setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
-        setVehicleModels(prev => ({ ...prev, [index]: [] }));
+  const all = watch('Vehicles');
+  const canAdd = useMemo(() => {
+    if (!all?.length) return false;
+    return all.every(v => v.vehicle_model_year && v.vehicle_make && v.vehicle_model && v.vehicle_inop !== '');
+  }, [all]);
 
-        const updatedVehicles = getValues('Vehicles').map((item: any, idx: any) => (
-          idx === index ? { ...item, vehicle_make: '', vehicle_model: '' } : item
-        ));
-        setValue('Vehicles', updatedVehicles);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
-
-  // Update vehicle models when make is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.endsWith('vehicle_make')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
-        const vehicleMake = getValues(`Vehicles.${index}.vehicle_make`);
-
-        if (vehicleYear && vehicleMake) {
-          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
-            .then((response) => {
-              const modelsData = response.data.Results.map((model: any) => ({
-                value: model.Model_Name,
-                label: model.Model_Name,
-              }));
-
-              setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-
-              setValue(`Vehicles.${index}.vehicle_model`, '');
-            });
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, getValues, setValue]);
-
-  const handleStepBack = () => {
-    setActiveStep(0);
-  }
-
-  const [disabled, setDisabled] = useState(true)
-
-  const allFields = watch('Vehicles');
-  const [index, setIndex] = useState<number>(0);
-  const modelField = watch(`Vehicles.${index}.vehicle_model`);
-
-  useEffect(() => {
-    setIndex(allFields.length - 1);
-  }, [allFields]);
-
-  useEffect(() => {
-    if (modelField !== '') {
-      const isFormComplete = allFields.every(
-        (field: any) =>
-          field.vehicle_model_year !== '' &&
-          field.vehicle_make !== '' &&
-          field.vehicle_inop !== ''
-      );
-      setDisabled(!isFormComplete);
-    }
-  }, [allFields, modelField]);
-
-  const onSubmit = (data: any) => {
-    setDataSubmit(data);
+  const onSubmit = (data: FormValuesVehicle) => {
+    const normalized: FormValuesVehicle = {
+      Vehicles: data.Vehicles.map(v => ({
+        ...v,
+        vehicle_make: v.vehicle_make?.toLowerCase() ?? '',
+        vehicle_model: v.vehicle_model?.toLowerCase() ?? '',
+      })),
+    };
+    setDataSubmit(normalized);
     setActiveStep(2);
   };
+
+  const handleStepBack = () => setActiveStep(0);
 
   return (
     <FormProvider {...methods}>
       <section id="paso2" className="form--quote--content mt-2 min-w-[90%] block">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {fields.map((item, index) => (
-            <div key={item.id} className="border p-4 my-4">
-              <div className="form--group form--group--section mb-4 mt-4">
-                <Controller
-                  name={`Vehicles.${index}.vehicle_model_year`}
-                  control={control}
-                  render={({ field }) => (
-                    <AutoSuggestInput {...field} label="Vehicle Year" options={years}
-                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_model_year`)}
-                    />
-                  )}
-                />
-              </div>
-
-              <div className="form--group form--group--section">
-                <Controller
-                  name={`Vehicles.${index}.vehicle_make`}
-                  control={control}
-                  render={({ field }) => (
-                    <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)}
-                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_make`)}
-
-                    />
-                  )}
-                />
-              </div>
-
-              <div className="form--group mt-4 form--group--section">
-                <Controller
-                  name={`Vehicles.${index}.vehicle_model`}
-                  control={control}
-                  render={({ field }) => (
-                    <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)}
-                      defaultValue={methods.getValues(`Vehicles.${index}.vehicle_model`)}
-                    />
-                  )}
-                />
-              </div>
-
-              <div className="flex w-full justify-around">
-                <p className='xs:text-sm'>Is it <b className=''>Running?</b></p>
-                <div>
-                  <Controller
-                    name={`Vehicles.${index}.vehicle_inop`}
-                    control={control}
-                    render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="0" label="Yes" checked={field.value === '1'} />
-                    )}
-                  />
-                </div>
-                <div>
-                  <Controller
-                    name={`Vehicles.${index}.vehicle_inop`}
-                    control={control}
-                    render={({ field }) => (
-                      <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="1" label="No" checked={field.value === '0'} />
-                    )}
-                  />
-                </div>
-              </div>
-
-              {fields.length > 1 && (
-                <div className="d-flex end dashed">
-                  <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
-                    Remove car
-                  </button>
-                </div>
-              )}
-            </div>
+          {fields.map((item, idx) => (
+            <VehicleRow
+              key={item.id}
+              index={idx}
+              control={control}
+              setValue={setValue}
+              remove={remove}
+              years={years}
+            />
           ))}
-          {fields.length < 10 &&
+
+          {fields.length < 10 && (
             <button
-              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${!canAdd ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
               type="button"
-              onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
+              disabled={!canAdd}
+              onClick={() =>
+                canAdd &&
+                append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })
+              }
             >
               Add Another Vehicle
             </button>
-          }
+          )}
+
           <button
             className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white"
             type="submit"
@@ -385,6 +341,7 @@ const Step2 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
             </svg>
           </button>
         </form>
+
         <footer className="flex justify-around text-center py-4">
           <div className="flex flex-col items-center">
             <button type="button" onClick={handleStepBack} className="bg-btn-blue flex justify-center items-center text-white w-8 h-8 rounded-full">
