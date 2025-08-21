@@ -19,6 +19,8 @@ import { showNotification } from '../../utils/notificaction';
 import { FaRegPaperPlane } from "react-icons/fa";
 import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
 import { sendLeadToLanding } from '../../services/lead';
+import MakeAsyncSelect from '../MakeAsyncSelect';
+import ModelAsyncSelect from '../ModelAsyncSelect';
 
 const validationSchema = yup.object().shape({
   origin_city: yup.string()
@@ -80,8 +82,6 @@ const FormQuote = () => {
   });
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
-  const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
-  const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
 
   // Generate years dynamically
@@ -94,111 +94,9 @@ const FormQuote = () => {
     setYears(yearsArray);
   }, []);
 
-  // Update vehicle marks when year is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.endsWith('vehicle_model_year')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const marksData = [
-          { label: "Ford", value: "ford" },
-          { label: "Chevrolet", value: "chevrolet" },
-          { label: "Toyota", value: "toyota" },
-          { label: "Honda", value: "honda" },
-          { label: "Nissan", value: "nissan" },
-          { label: "Ram", value: "ram" },
-          { label: "GMC", value: "gmc" },
-          { label: "Jeep", value: "jeep" },
-          { label: "Subaru", value: "subaru" },
-          { label: "Hyundai", value: "hyundai" },
-          { label: "Kia", value: "kia" },
-          { label: "Tesla", value: "tesla" },
-          { label: "Volkswagen", value: "volkswagen" },
-          { label: "BMW", value: "bmw" },
-          { label: "Mercedes-Benz", value: "mercedes-benz" },
-          { label: "Audi", value: "audi" },
-          { label: "Lexus", value: "lexus" },
-          { label: "Mazda", value: "mazda" },
-          { label: "Dodge", value: "dodge" },
-          { label: "Chrysler", value: "chrysler" },
-          { label: "Buick", value: "buick" },
-          { label: "Cadillac", value: "cadillac" },
-          { label: "Lincoln", value: "lincoln" },
-          { label: "Volvo", value: "volvo" },
-          { label: "Acura", value: "acura" },
-          { label: "Infiniti", value: "infiniti" },
-          { label: "Mitsubishi", value: "mitsubishi" },
-          { label: "Land Rover", value: "land-rover" },
-          { label: "Jaguar", value: "jaguar" },
-          { label: "Porsche", value: "porsche" },
-          { label: "Mini", value: "mini" },
-          { label: "Alfa Romeo", value: "alfa-romeo" },
-          { label: "Fiat", value: "fiat" },
-          { label: "Genesis", value: "genesis" },
-          { label: "Maserati", value: "maserati" },
-          { label: "Ferrari", value: "ferrari" },
-          { label: "Lamborghini", value: "lamborghini" },
-          { label: "Bentley", value: "bentley" },
-          { label: "Rolls-Royce", value: "rolls-royce" },
-          { label: "Aston Martin", value: "aston-martin" },
-          { label: "McLaren", value: "mclaren" },
-          { label: "Harley-Davidson", value: "harley-davidson" },
-          { label: "Indian", value: "indian" },
-          { label: "Yamaha", value: "yamaha" },
-          { label: "Kawasaki", value: "kawasaki" },
-          { label: "Suzuki", value: "suzuki" },
-          { label: "Ducati", value: "ducati" },
-          { label: "Triumph", value: "triumph" },
-          { label: "BMW Motorrad", value: "bmw-motorrad" },
-          { label: "KTM", value: "ktm" },
-          { label: "Aprilia", value: "aprilia" },
-          { label: "Moto Guzzi", value: "moto-guzzi" },
-          { label: "Husqvarna", value: "husqvarna" },
-          { label: "Royal Enfield", value: "royal-enfield" },
-          { label: "Victory", value: "victory" },
-          { label: "Buell", value: "buell" },
-          { label: "Zero Motorcycles", value: "zero-motorcycles" },
-          { label: "Can-Am", value: "can-am" },
-          { label: "Piaggio", value: "piaggio" },
-          { label: "Coda", value: "Coda" }
-        ];
-        setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
-        setVehicleModels(prev => ({ ...prev, [index]: [] }));
 
-        const updatedVehicles = getValues('Vehicles').map((item, idx) => (
-          idx === index ? { ...item, vehicle_make: '', vehicle_model: '' } : item
-        ));
-        setValue('Vehicles', updatedVehicles);
-      }
-    });
 
-    return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
-
-  // Update vehicle models when make is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.startsWith('Vehicles') && name.endsWith('vehicle_make')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
-        const vehicleMake = getValues(`Vehicles.${index}.vehicle_make`);
-        if (vehicleYear && vehicleMake) {
-          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
-            .then((response) => {
-              const modelsData = response.data.Results.map((model: any) => ({
-                value: model.Model_Name,
-                label: model.Model_Name,
-              }));
-
-              setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-              setValue(`Vehicles.${index}.vehicle_model`, '', { shouldValidate: true });
-            });
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
-
+  const BASE = import.meta.env.PUBLIC_API_URL
 
   const [disabled, setDisabled] = useState(true)
 
@@ -354,7 +252,7 @@ const FormQuote = () => {
             <div className='mt-8'>
               {fields.map((item, index) => (
                 <div key={item.id} className=' mt-4  min-h-[130px] max-h-[300px]'>
-                  <div className="grid  grid-cols-3 sm:grid-cols-1 xs:grid-cols-1">
+                  <div className="grid grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 gap-4">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}
                       control={control}
@@ -363,48 +261,56 @@ const FormQuote = () => {
                       )}
                     />
 
-                    <div className="">
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_make`}
-                        control={control}
-                        render={({ field }) => (
-                          <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
-                        )}
-                      />
-                    </div>
+                    <MakeAsyncSelect
+                      name={`Vehicles.${index}.vehicle_make`}
+                      label="Vehicle Make"
+                      endpoint={`${BASE}/api/vehicles/makes`}
+                      onPickedMake={() => {
+                        setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
+                      }}
+                    />
 
-
-                    <div className="">
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_model`}
-                        control={control}
-                        render={({ field }) => (
-                          <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
-                        )}
-                      />
-                    </div>
+                    <ModelAsyncSelect
+                      name={`Vehicles.${index}.vehicle_model`}
+                      label="Vehicle Model"
+                      endpoint={`${BASE}/api/vehicles/models`}
+                      make={watch(`Vehicles.${index}.vehicle_make`)}
+                      disabled={!watch(`Vehicles.${index}.vehicle_make`)}
+                    />
                   </div>
 
                   <div className="flex w-full mb-8 ">
                     <p className='xs:text-sm ml-2'>Is it<b className=''>Running?</b></p>
-                    <div className='ml-2'>
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_inop`}
-                        control={control}
-                        render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="0" label="Yes" checked={field.value === '1'} />
-                        )}
-                      />
-                    </div>
-                    <div className='ml-2'>
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_inop`}
-                        control={control}
-                        render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="1" label="No" checked={field.value === '0'} />
-                        )}
-                      />
-                    </div>
+                    <Controller
+                      name={`Vehicles.${index}.vehicle_inop`}
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          {...field}
+                          id={`vehicleIsOperable${index}`}
+                          value="0"
+                          label="Yes"
+                          checked={field.value === '0'}
+                          onChange={() => field.onChange('0')}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name={`Vehicles.${index}.vehicle_inop`}
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          {...field}
+                          id={`vehicleIsNotOperable${index}`}
+                          value="1"
+                          label="No"
+                          checked={field.value === '1'}
+                          onChange={() => field.onChange('1')}
+                        />
+                      )}
+                    />
+
                     {fields.length > 1 && (
                       <div className="flex w-[62%] justify-end mb-8 dashed">
                         <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
@@ -419,7 +325,7 @@ const FormQuote = () => {
               <button
                 className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-2 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
                 type="button" disabled={disabled}
-                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
+                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })}
               >
                 Add Another Vehicle
               </button>
