@@ -27,26 +27,44 @@ interface FormValues {
   transport_type: string;
 }
 
-const validationSchemaStep1 = yup.object().shape({
-  origin_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  destination_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  transport_type: yup.string()
-    .required('Transport type is required')
-});
+type Step1FormValues = FormValues & {
+  origin_city__isValid: boolean;
+  destination_city__isValid: boolean;
+};
+
+const validationSchemaStep1: yup.ObjectSchema<Step1FormValues> = yup.object({
+  origin_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('origin-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.origin_city__isValid === true;
+    }),
+  destination_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('destination-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.destination_city__isValid === true;
+    }),
+  transport_type: yup.string().required('Transport type is required'),
+  origin_city__isValid: yup.boolean().default(false),
+  destination_city__isValid: yup.boolean().default(false),
+}).required();
+
 
 const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
-  const methods = useForm<FormValues>({
-    mode: 'onChange',         // <- importante
+  const methods = useForm<Step1FormValues>({
+    mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: yupResolver(validationSchemaStep1),
+    resolver: yupResolver<Step1FormValues>(validationSchemaStep1),
     defaultValues: {
       origin_city: dataSubmit.origin_city || '',
       destination_city: dataSubmit.destination_city || '',
       transport_type: dataSubmit.transport_type || '1',
-    },
+      origin_city__isValid: false,
+      destination_city__isValid: false,
+    } satisfies Step1FormValues,
   });
+
   const { handleSubmit, trigger, setError, clearErrors, formState: { errors } } = methods;
 
   const onSubmit = async (data: FormValues) => {

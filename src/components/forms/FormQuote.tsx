@@ -22,21 +22,38 @@ import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
 
-const validationSchema = yup.object().shape({
-  origin_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  destination_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  transport_type: yup.string()
-    .required('Transport type is required'),
+type QuoteFormWithFlags = FormQuoteTypes & {
+  origin_city__isValid: boolean;
+  destination_city__isValid: boolean;
+};
+
+const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
+  // ---- origen/destino con test del flag ----
+  origin_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('origin-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.origin_city__isValid === true;
+    }),
+  destination_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('destination-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.destination_city__isValid === true;
+    }),
+
+  // ---- campos que ya tenías y que faltaban en el schema tipado ----
+  transport_type: yup.string().required('Transport type is required'),
+
   Vehicles: yup.array().of(
     yup.object().shape({
       vehicle_model_year: yup.string().required('vehicleYear is required'),
       vehicle_make: yup.string().required('vehicle_make is required'),
       vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicle_inop: yup.string().required('vehicleOperable is required')
+      vehicle_inop: yup.string().required('vehicleOperable is required'),
     })
   ).required(),
+
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
@@ -51,8 +68,13 @@ const validationSchema = yup.object().shape({
     .email('Email is not valid'),
   ship_date: yup.string()
     .required('Date is required')
-    .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value)))
-})
+    .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value))),
+
+  // ---- flags (registrados en el form como hidden) ----
+  origin_city__isValid: yup.boolean().default(false),
+  destination_city__isValid: yup.boolean().default(false),
+}).required();
+
 
 const extractLeadNumber = (response: string) => {
   const match = response.match(/Lead\s*:\s*(\d+)/);
@@ -63,17 +85,23 @@ const extractLeadNumber = (response: string) => {
   }
 };
 
+
+
 const FormQuote = () => {
-  const methods = useForm<FormQuoteTypes>({
-    resolver: yupResolver(validationSchema),
-    mode: 'onChange',          // ← revalida al escribir/seleccionar
+  const methods = useForm<QuoteFormWithFlags>({
+    resolver: yupResolver<QuoteFormWithFlags>(validationSchema),
+    mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
       Vehicles: [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
-      transport_type: '1'
-    },
+      transport_type: '1',
+
+      // 👇 flags
+      origin_city__isValid: false,
+      destination_city__isValid: false,
+    } as QuoteFormWithFlags,
   });
   const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors }, reset } = methods;
   const { fields, append, remove } = useFieldArray({
@@ -200,9 +228,7 @@ const FormQuote = () => {
                   label='Transport Vehicle FROM'
                   placeholder='Miami, FL 33101'
                 />
-                {errors.origin_city && (
-                  <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>
-                )}
+
               </div>
 
               <div>
@@ -211,9 +237,7 @@ const FormQuote = () => {
                   label='Transport Vehicle TO'
                   placeholder='Alameda, CA 94501'
                 />
-                {errors.destination_city && (   // ← ojo, aquí era origin_city por error
-                  <p className="text-red-500 text-xs italic mt-1">{errors.destination_city.message}</p>
-                )}
+
               </div>
 
               <div className="flex w-full">
