@@ -28,6 +28,7 @@ type QuoteFormWithFlags = FormQuoteTypes & {
 };
 
 const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
+  // ---- origen/destino con test del flag ----
   origin_city: yup
     .string()
     .required('Please provide a valid city or zip code.')
@@ -40,7 +41,10 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
     .test('destination-selected', 'Please select a suggestion from the list.', function () {
       return this.parent?.destination_city__isValid === true;
     }),
+
+  // ---- campos que ya tenías y que faltaban en el schema tipado ----
   transport_type: yup.string().required('Transport type is required'),
+
   Vehicles: yup.array().of(
     yup.object().shape({
       vehicle_model_year: yup.string().required('vehicleYear is required'),
@@ -50,10 +54,27 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
     })
   ).required(),
 
-  // 👇 registra flags en el schema
+  first_name: yup.string()
+    .required('Name is required')
+    .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
+    .min(3, 'Name must be at least 3 characters')
+    .max(20, ''),
+  phone: yup.string()
+    .required('Phone is required')
+    .min(14, 'Phone number must be 10 characters'),
+  email: yup.string()
+    .required('Email is required')
+    .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
+    .email('Email is not valid'),
+  ship_date: yup.string()
+    .required('Date is required')
+    .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value))),
+
+  // ---- flags (registrados en el form como hidden) ----
   origin_city__isValid: yup.boolean().default(false),
   destination_city__isValid: yup.boolean().default(false),
 }).required();
+
 
 const extractLeadNumber = (response: string) => {
   const match = response.match(/Lead\s*:\s*(\d+)/);
