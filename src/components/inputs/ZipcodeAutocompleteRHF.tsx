@@ -12,10 +12,10 @@ const debounce = <F extends (...args: any[]) => void>(fn: F, delay = 250) => {
 };
 
 type FieldNames = {
-    value: string;          // campo que pintas (ej: origin_city ó un "display" combinado)
-    postalCode?: string;    // opcional: p. ej. origin_postal_code
-    city?: string;          // opcional: origin_city
-    state?: string;         // opcional: origin_state
+    value: string;
+    postalCode?: string;
+    city?: string;
+    state?: string;
 };
 
 interface Props {
@@ -31,7 +31,9 @@ const ZipcodeAutocompleteRHF: React.FC<Props> = ({
     placeholder,
     minChars = 2,
 }) => {
-    const { control, setValue, clearErrors, formState: { errors } } = useFormContext();
+    const { control, setValue, clearErrors, setError, trigger, formState: { errors } } = useFormContext()
+
+    const validFlag = `${fieldNames.value}__isValid`
 
     const { field } = useController({ control, name: fieldNames.value });
     const [open, setOpen] = useState(false);
@@ -62,30 +64,38 @@ const ZipcodeAutocompleteRHF: React.FC<Props> = ({
 
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const v = e.target.value;
-        // usa setValue para forzar validación en cada cambio (opcional pero útil)
-        setValue(fieldNames.value, v, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+        const v = e.target.value
 
-        if (v.length >= minChars) debouncedLoad(v);
-        else {
-            setItems([]);
-            setOpen(false);
+        setValue(fieldNames.value, v, { shouldDirty: true, shouldTouch: true, shouldValidate: true })
+        setValue(validFlag, false, { shouldDirty: true, shouldTouch: true, shouldValidate: true })
+
+        if (v.length >= minChars) {
+            debouncedLoad(v)
+            // opcional: feedback inmediato
+            setError(fieldNames.value as any, { type: 'manual', message: 'Please select a suggestion from the list.' })
+        } else {
+            setItems([])
+            setOpen(false)
+            clearErrors([fieldNames.value, validFlag])
         }
-    };
+    }
 
 
-    const select = (it: ZipResult) => {
-        // guarda el display y fuerza validación inmediata
-        setValue(fieldNames.value, it.label, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    const select = async (it: ZipResult) => {
+        setValue(fieldNames.value, it.label, { shouldDirty: true, shouldTouch: true, shouldValidate: false })
 
-        if (fieldNames.postalCode) setValue(fieldNames.postalCode, it.zip ?? "", { shouldDirty: true });
-        if (fieldNames.city) setValue(fieldNames.city, it.city ?? "", { shouldDirty: true });
-        if (fieldNames.state) setValue(fieldNames.state, it.state ?? "", { shouldDirty: true });
+        if (fieldNames.postalCode) setValue(fieldNames.postalCode, it.zip ?? '', { shouldDirty: true, shouldTouch: true, shouldValidate: false })
+        if (fieldNames.city) setValue(fieldNames.city, it.city ?? '', { shouldDirty: true, shouldTouch: true, shouldValidate: false })
+        if (fieldNames.state) setValue(fieldNames.state, it.state ?? '', { shouldDirty: true, shouldTouch: true, shouldValidate: false })
 
-        clearErrors(fieldNames.value); // limpia errores si había
-        setOpen(false);
-    };
+        setValue(validFlag, true, { shouldDirty: true, shouldTouch: true, shouldValidate: false })
 
+        clearErrors([fieldNames.value, validFlag])
+
+        await trigger(fieldNames.value as any)
+
+        setOpen(false)
+    }
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (!open || !items.length) return;
         if (e.key === "ArrowDown") {
