@@ -151,7 +151,17 @@ const FormQuote = () => {
   const handleSubmitLead = async (data: any) => {
     try {
       setDisabled(true);
-      const resp = await sendLeadToLanding(data); // -> { status: "success", id }
+
+      const phoneWithPrefix = data.phone?.trim().startsWith("+1")
+        ? data.phone.trim()
+        : `+1 ${data.phone.trim()}`;
+
+      const payload: any = {
+        ...data,
+        phone: phoneWithPrefix,
+      };
+
+      const resp = await sendLeadToLanding(payload); // -> { status: "success", id }
 
       if (resp?.status === "success" && resp.id) {
         // ✅ guarda el id como string

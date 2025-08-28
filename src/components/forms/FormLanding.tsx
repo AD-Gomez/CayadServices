@@ -20,6 +20,7 @@ import { type LandingFormInput } from '../../utils/buildLandingPayload';
 import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
+import { formatPhoneUSToE164, normalizeRoutePhones } from '../../utils/phone';
 
 interface FormValues {
   origin_city: string;
@@ -521,20 +522,23 @@ const FormLanding = () => {
     try {
       setDisabled(true);
 
-      // El formateo (route, inop boolean, "Open/Enclosed", fechas) lo hace sendLeadToLanding
-      const resp = await sendLeadToLanding(data); // -> { status: "success", id }
+      const phoneWithPrefix = data.phone?.trim().startsWith("+1")
+        ? data.phone.trim()
+        : `+1 ${data.phone.trim()}`;
+
+      const payload: LandingFormInput = {
+        ...data,
+        phone: phoneWithPrefix,
+      };
+
+      const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
-        // ✅ guardar ID para usarlo luego (quote2, etc.)
         saveNumberLead(String(resp.id));
-
         showNotification({ text: "success", icon: "success" });
+        saveLead?.(payload);
+        saveEmail?.({ ...payload, crm_lead_id: resp.id });
 
-        // opcional: persistir lo que ya guardabas
-        saveLead?.(data);
-        saveEmail?.({ ...data, crm_lead_id: resp.id });
-
-        // si quieres redirigir como antes
         setTimeout(() => {
           window.location.href = "/quote2";
         }, 2000);
@@ -542,7 +546,6 @@ const FormLanding = () => {
         showNotification({ text: "Error", icon: "error" });
       }
     } catch (err) {
-      console.error(err);
       showNotification({ text: "Error sending lead", icon: "error" });
     } finally {
       setDisabled(false);
