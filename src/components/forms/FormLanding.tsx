@@ -192,7 +192,7 @@ function VehicleRow({
         <MakeAsyncSelect
           name={`Vehicles.${index}.vehicle_make`}
           label="Vehicle Make"
-          endpoint={`${BASE}/api/vehicles/makes`}
+          endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`}
           onPickedMake={() => {
             setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
           }}
@@ -203,7 +203,7 @@ function VehicleRow({
         <ModelAsyncSelect
           name={`Vehicles.${index}.vehicle_model`}
           label="Vehicle Model"
-          endpoint={`${BASE}/api/vehicles/models`}
+          endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`}
           make={make}
           disabled={!make}
         />

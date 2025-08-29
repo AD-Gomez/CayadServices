@@ -6,11 +6,11 @@ const PUBLIC_API_KEY = import.meta.env.PUBLIC_API_KEY
 export async function sendLeadToLanding(input: LandingFormInput) {
   const payload = buildLandingPayloadWithRoute(input);
 
-  const res = await fetch(`${BASE}/api/leads/public-create/`, {
+  const res = await fetch(`https://backupdjango-production.up.railway.app/api/leads/public-create/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-API-KEY": PUBLIC_API_KEY as string,
+      "X-API-KEY": '7hXU_mmGDROVh55qiawRAZyFLfrObfBfwDl7BYmAlOE',
     },
     body: JSON.stringify(payload),
   });
