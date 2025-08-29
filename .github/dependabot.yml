@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Dependencias del proyecto (Astro/Node)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels: ["dependencies"]
+    commit-message:
+      prefix: "deps"
+    reviewers: ["AD-Gomez"]
+    assignees: ["AD-Gomez"]
+
+  # Workflows de GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies", "ci"]
+    commit-message:
+      prefix: "ci"
