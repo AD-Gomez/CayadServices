@@ -22,8 +22,7 @@ jobs:
     environment: github-pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v5  # (ideal: pinea por SHA)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -51,7 +50,7 @@ jobs:
         #   PUBLIC_ZIPCODES_API_BASE: ${{ vars.PUBLIC_ZIPCODES_API_BASE }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
