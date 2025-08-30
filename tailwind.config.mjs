@@ -8,7 +8,7 @@ export default {
 				'btn-blue': '#00a1ef',
 				'btn-hover': '#007bef',
 				'btn-hover-light': '#00a1ef',
-				'h3-title': '#19171fd2',
+				'h3-title': '#00000',
 				'h1-landing': '#232b36',
 				'p-landing': '#555',
 				'text-light': '#F8F2F0',
@@ -40,7 +40,7 @@ export default {
 				'sm': { 'min': '600px', 'max': '767px' },
 				'md': { 'min': '768px', 'max': '1223px' },
 				'lg': { 'min': '1024px', 'max': '1279px' },
-				'xl': { 'min': '1280px', 'max': '1735px' },
+				'xl': { 'min': '1280px', 'max': '1985px' },
 			}
 		},
 		keyframes: {

@@ -6,6 +6,7 @@ import ButtonChat from "../components/ButtonChat";
 import "aos/dist/aos.css";
 import SocialProof from "../components/SocialProof";
 import SocialRequest from "../components/SocialRequest";
+import "../styles/animate.css";
 
 interface Props {
   content: string;
@@ -18,23 +19,8 @@ const { title, content } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={content} />
-    <meta name="viewport" content="width=device-width" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
-    />
-
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/img/title-icon.webp"
-      sizes="120x120"
-    />
-
-    <!-- Google Tag Manager -->
-    <script async defer is:inline>
+    <!--google tag head -->
+    <script is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -44,25 +30,22 @@ const { title, content } = Astro.props;
         j.async = true;
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-NT3H9XXW");
+      })(window, document, "script", "dataLayer", "GTM-N3DG6F8M");
     </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      defer
-      is:inline
-      src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "AW-11465331667");
-    </script>
-    <!-- End Google Tag Manager -->
+    <!--google tag head -->
+    <meta charset="UTF-8" />
+    <meta name="description" content={content} />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/img/title-icon.webp"
+      sizes="120x120"
+    />
 
     <meta
       name="google-site-verification"
@@ -70,47 +53,142 @@ const { title, content } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- open graph general -->
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
+    <!-- ✅ Open Graph -->
+    <meta
+      property="og:title"
+      content="Car Shipping Nationwide In USA | Cayad Auto Transport"
+    />
+    <meta
+      property="og:description"
+      content="The most cost effective auto transport company in US"
+    />
     <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
     <meta property="og:url" content="https://cayadservices.com/" />
     <meta property="og:type" content="website" />
-    <!-- open graph general-->
-    <!-- twitter card open graph -->
+
+    <!-- ✅ Twitter card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@cayadservices" />
     <meta name="twitter:creator" content="@cayadservices" />
-    <meta property="og:url" content="http://www.cayadservices.com" />
-    <meta property="og:title" content="Car Shipping Nationwide In USA | Cayad Auto Transport" />
-    <meta property="og:description" content="The most cost effective auto transport company in US" />
-    <meta property="og:image" content="https://cayadservices.com/img/vd.webp" />
-<!-- twitter card open graph -->
-
 
     <title>{title}</title>
   </head>
+
   <body class="relative">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-NT3H9XXW"
+    <!--google tag body -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
         height="0"
         width="0"
-        style="display:none;visibility:hidden"></iframe></noscript
-    >
-    <!-- End Google Tag Manager (noscript) -->
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!--google tag body -->
     <Navbar client:load />
     <slot />
     <ButtonChat client:load />
     <Footer />
     <SocialProof client:load />
     <SocialRequest client:load />
+
+    <!-- ✅ AOS Init -->
     <script>
       import { aosInit } from "../lib/aos";
-
-      // runs on initial page load
       aosInit();
     </script>
+
+    <!-- Social Floating Bottom Toggle -->
+    <div class="social-bottom-wrapper">
+      <button
+        id="toggleShareMenu"
+        class="social-toggle-btn"
+        title="Share this page"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="size-8"
+        >
+          <path
+            d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+          ></path>
+        </svg></button
+      >
+      <div id="socialMenu" class="social-menu hidden">
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com"
+          target="_blank"
+          title="Facebook"
+        >
+          <img src="/img/fb.png" alt="Facebook" />
+        </a>
+        <a
+          href="https://api.whatsapp.com/send?text=I%20just%20shipped%20my%20car%20with%20Cayad%20Auto%20Transport%20https://cayadservices.com"
+          target="_blank"
+          title="WhatsApp"
+        >
+          <img src="/img/wa.png" alt="WhatsApp" />
+        </a>
+        <a
+          href="https://www.reddit.com/submit?url=https://cayadservices.com&title=Check%20this%20out"
+          target="_blank"
+          title="Reddit"
+        >
+          <img src="/img/re.png" alt="Reddit" />
+        </a>
+        <a
+          href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com"
+          target="_blank"
+          title="LinkedIn"
+        >
+          <img src="/img/li.png" alt="LinkedIn" />
+        </a>
+        <a
+          href="https://twitter.com/intent/tweet?url=https://cayadservices.com&text=Ship%20your%20car%20with%20Cayad"
+          target="_blank"
+          title="X"
+        >
+          <img src="/img/tw.png" alt="X" />
+        </a>
+      </div>
+    </div>
+    <!-- shared socials -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("toggleShareMenu");
+        const menu = document.getElementById("socialMenu");
+
+        if (!btn || !menu) return; // Salir si no existen los elementos
+
+        btn.addEventListener("click", () => {
+          menu.classList.toggle("hidden");
+          btn.classList.toggle("clicked");
+        });
+
+        let vibrationCount = 0;
+        const maxVibrations = 14;
+
+        const vibrateInterval = setInterval(() => {
+          if (
+            menu.classList.contains("hidden") &&
+            vibrationCount < maxVibrations
+          ) {
+            btn.classList.remove("vibrate");
+
+            // Forzar reflow para reiniciar la animación
+            void btn.offsetWidth;
+
+            btn.classList.add("vibrate");
+            vibrationCount++;
+          } else if (
+            vibrationCount >= maxVibrations ||
+            !menu.classList.contains("hidden")
+          ) {
+            clearInterval(vibrateInterval);
+          }
+        }, 3000);
+      });
+    </script>
+    <!-- shared socials -->
   </body>
 </html>

@@ -1,0 +1,50 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: "0 3 * * 1"  # Lunes 03:00 UTC
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (CodeQL)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ "javascript-typescript" ]  # cubre JS y TS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.6
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@0c61044b2b0b29b8ddaf8f1b66f5fb1f1d7bd69b  # 3.25.10
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+
+      # Para la mayoría de proyectos JS/TS, esto basta.
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@0c61044b2b0b29b8ddaf8f1b66f5fb1f1d7bd69b
+
+      # Si alguna vez necesitas construir manualmente (ej: monorepo), descomenta:
+      # - name: Build
+      #   run: |
+      #     npm ci
+      #     npm run build --if-present
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@0c61044b2b0b29b8ddaf8f1b66f5fb1f1d7bd69b
+        with:
+          category: "/language:${{ matrix.language }}"

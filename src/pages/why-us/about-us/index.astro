@@ -5,7 +5,11 @@ import Testimonials from "../../../components/Testimonials";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
+import { FaDotCircle } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
+import { HiChevronRight } from "react-icons/hi";
 ---
+
 <style>
   .custom-background {
     background:
@@ -13,10 +17,43 @@ import SecondFooter from "../../../components/SecondFooter.astro";
       url("/img/how.webp") center center no-repeat;
     background-size: cover;
   }
+
+  .content--left::after {
+    content: url("../../../../public/icons/rigthArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 99%;
+    font-weight: 700;
+    margin-left: 8px;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(100%) translateY(35%);
+  }
+
+  .content--right::after {
+    content: url("../../../../public/icons/leftArrow.svg");
+    width: 100%;
+    color: #e5e7eb;
+    height: 100%;
+    font-weight: 700;
+    position: absolute; /* Posicionamiento absoluto */
+    transform: translateX(-3%) translateY(35%);
+  }
+
+  @media (max-width: 767px) {
+    .content--right::after {
+      content: none;
+    }
+
+    .content--left::after {
+      content: none;
+    }
+  }
 </style>
 
-<Layout title="Car Shipping History | Cayad Auto Transport"
-content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA.">
+<Layout
+  title="Car Shipping History | Cayad Auto Transport"
+  content="Click to see how Cayad Auto Transport has grown from an idea to the most cost effective car shipper in USA."
+>
   <div
     class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
   >
@@ -46,7 +83,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
         <p>
           Our car shipping advisors are available by calling <span
             class="text-[#00a1ef] hover:underline hover:cursor-pointer"
-            ><a href="tel:469-619-0747">(469) 619-0747</a></span
+            ><a href="tel:+14696190747">(469) 619-0747</a></span
           > to answer all your questions.
         </p>
         <div class="mt-4">
@@ -54,27 +91,24 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="w-full mt-12 flex justify-center">
     <div
-      class="w-[80%] flex xs:mt-12 sm:mt-12 xs:px-4 sm:px-4 flex-row xs:flex-col xs:items-center sm:flex-col sm:items-center md:flex-col md:items-center lg:flex-col lg:items-center justify-between"
+      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
     >
       <div
-        class="w-[60%] h-[100%] xl:h-[90%] xs:w-[100%] xs:max-h-[340px] xs:mb-4 sm:max-h-[340px] sm:mb-4 md:w-[100%] md:mb-4 md:max-h-[340px] md:px-8 lg:w-[80%] xl:w-[55%] xs:mr-0 mr-4 sm:w-full sm:mr-0 min-h-[300px]"
-        data-aos="fade-right"
-        data-aos-delay="100"
+        class="w-[45%] xs:w-full sm:w-full md:w-[40%] h-[200px] flex flex-col items-center p-4 relative border-4 content--left"
       >
-        <img
-          src="/img/Cayad3.webp"
-          class="adjust--img rounded-xl w-full h-[100%] xs:h-[100%] sm:h-[100%] md:h-[100%]"
-          alt=""
+        <h4 class="text-3xl font-semibold">Great Place To Work.</h4>
+        <p>Certified in Feb 2024 - Feb 2025</p>
+      </div>
+      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
+        <FaDotCircle
+          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
         />
       </div>
       <div
-        class="w-[40%] lg:w-[80%] xs:mt-4 sm:mt-4 xs:w-[100%] xs:px-2 sm:w-[100%] sm:px-4 md:w-full md:px-8"
+        class="w-[45%] xs:w-full sm:w-full md:w-[50%] xs:mt-4 sm:mt-4 h-[200px] md:h-max flex flex-col items-center p-4 relative border-4 content--right"
       >
-        <h2 class="text-3xl text-[#19171fd2] font-bold mb-3">
+        <h2 class="text-3xl text-[#00000] font-bold mb-3">
           Why you should book with one of the top-rated auto transport
           companies:
         </h2>
@@ -95,7 +129,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
         >
           <div class="fadeIn" data-aos="fade-up" data-aos-delay="500">
             <img src="/img/call.webp" class="w-24 mb-2" />
-            <h5 class="text-lg font-semibold text-[#19171fd2]">
+            <h5 class="text-lg font-semibold text-[#00000]">
               Dedicated advisors
             </h5>
             <p class="xs: sm:">
@@ -106,7 +140,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
           </div>
           <div class="fadeIn" data-aos="fade-up" data-aos-delay="700">
             <img src="/img/insurance.webp" class="w-24 mb-2" />
-            <h5 class="text-lg font-semibold text-[#19171fd2]">
+            <h5 class="text-lg font-semibold text-[#00000]">
               Insurance coverage
             </h5>
             <p class="xs: sm:">
@@ -118,7 +152,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
         </div>
         <div class="w-[40%]">
           <a
-            href="tel:(469) 619-0747"
+            href="tel:+14696190747"
             class="mt-2 flex w-full items-center justify-center border border-white bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-offset-2"
           >
             <i class="fa fa-phone-alt mr-3"></i> Call Now
@@ -134,7 +168,7 @@ content="Click to see how Cayad Auto Transport has grown from an idea to the mos
     <div
       class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
     >
-      <h1 class="text-4xl text-[#19171fd2] font-medium mb-10">
+      <h1 class="text-4xl text-[#00000] font-medium mb-10">
         Cayad is the most cost effective auto transport in the industry of USA.
       </h1>
       <div

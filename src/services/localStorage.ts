@@ -87,16 +87,18 @@ const getLead = (): any | null => {
 }
 
 const saveNumberLead = (data: string) => {
-  if (typeof window !== 'undefined') window.localStorage.setItem("numberLead", JSON.stringify(data));
-}
+  if (isBrowser) localStorage.setItem("numberLead", JSON.stringify(data));
+};
 
-const getNumberLead = (): any | null => {
-  if (isBrowser) {
-    const datos = localStorage.getItem('numberLead');
-    return datos ? JSON.parse(datos) : null;
-  }
-  return null
-}
+const getNumberLead = (): string | null => {
+  if (!isBrowser) return null;
+  const datos = localStorage.getItem("numberLead");
+  return datos ? JSON.parse(datos) : null;
+};
+
+const clearNumberLead = () => {
+  if (isBrowser) localStorage.removeItem("numberLead");
+};
 
 const saveSectionNavbar = (data: string) => {
   if (typeof window !== 'undefined') window.localStorage.setItem("saveSectionNavbar", JSON.stringify(data));

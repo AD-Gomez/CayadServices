@@ -1,100 +1,100 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { useState, useEffect, useRef } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 interface AutocompleteInputProps {
-  name: string;
-  label: string;
-  placeholder: string;
-  trigger: any;
-  clearErrors: any;
-  setError: any;
-  defaultValue?: string;
+  name: string
+  label: string
+  placeholder: string
+  trigger: any
+  clearErrors: any
+  setError: any
+  defaultValue?: string
 }
 
 const fetchGeoNamesSuggestions = async (query: string) => {
-  const username = 'miguelaacho10';
-  const url = `https://secure.geonames.org/searchJSON?name_startsWith=${query}&country=US&featureClass=P&maxRows=10&username=${username}`;
+  const username = 'miguelaacho10'
+  const url = `https://secure.geonames.org/searchJSON?name_startsWith=${query}&country=US&featureClass=P&maxRows=10&username=${username}`
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url)
     if (!response.ok) {
-      throw new Error('Network response was not ok.');
+      throw new Error('Network response was not ok.')
     }
-    const data = await response.json();
-    return data.geonames;
+    const data = await response.json()
+    return data.geonames
   } catch (error) {
-    console.error('Error fetching data:', error);
-    return [];
+    console.error('Error fetching data:', error)
+    return []
   }
-};
+}
 
 const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, placeholder, trigger, clearErrors, setError, defaultValue }) => {
-  const { register, setValue, formState: { errors } } = useFormContext();
-  const [inputValue, setInputValue] = useState(defaultValue);
-  const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [isValidUSCity, setIsValidUSCity] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const suggestionsRef = useRef<HTMLDivElement | null>(null);
+  const { register, setValue, formState: { errors } } = useFormContext()
+  const [inputValue, setInputValue] = useState(defaultValue)
+  const [suggestions, setSuggestions] = useState<any[]>([])
+  const [isValidUSCity, setIsValidUSCity] = useState(false)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const suggestionsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const handleInputChange = async (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const query = target.value;
-      setInputValue(query);
+      const target = event.target as HTMLInputElement
+      const query = target.value
+      setInputValue(query)
 
       if (query.length >= 3) {
-        const suggestions = await fetchGeoNamesSuggestions(query);
-        setSuggestions(suggestions);
+        const suggestions = await fetchGeoNamesSuggestions(query)
+        setSuggestions(suggestions)
       } else {
-        setSuggestions([]);
+        setSuggestions([])
       }
-    };
+    }
 
-    const inputElem = inputRef.current;
+    const inputElem = inputRef.current
     if (inputElem) {
-      inputElem.addEventListener('input', handleInputChange);
+      inputElem.addEventListener('input', handleInputChange)
     }
 
     return () => {
       if (inputElem) {
-        inputElem.removeEventListener('input', handleInputChange);
+        inputElem.removeEventListener('input', handleInputChange)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   useEffect(() => {
-    setValue(name, defaultValue);
-  }, [defaultValue, name, setValue]);
+    setValue(name, defaultValue)
+  }, [defaultValue, name, setValue])
 
   const handleBlur = async () => {
-    const valid = await trigger(name);
+    const valid = await trigger(name)
     if (!valid) {
-      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' });
+      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' })
     } else {
-      clearErrors(name);
+      clearErrors(name)
     }
-  };
+  }
 
   const handleSuggestionClick = (city: any) => {
-    const cityName = `${city.name}, ${city.adminCode1}`;
-    setInputValue(cityName);
-    setValue(name, cityName);
-    setSuggestions([]);
+    const cityName = `${city.name}, ${city.adminCode1}`
+    setInputValue(cityName)
+    setValue(name, cityName)
+    setSuggestions([])
 
     if (city.countryCode === 'US') {
-      setIsValidUSCity(true);
-      clearErrors(name);
+      setIsValidUSCity(true)
+      clearErrors(name)
     } else {
-      setIsValidUSCity(false);
-      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' });
+      setIsValidUSCity(false)
+      setError(name, { type: 'manual', message: 'Please provide a valid city or zip code.' })
     }
-  };
+  }
 
   useEffect(() => {
     if (inputValue?.trim() === '') {
-      setValue(name, '');
+      setValue(name, '')
     }
-  }, [inputValue, name, setValue]);
+  }, [inputValue, name, setValue])
 
   return (
     <div className="relative mb-2">
@@ -143,7 +143,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ name, label, plac
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AutocompleteInput;
+export default AutocompleteInput

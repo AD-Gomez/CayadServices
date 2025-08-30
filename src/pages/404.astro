@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 ---
   <!-- End Google Tag Manager (noscript) -->
   <Layout title="Page Not Found | Cayad Auto Transport"
@@ -12,7 +13,7 @@ import Layout from "../layouts/Layout.astro";
         height="550" />
       </div>
       <div class="w-[45%] xs:w-full sm:w-full h-max">
-        <h2 class="text-5xl text-[#19171fd2] font-semibold">
+        <h2 class="text-5xl text-[#00000] font-semibold">
           We can not seem to find the page you are looking for.
         </h2>
         <p class="mt-4 font-semibold text-2xl text-[#555555]">
@@ -29,6 +30,7 @@ import Layout from "../layouts/Layout.astro";
             Home
           </button>
         </a>
+        <ButtonScrollTop client:load />
       </div>
     </container>
   </Layout>

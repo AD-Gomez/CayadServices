@@ -13,26 +13,47 @@ import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
-import { saveEmail, saveLead } from '../../services/localStorage';
+import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
 import { FaRegPaperPlane } from "react-icons/fa";
+import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
+import { sendLeadToLanding } from '../../services/lead';
+import MakeAsyncSelect from '../MakeAsyncSelect';
+import ModelAsyncSelect from '../ModelAsyncSelect';
 
-const validationSchema = yup.object().shape({
-  origin_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  destination_city: yup.string()
-    .required('Please provide a valid city or zip code.'),
-  transport_type: yup.string()
-    .required('Transport type is required'),
+type QuoteFormWithFlags = FormQuoteTypes & {
+  origin_city__isValid: boolean;
+  destination_city__isValid: boolean;
+};
+
+const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
+  // ---- origen/destino con test del flag ----
+  origin_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('origin-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.origin_city__isValid === true;
+    }),
+  destination_city: yup
+    .string()
+    .required('Please provide a valid city or zip code.')
+    .test('destination-selected', 'Please select a suggestion from the list.', function () {
+      return this.parent?.destination_city__isValid === true;
+    }),
+
+  // ---- campos que ya tenías y que faltaban en el schema tipado ----
+  transport_type: yup.string().required('Transport type is required'),
+
   Vehicles: yup.array().of(
     yup.object().shape({
       vehicle_model_year: yup.string().required('vehicleYear is required'),
       vehicle_make: yup.string().required('vehicle_make is required'),
       vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicle_inop: yup.string().required('vehicleOperable is required')
+      vehicle_inop: yup.string().required('vehicleOperable is required'),
     })
   ).required(),
+
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
@@ -47,8 +68,13 @@ const validationSchema = yup.object().shape({
     .email('Email is not valid'),
   ship_date: yup.string()
     .required('Date is required')
-    .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value)))
-})
+    .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value))),
+
+  // ---- flags (registrados en el form como hidden) ----
+  origin_city__isValid: yup.boolean().default(false),
+  destination_city__isValid: yup.boolean().default(false),
+}).required();
+
 
 const extractLeadNumber = (response: string) => {
   const match = response.match(/Lead\s*:\s*(\d+)/);
@@ -59,16 +85,23 @@ const extractLeadNumber = (response: string) => {
   }
 };
 
+
+
 const FormQuote = () => {
-  const methods = useForm<FormQuoteTypes>({
-    resolver: yupResolver(validationSchema),
-    mode: 'onBlur',
+  const methods = useForm<QuoteFormWithFlags>({
+    resolver: yupResolver<QuoteFormWithFlags>(validationSchema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       Vehicles: [
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
-      transport_type: '1'
-    },
+      transport_type: '1',
+
+      // 👇 flags
+      origin_city__isValid: false,
+      destination_city__isValid: false,
+    } as QuoteFormWithFlags,
   });
   const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors }, reset } = methods;
   const { fields, append, remove } = useFieldArray({
@@ -77,8 +110,6 @@ const FormQuote = () => {
   });
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
-  const [vehicleMarks, setVehicleMarks] = useState<{ [key: number]: { value: string; label: string }[] }>({});
-  const [vehicleModels, setVehicleModels] = useState<{ [key: number]: { value: string; label: string }[] }>({});
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
 
   // Generate years dynamically
@@ -91,111 +122,8 @@ const FormQuote = () => {
     setYears(yearsArray);
   }, []);
 
-  // Update vehicle marks when year is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.endsWith('vehicle_model_year')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const marksData = [
-          { label: "Ford", value: "ford" },
-          { label: "Chevrolet", value: "chevrolet" },
-          { label: "Toyota", value: "toyota" },
-          { label: "Honda", value: "honda" },
-          { label: "Nissan", value: "nissan" },
-          { label: "Ram", value: "ram" },
-          { label: "GMC", value: "gmc" },
-          { label: "Jeep", value: "jeep" },
-          { label: "Subaru", value: "subaru" },
-          { label: "Hyundai", value: "hyundai" },
-          { label: "Kia", value: "kia" },
-          { label: "Tesla", value: "tesla" },
-          { label: "Volkswagen", value: "volkswagen" },
-          { label: "BMW", value: "bmw" },
-          { label: "Mercedes-Benz", value: "mercedes-benz" },
-          { label: "Audi", value: "audi" },
-          { label: "Lexus", value: "lexus" },
-          { label: "Mazda", value: "mazda" },
-          { label: "Dodge", value: "dodge" },
-          { label: "Chrysler", value: "chrysler" },
-          { label: "Buick", value: "buick" },
-          { label: "Cadillac", value: "cadillac" },
-          { label: "Lincoln", value: "lincoln" },
-          { label: "Volvo", value: "volvo" },
-          { label: "Acura", value: "acura" },
-          { label: "Infiniti", value: "infiniti" },
-          { label: "Mitsubishi", value: "mitsubishi" },
-          { label: "Land Rover", value: "land-rover" },
-          { label: "Jaguar", value: "jaguar" },
-          { label: "Porsche", value: "porsche" },
-          { label: "Mini", value: "mini" },
-          { label: "Alfa Romeo", value: "alfa-romeo" },
-          { label: "Fiat", value: "fiat" },
-          { label: "Genesis", value: "genesis" },
-          { label: "Maserati", value: "maserati" },
-          { label: "Ferrari", value: "ferrari" },
-          { label: "Lamborghini", value: "lamborghini" },
-          { label: "Bentley", value: "bentley" },
-          { label: "Rolls-Royce", value: "rolls-royce" },
-          { label: "Aston Martin", value: "aston-martin" },
-          { label: "McLaren", value: "mclaren" },
-          { label: "Harley-Davidson", value: "harley-davidson" },
-          { label: "Indian", value: "indian" },
-          { label: "Yamaha", value: "yamaha" },
-          { label: "Kawasaki", value: "kawasaki" },
-          { label: "Suzuki", value: "suzuki" },
-          { label: "Ducati", value: "ducati" },
-          { label: "Triumph", value: "triumph" },
-          { label: "BMW Motorrad", value: "bmw-motorrad" },
-          { label: "KTM", value: "ktm" },
-          { label: "Aprilia", value: "aprilia" },
-          { label: "Moto Guzzi", value: "moto-guzzi" },
-          { label: "Husqvarna", value: "husqvarna" },
-          { label: "Royal Enfield", value: "royal-enfield" },
-          { label: "Victory", value: "victory" },
-          { label: "Buell", value: "buell" },
-          { label: "Zero Motorcycles", value: "zero-motorcycles" },
-          { label: "Can-Am", value: "can-am" },
-          { label: "Piaggio", value: "piaggio" },
-          { label: "Coda", value: "Coda" }
-        ];
-        setVehicleMarks(prev => ({ ...prev, [index]: marksData }));
-        setVehicleModels(prev => ({ ...prev, [index]: [] }));
 
-        const updatedVehicles = getValues('Vehicles').map((item, idx) => (
-          idx === index ? { ...item, vehicle_make: '', vehicle_model: '' } : item
-        ));
-        setValue('Vehicles', updatedVehicles);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
-
-  // Update vehicle models when make is selected
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name && name.startsWith('Vehicles') && name.endsWith('vehicle_make')) {
-        const index = parseInt(name.split('.')[1], 10);
-        const vehicleYear = getValues(`Vehicles.${index}.vehicle_model_year`);
-        const vehicleMake = getValues(`Vehicles.${index}.vehicle_make`);
-        if (vehicleYear && vehicleMake) {
-          axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${vehicleMake}/modelyear/${vehicleYear}?format=json`)
-            .then((response) => {
-              const modelsData = response.data.Results.map((model: any) => ({
-                value: model.Model_Name,
-                label: model.Model_Name,
-              }));
-
-              setVehicleModels(prev => ({ ...prev, [index]: modelsData }));
-              setValue(`Vehicles.${index}.vehicle_model`, '', { shouldValidate: true });
-            });
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch, setValue, getValues]);
-
+  // const BASE = import.meta.env.PUBLIC_API_URL
 
   const [disabled, setDisabled] = useState(true)
 
@@ -220,49 +148,44 @@ const FormQuote = () => {
   }, [allFields, modelField]);
 
   const handleSubmitLead = async (data: any) => {
-    const response = await sendLead(data)
-    const { AuthKey, ...dataWithoutAuthKey } = data
-    const numberLead = extractLeadNumber(response)
+    try {
+      setDisabled(true);
 
-    if (response) {
-      showNotification({ text: 'success', icon: 'success' })
-      let send = {
-        ...dataWithoutAuthKey,
-        origin: data.origin_city,
-        number_lead: numberLead,
-        destination: data.destination_city,
-        transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
+      const phoneWithPrefix = data.phone?.trim().startsWith("+1")
+        ? data.phone.trim()
+        : `+1 ${data.phone.trim()}`;
+
+      const payload: any = {
+        ...data,
+        phone: phoneWithPrefix,
       };
-      if (data.Vehicles && Array.isArray(data.Vehicles)) {
-        data.Vehicles.map((vehicle: any, index: any) => {
-          let vehicleData: any = {};
 
-          vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
-          vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
-          vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-          vehicleData[`vehicle_inop_${index + 1}`] = vehicle.vehicle_inop === "1" ? "Inoperable" : "Operable";
-          send = { ...send, ...vehicleData };
-        });
+      const resp = await sendLeadToLanding(payload); // -> { status: "success", id }
+
+      if (resp?.status === "success" && resp.id) {
+        // ✅ guarda el id como string
+        saveNumberLead(String(resp.id));
+
+        showNotification({ text: "success", icon: "success" });
+        saveLead?.(data);
+        saveEmail?.({ ...data, crm_lead_id: resp.id });
+
+        setTimeout(() => {
+          reset?.();
+          window.location.href = "/quote2";
+        }, 2000);
+      } else {
+        showNotification({ text: "Error", icon: "error" });
       }
-      delete send.Vehicles;
-      delete send.origin_postal_code;
-      delete send.origin_city;
-      delete send.destination_city;
-      delete send.destination_postal_code;
-      Object.keys(send).map((key) => {
-        if (send[key] === "") {
-          delete send[key];
-        }
-      });
-      await sendEmail(send)
-      saveEmail(data)
-      saveLead(data)
-      setTimeout(() => {
-        reset()
-        window.location.href = '/quote2';
-      }, 2000);
+    } catch (e) {
+      console.error(e);
+      showNotification({ text: "Error sending lead", icon: "error" });
+    } finally {
+      setDisabled(false);
+      setDisabledSubmit?.(false);
     }
-  }
+  };
+
 
   const formatDate = (date: string) => {
     const dateObj = new Date(date);
@@ -309,32 +232,23 @@ const FormQuote = () => {
             </div>
             <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2'>
               <div>
-                <AutocompleteInput
-                  name='origin_city'
+                <ZipcodeAutocompleteRHF
+                  fieldNames={{ value: 'origin_city' }}
                   label='Transport Vehicle FROM'
-                  placeholder="Miami, Florida, EE. UU."
-                  trigger={trigger}
-                  clearErrors={clearErrors}
-                  setError={setError}
+                  placeholder='Miami, FL 33101'
                 />
-                <div id="validationOrigin" className="invalid-feedback">
-                  {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-                </div>
+
               </div>
 
               <div>
-                <AutocompleteInput
-                  name='destination_city'
+                <ZipcodeAutocompleteRHF
+                  fieldNames={{ value: 'destination_city' }}
                   label='Transport Vehicle TO'
-                  placeholder="Alameda, California, EE. UU."
-                  trigger={trigger}
-                  clearErrors={clearErrors}
-                  setError={setError}
+                  placeholder='Alameda, CA 94501'
                 />
-                <div id="validationOrigin" className="invalid-feedback">
-                  {errors.origin_city && <p className="text-red-500 text-xs italic mt-1">{errors.origin_city.message}</p>}
-                </div>
+
               </div>
+
               <div className="flex w-full">
                 <p className='xs:text-sm'>Select Transport Type</p>
                 <div className='ml-2'>
@@ -371,7 +285,7 @@ const FormQuote = () => {
             <div className='mt-8'>
               {fields.map((item, index) => (
                 <div key={item.id} className=' mt-4  min-h-[130px] max-h-[300px]'>
-                  <div className="grid  grid-cols-3 sm:grid-cols-1 xs:grid-cols-1">
+                  <div className="grid grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 gap-4">
                     <Controller
                       name={`Vehicles.${index}.vehicle_model_year`}
                       control={control}
@@ -380,48 +294,56 @@ const FormQuote = () => {
                       )}
                     />
 
-                    <div className="">
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_make`}
-                        control={control}
-                        render={({ field }) => (
-                          <AutoSuggestInput {...field} label="Vehicle Make" options={vehicleMarks[index] || []} disabled={!watch(`Vehicles.${index}.vehicle_model_year`)} />
-                        )}
-                      />
-                    </div>
+                    <MakeAsyncSelect
+                      name={`Vehicles.${index}.vehicle_make`}
+                      label="Vehicle Make"
+                      endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`}
+                      onPickedMake={() => {
+                        setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
+                      }}
+                    />
 
-
-                    <div className="">
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_model`}
-                        control={control}
-                        render={({ field }) => (
-                          <AutoSuggestInput {...field} options={vehicleModels[index] || []} label="Vehicle Model" disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
-                        )}
-                      />
-                    </div>
+                    <ModelAsyncSelect
+                      name={`Vehicles.${index}.vehicle_model`}
+                      label="Vehicle Model"
+                      endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`}
+                      make={watch(`Vehicles.${index}.vehicle_make`)}
+                      disabled={!watch(`Vehicles.${index}.vehicle_make`)}
+                    />
                   </div>
 
                   <div className="flex w-full mb-8 ">
-                    <p className='xs:text-sm ml-2'>Is The <b className=''>Vehicle Operable?</b></p>
-                    <div className='ml-2'>
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_inop`}
-                        control={control}
-                        render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsOperable${index}`} value="0" label="Yes" checked={field.value === '1'} />
-                        )}
-                      />
-                    </div>
-                    <div className='ml-2'>
-                      <Controller
-                        name={`Vehicles.${index}.vehicle_inop`}
-                        control={control}
-                        render={({ field }) => (
-                          <CheckboxInput {...field} id={`vehicleIsNotOperable${index}`} value="1" label="No" checked={field.value === '0'} />
-                        )}
-                      />
-                    </div>
+                    <p className='xs:text-sm ml-2'>Is it<b className=''>Running?</b></p>
+                    <Controller
+                      name={`Vehicles.${index}.vehicle_inop`}
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          {...field}
+                          id={`vehicleIsOperable${index}`}
+                          value="0"
+                          label="Yes"
+                          checked={field.value === '0'}
+                          onChange={() => field.onChange('0')}
+                        />
+                      )}
+                    />
+
+                    <Controller
+                      name={`Vehicles.${index}.vehicle_inop`}
+                      control={control}
+                      render={({ field }) => (
+                        <CheckboxInput
+                          {...field}
+                          id={`vehicleIsNotOperable${index}`}
+                          value="1"
+                          label="No"
+                          checked={field.value === '1'}
+                          onChange={() => field.onChange('1')}
+                        />
+                      )}
+                    />
+
                     {fields.length > 1 && (
                       <div className="flex w-[62%] justify-end mb-8 dashed">
                         <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
@@ -436,7 +358,7 @@ const FormQuote = () => {
               <button
                 className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-2 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
                 type="button" disabled={disabled}
-                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '1' })}
+                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })}
               >
                 Add Another Vehicle
               </button>
@@ -457,21 +379,28 @@ const FormQuote = () => {
 
               <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
 
-              <CustomInput name='email' max={30} label='Email Address' />
+              <CustomInput name='email' max={30} label='Email' />
 
-              <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+              <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
             </div>
+
           </div>
+
+          <small className='mb-4 px-8'>By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
+            <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+            and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
+          </small>
 
           <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
             Submit
             <FaRegPaperPlane className='ml-2' />
 
           </button>
+
         </form>
       </div>
     </FormProvider>
   )
-};
+}
 
 export default FormQuote;
