@@ -18,16 +18,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    # Usa el mismo environment donde guardaste las variables (si las pusiste allí)
+
+    # ⬅️ Para leer las vars del environment donde las guardaste
     environment: github-pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
-      # Recomendado por GitHub Pages
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
+        uses: actions/checkout@v5  # (ideal: pinea por SHA)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -35,9 +31,10 @@ jobs:
           cache: "npm"
 
       - name: Install
-        run: npm ci --no-audit --no-fund
 
-      # Hornear variables para Astro/Vite
+        run: npm ci
+
+      # ⬅️ CREAR .env.production con tus variables del env
       - name: Create .env.production
         run: |
           cat > .env.production <<'EOF'
@@ -49,8 +46,9 @@ jobs:
       - name: Build
         run: npm run build
 
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
