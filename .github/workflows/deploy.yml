@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # (ideal: pinea por SHA)
+        uses: actions/checkout@v5  # (ideal: pinea por SHA)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
