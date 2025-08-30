@@ -2,13 +2,13 @@ name: Deploy GitHub Pages (Astro)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: read          # mínimo para leer el repo
-  pages: write            # para publicar en Pages
-  id-token: write         # para autenticación OIDC
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -18,22 +18,41 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Usa el mismo environment donde guardaste las variables (si las pusiste allí)
+    environment: github-pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # (ideal: pinea por SHA)
+        uses: actions/checkout@v4
+
+      # Recomendado por GitHub Pages
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
+
       - name: Install
-        run: npm ci
+        run: npm ci --no-audit --no-fund
+
+      # Hornear variables para Astro/Vite
+      - name: Create .env.production
+        run: |
+          cat > .env.production <<'EOF'
+          PUBLIC_API_KEY=${{ vars.PUBLIC_API_KEY }}
+          PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
+          PUBLIC_ZIPCODES_API_BASE=${{ vars.PUBLIC_ZIPCODES_API_BASE }}
+          EOF
+
       - name: Build
         run: npm run build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist   # Astro genera dist/
+          path: ./dist
 
   deploy:
     name: Deploy
