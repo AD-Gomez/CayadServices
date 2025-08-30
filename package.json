@@ -22,7 +22,6 @@
     "@react-google-maps/api": "2.20.7",
     "@types/googlemaps": "3.43.3",
     "@types/react-datepicker": "6.2.0",
-    "@vercel/speed-insights": "1.0.12",
     "aos": "2.3.4",
     "astro": "4.8.6",
     "axios": "1.11.0",
@@ -45,8 +44,12 @@
     "@types/aos": "3.0.7",
     "@types/react": "18.3.3",
     "@types/react-autosuggest": "10.1.11",
-    "@types/react-dom": "19.1.9",
+    "@types/react-dom": "18.3.0",
     "sass": "^1.77.8",
     "typescript": "5.4.5"
+  },
+  "overrides": {
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0"
   }
 }
