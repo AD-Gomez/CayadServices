@@ -18,6 +18,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
     # ⬅️ Para leer las vars del environment donde las guardaste
     environment: github-pages
     steps:
@@ -30,6 +31,7 @@ jobs:
           cache: "npm"
 
       - name: Install
+
         run: npm ci
 
       # ⬅️ CREAR .env.production con tus variables del env
@@ -43,11 +45,7 @@ jobs:
 
       - name: Build
         run: npm run build
-        # (Alternativa sin archivo .env: descomenta y borra el paso anterior)
-        # env:
-        #   PUBLIC_API_KEY: ${{ vars.PUBLIC_API_KEY }}
-        #   PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}
-        #   PUBLIC_ZIPCODES_API_BASE: ${{ vars.PUBLIC_ZIPCODES_API_BASE }}
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
