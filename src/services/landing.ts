@@ -18,7 +18,7 @@ const sendEmail = async (data: any) => {
 
 async function sendLead(data: any): Promise<any> {
   try {
-    const response = await fetch(`https://api.batscrm.com/leads`, {
+    const response = fetch(`https://backupdjango-production.up.railway.app/api/leads/public-create/`, {
       method: "POST",
       body: JSON.stringify(data),
     });
