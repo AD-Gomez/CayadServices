@@ -160,7 +160,7 @@ import Footer from "../../components/Footer.astro";
   <div class="px-4 py-3 flex flex-wrap items-center justify-between gap-2">
     <div class="font-semibold text-neutral-800">Details</div>
     <div class="inline-flex items-baseline gap-2 rounded-md bg-neutral-50 border border-neutral-200 px-3 py-1.5">
-      <span class="text-xs text-neutral-600">Order ID:</span>
+      <span class="text-xs text-neutral-600"></span>
       <ShowNumberLead client:load />
     </div>
   </div>
@@ -176,26 +176,35 @@ import Footer from "../../components/Footer.astro";
     <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
       <div class="col-span-6 text-neutral-600">First avail. date</div>
       <div class="col-span-6">
-        <span class="font-medium flex items-center gap-1">
-          08/21/2025
-          <span class="relative inline-flex items-center group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-              <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-            </svg>
-            <span role="tooltip"
-                  class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                         rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                         opacity-0 group-hover:opacity-100 pointer-events-none
-                         leading-relaxed shadow-lg">
-              Your first available date is the first date that we would try to pick up your vehicle.
-              Most vehicles are picked up within 7 days of the first available date. Need a guaranteed pickup?
-              Call and ask about adding Guaranteed Pickup Service to your quote.
-              <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-            </span>
-          </span>
-        </span>
-      </div>
+  <span class="font-medium flex items-center gap-1">
+    08/21/2025
+    <span class="relative inline-flex items-center group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+           class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
+        <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
+      </svg>
+
+      <!-- mobile: anclado a la derecha y ancho seguro; sm+: ancho mayor -->
+      <span role="tooltip"
+            class="absolute top-full mt-2 z-20
+                   right-0  /* 👉 empuja el tooltip hacia la izquierda, no se sale por la derecha */
+                   w-[90vw] max-w-sm     /* <= siempre cabe en viewport en mobile */
+                   sm:w-auto sm:max-w-md /* >=sm dejamos que crezca más */
+                   rounded-md bg-neutral-800 text-white
+                   text-[11px] sm:text-xs px-4 py-3 leading-relaxed shadow-lg
+                   opacity-0 group-hover:opacity-100 pointer-events-none">
+        Your first available date is the first date that we would try to pick up your vehicle.
+        Most vehicles are picked up within 7 days of the first available date. Need a guaranteed pickup?
+        Call and ask about adding Guaranteed Pickup Service to your quote.
+        <!-- flecha -->
+        <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
+      </span>
+    </span>
+  </span>
+</div>
+
+      
+
     </div>
 
     <!-- Vehicle aca traemos su vehiculo, marca, modelo y ano-->
