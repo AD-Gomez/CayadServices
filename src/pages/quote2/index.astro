@@ -1,11 +1,8 @@
 ---
-import ShowDataQuote from "../../components/quote2/ShowData";
-import ShowDestination from "../../components/quote2/ShowDestination";
+// --- Imports (sin cambios) ---
 import ShowNumberLead from "../../components/quote2/ShowNumberLead";
-import Layout from "../../layouts/Layout.astro";
 import Testimonials from "../../components/Testimonials";
 import Footer from "../../components/Footer.astro";
-
 ---
 
 <html lang="en">
@@ -16,32 +13,42 @@ import Footer from "../../components/Footer.astro";
       content="Cayad Auto Transport provides the most cost effective car shipping services across the US. Get your quote today!"
     />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/webp" href="/img/title-icon.webp" sizes="120x120" />
-
-    <!-- GTM -->
-    <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N3DG6F8M');
-    </script>
-    <!-- /GTM -->
-
-    <title>Car Shipping Quote | Cayad Auto Transport</title>
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/img/title-icon.webp"
+      sizes="120x120"
+    />
+    <title>Your Car Shipping Quote | Cayad Auto Transport</title>
     <link rel="canonical" href="https://cayadservices.com/quote2" />
+
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-N3DG6F8M");
+    </script>
   </head>
 
-  <body class="bg-neutral-100">
-    <!-- GTM noscript -->
+  <body class="bg-slate-50 font-sans">
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- /GTM noscript -->
 
-    <!-- Header / Navbar -->
-    <header class="w-full bg-white border-b border-neutral-200">
-      <div class="max-w-[1200px] mx-auto px-4 py-4 flex items-center justify-between gap-4">
+    <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4"
+      >
         <a href="/" aria-label="Cayad Auto Transport" class="shrink-0">
           <img
             src="/img/logo-cayad.webp"
@@ -51,450 +58,230 @@ import Footer from "../../components/Footer.astro";
             height="609"
           />
         </a>
-
         <div class="flex items-center gap-3 sm:gap-4">
-          <!-- Call now (visible en todas las resoluciones) -->
           <a
             href="tel:+14696190747"
             aria-label="Call Cayad Auto Transport"
-            class="inline-flex items-center justify-center rounded-md bg-sky-600 px-3 sm:px-4 py-2 text-sm font-semibold text-white shadow hover:bg-sky-700"
+            class="inline-flex items-center justify-center rounded-lg bg-sky-600 px-3 sm:px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 transition-colors"
           >
             Call (469) 619-0747
           </a>
-
-
-          <!-- Seal Authorize.Net -->
           <div class="AuthorizeNetSeal hidden md:block">
-            <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
-            <script type="text/javascript" src="https://verify.authorize.net:443/anetseal/seal.js"></script>
+            <script type="text/javascript">
+              var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";
+            </script>
+            <script
+              type="text/javascript"
+              src="https://verify.authorize.net:443/anetseal/seal.js"></script>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Main -->
-    <main class="max-w-[1200px] mx-auto px-4 md:px-6 py-6 md:py-10">
-      <!-- Et voilà ! + alerta -->
-      <section class="mb-6">
-        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Et voilà !</h1>
-
-        <div class="mt-2 border border-sky-300 bg-sky-50 text-sky-900 rounded-md px-4 py-3">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <section class="text-center mb-8 md:mb-12">
+        <h1
+          class="text-3xl md:text-4xl font-bold text-slate-800 tracking-tight"
+        >
+          Your Quote is Ready!
+        </h1>
+        <div
+          class="mt-4 max-w-2xl mx-auto flex items-center justify-center gap-3 rounded-lg bg-sky-50 border border-sky-200 text-sky-800 px-4 py-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 shrink-0"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+            ></path></svg
+          >
           <p class="text-sm">
-            Your quote has been e-mailed. Check your inbox!
-            <span class="font-extrabold"> NO PAYMENT REQUIRED </span>
-            to book your shipment.
+            A detailed copy has been sent to your email. <span
+              class="font-semibold">No payment is required</span
+            > to book your shipment.
           </p>
         </div>
+      </section>
 
-        
-        <div class="mt-3 bg-white border border-neutral-200 rounded-md divide-y divide-neutral-200 max-w-xl">
-          <!-- Service type-->
-          <div class="flex items-center justify-between px-4 py-2 text-sm">
-            <span class="text-neutral-600">Service type</span>
-                      <span class="font-medium flex items-center gap-1">
-                Door to door
-                <span class="relative inline-flex items-center group">
-                  <!-- icono -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                      class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                    <path fill="currentColor"
-                          d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-                  </svg>
-                  <!-- tooltip DEBAJO, anclado a la derecha -->
-                  <span role="tooltip"
-                        class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                              rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                              opacity-0 group-hover:opacity-100 pointer-events-none
-                              leading-relaxed shadow-lg">
-                    The car will be picked up and delivered as close as legally and safely
-                    possible to any residential and/or business address.
-                    <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-                  </span>
-                </span>
-              </span>
-
-
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+            <div
+              class="p-5 border-b border-slate-200 flex justify-between items-center"
+            >
+              <h2 class="text-lg font-semibold text-slate-800">
+                Shipment Overview
+              </h2>
+              <div
+                class="inline-flex items-baseline gap-2 rounded-md bg-slate-50 border border-slate-200 px-3 py-1.5 text-sm"
+              >
+                <ShowNumberLead client:load />
+              </div>
+            </div>
+            <div class="p-5 space-y-4">
+              <div class="flex items-center justify-between gap-4 text-center">
+                <div class="w-full">
+                  <p class="text-xs text-slate-500">Origin</p>
+                  <p class="font-semibold text-slate-700">Miami, FL 33186</p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 h-8 text-sky-500 shrink-0"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path></svg
+                >
+                <div class="w-full">
+                  <p class="text-xs text-slate-500">Destination</p>
+                  <p class="font-semibold text-slate-700">Tampa, FL 33647</p>
+                </div>
+              </div>
+              <div class="border-t border-slate-200 my-4"></div>
+              <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p class="text-slate-500">Vehicle</p>
+                  <p class="font-semibold text-slate-700">
+                    2024 Aston Martin DBX
+                  </p>
+                </div>
+                <div>
+                  <p class="text-slate-500">First Available Date</p>
+                  <p class="font-semibold text-slate-700">August 21, 2025</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Insurance -->
-          <div class="flex items-center justify-between px-4 py-2 text-sm">
-            <span class="text-neutral-600">Insurance</span>
-            <span class="font-medium flex items-center gap-1">
-            Included
-            <span class="relative inline-flex items-center group">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                <path fill="currentColor"
-                      d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-              </svg>
-              <span role="tooltip"
-                    class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                    rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                    opacity-0 group-hover:opacity-100 pointer-events-none
-                    leading-relaxed shadow-lg">
-                Your vehicle is insured from pick up to delivery. See terms &amp; conditions for details.
-                <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-              </span>
-            </span>
-          </span>
-
+          <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+            <div class="p-5 border-b border-slate-200">
+              <h2 class="text-lg font-semibold text-slate-800">
+                Service Details
+              </h2>
+            </div>
+            <ul class="divide-y divide-slate-200 text-sm">
+              <li class="px-5 py-4 flex justify-between items-center">
+                <span class="text-slate-600">Transport Type</span>
+                <span
+                  class="font-semibold text-slate-800 bg-sky-50 text-sky-700 px-2 py-1 rounded-md"
+                  >Open Transport</span
+                >
+              </li>
+              <li class="px-5 py-4 flex justify-between items-center">
+                <span class="text-slate-600">Vehicle Condition</span>
+                <span class="font-semibold text-slate-800">Running</span>
+              </li>
+              <li class="px-5 py-4 flex justify-between items-center">
+                <span class="text-slate-600">Service Type</span>
+                <span class="font-semibold text-slate-800">Door-to-Door</span>
+              </li>
+              <li class="px-5 py-4 flex justify-between items-center">
+                <span class="text-slate-600">Insurance</span>
+                <span class="font-semibold text-emerald-600"
+                  >Fully Included</span
+                >
+              </li>
+              <li class="px-5 py-4 flex justify-between items-center">
+                <span class="text-slate-600">Estimated Transit Time</span>
+                <span class="font-semibold text-slate-800">2–4 days</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        
-      <figure class="rounded-lg border border-neutral-200 bg-white overflow-hidden">
-      <!-- TODO: ajusta la ruta del gif si es distinta -->
-      <img
-        src="/public/img/email.png"
-        alt="How we pick up and load your vehicle"
-        class="w-auto h-auto"
-        loading="lazy"
-      />
-    </figure>
+        <aside class="lg:col-span-1">
+          <div class="sticky top-24 space-y-6">
+            <div
+              class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden"
+            >
+              <div class="bg-emerald-50/50 p-5 border-t border-emerald-200">
+                <div class="text-center">
+                  <p class="text-sm font-medium text-slate-700">Due Today</p>
+                  <p class="text-4xl font-extrabold text-emerald-600 my-1">
+                    $0
+                  </p>
+                  <p class="text-xs text-slate-500 font-medium">
+                    Book now, pay later.
+                  </p>
+                </div>
+              </div>
 
-
-      
-        <!-- DETAILS PANEL (refactor) -->
-<section class="rounded-lg border border-neutral-300 bg-white overflow-hidden">
-  <!-- Header con Order ID a la derecha -->
-  <div class="px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-    <div class="font-semibold text-neutral-800">Details</div>
-    <div class="inline-flex items-baseline gap-2 rounded-md bg-neutral-50 border border-neutral-200 px-3 py-1.5">
-      <span class="text-xs text-neutral-600"></span>
-      <ShowNumberLead client:load />
-    </div>
-  </div>
-
-  <div class="divide-y divide-neutral-200">
-    <!-- Distance esta la calcularas con la data que te genere el CRM cuando este listo esa herramienta la activas-->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Distance</div>
-      <div class="col-span-6 font-medium text-neutral-800">293mi</div>
-    </div>
-
-    <!-- First avail. date (tooltip en el VALOR) aca la fecha que el marco para su dia de carga-->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">First avail. date</div>
-      <div class="col-span-6">
-  <span class="font-medium flex items-center gap-1">
-    08/21/2025
-    <span class="relative inline-flex items-center group">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-           class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-        <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-      </svg>
-
-      <!-- mobile: anclado a la derecha y ancho seguro; sm+: ancho mayor -->
-      <span role="tooltip"
-            class="absolute top-full mt-2 z-20
-                   right-0  /* 👉 empuja el tooltip hacia la izquierda, no se sale por la derecha */
-                   w-[90vw] max-w-sm     /* <= siempre cabe en viewport en mobile */
-                   sm:w-auto sm:max-w-md /* >=sm dejamos que crezca más */
-                   rounded-md bg-neutral-800 text-white
-                   text-[11px] sm:text-xs px-4 py-3 leading-relaxed shadow-lg
-                   opacity-0 group-hover:opacity-100 pointer-events-none">
-        Your first available date is the first date that we would try to pick up your vehicle.
-        Most vehicles are picked up within 7 days of the first available date. Need a guaranteed pickup?
-        Call and ask about adding Guaranteed Pickup Service to your quote.
-        <!-- flecha -->
-        <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-      </span>
-    </span>
-  </span>
-</div>
-
-      
-
-    </div>
-
-    <!-- Vehicle aca traemos su vehiculo, marca, modelo y ano-->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Vehicle</div>
-      <div class="col-span-6 font-medium text-neutral-800">2024 Aston Martin DBX</div>
-    </div>
-
-    <!-- Ship from de donde lo manda lo traemos aca-->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Ship from</div>
-      <div class="col-span-6 font-medium text-neutral-800">Miami, FL 33186</div>
-    </div>
-
-    <!-- Ship to hacia donde lo manda lo traemos aca-->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Ship to</div>
-      <div class="col-span-6 font-medium text-neutral-800">Tampa, FL 33647</div>
-    </div>
-
-    <!-- Vehicle condition aca marcamos la que el puso en el formulario. -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Vehicle condition</div>
-      <div class="col-span-6">
-        <fieldset class="flex items-center gap-4">
-          <!-- Running -->
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="condition" class="accent-sky-600" checked />
-            <span class="flex items-center gap-1">
-              Running
-              <span class="relative inline-flex items-center group">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                  <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-                </svg>
-                <span role="tooltip"
-                      class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                             rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                             opacity-0 group-hover:opacity-100 pointer-events-none
-                             leading-relaxed shadow-lg">
-                  The vehicle’s ability to move under its own power to be driven on and off the transport trailer.
-                  <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-                </span>
-              </span>
-            </span>
-          </label>
-
-          <!-- Non-running -->
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="condition" class="accent-sky-600" />
-            <span class="flex items-center gap-1">
-              Non-running
-              <span class="relative inline-flex items-center group">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                  <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-                </svg>
-                <span role="tooltip"
-                      class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                             rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                             opacity-0 group-hover:opacity-100 pointer-events-none
-                             leading-relaxed shadow-lg">
-                  The vehicle cannot drive on its own, but it must still be able to roll, stop, and steer.
-                  <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-                </span>
-              </span>
-            </span>
-          </label>
-        </fieldset>
-      </div>
-    </div>
-
-    <!-- Transport type igual aca marcamos la que el selecciono -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Transport type</div>
-      <div class="col-span-6">
-        <fieldset class="flex items-center gap-4">
-          <!-- Open -->
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="trailer" class="accent-sky-600" checked />
-            <span class="flex items-center gap-1">
-              Open
-              <span class="relative inline-flex items-center group">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                  <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-                </svg>
-                <span role="tooltip"
-                      class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                             rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                             opacity-0 group-hover:opacity-100 pointer-events-none
-                             leading-relaxed shadow-lg">
-                  Open trailers are the most cost-effective and popular method to transport vehicles.
-                  Most new vehicles being sent to car dealerships are transported in open trailers.
-                  <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-                </span>
-              </span>
-            </span>
-          </label>
-
-          <!-- Enclosed -->
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="trailer" class="accent-sky-600" />
-            <span class="flex items-center gap-1">
-              Enclosed
-              <span class="relative inline-flex items-center group">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-                  <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-                </svg>
-                <span role="tooltip"
-                      class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                             rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                             opacity-0 group-hover:opacity-100 pointer-events-none
-                             leading-relaxed shadow-lg">
-                  Enclosed trailers protect vehicles from weather, dirt and rock chips during transport.
-                  They are popular for high value vehicles.
-                  <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-                </span>
-              </span>
-            </span>
-          </label>
-        </fieldset>
-      </div>
-    </div>
-
-    <!-- Service type (tooltip en el VALOR) -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Service type</div>
-      <div class="col-span-6">
-        <span class="font-medium flex items-center gap-1">
-          Door to door
-          <span class="relative inline-flex items-center group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-              <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-            </svg>
-            <span role="tooltip"
-                  class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                         rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                         opacity-0 group-hover:opacity-100 pointer-events-none
-                         leading-relaxed shadow-lg">
-              The car will be picked up and delivered as close as legally and safely
-              possible to any residential and/or business address.
-              <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-            </span>
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <!-- Insurance (tooltip en el VALOR) -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Insurance</div>
-      <div class="col-span-6">
-        <span class="font-medium flex items-center gap-1">
-          Included
-          <span class="relative inline-flex items-center group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-              <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-            </svg>
-            <span role="tooltip"
-                  class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                         rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                         opacity-0 group-hover:opacity-100 pointer-events-none
-                         leading-relaxed shadow-lg">
-              Your vehicle is insured from pick up to delivery. See terms &amp; conditions for details.
-              <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-            </span>
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <!-- Transit time (tooltip en el VALOR) -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 text-neutral-600">Transit time</div>
-      <div class="col-span-6">
-        <span class="font-medium flex items-center gap-1">
-          2–4 days
-          <span class="relative inline-flex items-center group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 class="h-4 w-4 text-neutral-400 cursor-pointer" aria-hidden="true">
-              <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-            </svg>
-            <span role="tooltip"
-                  class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                         rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                         opacity-0 group-hover:opacity-100 pointer-events-none
-                         leading-relaxed shadow-lg">
-              Transit time is calculated from the time the vehicle is picked up.
-              <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-            </span>
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <!-- Due now (monto + tooltip) -->
-    <div class="grid grid-cols-12 items-center px-4 py-3 text-sm">
-      <div class="col-span-6 font-semibold text-sky-600">Due now</div>
-      <div class="col-span-6">
-        <span class="flex items-baseline gap-2">
-          <span class="text-2xl font-extrabold text-sky-600">$0</span>
-          <span class="relative inline-flex items-center group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 class="h-4 w-4 text-sky-500 cursor-pointer" aria-hidden="true">
-              <path fill="currentColor" d="M10 18a8 8 0 1 1 0-16a8 8 0 0 1 0 16m-1-5v2h2v-2h-2m0-8v6h2V5h-2"/>
-            </svg>
-            <span role="tooltip"
-                  class="absolute right-0 top-full mt-2 z-20 w-[min(90vw,28rem)]
-                         rounded-md bg-neutral-800 text-white text-xs px-4 py-3
-                         opacity-0 group-hover:opacity-100 pointer-events-none
-                         leading-relaxed shadow-lg">
-              We charge you once the carrier has been dispatched for your order.
-              Only if you pay with PayPal you’ll be charged at the time of booking.
-              <span class="absolute -top-1 right-3 w-2 h-2 rotate-45 bg-neutral-800"></span>
-            </span>
-          </span>
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-
-
-<div class="mt-3 grid grid-cols-2 gap-2">
-  <a
-    href="tel:+14696190747"
-    aria-label="Call Cayad Auto Transport"
-    class="inline-flex items-center justify-center rounded-md px-3 py-2
-           text-sm font-semibold text-white shadow
-           bg-[#00a1e1] hover:bg-[#0093cf] focus:outline-none
-           focus:ring-2 focus:ring-offset-2 focus:ring-[#00a1e1]"
-  >
-    Call now
-  </a>
-
-  <a
-    href="https://wa.me/14696190747?text=Hi%2C%20I%20requested%20a%20car%20shipping%20quote"
-    target="_blank" rel="noopener"
-    class="inline-flex items-center justify-center rounded-md px-3 py-2
-           text-sm font-semibold text-white
-           bg-emerald-600 hover:bg-emerald-700 focus:outline-none
-           focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600"
-  >
-    WhatsApp
-  </a>
-</div>
-
-
-
-        
-        
-        
-        
-
-
-
-
-
-
-
-<!-- TESTIMONIALS full-width dentro del contenedor -->
-<section class="mt-10 md:mt-12">
-  <h2 class="text-2xl font-extrabold text-center mb-6">Real customers experiences</h2>
-
-  <!-- NOTA: quitamos paddings laterales y permitimos overflow -->
-  <div class="testimonials-shell rounded-lg border border-neutral-200 bg-white py-6 overflow-visible">
-    <div class="w-full">
-      <Testimonials client:load />
-    </div>
-  </div>
-</section>
-
-
-
+              <div
+                class="p-5 bg-slate-50/70 border-t border-slate-200 space-y-3"
+              >
+                <a
+                  href="#"
+                  class="block w-full text-center rounded-lg bg-sky-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-sky-700 transition-colors"
+                >
+                  Book Shipment
+                </a>
+                <div class="grid grid-cols-2 gap-3">
+                  <a
+                    href="tel:+14696190747"
+                    class="flex items-center justify-center gap-2 w-full text-center rounded-lg bg-white border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-5 h-5"
+                      ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                      ></path></svg
+                    >
+                    Call Us
+                  </a>
+                  <a
+                    href="https://wa.me/14696190747?text=Hi%2C%20I%20requested%20a%20car%20shipping%20quote"
+                    target="_blank"
+                    rel="noopener"
+                    class="flex items-center justify-center gap-2 w-full text-center rounded-lg bg-emerald-600 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      ><path
+                        d="M16.6,14.2l-1.5-0.2c-0.2,0-0.3-0.1-0.5,0.1l-0.7,0.7c-0.5-0.2-1.5-0.7-2.6-1.8c-1-1-1.6-2.1-1.8-2.6l0.7-0.7 c0.1-0.1,0.2-0.3,0.1-0.5l-0.2-1.5c-0.1-0.5-0.5-0.8-1-0.8H7.6C7.1,7.2,6.7,7.6,6.7,8.1c0,0.1,0,0.2,0,0.3 c0.2,1.2,0.7,2.3,1.5,3.4c1.2,1.7,2.8,3,4.7,3.9c0.2,0.1,0.3,0.1,0.5,0.1c0.7,0,1.3-0.4,1.5-1.1l0.2-0.6 C17.3,14.7,17.1,14.3,16.6,14.2z M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10c5.5,0,10-4.5,10-10S17.5,2,12,2z M12,20.5 c-4.7,0-8.5-3.8-8.5-8.5S7.3,3.5,12,3.5s8.5,3.8,8.5,8.5S16.7,20.5,12,20.5z"
+                      ></path></svg
+                    >
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </aside>
+      </div>
+
+      <section class="mt-12 md:mt-16">
+        <div
+          class="bg-white border border-slate-200 rounded-xl shadow-sm py-8 px-4"
+        >
+          <Testimonials
+            title="Real Customer Experiences"
+            position="center"
+            client:load
+          />
+        </div>
       </section>
     </main>
 
-    <!-- Footer del sitio -->
     <Footer />
   </body>
 </html>

@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import axios from 'axios'
-import logoCayad from '../../../public/img/logo-cayad.webp'
+import axios from 'axios';
+import logoCayad from '../../../public/img/logo-cayad.webp';
 import type { FormQuoteTypes } from '../../types/formQuote.type';
 import AutocompleteInput from '../inputs/AutoCompletInput';
 import CheckboxInput from '../inputs/CustomCheckbox';
@@ -10,13 +10,13 @@ import DateInput from '../inputs/CustomInputDate';
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import CustomInput from '../inputs/CustomInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
-import * as yup from 'yup'
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
 import { format } from 'date-fns';
 import { showNotification } from '../../utils/notificaction';
-import { FaRegPaperPlane } from "react-icons/fa";
+import { FaRegPaperPlane, FaTrash } from "react-icons/fa";
 import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
 import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
@@ -28,7 +28,6 @@ type QuoteFormWithFlags = FormQuoteTypes & {
 };
 
 const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
-  // ---- origen/destino con test del flag ----
   origin_city: yup
     .string()
     .required('Please provide a valid city or zip code.')
@@ -41,19 +40,15 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
     .test('destination-selected', 'Please select a suggestion from the list.', function () {
       return this.parent?.destination_city__isValid === true;
     }),
-
-  // ---- campos que ya tenías y que faltaban en el schema tipado ----
   transport_type: yup.string().required('Transport type is required'),
-
   Vehicles: yup.array().of(
     yup.object().shape({
-      vehicle_model_year: yup.string().required('vehicleYear is required'),
-      vehicle_make: yup.string().required('vehicle_make is required'),
-      vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicle_inop: yup.string().required('vehicleOperable is required'),
+      vehicle_model_year: yup.string().required('Year is required'),
+      vehicle_make: yup.string().required('Make is required'),
+      vehicle_model: yup.string().required('Model is required'),
+      vehicle_inop: yup.string().required('Condition is required'),
     })
   ).required(),
-
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
@@ -69,23 +64,9 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
   ship_date: yup.string()
     .required('Date is required')
     .test('is-valid-date', 'Date is required', value => value !== '' && !isNaN(Date.parse(value))),
-
-  // ---- flags (registrados en el form como hidden) ----
   origin_city__isValid: yup.boolean().default(false),
   destination_city__isValid: yup.boolean().default(false),
 }).required();
-
-
-const extractLeadNumber = (response: string) => {
-  const match = response.match(/Lead\s*:\s*(\d+)/);
-  if (match && match[1]) {
-    return match[1];
-  } else {
-    throw new Error('No se pudo encontrar el número de lead en la respuesta.');
-  }
-};
-
-
 
 const FormQuote = () => {
   const methods = useForm<QuoteFormWithFlags>({
@@ -97,13 +78,12 @@ const FormQuote = () => {
         { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
       ],
       transport_type: '1',
-
-      // 👇 flags
       origin_city__isValid: false,
       destination_city__isValid: false,
     } as QuoteFormWithFlags,
   });
-  const { handleSubmit, control, trigger, setError, clearErrors, getValues, setValue, watch, formState: { errors }, reset } = methods;
+
+  const { handleSubmit, control, setValue, watch, formState: { errors }, reset } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Vehicles',
@@ -112,21 +92,16 @@ const FormQuote = () => {
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
 
-  // Generate years dynamically
   useEffect(() => {
-    const currentYear = new Date().getFullYear();
-    const yearsArray = Array.from(new Array(30), (val, index) => {
+    const currentYear = new Date().getFullYear() + 1; // Include next year model
+    const yearsArray = Array.from(new Array(50), (val, index) => {
       const year = currentYear - index;
       return { value: year.toString(), label: year.toString() };
     });
     setYears(yearsArray);
   }, []);
 
-
-  // const BASE = import.meta.env.PUBLIC_API_URL
-
-  const [disabled, setDisabled] = useState(true)
-
+  const [disabled, setDisabled] = useState(true);
   const allFields = watch('Vehicles');
   const [index, setIndex] = useState<number>(0);
   const modelField = watch(`Vehicles.${index}.vehicle_model`);
@@ -150,32 +125,23 @@ const FormQuote = () => {
   const handleSubmitLead = async (data: any) => {
     try {
       setDisabled(true);
-
       const phoneWithPrefix = data.phone?.trim().startsWith("+1")
         ? data.phone.trim()
         : `+1 ${data.phone.trim()}`;
-
-      const payload: any = {
-        ...data,
-        phone: phoneWithPrefix,
-      };
-
-      const resp = await sendLeadToLanding(payload); // -> { status: "success", id }
+      const payload: any = { ...data, phone: phoneWithPrefix };
+      const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && resp.id) {
-        // ✅ guarda el id como string
         saveNumberLead(String(resp.id));
-
-        showNotification({ text: "success", icon: "success" });
+        showNotification({ text: "Success!", icon: "success" });
         saveLead?.(data);
         saveEmail?.({ ...data, crm_lead_id: resp.id });
-
         setTimeout(() => {
           reset?.();
           window.location.href = "/quote2";
         }, 2000);
       } else {
-        showNotification({ text: "Error", icon: "error" });
+        showNotification({ text: "Error sending quote", icon: "error" });
       }
     } catch (e) {
       console.error(e);
@@ -186,221 +152,138 @@ const FormQuote = () => {
     }
   };
 
-
   const formatDate = (date: string) => {
     const dateObj = new Date(date);
     return format(dateObj, 'MM/dd/yyyy');
   };
 
   const onSubmit = (data: FormQuoteTypes) => {
-    setDisabledSubmit(true)
+    setDisabledSubmit(true);
     const formattedDate = formatDate(data.ship_date);
-
     const dataToLead = {
-      AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0",
+      AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0", // Example key
       ...data,
       ship_date: formattedDate,
-    }
-    handleSubmitLead(dataToLead)
+    };
+    handleSubmitLead(dataToLead);
   };
 
-  return (
+    return (
     <FormProvider {...methods}>
-      <div className="h-max w-[60%] mt-4 xs:mt-0 sm:mt-0 md:w-[80%] sm:w-full xs:w-full  flex flex-col  items-center bg-white rounded">
-        <form className='w-full h-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex w-full justify-between px-8  mt-4">
-            <div className='max-h-[50px] max-w-[200px]'>
-              <a href="/">
-                <img src={logoCayad.src} />
-              </a>
-            </div>
-            <p className=' font-bold text-[180x]'>Request a quote</p>
-            <div className="AuthorizeNetSeal" >
-              <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
-              <script type="text/javascript"
-                src="//verify.authorize.net:443/anetseal/seal.js"></script>
-            </div>
-          </div>
-          <div className='w-[95%] p-4 mb-4 mt-4 rounded-sm min-h-[150px] max-h-[170px]  border-[1px]
-          md:min-h-[250px] md:max-h-[300px] sm:min-h-[250px] sm:max-h-[300px] xs:min-h-[250px] xs:max-h-[300px]
-          '>
-            <div className='flex w-full'>
-              <p className='font-bold'>1</p>
-              <p className='ml-2'>
-                Origin & Destination
-              </p>
-            </div>
-            <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2'>
-              <div>
-                <ZipcodeAutocompleteRHF
-                  fieldNames={{ value: 'origin_city' }}
-                  label='Transport Vehicle FROM'
-                  placeholder='Miami, FL 33101'
-                />
+      {/*
+        ESTE ES EL DIV PRINCIPAL.
+        Nota cómo NO tiene clases de altura como h-screen, min-h-screen, etc.
+        Solo define la apariencia de la tarjeta. Esto es clave.
+      */}
+      <div className="bg-white rounded-xl shadow-lg border border-slate-200">
+        <div className="p-6 border-b border-slate-200">
+          <h1 className="text-2xl font-bold text-slate-800">Get Your Free Shipping Quote</h1>
+          <p className="mt-1 text-sm text-slate-500">Fast, easy, and no obligation.</p>
+        </div>
 
+        <form className="p-6" onSubmit={handleSubmit(onSubmit)}>
+          <div className="space-y-6">
+            
+            <fieldset className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                <legend className="text-md font-semibold text-slate-800">Origin & Destination</legend>
               </div>
-
-              <div>
-                <ZipcodeAutocompleteRHF
-                  fieldNames={{ value: 'destination_city' }}
-                  label='Transport Vehicle TO'
-                  placeholder='Alameda, CA 94501'
-                />
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
+                <ZipcodeAutocompleteRHF fieldNames={{ value: 'origin_city' }} label='Shipping FROM' placeholder='City or Zip Code' />
+                <ZipcodeAutocompleteRHF fieldNames={{ value: 'destination_city' }} label='Shipping TO' placeholder='City or Zip Code' />
               </div>
-
-              <div className="flex w-full">
-                <p className='xs:text-sm'>Select Transport Type</p>
-                <div className='ml-2'>
-                  <Controller
-                    name={'transport_type'}
-                    control={control}
-                    render={({ field }) => (
-                      <CheckboxInput {...field} value="1" label="Open" name='transport_type' checked={field.value === '1'} />
-                    )}
-                  />
-                </div>
-                <div className='ml-2'>
-                  <Controller
-                    name={'transport_type'}
-                    control={control}
-                    render={({ field }) => (
-                      <CheckboxInput {...field} value="2" name='transport_type' label="Enclosed" checked={field.value === '0'} />
-                    )}
-                  />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Transport Type</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <Controller name={'transport_type'} control={control} render={({ field }) => (
+                    <div>
+                      <input {...field} type="radio" id="transport_open" value="1" checked={field.value === '1'} className="sr-only peer" />
+                      <label htmlFor="transport_open" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Open</label>
+                    </div>
+                  )}/>
+                  <Controller name={'transport_type'} control={control} render={({ field }) => (
+                    <div>
+                      <input {...field} type="radio" id="transport_enclosed" value="2" checked={field.value === '2'} className="sr-only peer" />
+                      <label htmlFor="transport_enclosed" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Enclosed</label>
+                    </div>
+                  )}/>
                 </div>
               </div>
-            </div>
-          </div>
+            </fieldset>
 
-          <div className='w-[95%] p-4   rounded-sm min-h-[250px] flex-nowrap overflow-auto max-h-[375px] border-[1px]
-          md:min-h-[380px] md:max-h-[400px] sm:min-h-[410px] sm:max-h-[450px] xs:min-h-[410px] xs:max-h-[450px]
-          '>
-            <div className='flex w-full'>
-              <p className='font-bold'>2</p>
-              <p className='ml-2'>
-                Vehicle Details
-              </p>
-            </div>
-            <div className='mt-8'>
-              {fields.map((item, index) => (
-                <div key={item.id} className=' mt-4  min-h-[130px] max-h-[300px]'>
-                  <div className="grid grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 gap-4">
-                    <Controller
-                      name={`Vehicles.${index}.vehicle_model_year`}
-                      control={control}
-                      render={({ field }) => (
-                        <AutoSuggestInput {...field} label="Vehicle Year" options={years} />
-                      )}
-                    />
-
-                    <MakeAsyncSelect
-                      name={`Vehicles.${index}.vehicle_make`}
-                      label="Vehicle Make"
-                      endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`}
-                      onPickedMake={() => {
-                        setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
-                      }}
-                    />
-
-                    <ModelAsyncSelect
-                      name={`Vehicles.${index}.vehicle_model`}
-                      label="Vehicle Model"
-                      endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`}
-                      make={watch(`Vehicles.${index}.vehicle_make`)}
-                      disabled={!watch(`Vehicles.${index}.vehicle_make`)}
-                    />
-                  </div>
-
-                  <div className="flex w-full mb-8 ">
-                    <p className='xs:text-sm ml-2'>Is it<b className=''>Running?</b></p>
-                    <Controller
-                      name={`Vehicles.${index}.vehicle_inop`}
-                      control={control}
-                      render={({ field }) => (
-                        <CheckboxInput
-                          {...field}
-                          id={`vehicleIsOperable${index}`}
-                          value="0"
-                          label="Yes"
-                          checked={field.value === '0'}
-                          onChange={() => field.onChange('0')}
-                        />
-                      )}
-                    />
-
-                    <Controller
-                      name={`Vehicles.${index}.vehicle_inop`}
-                      control={control}
-                      render={({ field }) => (
-                        <CheckboxInput
-                          {...field}
-                          id={`vehicleIsNotOperable${index}`}
-                          value="1"
-                          label="No"
-                          checked={field.value === '1'}
-                          onChange={() => field.onChange('1')}
-                        />
-                      )}
-                    />
-
+            <fieldset className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                <legend className="text-md font-semibold text-slate-800">Vehicle Details</legend>
+              </div>
+              <div className="space-y-4">
+                {fields.map((item, index) => (
+                  <div key={item.id} className="p-3 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50">
                     {fields.length > 1 && (
-                      <div className="flex w-[62%] justify-end mb-8 dashed">
-                        <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
-                          Remove car
-                        </button>
-                      </div>
+                      <button type="button" onClick={() => remove(index)} className="absolute top-2.5 right-2.5 text-slate-400 hover:text-red-500 transition-colors" aria-label="Remove vehicle">
+                        <FaTrash />
+                      </button>
                     )}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => <AutoSuggestInput {...field} label="Year" options={years} />} />
+                      <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
+                      <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
+                      <div className="flex gap-3">
+                        <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
+                            <div>
+                                <input {...field} type="radio" id={`running_yes_${index}`} value="0" checked={field.value === '0'} className="sr-only peer" />
+                                <label htmlFor={`running_yes_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
+                            </div>
+                        )}/>
+                        <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
+                            <div>
+                                <input {...field} type="radio" id={`running_no_${index}`} value="1" checked={field.value === '1'} className="sr-only peer" />
+                                <label htmlFor={`running_no_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
+                            </div>
+                        )}/>
+                      </div>
+                    </div>
                   </div>
+                ))}
+                <button type="button" disabled={disabled} onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })} className={`w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
+                  + Add Another Vehicle
+                </button>
+              </div>
+            </fieldset>
 
-                </div>
-              ))}
-              <button
-                className={`bg-white border  border-btn-blue text-btn-blue py-2 px-4  mb-2 ${disabled ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
-                type="button" disabled={disabled}
-                onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })}
-              >
-                Add Another Vehicle
+            <fieldset className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                <legend className="text-md font-semibold text-slate-800">Contact & Date</legend>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
+                <DateInput name='ship_date' label='Preferred Pickup Date' />
+                <CustomInputOnlyText name='first_name' max={20} type='text' label='Full Name' />
+                <CustomInput name='email' max={30} label='Email Address' />
+                <CustomInputPhone name='phone' type='text' max={14} label='Phone Number' />
+              </div>
+            </fieldset>
+            
+            <div>
+              <small className="text-xs text-slate-500">
+                By clicking "Get My Quote", you agree to our 
+                <a href="/pdfs/Terms-and-Conditions.pdf" target="_blank" rel="noopener noreferrer" className="text-sky-600 underline hover:text-sky-700"> Terms </a>
+                and <a href="/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-sky-600 underline hover:text-sky-700"> Privacy Policy</a>, and consent to receive calls, texts, and emails.
+              </small>
+              <button disabled={disabledSubmit} className={`mt-3 w-full flex items-center justify-center gap-2 bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-all duration-300 text-base ${disabledSubmit ? 'cursor-not-allowed bg-slate-400' : ''}`}>
+                Get My Free Quote
+                <FaRegPaperPlane />
               </button>
             </div>
           </div>
-
-          <div className='w-[95%] p-4 mb-8 mt-4 rounded-sm md:min-h-[300px] md:max-h-[450px] min-h-[150px] max-h-[220px] 
-          xs:min-h-[300px] xs:max-h-[450px] sm:min-h-[300px] sm:max-h-[450px]
-          border-[1px]'>
-            <div className='flex w-full'>
-              <p className='font-bold'>3</p>
-              <p className='ml-2'>
-                Shipment Details
-              </p>
-            </div>
-            <div className='grid grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 gap-4 p-2 mt-6'>
-              <DateInput name='ship_date' label='Date' />
-
-              <CustomInputOnlyText name='first_name' max={20} type='text' label='Name' />
-
-              <CustomInput name='email' max={30} label='Email' />
-
-              <CustomInputPhone name='phone' type='text' max={14} label='Phone' />
-            </div>
-
-          </div>
-
-          <small className='mb-4 px-8'>By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
-            <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
-            and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
-          </small>
-
-          <button disabled={disabledSubmit} className={`bg-btn-blue flex items-center justify-center mb-12 w-[95%] p-2 text-white rounded hover:bg-btn-hover transition-colors duration-300 ${disabledSubmit ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}>
-            Submit
-            <FaRegPaperPlane className='ml-2' />
-
-          </button>
-
         </form>
       </div>
     </FormProvider>
-  )
-}
+  );
+};
 
 export default FormQuote;

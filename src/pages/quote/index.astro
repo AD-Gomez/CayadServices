@@ -4,41 +4,78 @@ import FormQuote from "../../components/forms/FormQuote";
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Cayad Auto Transport offers the most cost-effective car shipping service across the USA, !Get A Quote Now!" />
-    <meta name="viewport" content="width=device-width" />
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/img/title-icon.webp"
-      sizes="120x120"
-    />
-    <title>Car Shipping Quote | Cayad Auto Transport</title>
-    
-    <!--google tag head -->
-        <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N3DG6F8M');
-    </script>
-    <!--google tag head -->
-
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Cayad Auto Transport offers the most cost-effective car shipping service across the USA. Get A Quote Now!" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/webp" href="/img/title-icon.webp" sizes="120x120" />
+  <title>Instant Car Shipping Quote | Cayad Auto Transport</title>
   <link rel="canonical" href="https://cayadservices.com/quote" />
-  <div
-    class="flex w-full h-screen md:h-[max-content] lg:h-[110vh] xl:h-[110vh] justify-center box-border bg-[#cccccc]"
-  >
-    <FormQuote client:load />
+  
+  <script is:inline>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N3DG6F8M');
+  </script>
+</head>
+<body class="bg-slate-100">
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  {/* ================================================================== */}
+  {/* CAMBIO FINAL: Se reemplaza 'items-center' por 'items-start' para    */}
+  {/* alinear el contenido arriba en vez de al centro. Se ajusta el      */}
+  {/* padding para darle un margen superior natural.                     */}
+  {/* ================================================================== */}
+  <div class="relative min-h-screen w-full flex items-start justify-center p-4 sm:p-6 lg:p-8">
+    <div class="absolute inset-0 z-0">
+      <img src="/img/background-highway.webp" alt="Highway background" class="object-cover w-full h-full opacity-30" />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-100 via-slate-100/80 to-transparent"></div>
+    </div>
+
+    <main class="relative z-10 w-full max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:max-h-[calc(100vh-4rem)]">
+
+        <div class="lg:col-span-7 xl:col-span-8 lg:overflow-y-auto pr-2">
+          <FormQuote client:load />
+        </div>
+
+        <aside class="lg:col-span-5 xl:col-span-4">
+          <div class="sticky top-6 space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <a href="/" class="block mb-6">
+                <img src="/img/logo-cayad.webp" alt="Cayad Auto Transport Logo" class="h-12 w-auto mx-auto" />
+              </a>
+              <h3 class="font-bold text-slate-800 text-lg text-center mb-4">The Reliable Way to Ship Your Car</h3>
+              <ul class="space-y-3 text-sm">
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                  <div><span class="font-semibold text-slate-700">Price Lock Guarantee:</span> No hidden fees. The price you see is the price you pay.</div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                  <div><span class="font-semibold text-slate-700">Fully Insured:</span> Your vehicle is protected from pickup to delivery.</div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                  <div><span class="font-semibold text-slate-700">Top-Rated Service:</span> Thousands of satisfied customers and door-to-door convenience.</div>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-center gap-4">
+               <p class="text-xs text-slate-500 font-medium">Secure & Verified</p>
+               <div class="AuthorizeNetSeal">
+                 <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
+                 <script type="text/javascript" src="//verify.authorize.net:443/anetseal/seal.js"></script>
+               </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
   </div>
-  <body>
-    <!--google tag body -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!--google tag body -->
-</html>
 </body>
+</html>
