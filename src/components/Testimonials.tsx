@@ -120,7 +120,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
   };
 
   return (
-    <div className="w-[78%] fadeInUp xs:w-full md:w-11/12" data-wow-delay="0.5s">
+    <div className="w-full max-w-[1200px] mx-auto fadeInUp xs:w-full md:w-11/12 px-4" data-wow-delay="0.5s">
       {position === 'left'
         ? <h2 className="xs:px-4 sm:px-4 w-full mb-8 text-4xl font-medium">
           {title}
@@ -147,17 +147,17 @@ const Testimonials = ({ title, position }: testimonialsType) => {
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 60,
+            spaceBetween: 40,
           },
         }}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
         onSlideChange={handleSlideChange}
-        className="h-[350px] w-full xs:px-4 sm:px-4"
+        className="h-[350px] w-full xs:px-4 sm:px-4 overflow-hidden"
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>
-            <div className={`w-full cursor-pointer xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
+            <div className={`relative w-full box-border overflow-hidden cursor-pointer xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
               <a href={testimonial.link} target="_blank">
                 <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
                 <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
