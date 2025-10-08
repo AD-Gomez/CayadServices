@@ -189,7 +189,7 @@ const FormQuote = () => {
                 <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">1</div>
                 <legend className="text-md font-semibold text-slate-800">Origin & Destination</legend>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <ZipcodeAutocompleteRHF fieldNames={{ value: 'origin_city' }} label='Shipping FROM' placeholder='City or Zip Code' />
                 <ZipcodeAutocompleteRHF fieldNames={{ value: 'destination_city' }} label='Shipping TO' placeholder='City or Zip Code' />
               </div>
@@ -219,13 +219,13 @@ const FormQuote = () => {
               </div>
               <div className="space-y-4">
                 {fields.map((item, index) => (
-                  <div key={item.id} className="p-3 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50">
+                  <div key={item.id} className="p-3 pt-4 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50">
                     {fields.length > 1 && (
                       <button type="button" onClick={() => remove(index)} className="absolute top-2.5 right-2.5 text-slate-400 hover:text-red-500 transition-colors" aria-label="Remove vehicle">
                         <FaTrash />
                       </button>
                     )}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                       <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => <AutoSuggestInput {...field} label="Year" options={years} />} />
                       <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
                       <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
@@ -260,7 +260,7 @@ const FormQuote = () => {
                 <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">3</div>
                 <legend className="text-md font-semibold text-slate-800">Contact & Date</legend>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                 <DateInput name='ship_date' label='Preferred Pickup Date' />
                 <CustomInputOnlyText name='first_name' max={20} type='text' label='Full Name' />
                 <CustomInput name='email' max={30} label='Email Address' />
