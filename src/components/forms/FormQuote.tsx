@@ -43,20 +43,33 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
   transport_type: yup.string().required('Transport type is required'),
   Vehicles: yup.array().of(
     yup.object().shape({
-      vehicle_model_year: yup.string().required('Year is required'),
+      vehicle_model_year: yup.string()
+        .required('Year is required')
+        .matches(/^\d{4}$/, 'Year must be a 4 digit number')
+        .test('year-range', 'Year is out of valid range', (val) => {
+          if (!val) return false;
+          const year = parseInt(val, 10);
+          const currentYear = new Date().getFullYear() + 1; // allow next year
+          return year >= 1900 && year <= currentYear;
+        }),
       vehicle_make: yup.string().required('Make is required'),
       vehicle_model: yup.string().required('Model is required'),
       vehicle_inop: yup.string().required('Condition is required'),
     })
-  ).required(),
+  ).min(1, 'At least one vehicle is required').required(),
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
     .min(3, 'Name must be at least 3 characters')
-    .max(20, ''),
+    .max(20, 'Name must be at most 20 characters'),
   phone: yup.string()
     .required('Phone is required')
-    .min(14, 'Phone number must be 10 characters'),
+    .test('is-valid-phone', 'Phone number is invalid', value => {
+      if (!value) return false;
+      const digits = value.replace(/\D/g, '');
+      // Accept 10 digits (US) or 11 with leading 1
+      return digits.length === 10 || (digits.length === 11 && digits.startsWith('1'));
+    }),
   email: yup.string()
     .required('Email is required')
     .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
@@ -125,9 +138,24 @@ const FormQuote = () => {
   const handleSubmitLead = async (data: any) => {
     try {
       setDisabled(true);
-      const phoneWithPrefix = data.phone?.trim().startsWith("+1")
-        ? data.phone.trim()
-        : `+1 ${data.phone.trim()}`;
+      // Ensure there is at least one vehicle
+      if (!data?.Vehicles || !Array.isArray(data.Vehicles) || data.Vehicles.length < 1) {
+        showNotification({ text: 'At least one vehicle is required to request a quote.', icon: 'error' });
+        setDisabled(false);
+        return;
+      }
+
+      // Normalize phone to +1XXXXXXXXXX format
+      const normalizePhone = (phone: string | undefined) => {
+        if (!phone) return '';
+        const digits = phone.replace(/\D/g, '');
+        if (digits.length === 10) return `+1${digits}`;
+        if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
+        // fallback: return original trimmed
+        return phone.trim();
+      };
+
+      const phoneWithPrefix = normalizePhone(data.phone);
       const payload: any = { ...data, phone: phoneWithPrefix };
       const resp = await sendLeadToLanding(payload);
 
@@ -148,7 +176,7 @@ const FormQuote = () => {
       showNotification({ text: "Error sending lead", icon: "error" });
     } finally {
       setDisabled(false);
-      setDisabledSubmit?.(false);
+      setDisabledSubmit(false);
     }
   };
 
@@ -167,6 +195,36 @@ const FormQuote = () => {
     };
     handleSubmitLead(dataToLead);
   };
+
+  // Helper to determine if there are vehicle-related errors to show to the user
+  const vehiclesErrors = (errors as any)?.Vehicles;
+  const hasVehiclesError = (() => {
+    if (!vehiclesErrors) return false;
+    if (vehiclesErrors?.message) return true;
+    // If it's an array, check if any index contains an error object
+    if (Array.isArray(vehiclesErrors)) {
+      return vehiclesErrors.some((item: any) => item && Object.keys(item).length > 0);
+    }
+    // Otherwise if it's an object with keys, show generic message
+    return Object.keys(vehiclesErrors).length > 0;
+  })();
+
+  const vehiclesErrorMessage = (() => {
+    if (!vehiclesErrors) return '';
+    if (!Array.isArray(vehiclesErrors) && typeof vehiclesErrors.message === 'string') return vehiclesErrors.message;
+    if (Array.isArray(vehiclesErrors)) {
+      // If any item has keys, show a clear message
+      for (const item of vehiclesErrors) {
+        if (item && typeof item === 'object' && Object.keys(item).length > 0) {
+          return 'Please complete all vehicle fields.';
+        }
+      }
+      return 'Please add at least one valid vehicle and ensure all fields are completed.';
+    }
+    if (typeof vehiclesErrors === 'object' && Object.keys(vehiclesErrors).length > 0) return 'Please complete vehicle details.';
+    return '';
+  })();
+
 
     return (
     <FormProvider {...methods}>
@@ -252,6 +310,11 @@ const FormQuote = () => {
                 <button type="button" disabled={disabled} onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })} className={`w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
                   + Add Another Vehicle
                 </button>
+                {hasVehiclesError && (
+                  <p className="mt-2 text-sm text-red-600" role="alert">
+                    {vehiclesErrorMessage || 'Please add at least one valid vehicle and ensure all fields are completed.'}
+                  </p>
+                )}
               </div>
             </fieldset>
 
