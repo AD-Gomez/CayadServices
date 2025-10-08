@@ -157,7 +157,7 @@ export default function QuoteDetails() {
       </div>
 
       {/* Service Details */}
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-xl shadow-sm mt-6">
         <div className="p-5 border-b border-slate-200">
           <h2 className="text-lg font-semibold text-slate-800">Service Details</h2>
         </div>

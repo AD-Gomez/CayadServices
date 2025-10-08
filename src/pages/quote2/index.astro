@@ -110,15 +110,13 @@ import Footer from "../../components/Footer.astro";
         </div>
       </section>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-6">
-          <div class="inline-flex items-baseline gap-2 rounded-md bg-slate-50 border border-slate-200 px-3 py-1.5 text-sm">
-            <ShowNumberLead client:load />
-          </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-12 gap-8">
+        <div class="lg:col-span-8 xl:col-span-8 space-y-6">
+          <ShowNumberLead client:load />
           <QuoteDetails client:load />
         </div>
 
-        <aside class="lg:col-span-1">
+        <aside class="lg:col-span-4 xl:col-span-4 xl:col-start-9 lg:mt-6 xl:mt-8">
           <div class="sticky top-24 space-y-6">
             <div
               class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden"
