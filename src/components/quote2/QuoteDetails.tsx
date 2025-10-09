@@ -111,16 +111,12 @@ export default function QuoteDetails() {
               <p className="text-xs text-slate-500">Origin</p>
               <p className="font-semibold text-slate-700">{originLabel}</p>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-8 h-8 text-sky-500 shrink-0"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-            </svg>
+            {/* Colorful route indicator (orange to green) */}
+            <div className="flex items-center w-28 sm:w-36 md:w-48 lg:w-56 xl:w-64 gap-2 shrink-0" aria-hidden="true">
+              <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_0_3px_rgba(249,115,22,.2)]" />
+              <span className="h-1 w-full rounded-full bg-gradient-to-r from-orange-500 via-amber-400 to-emerald-500" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,.2)]" />
+            </div>
             <div className="w-full">
               <p className="text-xs text-slate-500">Destination</p>
               <p className="font-semibold text-slate-700">{destinationLabel}</p>
