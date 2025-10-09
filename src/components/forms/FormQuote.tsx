@@ -64,12 +64,8 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
     .max(20, 'Name must be at most 20 characters'),
   phone: yup.string()
     .required('Phone is required')
-    .test('is-valid-phone', 'Phone number is invalid', value => {
-      if (!value) return false;
-      const digits = value.replace(/\D/g, '');
-      // Accept 10 digits (US) or 11 with leading 1
-      return digits.length === 10 || (digits.length === 11 && digits.startsWith('1'));
-    }),
+    .matches(/^\+[1-9]\d{5,14}$/,
+      'Enter a valid phone in international format. Example: +13051234567'),
   email: yup.string()
     .required('Email is required')
     .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
@@ -145,18 +141,8 @@ const FormQuote = () => {
         return;
       }
 
-      // Normalize phone to +1XXXXXXXXXX format
-      const normalizePhone = (phone: string | undefined) => {
-        if (!phone) return '';
-        const digits = phone.replace(/\D/g, '');
-        if (digits.length === 10) return `+1${digits}`;
-        if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
-        // fallback: return original trimmed
-        return phone.trim();
-      };
-
-      const phoneWithPrefix = normalizePhone(data.phone);
-      const payload: any = { ...data, phone: phoneWithPrefix };
+      // Phone comes already in E.164 (e.g., +13051234567) from the input component
+      const payload: any = { ...data };
       const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && resp.id) {
@@ -235,7 +221,7 @@ const FormQuote = () => {
       */}
       <div className="bg-white rounded-xl shadow-lg border border-slate-200">
         <div className="p-6 border-b border-slate-200">
-          <h1 className="text-2xl font-bold text-slate-800">Get Your Free Shipping Quote</h1>
+          <h1 className="text-2xl font-bold text-slate-800">Get Your Premium Shipping Quote</h1>
           <p className="mt-1 text-sm text-slate-500">Fast, easy, and no obligation.</p>
         </div>
 
@@ -247,7 +233,7 @@ const FormQuote = () => {
                 <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">1</div>
                 <legend className="text-md font-semibold text-slate-800">Origin & Destination</legend>
               </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-4 gap-y-5">
                 <ZipcodeAutocompleteRHF fieldNames={{ value: 'origin_city' }} label='Shipping FROM' placeholder='City or Zip Code' />
                 <ZipcodeAutocompleteRHF fieldNames={{ value: 'destination_city' }} label='Shipping TO' placeholder='City or Zip Code' />
               </div>
@@ -283,7 +269,7 @@ const FormQuote = () => {
                         <FaTrash />
                       </button>
                     )}
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                       <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => <AutoSuggestInput {...field} label="Year" options={years} />} />
                       <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
                       <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
@@ -323,7 +309,7 @@ const FormQuote = () => {
                 <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">3</div>
                 <legend className="text-md font-semibold text-slate-800">Contact & Date</legend>
               </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-4 gap-y-5">
                 <DateInput name='ship_date' label='Preferred Pickup Date' />
                 <CustomInputOnlyText name='first_name' max={20} type='text' label='Full Name' />
                 <CustomInput name='email' max={30} label='Email Address' />
