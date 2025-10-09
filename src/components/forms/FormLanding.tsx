@@ -1,14 +1,10 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CustomInput from "../inputs/CustomInput";
 import { Controller, FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AutocompleteInput from '../inputs/AutoCompletInput';
-import CheckboxInput from '../inputs/CustomCheckbox';
-import axios from 'axios'
 import DateInput from '../inputs/CustomInputDate';
 import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
-import { sendEmail, sendLead } from '../../services/landing';
 import { FaRegPaperPlane } from "react-icons/fa";
 import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import AutoSuggestInput from '../inputs/AutoSuggestInput';
@@ -20,7 +16,7 @@ import { type LandingFormInput } from '../../utils/buildLandingPayload';
 import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
-import { formatPhoneUSToE164, normalizeRoutePhones } from '../../utils/phone';
+import { isValidPhoneNumber } from 'libphonenumber-js/max';
 
 interface FormValues {
   origin_city: string;
@@ -66,7 +62,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
     } satisfies Step1FormValues,
   });
 
-  const { handleSubmit, trigger, setError, clearErrors, formState: { errors } } = methods;
+  const { handleSubmit, trigger, formState: { errors }, control } = methods;
 
   const onSubmit = async (data: FormValues) => {
     const isValid = await trigger();
@@ -103,20 +99,22 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
               placeholder="Alameda, CA 94501"
             />
           </div>
-          <div className="flex gap-4 py-2">
-            <p className='text-sm'>
-              <b>Transport Type</b>
-            </p>
-            <Controller
-              name="transport_type"
-              control={methods.control}
-              render={({ field }) => (
-                <>
-                  <CheckboxInput {...field} name="transport_type" label="Open" value="1" />
-                  <CheckboxInput {...field} name="transport_type" label="Enclosed" value="2" />
-                </>
-              )}
-            />
+          <div className="mt-3">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Transport Type</label>
+            <div className="grid grid-cols-2 gap-3">
+              <Controller name={'transport_type'} control={control} render={({ field }) => (
+                <div>
+                  <input {...field} type="radio" id="transport_open_small" value="1" checked={field.value === '1'} className="sr-only peer" />
+                  <label htmlFor="transport_open_small" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Open</label>
+                </div>
+              )}/>
+              <Controller name={'transport_type'} control={control} render={({ field }) => (
+                <div>
+                  <input {...field} type="radio" id="transport_enclosed_small" value="2" checked={field.value === '2'} className="sr-only peer" />
+                  <label htmlFor="transport_enclosed_small" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Enclosed</label>
+                </div>
+              )}/>
+            </div>
             {errors.transport_type && <p className="text-red-500 text-xs italic mt-1">{errors.transport_type.message}</p>}
           </div>
           <button
@@ -134,18 +132,24 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-const validationSchema = yup.object().shape({
+const validationSchema = yup.object({
   Vehicles: yup.array().of(
     yup.object().shape({
-      vehicle_model_year: yup.string().required('vehicleYear is required'),
-      vehicle_make: yup.string().required('vehicle_make is required'),
-      vehicle_model: yup.string().required('vehicle_model is required'),
-      vehicle_inop: yup.string().required('vehicleOperable is required')
+      vehicle_model_year: yup.string()
+        .required('Year is required')
+        .matches(/^\d{4}$/, 'Year must be a 4 digit number')
+        .test('year-range', 'Year is out of valid range', (val) => {
+          if (!val) return false;
+          const year = parseInt(val, 10);
+          const currentYear = new Date().getFullYear() + 1; // allow next year
+          return year >= 1900 && year <= currentYear;
+        }),
+      vehicle_make: yup.string().required('Make is required'),
+      vehicle_model: yup.string().required('Model is required'),
+      vehicle_inop: yup.string().required('Condition is required'),
     })
-  ).required()
-});
-
-const BASE = import.meta.env.PUBLIC_API_URL
+  ).min(1, 'At least one vehicle is required').required(),
+}).required();
 
 type Vehicle = {
   vehicle_model_year: string;
@@ -178,7 +182,7 @@ function VehicleRow({
   const make: string = useWatch({ control, name: `Vehicles.${index}.vehicle_make` });
 
   return (
-    <div className="border p-4 my-4">
+    <div className="p-3 pt-4 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50 my-4">
       <div className="form--group form--group--section mb-4 mt-4">
         <AutoSuggestInput
           name={`Vehicles.${index}.vehicle_model_year`}
@@ -209,42 +213,31 @@ function VehicleRow({
         />
       </div>
 
-      <div className="flex w-full justify-around mt-2">
-        <p className="xs:text-sm">Is it <b>Running?</b></p>
-
-        <Controller
-          name={`Vehicles.${index}.vehicle_inop`}
-          control={control}
-          render={({ field }) => (
-            <CheckboxInput
-              {...field}
-              id={`vehicleIsOperable${index}`}
-              value="0"
-              label="Yes"
-              checked={field.value === '0'}
-              onChange={() => field.onChange('0')}
-            />
-          )}
-        />
-
-        <Controller
-          name={`Vehicles.${index}.vehicle_inop`}
-          control={control}
-          render={({ field }) => (
-            <CheckboxInput
-              {...field}
-              id={`vehicleIsNotOperable${index}`}
-              value="1"
-              label="No"
-              checked={field.value === '1'}
-              onChange={() => field.onChange('1')}
-            />
-          )}
-        />
+      <div className="mt-2">
+        <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
+        <div className="flex gap-3">
+          <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
+              <div>
+                  <input {...field} type="radio" id={`running_yes_small_${index}`} value="0" checked={field.value === '0'} className="sr-only peer" />
+                  <label htmlFor={`running_yes_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
+              </div>
+          )}/>
+          <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
+              <div>
+                  <input {...field} type="radio" id={`running_no_small_${index}`} value="1" checked={field.value === '1'} className="sr-only peer" />
+                  <label htmlFor={`running_no_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
+              </div>
+          )}/>
+        </div>
       </div>
 
       <div className="d-flex end dashed mt-2">
-        <button type="button" onClick={() => remove(index)} className="bg-[#ff0000] text-white w-auto p-2">
+        <button
+          type="button"
+          onClick={() => remove(index)}
+          className="text-red-600 border border-red-400 hover:bg-red-600 hover:text-white rounded-md px-3 py-2 font-semibold transition-colors"
+          aria-label={`Remove vehicle ${index + 1}`}
+        >
           Remove car
         </button>
       </div>
@@ -270,9 +263,9 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   useEffect(() => {
-    const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear() + 1; // Include next year model
     setYears(
-      Array.from({ length: 30 }, (_, i) => {
+      Array.from({ length: 50 }, (_, i) => {
         const y = String(currentYear - i);
         return { value: y, label: y };
       })
@@ -362,14 +355,7 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
   );
 };
 
-function separarCiudadYEstado(locationString: string) {
-  const [city, state] = locationString.split(',').map(part => part.trim());
-
-  return {
-    city: city || "",
-    state: state || ""
-  };
-}
+// removed unused helper separarCiudadYEstado
 
 const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSubmit }: any) => {
   const [disabled, setDisabled] = useState<boolean>(false)
@@ -378,10 +364,17 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       .required('Name is required')
       .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
       .min(3, 'Name must be at least 3 characters')
-      .max(20, ''),
+      .max(20, 'Name must be at most 20 characters'),
     phone: yup.string()
       .required('Phone is required')
-      .min(14, 'Phone number must be 10 characters'),
+      .test('valid-phone', 'Enter a valid phone number for the selected country.', (val) => {
+        if (!val) return false;
+        try {
+          return isValidPhoneNumber(String(val));
+        } catch {
+          return false;
+        }
+      }),
     email: yup.string()
       .required('Email is required')
       .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')
@@ -402,10 +395,9 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     },
   });
 
-  const { handleSubmit, formState: { isValid } } = methods;
+  const { handleSubmit } = methods;
 
   const originCityAndState = dataSubmit?.origin_city;
-  const location = separarCiudadYEstado(originCityAndState);
 
   const formatDate = (date: string) => {
     const dateObj = new Date(date);
@@ -419,7 +411,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
       ...dataSubmit,
       ...data,
       AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0",
-      data_ship: formattedDate
+      ship_date: formattedDate
     };
     handleSubmitLeadAndEmail(dataToSend)
   };
@@ -497,14 +489,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
   );
 };
 
-const extractLeadNumber = (response: string) => {
-  const match = response.match(/Lead\s*:\s*(\d+)/);
-  if (match && match[1]) {
-    return match[1];
-  } else {
-    throw new Error('No se pudo encontrar el número de lead en la respuesta.');
-  }
-};
+// Legacy helper removed: lead number is returned by sendLeadToLanding JSON response
 
 const FormLanding = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -522,28 +507,21 @@ const FormLanding = () => {
     try {
       setDisabled(true);
 
-      const phoneWithPrefix = data.phone?.trim().startsWith("+1")
-        ? data.phone.trim()
-        : `+1 ${data.phone.trim()}`;
-
-      const payload: LandingFormInput = {
-        ...data,
-        phone: phoneWithPrefix,
-      };
-
+      // Phone comes already in E.164 format from CustomInputPhone
+      const payload: LandingFormInput = { ...data };
       const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
         saveNumberLead(String(resp.id));
-        showNotification({ text: "success", icon: "success" });
-        saveLead?.(payload);
-        saveEmail?.({ ...payload, crm_lead_id: resp.id });
+        showNotification({ text: "Success!", icon: "success" });
+        saveLead?.(payload as any);
+        saveEmail?.({ ...(payload as any), crm_lead_id: resp.id });
 
         setTimeout(() => {
           window.location.href = "/quote2";
         }, 2000);
       } else {
-        showNotification({ text: "Error", icon: "error" });
+        showNotification({ text: "Error sending quote", icon: "error" });
       }
     } catch (err) {
       showNotification({ text: "Error sending lead", icon: "error" });
@@ -590,6 +568,7 @@ const FormLanding = () => {
         mx-auto mb-8 flex flex-col items-center justify-between
         overflow-auto rounded-lg bg-white min-h-96 max-h-[450px]
         w-[95%] sm:w-[90%] md:w-[60%] lg:w-[500px] max-w-[500px]
+        border border-slate-200 shadow-lg
       "
     >
       {renderContent()}
