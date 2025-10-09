@@ -119,7 +119,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
           </div>
           <button
             type="submit"
-            className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer text-lg mb-4 w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer text-lg mb-4 w-full h-10 mt-5 text-white rounded-lg px-4 font-semibold"
           >
             Add Vehicle Details
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
@@ -309,7 +309,7 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
 
           {fields.length < 10 && (
             <button
-              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 ${!canAdd ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 rounded-lg ${!canAdd ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
               type="button"
               disabled={!canAdd}
               onClick={() =>
@@ -322,7 +322,7 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
           )}
 
           <button
-            className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white"
+            className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold"
             type="submit"
           >
             Contact Details
@@ -447,7 +447,7 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <button
             id="submit_button" disabled={disabled}
-            className={`bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white
+            className={`bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold
               ${disabled ? 'opacity-[0.6] hover:cursor-not-allowed ' : ''}
               `}
             type="submit"
