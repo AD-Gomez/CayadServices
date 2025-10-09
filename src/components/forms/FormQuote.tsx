@@ -11,6 +11,7 @@ import CustomInputOnlyText from '../inputs/CustomInputOnlyText';
 import CustomInput from '../inputs/CustomInput';
 import CustomInputPhone from '../inputs/CustomInputPhone';
 import * as yup from 'yup';
+import { isValidPhoneNumber } from 'libphonenumber-js/max';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendEmail, sendLead } from '../../services/landing';
 import { saveEmail, saveLead, saveNumberLead } from '../../services/localStorage';
@@ -64,8 +65,15 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
     .max(20, 'Name must be at most 20 characters'),
   phone: yup.string()
     .required('Phone is required')
-    .matches(/^\+[1-9]\d{5,14}$/,
-      'Enter a valid phone in international format. Example: +13051234567'),
+    .test('valid-phone', 'Enter a valid phone number for the selected country.', (val) => {
+      if (!val) return false;
+      try {
+        // Validate using libphonenumber against full metadata; value is E.164 from the input
+        return isValidPhoneNumber(String(val));
+      } catch {
+        return false;
+      }
+    }),
   email: yup.string()
     .required('Email is required')
     .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/, 'Invalid e-mail format')

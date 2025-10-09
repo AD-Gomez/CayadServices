@@ -2,6 +2,7 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
+import { isValidPhoneNumber, parsePhoneNumberFromString } from 'libphonenumber-js/max';
 
 interface CustomInputProps {
   name: string;
@@ -25,6 +26,95 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
   // Avoid showing an error when the phone input auto-populates a short dial code like '+1'
   const showErrorGlobal = fieldErrorGlobal && interactedGlobal && (currentValueGlobal.length > 2 || Boolean(isSubmitted));
 
+  // Country-specific minimums (national significant number length)
+  const MIN_NSN: Record<string, number> = {
+    us: 10,
+    ca: 10,
+    do: 10,
+    mx: 10,
+    es: 9,
+    co: 10,
+    ar: 10,
+    br: 10, // Brazil landline 10, mobiles 11 (handled by max)
+    pe: 9,
+    cl: 9,
+    ve: 10,
+  };
+
+  // English country names for our preferred set
+  const COUNTRY_EN: Record<string, string> = {
+    us: 'United States',
+    ca: 'Canada',
+    do: 'Dominican Republic',
+    mx: 'Mexico',
+    es: 'Spain',
+    co: 'Colombia',
+    ar: 'Argentina',
+    br: 'Brazil',
+    pe: 'Peru',
+    cl: 'Chile',
+    ve: 'Venezuela',
+  };
+
+  // Example international formats per country
+  const EXAMPLES: Record<string, string> = {
+    us: '+1 201 555 0123',
+    ca: '+1 204 555 0123',
+    do: '+1 809 234 5678',
+    mx: '+52 55 1234 5678',
+    es: '+34 612 34 56 78',
+    co: '+57 321 123 4567',
+    ar: '+54 9 11 2345 6789',
+    br: '+55 11 91234 5678',
+    pe: '+51 912 345 678',
+    cl: '+56 9 6123 4567',
+    ve: '+58 412 123 4567',
+  };
+
+  // Build calling-code -> iso2 map from the examples so we can infer country from a leading +code while typing
+  const CALLING_CODE_TO_ISO: Record<string, string> = {};
+  Object.keys(EXAMPLES).forEach((iso) => {
+    try {
+      const p = parsePhoneNumberFromString(EXAMPLES[iso]);
+      if (p && p.countryCallingCode) CALLING_CODE_TO_ISO[String(p.countryCallingCode)] = iso;
+    } catch {}
+  });
+
+  // Compute helper text needs (digits missing) using current form value
+  const parsedGlobal = (() => {
+    try { return parsePhoneNumberFromString(currentValueGlobal || ''); } catch { return undefined; }
+  })();
+  // If parsing doesn't give a country (incomplete number), try to infer from the dial code (+xx)
+  let iso2Global = parsedGlobal?.country?.toLowerCase?.();
+  if (!iso2Global) {
+    const m = String(currentValueGlobal || '').match(/^\+(\d{1,3})/);
+    if (m) {
+      const maybe = CALLING_CODE_TO_ISO[m[1]];
+      if (maybe) iso2Global = maybe;
+    }
+  }
+  const nsnLenGlobal = parsedGlobal?.nationalNumber ? String(parsedGlobal.nationalNumber).length : 0;
+  const minRequiredGlobal = iso2Global ? MIN_NSN[iso2Global] : undefined;
+  const needsMoreDigitsGlobal = interactedGlobal && Boolean(minRequiredGlobal) && nsnLenGlobal > 0 && nsnLenGlobal < Number(minRequiredGlobal);
+  const countryLabelEN = iso2Global ? (COUNTRY_EN[iso2Global] || iso2Global.toUpperCase()) : '';
+  const exampleForCountry = iso2Global ? (EXAMPLES[iso2Global] || '') : '';
+
+  // Max national significant number lengths for our supported/preferred countries
+  // Keys are lower-case ISO2 codes to match react-international-phone conventions
+  const MAX_NSN: Record<string, number> = {
+    us: 10,
+    ca: 10,
+    do: 10,
+    mx: 10,
+    es: 9,
+    co: 10,
+    ar: 10,
+    br: 11,
+    pe: 9,
+    cl: 9,
+    ve: 10,
+  };
+
   return (
   <div className="relative mb-4"> {/* slightly larger bottom margin to separate label/helper from next element */}
       <Controller
@@ -32,9 +122,22 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
         control={control}
         defaultValue={defaultValue || ''}
         render={({ field: { value, onChange, onBlur, ref } }) => {
-          const isE164 = (v: string) => /^\+[1-9]\d{5,14}$/.test(v || '');
-          // Use the globals computed above for deciding when to show error state
-          const showError = showErrorGlobal;
+          // Validate by country using libphonenumber-js (works with E.164 input)
+          const isE164 = (v: string) => {
+            if (!v) return false;
+            try {
+              return isValidPhoneNumber(String(v));
+            } catch {
+              return false;
+            }
+          };
+          // Use the globals computed above and also show error if national number is shorter than country minimum
+          const parsedLocal = (() => { try { return parsePhoneNumberFromString(String(value || '')); } catch { return undefined; } })();
+          const iso2Local = parsedLocal?.country?.toLowerCase?.();
+          const minLocal = iso2Local ? MIN_NSN[iso2Local] : undefined;
+          const nsnLocal = parsedLocal?.nationalNumber ? String(parsedLocal.nationalNumber) : '';
+          const tooShortLocal = interactedGlobal && Boolean(minLocal) && nsnLocal.length > 0 && nsnLocal.length < Number(minLocal);
+          const showError = showErrorGlobal || tooShortLocal;
           const valid = !fieldErrorGlobal && interactedGlobal && isE164(String(value || ''));
           return (
             <div className="relative">
@@ -42,13 +145,36 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
                 ref={ref as any}
                 defaultCountry="us"
                 value={String(value || '')}
-                onChange={(phone) => onChange(phone)}
+                onChange={(next) => {
+                  const raw = String(next || '');
+                  // Try to parse and clamp national number by country max length
+                  try {
+                    const parsed = parsePhoneNumberFromString(raw);
+                    if (parsed && parsed.country) {
+                      const iso2 = parsed.country.toLowerCase();
+                      const max = MAX_NSN[iso2];
+                      if (max && parsed.nationalNumber) {
+                        const nsn = parsed.nationalNumber.toString();
+                        if (nsn.length > max) {
+                          const clamped = nsn.slice(0, max);
+                          const clampedE164 = `+${parsed.countryCallingCode}${clamped}`;
+                          if (clampedE164 !== raw) {
+                            onChange(clampedE164);
+                            return;
+                          }
+                        }
+                      }
+                    }
+                  } catch {}
+                  onChange(raw);
+                }}
                 onBlur={onBlur}
                 placeholder="Enter phone number"
                 forceDialCode
                 inputProps={{ name }}
                 className="w-full"
-                inputClassName={`peer w-full bg-white text-gray-900 focus:outline-none h-10 pl-3 pr-10 border rounded-r-md ${showError ? 'border-red-500 focus:border-red-500' : valid ? 'border-green-500 focus:border-green-500' : 'border-slate-300 focus:border-btn-blue'}`}
+                // Increase left padding so the country selector (flag + chevron) has space
+                inputClassName={`peer w-full bg-white text-gray-900 focus:outline-none h-10 pl-14 pr-10 border rounded-r-md ${showError ? 'border-red-500 focus:border-red-500' : valid ? 'border-green-500 focus:border-green-500' : 'border-slate-300 focus:border-btn-blue'}`}
                 style={{
                   // Harmonize with Tailwind and prevent layout jumps
                   ['--react-international-phone-height' as any]: '40px',
@@ -56,7 +182,8 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
                   ['--react-international-phone-dropdown-top' as any]: '42px',
                 }}
                 countrySelectorStyleProps={{
-                  buttonClassName: `h-10 bg-white border ${showError ? 'border-red-500 focus:border-red-500' : valid ? 'border-green-500 focus:border-green-500' : 'border-slate-300 focus:border-btn-blue'} rounded-l-md`,
+                  // Make the country selector wider so flag + chevon fit without overlapping the input text
+                  buttonClassName: `h-10 bg-white border ${showError ? 'border-red-500 focus:border-red-500' : valid ? 'border-green-500 focus:border-green-500' : 'border-slate-300 focus:border-btn-blue'} rounded-l-md pl-3 pr-3 min-w-[84px] flex items-center justify-start gap-2`,
                   dropdownStyleProps: {
                     className: 'absolute z-[9999] max-h-[160px] overflow-auto bg-white shadow-xl', // Cambiado de max-h-[50vh] a max-h-[160px]
                     style: { 
@@ -92,9 +219,11 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
         }}
       />
   <p className={`mt-2 text-xs ${(showErrorGlobal ? 'text-red-500' : 'text-slate-500')}`} aria-live="polite">
-        {showErrorGlobal
-          ? String((errors as any)[name]?.message)
-          : 'Selecciona el país con la banderita y escribe tu número. Se guarda en formato internacional (+prefijo...).'}
+        {needsMoreDigitsGlobal && minRequiredGlobal
+          ? `Enter at least ${minRequiredGlobal} digits for ${countryLabelEN}. Missing ${Number(minRequiredGlobal) - nsnLenGlobal}.`
+            : showErrorGlobal
+            ? String((errors as any)[name]?.message)
+            : (iso2Global && (parsedGlobal?.formatInternational?.() || exampleForCountry)) || (exampleForCountry ? `Example: ${exampleForCountry}` : 'Select your country with the flag and type your phone number. It will be saved in international format (+country code...).')}
       </p>
     </div>
   );
