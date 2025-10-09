@@ -56,48 +56,19 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
     ve: 'Venezuela',
   };
 
-  // Example international formats per country
-  const EXAMPLES: Record<string, string> = {
-    us: '+1 201 555 0123',
-    ca: '+1 204 555 0123',
-    do: '+1 809 234 5678',
-    mx: '+52 55 1234 5678',
-    es: '+34 612 34 56 78',
-    co: '+57 321 123 4567',
-    ar: '+54 9 11 2345 6789',
-    br: '+55 11 91234 5678',
-    pe: '+51 912 345 678',
-    cl: '+56 9 6123 4567',
-    ve: '+58 412 123 4567',
-  };
-
-  // Build calling-code -> iso2 map from the examples so we can infer country from a leading +code while typing
-  const CALLING_CODE_TO_ISO: Record<string, string> = {};
-  Object.keys(EXAMPLES).forEach((iso) => {
-    try {
-      const p = parsePhoneNumberFromString(EXAMPLES[iso]);
-      if (p && p.countryCallingCode) CALLING_CODE_TO_ISO[String(p.countryCallingCode)] = iso;
-    } catch {}
-  });
+  // Note: example formats removed per request. Country inference still attempts to use parsed dial code from the
+  // current value when available via `parsePhoneNumberFromString`.
 
   // Compute helper text needs (digits missing) using current form value
   const parsedGlobal = (() => {
     try { return parsePhoneNumberFromString(currentValueGlobal || ''); } catch { return undefined; }
   })();
-  // If parsing doesn't give a country (incomplete number), try to infer from the dial code (+xx)
+  // Determine ISO2 country code from the parsed value when available.
   let iso2Global = parsedGlobal?.country?.toLowerCase?.();
-  if (!iso2Global) {
-    const m = String(currentValueGlobal || '').match(/^\+(\d{1,3})/);
-    if (m) {
-      const maybe = CALLING_CODE_TO_ISO[m[1]];
-      if (maybe) iso2Global = maybe;
-    }
-  }
   const nsnLenGlobal = parsedGlobal?.nationalNumber ? String(parsedGlobal.nationalNumber).length : 0;
   const minRequiredGlobal = iso2Global ? MIN_NSN[iso2Global] : undefined;
   const needsMoreDigitsGlobal = interactedGlobal && Boolean(minRequiredGlobal) && nsnLenGlobal > 0 && nsnLenGlobal < Number(minRequiredGlobal);
   const countryLabelEN = iso2Global ? (COUNTRY_EN[iso2Global] || iso2Global.toUpperCase()) : '';
-  const exampleForCountry = iso2Global ? (EXAMPLES[iso2Global] || '') : '';
 
   // Max national significant number lengths for our supported/preferred countries
   // Keys are lower-case ISO2 codes to match react-international-phone conventions
@@ -218,12 +189,12 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
           );
         }}
       />
-  <p className={`mt-2 text-xs ${(showErrorGlobal ? 'text-red-500' : 'text-slate-500')}`} aria-live="polite">
+              <p className={`mt-2 text-xs ${(showErrorGlobal ? 'text-red-500' : 'text-slate-500')}`} aria-live="polite">
         {needsMoreDigitsGlobal && minRequiredGlobal
           ? `Enter at least ${minRequiredGlobal} digits for ${countryLabelEN}. Missing ${Number(minRequiredGlobal) - nsnLenGlobal}.`
-            : showErrorGlobal
-            ? String((errors as any)[name]?.message)
-            : (iso2Global && (parsedGlobal?.formatInternational?.() || exampleForCountry)) || (exampleForCountry ? `Example: ${exampleForCountry}` : 'Select your country with the flag and type your phone number. It will be saved in international format (+country code...).')}
+          : showErrorGlobal
+          ? String((errors as any)[name]?.message)
+          : (iso2Global && parsedGlobal?.formatInternational?.()) || 'Select your country with the flag and type your phone number. It will be saved in international format (+country code...).'}
       </p>
     </div>
   );
