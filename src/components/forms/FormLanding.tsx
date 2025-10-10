@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CustomInput from "../inputs/CustomInput";
 import { Controller, FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -258,7 +258,7 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
     mode: 'onChange',
   });
 
-  const { handleSubmit, control, setValue, watch } = methods;
+  const { handleSubmit, control, setValue } = methods;
   const { fields, append, remove } = useFieldArray({ control, name: 'Vehicles' });
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
@@ -272,11 +272,7 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
     );
   }, []);
 
-  const all = watch('Vehicles');
-  const canAdd = useMemo(() => {
-    if (!all?.length) return false;
-    return all.every(v => v.vehicle_model_year && v.vehicle_make && v.vehicle_model && v.vehicle_inop !== '');
-  }, [all]);
+  // Allow adding vehicles at any time; validation occurs on submit. Limit to max 10 vehicles.
 
   const onSubmit = (data: FormValuesVehicle) => {
     const normalized: FormValuesVehicle = {
@@ -309,11 +305,9 @@ const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) =>
 
           {fields.length < 10 && (
             <button
-              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 rounded-lg ${!canAdd ? 'cursor-not-allowed bg-slate-200' : 'cursor-pointer'}`}
+              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 rounded-lg cursor-pointer`}
               type="button"
-              disabled={!canAdd}
               onClick={() =>
-                canAdd &&
                 append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })
               }
             >
