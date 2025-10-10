@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import Tooltip from "../TooltipReact";
 import { getLead } from "../../services/localStorage";
 import { distanceForLocations, estimateTransitDays, formatKm, formatMiles } from "../../services/distance";
 import { format, parse } from "date-fns";
@@ -108,7 +109,10 @@ export default function QuoteDetails() {
         <div className="p-5 space-y-4">
           <div className="flex items-center justify-between gap-4 text-center">
             <div className="w-full">
-              <p className="text-xs text-slate-500">Origin</p>
+              <p className="text-xs text-slate-500 inline-flex items-center gap-1">
+                Origin
+                <Tooltip label="Pick-up location for your vehicle." position="top" />
+              </p>
               <p className="font-semibold text-slate-700">{originLabel}</p>
             </div>
             {/* Colorful route indicator (orange to green) */}
@@ -118,7 +122,10 @@ export default function QuoteDetails() {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,.2)]" />
             </div>
             <div className="w-full">
-              <p className="text-xs text-slate-500">Destination</p>
+              <p className="text-xs text-slate-500 inline-flex items-center gap-1">
+                Destination
+                <Tooltip label="Drop-off location for your vehicle." position="top" />
+              </p>
               <p className="font-semibold text-slate-700">{destinationLabel}</p>
             </div>
           </div>
@@ -129,23 +136,36 @@ export default function QuoteDetails() {
               <span>Calculating distance…</span>
             ) : distanceMi ? (
               <span>
-                Distance: <span className="font-semibold text-slate-800">{formatMiles(distanceMi, 0)}</span>
+                <span className="inline-flex items-center gap-1">
+                  Distance
+                  <Tooltip label="Approximate driving distance between origin and destination." position="top" />
+                </span>: <span className="font-semibold text-slate-800">{formatMiles(distanceMi, 0)}</span>
                 {" "}
                 <span className="text-slate-400">({formatKm(distanceKm, 0)})</span>
               </span>
             ) : (
-              <span>Distance: —</span>
+              <span>
+                <span className="inline-flex items-center gap-1">
+                  Distance <Tooltip label="We’ll show distance once both locations are available." position="top" />
+                </span>: —
+              </span>
             )}
           </div>
 
           <div className="border-t border-slate-200 my-4" />
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-500">Vehicle</p>
+              <p className="text-slate-500 inline-flex items-center gap-1">
+                Vehicle
+                <Tooltip label="The main vehicle you’re shipping. If you entered multiple, we show the first plus a count." position="top" />
+              </p>
               <p className="font-semibold text-slate-700">{vehicleText}</p>
             </div>
             <div>
-              <p className="text-slate-500">First Available Date</p>
+              <p className="text-slate-500 inline-flex items-center gap-1">
+                First Available Date
+                <Tooltip label="The earliest date you’re ready for pick-up. We’ll aim to assign a carrier around this date." position="top" />
+              </p>
               <p className="font-semibold text-slate-700">{shipDate}</p>
             </div>
           </div>
@@ -159,27 +179,45 @@ export default function QuoteDetails() {
         </div>
         <ul className="divide-y divide-slate-200 text-sm">
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Transport Type</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Transport Type
+              <Tooltip label="Open is most common and budget-friendly. Enclosed offers extra protection for luxury or classic cars." position="top" />
+            </span>
             <span className="font-semibold text-slate-800 bg-sky-50 text-sky-700 px-2 py-1 rounded-md">{transportType}</span>
           </li>
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Vehicle Condition</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Vehicle Condition
+              <Tooltip label="Running vehicles can be driven onto the trailer. Not running requires special equipment." position="top" />
+            </span>
             <span className="font-semibold text-slate-800">{conditionText}</span>
           </li>
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Service Type</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Service Type
+              <Tooltip label="Door-to-door means pick-up and delivery as close to your addresses as safely and legally possible." position="top" />
+            </span>
             <span className="font-semibold text-slate-800">Door-to-Door</span>
           </li>
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Insurance</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Insurance
+              <Tooltip label="Carrier cargo insurance is included. You’ll receive the carrier’s insurance details when assigned." position="top" />
+            </span>
             <span className="font-semibold text-emerald-600">Fully Included</span>
           </li>
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Estimated Transit Time</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Estimated Transit Time
+              <Tooltip label="Typical time on the road once picked up. Actual timing may vary with route and traffic." position="top" />
+            </span>
             <span className="font-semibold text-slate-800">{transit ?? ""}</span>
           </li>
           <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600">Distance</span>
+            <span className="text-slate-600 inline-flex items-center gap-1">
+              Distance
+              <Tooltip label="We show both miles and kilometers for convenience." position="top" />
+            </span>
             <span className="font-semibold text-slate-800">{distanceMi ? formatMiles(distanceMi, 0) : ""}</span>
           </li>
         </ul>
