@@ -13,8 +13,7 @@ export interface ZipResult {
     raw: ZipApiItem;
 }
 
-const BASE =
-    import.meta.env.PUBLIC_ZIPCODES_API_BASE
+const BASE = import.meta.env.PUBLIC_ZIPCODES_API_BASE;
 
 export async function searchZipcodes(
     q: string,
@@ -22,10 +21,18 @@ export async function searchZipcodes(
 ): Promise<ZipResult[]> {
     if (!q || q.length < 2) return [];
 
-    const url = new URL("/api/zipcodes/", BASE);
-    url.searchParams.set("search", q);
+    // If a BASE is provided use it, otherwise fall back to a relative
+    // endpoint so the client can call the local /api/zipcodes/ route.
+    let res: Response;
+    if (BASE) {
+        const url = new URL("/api/zipcodes/", BASE);
+        url.searchParams.set("search", q);
+        res = await fetch(url.toString(), { signal });
+    } else {
+        const url = `/api/zipcodes/?search=${encodeURIComponent(q)}`;
+        res = await fetch(url, { signal });
+    }
 
-    const res = await fetch(url.toString(), { signal });
     if (!res.ok) return [];
 
     const data = await res.json();
@@ -36,9 +43,8 @@ export async function searchZipcodes(
             const city = String(it.city ?? "").trim();
             const state = String(it.state ?? "").trim();
             const zip = String(it.zip_code ?? "").trim();
-            const label =
-                [city, state].filter(Boolean).join(", ") + (zip ? ` ${zip}` : "");
+            const label = [city, state].filter(Boolean).join(", ") + (zip ? ` ${zip}` : "");
             return { label, city, state, zip, raw: it };
         })
-        .filter((r) => r.city)
+        .filter((r) => r.city);
 }
