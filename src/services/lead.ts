@@ -1,10 +1,16 @@
 import { buildLandingPayloadWithRoute, type LandingFormInput } from "../utils/buildLandingPayload";
+import { getPublicIP } from "./ip";
 
 const BASE = import.meta.env.PUBLIC_API_URL;
 const PUBLIC_API_KEY = import.meta.env.PUBLIC_API_KEY;
 
 export async function sendLeadToLanding(input: LandingFormInput) {
-  const payload = buildLandingPayloadWithRoute(input);
+  // Try to capture client public IP but don't block lead submission if it fails
+  const ip = await getPublicIP().catch(() => null);
+  const payload = {
+    ...buildLandingPayloadWithRoute(input),
+    ...(ip ? { client_ip: ip } : {}),
+  };
 
   // Build the endpoint URL robustly. If BASE is provided use it as base,
   // otherwise fall back to a relative path so the client can call the

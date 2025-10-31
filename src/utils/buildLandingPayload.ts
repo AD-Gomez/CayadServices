@@ -43,6 +43,8 @@ export type LandingPayloadWithRoute = {
   email: string;
   ship_date: string;
   transport_type: TransportLabel;
+  /** Optional client public IP, if captured client-side */
+  client_ip?: string;
   Vehicles: Array<{
     vehicle_model_year?: string | number;
     vehicle_make?: string;
