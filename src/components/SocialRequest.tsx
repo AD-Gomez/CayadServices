@@ -77,13 +77,28 @@ const SocialRequest: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!showingToast) return; // Si no debe mostrarse, no hace nada
+    if (!showingToast) return;
+    // Evita bucles en desarrollo; solo ejecuta en producción
+    if (import.meta.env.DEV) return;
 
-    const intervalId = setInterval(() => {
-      showRandomReview();
-    }, 120000); // 3000ms = 3 segundos 300000
+    let timeoutId: number | undefined;
+    const onVisibility = () => {
+      if (!document.hidden) {
+        // Mostrar una sola vez tras 2 minutos y detener
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+          showRandomReview();
+        }, 120000);
+      }
+    };
 
-    return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
+    document.addEventListener('visibilitychange', onVisibility);
+    onVisibility();
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.clearTimeout(timeoutId);
+    };
   }, [showingToast]);
 
   const showRandomReview = () => {

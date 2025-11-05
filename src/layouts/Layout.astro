@@ -1,5 +1,7 @@
 ---
-import SpeedInsights from "@vercel/speed-insights/astro";
+// SpeedInsights import removed to avoid injected perf scripts that can
+// trigger frequent network revalidation in dev mode. Re-enable only if
+// you explicitly need Speed Insights and after configuring its polling.
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import ButtonChat from "../components/ButtonChat";
@@ -168,25 +170,18 @@ const { title, content } = Astro.props;
         let vibrationCount = 0;
         const maxVibrations = 14;
 
+        // Aumentamos el intervalo a 15s para reducir trabajo en el main thread
+        // y posibles revalidaciones de recursos que provoquen re-fetch.
+        // También eliminamos el 'void btn.offsetWidth' que forzaba reflow.
         const vibrateInterval = setInterval(() => {
-          if (
-            menu.classList.contains("hidden") &&
-            vibrationCount < maxVibrations
-          ) {
+          if (menu.classList.contains("hidden") && vibrationCount < maxVibrations) {
             btn.classList.remove("vibrate");
-
-            // Forzar reflow para reiniciar la animación
-            void btn.offsetWidth;
-
             btn.classList.add("vibrate");
             vibrationCount++;
-          } else if (
-            vibrationCount >= maxVibrations ||
-            !menu.classList.contains("hidden")
-          ) {
+          } else if (vibrationCount >= maxVibrations || !menu.classList.contains("hidden")) {
             clearInterval(vibrateInterval);
           }
-        }, 3000);
+        }, 15000);
       });
     </script>
     <!-- shared socials -->

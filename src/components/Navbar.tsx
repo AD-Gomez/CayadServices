@@ -86,7 +86,7 @@ export default function Example() {
   return (
     <>
       <MarqueeText />
-      <header className="bg-white border-t-[5px] max-h-[80px] border-[#00a1ef] sticky  top-0  z-50">
+  <header className="bg-white border-t-[5px] max-h-[80px] border-[#00a1e1] sticky  top-0  z-50">
         <nav className="mx-auto flex max-w-[95%] max-h-[80px] items-center justify-between py-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5">
@@ -119,7 +119,7 @@ export default function Example() {
                   <Popover.Button className={classNames(
                     openPopover === 'how-it-work' ? 'text-btn-blue' : '',
                     isPopoverHowItWorkActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    'flex items-center hover:text-[#00a1e1] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     HOW IT WORKS?
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -166,7 +166,7 @@ export default function Example() {
                   <Popover.Button className={classNames(
                     openPopover === 'individuals' ? 'text-btn-blue' : '',
                     isPopoverActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    'flex items-center hover:text-[#00a1e1] p-2 ease-in-out duration-100 delay-100 focus:outline-none gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR INDIVIDUALS
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -182,7 +182,7 @@ export default function Example() {
                     leaveTo="opacity-0 translate-y-1"
                   >
                     <Popover.Panel className="absolute -left-0 top-full z-10 mt-3 w-screen max-w-60 overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
-                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                      <div className='bg-[#00a1e1] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                         <p className='text-white'>
                           We Offer
                         </p>
@@ -201,7 +201,7 @@ export default function Example() {
                           </div>
                         ))}
                       </div>
-                      <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                      <div className='bg-[#00a1e1] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                         <p className='text-white'>
                           We Serve
                         </p>
@@ -235,7 +235,7 @@ export default function Example() {
                   <Popover.Button className={classNames(
                     openPopover === 'businesses' ? 'text-btn-blue' : '',
                     isPopoverBusinessesActive ? 'border-2 border-btn-blue  rounded  text-btn-blue ' : 'text-[#060315]',
-                    'flex items-center hover:text-[#00a1ef] p-2 ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    'flex items-center hover:text-[#00a1e1] p-2 ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     FOR BUSINESSES
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -280,7 +280,7 @@ export default function Example() {
                   <Popover.Button className={classNames(
                     openPopover === 'whyUs' ? 'text-btn-blue' : '',
                     isPopoverWhyUsActive ? 'text-btn-blue border-2 border-btn-blue  rounded' : 'text-[#060315]',
-                    'flex items-center p-2 hover:text-[#00a1ef] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
+                    'flex items-center p-2 hover:text-[#00a1e1] ease-in duration-100 focus:outline-none delay-100 gap-x-1 text-[16px] font-medium text-[#060315] leading-6'
                   )}>
                     ABOUT US
                     <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -316,17 +316,17 @@ export default function Example() {
               )}
             </Popover>
 
-            <a href="/faqs/" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            <a href="/faqs/" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1e1] ease-in-out duration-100 delay-100 leading-6
             ${currentPath === '/faqs/' ? 'text-btn-blue border-2 border-btn-blue  rounded ' : ''}  `}>
               FAQS
             </a>
-            <a href="/contact" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1ef] ease-in-out duration-100 delay-100 leading-6
+            <a href="/contact" className={`text-[16px] font-medium p-2 text-[#060315] hover:text-[#00a1e1] ease-in-out duration-100 delay-100 leading-6
             ${currentPath === '/contact/' ? 'text-btn-blue  border-2 border-btn-blue  rounded' : ''}    `}>
               CONTACT
             </a>
             <div className="flex p-2">
-              <FaPhone className="text-[#00a1ef] mr-2 mt-1" />
-              <a href="tel:+14696190747" className="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">
+              <FaPhone className="text-[#00a1e1] mr-2 mt-1" />
+              <a href="tel:+14696190747" className="text-[18px]  text-[#00a1e1] font-semibold leading-6 ">
                 (469) 619-0747
               </a>
             </div>
@@ -392,7 +392,7 @@ export default function Example() {
                           <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
                         </DisclosureButton>
                         <DisclosurePanel className="mt-2 space-y-2">
-                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                          <div className='bg-[#00a1e1] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                             <p className='text-white'>
                               We Offer
                             </p>
@@ -407,7 +407,7 @@ export default function Example() {
                               {item.description}
                             </DisclosureButton>
                           ))}
-                          <div className='bg-[#00a1ef] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
+                          <div className='bg-[#00a1e1] group relative flex items-center gap-x-6  py-2 px-4 text-sm leading-6'>
                             <p className='text-white'>
                               We Serve
                             </p>

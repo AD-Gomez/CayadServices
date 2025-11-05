@@ -42,7 +42,7 @@ const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, di
                 border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
                 borderRadius: '0.375rem',
                 '&:hover': {
-                  border: `1px solid ${hasError ? 'red' : '#00a1ef'}`,
+                  border: `1px solid ${hasError ? 'red' : '#00a1e1'}`,
                 },
               }),
               indicatorSeparator: () => ({
@@ -55,7 +55,7 @@ const AutoSuggestInput: React.FC<SelectInputProps> = ({ name, label, options, di
       />
       <label
         htmlFor={name}
-        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm ${hasError ? 'text-red-500' : 'peer-focus:text-blue-500'}`}
+        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm ${hasError ? 'text-red-500' : 'peer-focus:text-btn-blue'}`}
       >
         {label}
       </label>

@@ -5,9 +5,9 @@ export default {
 		extend: {
 			colors: {
 				'white': '#FFF',
-				'btn-blue': '#00a1ef',
-				'btn-hover': '#007bef',
-				'btn-hover-light': '#00a1ef',
+				'btn-blue': '#00a1e1',
+				'btn-hover': '#0080b4',
+				'btn-hover-light': '#00a1e1',
 				'h3-title': '#00000',
 				'h1-landing': '#232b36',
 				'p-landing': '#555',
@@ -15,7 +15,7 @@ export default {
 				'light': '#F8F2F0',
 				'bg-footer': '#060315',
 				'green-moving-text': '#029046',
-				'blue-moving-text': '#00a1ef',
+				'blue-moving-text': '#00a1e1',
 				'hover-li': '#e9ecef'
 			},
 			backgroundImage: {

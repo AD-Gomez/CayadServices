@@ -145,13 +145,29 @@ const SocialProof: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!showingToast) return; // Si no debe mostrarse, no hace nada
+    if (!showingToast) return;
+    // Evita ejecutar en desarrollo para no provocar recargas/revalidaciones frecuentes
+    if (import.meta.env.DEV) return;
 
-    const intervalId = setInterval(() => {
-      showRandomReview();
-    }, 60000); // 3000ms = 3 segundos estaba en 240000  60000
+    let timeoutId: number | undefined;
+    const onVisibility = () => {
+      // Ejecuta solo cuando la pestaña está visible
+      if (!document.hidden) {
+        // Muestra una sola vez tras 90s y luego se detiene
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+          showRandomReview();
+        }, 90000);
+      }
+    };
 
-    return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente o al detener el bucle
+    document.addEventListener('visibilitychange', onVisibility);
+    onVisibility();
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.clearTimeout(timeoutId);
+    };
   }, [showingToast]);
 
   const showRandomReview = () => {

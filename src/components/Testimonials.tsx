@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from 'swiper';
@@ -18,6 +18,11 @@ import '../styles/animate.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { FaQuoteRight } from "react-icons/fa6";
+
+// Preload cache to keep blobs/URLs in memory and avoid
+// revalidations/re-fetch when Swiper clones slides or re-mounts nodes.
+const PRELOADED = new Map<string, HTMLImageElement>();
+const PRELOADED_BLOBS = new Map<string, string>(); // src -> objectURL
 
 const testimonials = [
   {
@@ -113,6 +118,47 @@ const Testimonials = ({ title, position }: testimonialsType) => {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Preload all testimonial and badge images once on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const sources: string[] = [];
+    testimonials.forEach((t) => {
+      if (t.image?.src) sources.push(t.image.src);
+      if ((t as any).userImage?.src) sources.push((t as any).userImage.src);
+    });
+    // 1) Keep classic Image() references (helps browser memory cache)
+    sources.forEach((src) => {
+      if (!PRELOADED.has(src)) {
+        const img = new Image();
+        img.decoding = 'sync';
+        img.src = src;
+        PRELOADED.set(src, img);
+      }
+    });
+
+    // 2) Fetch blobs once and create object URLs so <img> can point to
+    // the local blob URL instead of revalidating the original resource.
+    const fetchBlobs = async () => {
+      await Promise.all(
+        sources.map(async (src) => {
+          if (PRELOADED_BLOBS.has(src)) return;
+          try {
+            const res = await fetch(src, { cache: 'force-cache' });
+            if (!res.ok) return;
+            const blob = await res.blob();
+            const objectUrl = URL.createObjectURL(blob);
+            PRELOADED_BLOBS.set(src, objectUrl);
+          } catch (e) {
+            // ignore individual failures, keep original src as fallback
+            console.warn('Failed to preload blob for', src, e);
+          }
+        })
+      );
+    };
+
+    fetchBlobs();
+  }, []);
+
   const handleSlideChange = () => {
     if (swiperRef.current) {
       setActiveIndex(swiperRef.current.realIndex);
@@ -151,7 +197,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
           },
         }}
         pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
+  autoplay={{ delay: 3000 }}
         onSlideChange={handleSlideChange}
         className="h-[350px] w-full xs:px-4 sm:px-4 overflow-hidden"
       >
@@ -162,7 +208,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                 <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
                 <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
                   <div className="w-16">
-                    <img src={testimonial.image.src} width={50} height={50} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img customer" />
+                    <img loading="eager" src={PRELOADED_BLOBS.get(testimonial.image.src) ?? testimonial.image.src} width={50} height={50} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img customer" />
                   </div>
                   <div className="text-center md:text-left">
                     <h4 className="text-xl font-normal mb-2">
@@ -171,7 +217,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
                     {renderStars(testimonial.rating)}
                   </div>
                   <div className="w-16 mt-4">
-                    <img src={testimonial.userImage.src} width={50} height={50} className="bg-cover" alt="image google" />
+                    <img loading="eager" src={PRELOADED_BLOBS.get((testimonial as any).userImage.src) ?? (testimonial as any).userImage.src} width={50} height={50} className="bg-cover" alt="image google" />
                   </div>
                 </div>
                 <div className="flex flex-col p-4  text-p-landing">

@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Testimonials from "../components/Testimonials";
-import FormLanding from "../components/forms/FormLanding";
+import EstimatorQuote from "../components/forms/EstimatorQuote";
 import { FaCar } from "react-icons/fa6";
 import { IoBoat } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
@@ -40,8 +40,8 @@ import NumberPhone from "../components/NumberPhone.astro";
     display: inline-flex;
     align-items: center;
     font-size: 16px;
-    color: #ffffff;
-    background: #00a1ef;
+  color: #ffffff;
+  background: #00a1e1;
     border-radius: 0 35px 35px 0;
     transition: 0.5s;
     z-index: 2;
@@ -52,7 +52,7 @@ import NumberPhone from "../components/NumberPhone.astro";
   }
 
   .team-item div.btn-slide span a:hover i {
-    background: #007bef;
+    background: #0080b4;
   }
 
   .service-item a.btn-slide span,
@@ -79,7 +79,7 @@ import NumberPhone from "../components/NumberPhone.astro";
   .service-item a.btn-slide:hover span,
   .price-item a.btn-slide:hover i,
   .price-item a.btn-slide:hover span {
-    background: #007bef;
+    background: #0080b4;
   }
 
   .texts-container {
@@ -229,12 +229,17 @@ import NumberPhone from "../components/NumberPhone.astro";
           </div>
         </div>
       </div>
-      <FormLanding client:load />
+      <div
+        class="mx-auto mb-8 flex flex-col items-start justify-start overflow-hidden rounded-lg bg-white h-auto min-h-0 max-h-none py-4
+               w-[95%] sm:w-[90%] md:w-[60%] lg:w-[500px] max-w-[500px] border border-slate-200 shadow-lg"
+      >
+        <EstimatorQuote client:load embedded />
+      </div>
     </div>
   </section>
   <br />
   <div
-    class="container-wrapper xs:mt-4 sm:w-full sm:mt-4 xs:px-2 sm:px-2 md:w-full md:px-8 lg:px-20 xl:px-28 px-48"
+      <EstimatorQuote client:load embedded />
   >
     <div
       class="w-full h-[450px] flex items-center justify-center"

@@ -62,7 +62,7 @@ const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, minLen
                 boxShadow: 'none',
                 border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
                 borderRadius: '0.375rem',
-                '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1ef'}` },
+                '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
               }),
               indicatorSeparator: () => ({ display: 'none' }),
             }}
@@ -71,7 +71,7 @@ const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, minLen
         )}
       />
       <label htmlFor={name}
-        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all ${hasError ? 'text-red-500' : 'peer-focus:text-blue-500'}`}>
+        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all ${hasError ? 'text-red-500' : 'peer-focus:text-btn-blue'}`}>
         {label}
       </label>
       {hasError && <span className="text-red-500 text-xs mt-1">{String((errors as any)[name]?.message)}</span>}

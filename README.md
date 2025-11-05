@@ -52,3 +52,23 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Quote Flow (Leads Quality Update)
+
+The `/quote` page now uses a new multi-step estimator flow designed to reduce low-intent ("junk") leads:
+
+- Step 1: Origin and destination (city or ZIP, validated via autocomplete)
+- Step 2: Vehicle type (sedan/coupe/suv/pickup/van/motorcycle) + trailer (Open/Enclosed)
+- Step 3: Immediate estimated price, assumptions, and insights; options to request exact quote or to be contacted
+- Step 4 (Exact path): Vehicle year/make/model + running status
+- Step 5: Contact details and preferred pickup date
+
+Key files:
+- `src/components/forms/EstimatorQuote.tsx`: main UI flow
+- `src/utils/priceEstimator.ts`: heuristic price estimator (distance bands + multipliers)
+- `src/services/distance.ts`: geocoding & distance helpers + ETA window
+
+Notes:
+- Estimate assumes Open and runs/drives by default; choosing Enclosed adjusts pricing.
+- Lead submission uses `sendLeadToLanding` and redirects to `/quote2`.
+- To revert, swap the import in `src/pages/quote/index.astro` back to `FormQuote`.

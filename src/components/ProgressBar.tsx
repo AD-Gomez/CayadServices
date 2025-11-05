@@ -23,7 +23,7 @@ const VerticalStepper: React.FC<VerticalStepperProps> = ({ steps, activeStep, on
         <div key={index} className="flex h-max mb-4">
           <div className="flex flex-col items-center">
             <div
-              className={`w-12 h-12 flex items-center justify-center rounded-full text-white ${index <= activeStep ? 'bg-[#00a1ef]' : 'bg-gray-300'
+              className={`w-12 h-12 flex items-center justify-center rounded-full text-white ${index <= activeStep ? 'bg-[#00a1e1]' : 'bg-gray-300'
                 }`}
             >
               {index + 1}

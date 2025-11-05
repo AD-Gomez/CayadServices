@@ -27,9 +27,11 @@ export async function searchZipcodes(
     if (BASE) {
         const url = new URL("/api/zipcodes/", BASE);
         url.searchParams.set("search", q);
+        try { console.debug('[searchZipcodes] proxy fetch', url.toString()); } catch (_) {}
         res = await fetch(url.toString(), { signal });
     } else {
         const url = `/api/zipcodes/?search=${encodeURIComponent(q)}`;
+        try { console.debug('[searchZipcodes] local fetch', url); } catch (_) {}
         res = await fetch(url, { signal });
     }
 
