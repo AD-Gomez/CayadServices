@@ -75,7 +75,8 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
       ...prevData,
       ...data
     }));
-    setActiveStep(1);
+    // Skip vehicle details step (removed) and go directly to contact
+    setActiveStep(2);
   };
 
   return (
@@ -133,222 +134,11 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   );
 };
 
-const validationSchema = yup.object({
-  Vehicles: yup.array().of(
-    yup.object().shape({
-      vehicle_model_year: yup.string()
-        .required('Year is required')
-        .matches(/^\d{4}$/, 'Year must be a 4 digit number')
-        .test('year-range', 'Year is out of valid range', (val) => {
-          if (!val) return false;
-          const year = parseInt(val, 10);
-          const currentYear = new Date().getFullYear() + 1; // allow next year
-          return year >= 1900 && year <= currentYear;
-        }),
-      vehicle_make: yup.string().required('Make is required'),
-      vehicle_model: yup.string().required('Model is required'),
-      vehicle_inop: yup.string().required('Condition is required'),
-    })
-  ).min(1, 'At least one vehicle is required').required(),
-}).required();
-
-type Vehicle = {
-  vehicle_model_year: string;
-  vehicle_make: string;
-  vehicle_model: string;
-  vehicle_inop: string;
-};
-
-type FormValuesVehicle = { Vehicles: Vehicle[] };
-
-type Props = {
-  setActiveStep: (n: number) => void;
-  setDataSubmit: (data: any) => void;
-  dataSubmit: { Vehicles?: Vehicle[] };
-};
-
-function VehicleRow({
-  index,
-  control,
-  setValue,
-  remove,
-  years,
-}: {
-  index: number;
-  control: any;
-  setValue: any;
-  remove: (i: number) => void;
-  years: { value: string; label: string }[];
-}) {
-  const make: string = useWatch({ control, name: `Vehicles.${index}.vehicle_make` });
-
-  return (
-    <div className="p-3 pt-4 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50 my-4">
-      <div className="form--group form--group--section mb-4 mt-4">
-        <AutoSuggestInput
-          name={`Vehicles.${index}.vehicle_model_year`}
-          label="Vehicle Year"
-          options={years}
-        />
-      </div>
-
-      {/* Make (async) */}
-      <div className="form--group form--group--section">
-        <MakeAsyncSelect
-          name={`Vehicles.${index}.vehicle_make`}
-          label="Vehicle Make"
-          endpoint={apiUrl('/api/vehicles/makes')}
-          onPickedMake={() => {
-            setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
-          }}
-        />
-      </div>
-
-      <div className="form--group mt-4 form--group--section">
-        <ModelAsyncSelect
-          name={`Vehicles.${index}.vehicle_model`}
-          label="Vehicle Model"
-          endpoint={apiUrl('/api/vehicles/models')}
-          make={make}
-          disabled={!make}
-        />
-      </div>
-
-      <div className="mt-2">
-        <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
-        <div className="flex gap-3">
-          <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-              <div>
-                  <input {...field} type="radio" id={`running_yes_small_${index}`} value="0" checked={field.value === '0'} className="sr-only peer" />
-                  <label htmlFor={`running_yes_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
-              </div>
-          )}/>
-          <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-              <div>
-                  <input {...field} type="radio" id={`running_no_small_${index}`} value="1" checked={field.value === '1'} className="sr-only peer" />
-                  <label htmlFor={`running_no_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
-              </div>
-          )}/>
-        </div>
-      </div>
-
-      <div className="d-flex end dashed mt-2">
-        <button
-          type="button"
-          onClick={() => remove(index)}
-          className="text-red-600 border border-red-400 hover:bg-red-600 hover:text-white rounded-md px-3 py-2 font-semibold transition-colors"
-          aria-label={`Remove vehicle ${index + 1}`}
-        >
-          Remove car
-        </button>
-      </div>
-    </div>
-  );
-}
+// Vehicles step removed — forms no longer collect per-vehicle details.
 
 
 
-const Step2: React.FC<Props> = ({ setActiveStep, setDataSubmit, dataSubmit }) => {
-  const methods = useForm<FormValuesVehicle>({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {
-      Vehicles: dataSubmit?.Vehicles || [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
-      ],
-    },
-    mode: 'onChange',
-  });
-
-  const { handleSubmit, control, setValue } = methods;
-  const { fields, append, remove } = useFieldArray({ control, name: 'Vehicles' });
-
-  const [years, setYears] = useState<{ value: string; label: string }[]>([]);
-  useEffect(() => {
-    const currentYear = new Date().getFullYear() + 1; // Include next year model
-    setYears(
-      Array.from({ length: 50 }, (_, i) => {
-        const y = String(currentYear - i);
-        return { value: y, label: y };
-      })
-    );
-  }, []);
-
-  // Allow adding vehicles at any time; validation occurs on submit. Limit to max 10 vehicles.
-
-  const onSubmit = (data: FormValuesVehicle) => {
-    const normalized: FormValuesVehicle = {
-      Vehicles: data.Vehicles.map(v => ({
-        ...v,
-        vehicle_make: v.vehicle_make?.toLowerCase() ?? '',
-        vehicle_model: v.vehicle_model?.toLowerCase() ?? '',
-      })),
-    };
-    setDataSubmit(normalized);
-    setActiveStep(2);
-  };
-
-  const handleStepBack = () => setActiveStep(0);
-
-  return (
-    <FormProvider {...methods}>
-      <section id="paso2" className="form--quote--content mt-2 min-w-[90%] block">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {fields.map((item, idx) => (
-            <VehicleRow
-              key={item.id}
-              index={idx}
-              control={control}
-              setValue={setValue}
-              remove={remove}
-              years={years}
-            />
-          ))}
-
-          {fields.length < 10 && (
-            <button
-              className={`bg-white border border-btn-blue text-btn-blue py-2 px-4 mt-4 rounded-lg cursor-pointer`}
-              type="button"
-              onClick={() =>
-                append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })
-              }
-            >
-              Add Another Vehicle
-            </button>
-          )}
-
-          <button
-            className="bg-btn-blue flex justify-center items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold"
-            type="submit"
-          >
-            Contact Details
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
-              <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-            </svg>
-          </button>
-        </form>
-
-        <footer className="flex justify-around text-center py-4">
-          <div className="flex flex-col items-center">
-            <button type="button" onClick={handleStepBack} className="bg-btn-blue flex justify-center items-center text-white w-8 h-8 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            </button>
-            <small>Location</small>
-          </div>
-          <div className="flex flex-col items-center">
-            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">2</button>
-            <small>Vehicle(s)</small>
-          </div>
-          <div className="flex flex-col items-center">
-            <button type="button" className="border border-btn-blue text-btn-blue w-8 h-8 rounded-full">3</button>
-            <small>Contact</small>
-          </div>
-        </footer>
-      </section>
-    </FormProvider>
-  );
-};
+// Step2 (vehicle details) removed: proceed directly from Location -> Contact
 
 // removed unused helper separarCiudadYEstado
 
@@ -528,20 +318,13 @@ const FormLanding = () => {
   const renderContent = useCallback(() => {
     switch (activeStep) {
       case 1:
-        return (
-          <Step2
-            setActiveStep={setActiveStep}
-            dataSubmit={dataSubmit}
-            setDataSubmit={updateFormData}
-          />
-        );
       case 2:
+        // When vehicle step was removed we treat step 1/2 as the contact step
         return (
           <Step3
             disabled={disabled}
             dataSubmit={dataSubmit}
             setActiveStep={setActiveStep}
-            // ⬇️ mantiene la misma prop que tenías
             handleSubmitLeadAndEmail={handleSubmitLead}
             setDataSubmit={updateFormData}
           />

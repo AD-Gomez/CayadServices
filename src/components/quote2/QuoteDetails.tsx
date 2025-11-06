@@ -4,19 +4,12 @@ import { getLead } from "../../services/localStorage";
 import { distanceForLocations, estimateTransitDays, formatKm, formatMiles } from "../../services/distance";
 import { format, parse } from "date-fns";
 
-type Vehicle = {
-  vehicle_model_year?: string;
-  vehicle_make?: string;
-  vehicle_model?: string;
-  vehicle_inop?: string; // '0' running, '1' not running
-};
-
 type Lead = {
   origin_city?: string;
   destination_city?: string;
   transport_type?: string; // '1' open, '2' enclosed
   ship_date?: string; // MM/dd/yyyy
-  Vehicles?: Vehicle[];
+  client_estimate?: { vehicle_class?: string };
 };
 
 function safeParseDate(input?: string): Date | null {
@@ -36,16 +29,9 @@ function formatLongDate(input?: string): string {
   return d ? format(d, "MMMM d, yyyy") : "";
 }
 
-function summarizeVehicles(vehicles?: Vehicle[]): { label: string; condition: string } {
-  if (!vehicles || !vehicles.length) return { label: "", condition: "" };
-  const first = vehicles[0];
-  const name = [first.vehicle_model_year, first.vehicle_make, first.vehicle_model]
-    .filter(Boolean)
-    .join(" ");
-  const extra = vehicles.length > 1 ? ` + ${vehicles.length - 1} more` : "";
-  const allRunning = vehicles.every((v) => (v.vehicle_inop ?? "0") === "0");
-  const condition = allRunning ? "Running" : "Not Running";
-  return { label: `${name}${extra}`, condition };
+function summarizeVehiclesFromEstimate(est?: { vehicle_class?: string } | undefined): { label: string; condition: string } {
+  if (!est || !est.vehicle_class) return { label: "", condition: "" };
+  return { label: est.vehicle_class, condition: "" };
 }
 
 export default function QuoteDetails() {
@@ -61,7 +47,7 @@ export default function QuoteDetails() {
   }, []);
 
   const { vehicleText, conditionText } = useMemo(() => {
-    const vs = summarizeVehicles(lead?.Vehicles);
+    const vs = summarizeVehiclesFromEstimate(lead?.client_estimate);
     return { vehicleText: vs.label, conditionText: vs.condition };
   }, [lead]);
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Controller, FormProvider, useFieldArray, useForm, useWatch, useFormContext } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
@@ -64,13 +64,6 @@ const step2Schema = yup
     vehicle_type_mode: yup.mixed<'preset' | 'other'>().oneOf(['preset', 'other']).optional(),
   }) as yup.ObjectSchema<Step2Values>;
 
-type VehicleRow = {
-  vehicle_model_year: string;
-  vehicle_make: string;
-  vehicle_model: string;
-  vehicle_inop: string; // '0' or '1'
-};
-
 type ContactValues = {
   first_name: string;
   phone?: string; // optional, require at least one of phone/email via schema
@@ -79,90 +72,10 @@ type ContactValues = {
   website?: string; // honeypot
 };
 
-type ExactQuoteValues = {
-  Vehicles: VehicleRow[];
-};
-
-function VehicleRows() {
-  const { control, setValue } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name: "Vehicles" });
-  const [years] = useState(() => {
-    const currentYear = new Date().getFullYear() + 1;
-    return Array.from({ length: 50 }, (_, i) => {
-      const y = String(currentYear - i);
-      return { value: y, label: y };
-    });
-  });
-  return (
-    <div className="space-y-4">
-      {fields.map((item, index) => {
-        const make = useWatch({ control, name: `Vehicles.${index}.vehicle_make` });
-        return (
-          <div key={item.id} className="p-3 pt-4 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => (
-                <AutoSuggestInput {...field} label="Year" options={years} />
-              )} />
-              <MakeAsyncSelect
-                name={`Vehicles.${index}.vehicle_make`}
-                label="Make"
-                endpoint={apiUrl("/api/vehicles/makes")}
-                onPickedMake={() =>
-                  setValue(`Vehicles.${index}.vehicle_model`, "", {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  })
-                }
-              />
-              <ModelAsyncSelect
-                name={`Vehicles.${index}.vehicle_model`}
-                label="Model"
-                endpoint={apiUrl("/api/vehicles/models")}
-                make={make}
-                disabled={!make}
-              />
-            </div>
-            <div className="mt-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Is it running?</label>
-              <p className="text-xs text-slate-500 mb-2">Non-running vehicles require winch or forklift assistance and typically cost more.</p>
-              <div className="flex gap-3">
-                <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-                  <div>
-                    <input {...field} type="radio" id={`running_yes_small_${index}`} value="0" checked={field.value === "0"} className="sr-only peer" />
-                    <label htmlFor={`running_yes_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
-                  </div>
-                )}/>
-                <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-                  <div>
-                    <input {...field} type="radio" id={`running_no_small_${index}`} value="1" checked={field.value === "1"} className="sr-only peer" />
-                    <label htmlFor={`running_no_small_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
-                  </div>
-                )}/>
-              </div>
-            </div>
-            {fields.length > 1 && (
-              <div className="text-right">
-                <button type="button" onClick={() => remove(index)} className="text-red-600 border border-red-400 hover:bg-red-600 hover:text-white rounded-md px-3 py-2 font-semibold transition-colors">Remove car</button>
-              </div>
-            )}
-          </div>
-        );
-      })}
-      {fields.length < 10 && (
-        <button
-          type="button"
-          onClick={() => append({ vehicle_model_year: "", vehicle_make: "", vehicle_model: "", vehicle_inop: "0" })}
-          className="w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm"
-        >
-          + Add Another Vehicle
-        </button>
-      )}
-    </div>
-  );
-}
+// VehicleRows removed: estimator uses only vehicle_type (preset or other)
 
 // Helper component for vehicle type selection (preset + other)
-const PresetOrOtherVehicleType: React.FC<{ step: ReturnType<typeof useForm<Step2Values>> }> = ({ step }) => {
+const PresetOrOtherVehicleType: React.FC<{ step: any }> = ({ step }) => {
   const presets: string[] = [
     "sedan",
     "coupe",

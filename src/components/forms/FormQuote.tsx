@@ -1,4 +1,4 @@
-import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import axios from 'axios';
 import logoCayad from '../../../public/img/logo-cayad.webp';
 import type { FormQuoteTypes } from '../../types/formQuote.type';
@@ -44,23 +44,7 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
       return this.parent?.destination_city__isValid === true;
     }),
   transport_type: yup.string().required('Transport type is required'),
-  Vehicles: yup.array().of(
-    yup.object().shape({
-      vehicle_model_year: yup.string()
-        .required('Year is required')
-        .matches(/^\d{4}$/, 'Year must be a 4 digit number')
-        .test('year-range', 'Year is out of valid range', (val) => {
-          if (!val) return false;
-          const year = parseInt(val, 10);
-          const currentYear = new Date().getFullYear() + 1; // allow next year
-          return year >= 1900 && year <= currentYear;
-        }),
-      vehicle_make: yup.string().required('Make is required'),
-      vehicle_model: yup.string().required('Model is required'),
-      vehicle_type: yup.string().required('Vehicle type is required'),
-      vehicle_inop: yup.string().required('Condition is required'),
-    })
-  ).min(1, 'At least one vehicle is required').required(),
+  // Vehicles removed: forms no longer collect per-vehicle details
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
@@ -97,9 +81,6 @@ const FormQuote = () => {
       origin_city: '',
       destination_city: '',
       transport_type: '1',
-      Vehicles: [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_type: 'sedan', vehicle_inop: '0', vehicle_type_mode: 'preset' },
-      ],
       first_name: '',
       phone: '',
       email: '',
@@ -110,10 +91,6 @@ const FormQuote = () => {
   });
 
   const { handleSubmit, control, setValue, watch, formState: { errors }, reset } = methods;
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'Vehicles',
-  });
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
@@ -127,37 +104,12 @@ const FormQuote = () => {
     setYears(yearsArray);
   }, []);
 
-  const [disabled, setDisabled] = useState(true);
-  const allFields = watch('Vehicles');
-  const [index, setIndex] = useState<number>(0);
-  const modelField = watch(`Vehicles.${index}.vehicle_model`);
-
-  useEffect(() => {
-    setIndex(allFields.length - 1);
-  }, [allFields]);
-
-  useEffect(() => {
-    if (modelField !== '') {
-      const isFormComplete = allFields.every(
-        (field: any) =>
-          field.vehicle_model_year !== '' &&
-          field.vehicle_make !== '' &&
-          field.vehicle_inop !== '' &&
-          field.vehicle_type !== ''
-      );
-      setDisabled(!isFormComplete);
-    }
-  }, [allFields, modelField]);
+  // Vehicle-specific state removed
 
   const handleSubmitLead = async (data: any) => {
     try {
-      setDisabled(true);
-      // Ensure there is at least one vehicle
-      if (!data?.Vehicles || !Array.isArray(data.Vehicles) || data.Vehicles.length < 1) {
-        showNotification({ text: 'At least one vehicle is required to request a quote.', icon: 'error' });
-        setDisabled(false);
-        return;
-      }
+      setDisabledSubmit(true);
+      // Vehicles no longer required/collected
 
       // Phone comes already in E.164 (e.g., +13051234567) from the input component
       const payload: any = { ...data };
@@ -179,7 +131,6 @@ const FormQuote = () => {
       console.error(e);
       showNotification({ text: "Error sending lead", icon: "error" });
     } finally {
-      setDisabled(false);
       setDisabledSubmit(false);
     }
   };
@@ -200,34 +151,7 @@ const FormQuote = () => {
     handleSubmitLead(dataToLead);
   };
 
-  // Helper to determine if there are vehicle-related errors to show to the user
-  const vehiclesErrors = (errors as any)?.Vehicles;
-  const hasVehiclesError = (() => {
-    if (!vehiclesErrors) return false;
-    if (vehiclesErrors?.message) return true;
-    // If it's an array, check if any index contains an error object
-    if (Array.isArray(vehiclesErrors)) {
-      return vehiclesErrors.some((item: any) => item && Object.keys(item).length > 0);
-    }
-    // Otherwise if it's an object with keys, show generic message
-    return Object.keys(vehiclesErrors).length > 0;
-  })();
-
-  const vehiclesErrorMessage = (() => {
-    if (!vehiclesErrors) return '';
-    if (!Array.isArray(vehiclesErrors) && typeof vehiclesErrors.message === 'string') return vehiclesErrors.message;
-    if (Array.isArray(vehiclesErrors)) {
-      // If any item has keys, show a clear message
-      for (const item of vehiclesErrors) {
-        if (item && typeof item === 'object' && Object.keys(item).length > 0) {
-          return 'Please complete all vehicle fields.';
-        }
-      }
-      return 'Please add at least one valid vehicle and ensure all fields are completed.';
-    }
-    if (typeof vehiclesErrors === 'object' && Object.keys(vehiclesErrors).length > 0) return 'Please complete vehicle details.';
-    return '';
-  })();
+  // Vehicle error helpers removed
 
 
     return (
@@ -274,83 +198,7 @@ const FormQuote = () => {
               </div>
             </fieldset>
 
-            <fieldset className="space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">2</div>
-                <legend className="text-md font-semibold text-slate-800">Vehicle Details</legend>
-              </div>
-              <div className="space-y-4">
-                {fields.map((item, index) => (
-                  <div key={item.id} className="p-3 pt-4 border border-slate-200 rounded-lg space-y-4 relative bg-slate-50/50">
-                    {fields.length > 1 && (
-                      <button type="button" onClick={() => remove(index)} className="absolute top-2.5 right-2.5 text-slate-400 hover:text-red-500 transition-colors" aria-label="Remove vehicle">
-                        <FaTrash />
-                      </button>
-                    )}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-                      <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => <AutoSuggestInput {...field} label="Year" options={years} />} />
-                      <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={apiUrl('/api/vehicles/makes')} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
-                      <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={apiUrl('/api/vehicles/models')} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
-                    </div>
-                    {/* Vehicle type: presets (3 per row) + Other (backend) */}
-                    <div className="space-y-3">
-                      <div className="grid grid-cols-3 gap-3">
-                        {['sedan','coupe','suv','pickup','van','motorcycle'].map((opt) => (
-                          <Controller key={opt} name={`Vehicles.${index}.vehicle_type`} control={control} render={({ field }) => (
-                            <div>
-                              <input {...field} type="radio" id={`vt_${opt}_${index}`} value={opt} checked={field.value === opt && watch(`Vehicles.${index}.vehicle_type_mode`) !== 'other'} className="sr-only peer" onChange={(e) => {
-                                field.onChange(e.target.value);
-                                setValue(`Vehicles.${index}.vehicle_type_mode`, 'preset', { shouldDirty: true, shouldValidate: true });
-                              }} />
-                              <label htmlFor={`vt_${opt}_${index}`} className="block text-center w-full py-2 px-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-[11px] capitalize transition-colors">{opt}</label>
-                            </div>
-                          )} />
-                        ))}
-                        <Controller name={`Vehicles.${index}.vehicle_type_mode`} control={control} render={({ field }) => (
-                          <div>
-                            <input type="radio" id={`vt_other_${index}`} value="other" checked={field.value === 'other'} className="sr-only peer" onChange={() => field.onChange('other')} />
-                            <label htmlFor={`vt_other_${index}`} className="block text-center w-full py-2 px-2 rounded-lg border border-amber-400 cursor-pointer peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 font-semibold text-[11px] uppercase transition-colors">Other</label>
-                          </div>
-                        )} />
-                      </div>
-                      {watch(`Vehicles.${index}.vehicle_type_mode`) === 'other' && (
-                        <VehicleTypeAsyncSelect
-                          name={`Vehicles.${index}.vehicle_type`}
-                          label="Other Type"
-                          endpoint={apiUrl('/api/vehicles/types')}
-                          make={watch(`Vehicles.${index}.vehicle_make`)}
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
-                      <div className="flex gap-3">
-                        <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-                            <div>
-                                <input {...field} type="radio" id={`running_yes_${index}`} value="0" checked={field.value === '0'} className="sr-only peer" />
-                                <label htmlFor={`running_yes_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
-                            </div>
-                        )}/>
-                        <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
-                            <div>
-                                <input {...field} type="radio" id={`running_no_${index}`} value="1" checked={field.value === '1'} className="sr-only peer" />
-                                <label htmlFor={`running_no_${index}`} className="text-sm block text-center w-full px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
-                            </div>
-                        )}/>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                <button type="button" disabled={disabled} onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_type: 'sedan', vehicle_inop: '0', vehicle_type_mode: 'preset' })} className={`w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
-                  + Add Another Vehicle
-                </button>
-                {hasVehiclesError && (
-                  <p className="mt-2 text-sm text-red-600" role="alert">
-                    {vehiclesErrorMessage || 'Please add at least one valid vehicle and ensure all fields are completed.'}
-                  </p>
-                )}
-              </div>
-            </fieldset>
+            {/* Vehicle details removed — forms no longer collect per-vehicle information */}
 
             <fieldset className="space-y-5">
               <div className="flex items-center gap-3">

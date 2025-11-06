@@ -7,13 +7,6 @@ import {
   normalizeContactPhone,
 } from "./leadFormat";
 
-export type LandingVehicleInput = {
-  vehicle_model_year?: string | number;
-  vehicle_make?: string;
-  vehicle_model?: string;
-  vehicle_inop?: string | number | boolean;
-};
-
 export type ClientEstimate = {
   miles: number | null;
   per_mile: number | null;
@@ -43,7 +36,6 @@ export type LandingFormInput = {
 
   ship_date?: string;
   transport_type?: string | number;
-  Vehicles?: LandingVehicleInput[];
   /** Optional client-side estimate info to aid pricing follow-up */
   client_estimate?: ClientEstimate;
 };
@@ -58,12 +50,6 @@ export type LandingPayloadWithRoute = {
   client_ip?: string;
   /** Optional client-side estimate info to aid pricing follow-up */
   client_estimate?: ClientEstimate;
-  Vehicles: Array<{
-    model_year?: string | number;
-    make?: string;
-    model?: string;
-    inop: boolean;
-  }>;
   route: {
     origin: {
       city: string;
@@ -91,14 +77,6 @@ export type LandingPayloadWithRoute = {
 export function buildLandingPayloadWithRoute(input: LandingFormInput): LandingPayloadWithRoute {
   const o = parseCityStateZip(input.origin_city);
   const d = parseCityStateZip(input.destination_city);
-
-  const Vehicles: LandingPayloadWithRoute["Vehicles"] = (input.Vehicles || []).map((v) => ({
-    model_year: v.vehicle_model_year,
-    make: (v.vehicle_make || "").trim().toLowerCase(),
-    model: (v.vehicle_model || "").trim().toLowerCase(),
-    inop: toInopBoolean(v.vehicle_inop),
-  }));
-
   return {
     first_name: (input.first_name || "").trim(),
     phone: (input.phone || "").trim(),
@@ -106,7 +84,6 @@ export function buildLandingPayloadWithRoute(input: LandingFormInput): LandingPa
     ship_date: toISODate(input.ship_date),
     transport_type: toTransportLabel(input.transport_type),
     client_estimate: input.client_estimate,
-    Vehicles,
     route: {
       origin: {
         city: o.city,

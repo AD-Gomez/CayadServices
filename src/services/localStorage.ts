@@ -8,20 +8,8 @@ const saveEmail = (data: any) => {
     transport_type: data.transport_type === "0" ? "Open" : "Enclosed",
   };
   if (data.Vehicles && Array.isArray(data.Vehicles)) {
-    data.Vehicles.map((vehicle: any, index: any) => {
-      let vehicleData: any = {};
-
-      vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
-      vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
-      vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
-      if (vehicle.vehicle_type) {
-        vehicleData[`vehicle_type_${index + 1}`] = vehicle.vehicle_type;
-      }
-      vehicleData[`vehicle_inop_${index + 1}`] = "No Data"
-      send = { ...send, ...vehicleData };
-    });
+    // Vehicles no longer collected; skip mapping vehicle fields
   }
-  delete send.Vehicles;
   delete send.origin_city;
   delete send.origin_postal_code;
   delete send.destination_city;

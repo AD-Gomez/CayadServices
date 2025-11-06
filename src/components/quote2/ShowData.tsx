@@ -3,15 +3,9 @@ import op from '../../../public/img/op.webp'
 import inop from '../../../public/img/inop.webp'
 import truckFlatbed from '../../../public/img/truck-flatbed.svg'
 import truck from '../../../public/img/truck.svg'
-import type { vehicleTypes } from "../../types/formQuote.type";
-
-const isAnyVehicleInop = (vehicles: vehicleTypes[]) => {
-  return vehicles?.some(vehicle => vehicle.vehicle_inop === '0');
-};
-
 const ShowDataQuote = () => {
-  const lead = getLead()
-  const operableStatus = isAnyVehicleInop(lead?.Vehicles) ? 'Operable' : 'Inoperable';
+  const lead = getLead();
+  const operableStatus = lead?.client_estimate && lead.client_estimate.total != null ? 'Operable' : 'Unknown';
 
   return (
     <>
@@ -36,15 +30,13 @@ const ShowDataQuote = () => {
         </table>
       </div>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
-        <div className="w-full justify-center"><p className=" font-bold">Vehicles</p></div>
-
-        {lead && Array.isArray(lead.Vehicles) && (
-          lead.Vehicles.map((vehicles: vehicleTypes) => (
-            <tr>
-              <td className="bg-blue-100 p-2">Vehicle(s)</td>
-              <td className="text-sm" id="vehicle-list">{`${vehicles.vehicle_make}  ${vehicles.vehicle_model}  ${vehicles.vehicle_model_year} ${vehicles.vehicle_inop === '1' ? 'Inoperable' : 'Operable'}`}</td>
-            </tr>
-          ))
+        <div className="w-full justify-center"><p className=" font-bold">Vehicle Info</p></div>
+        {lead?.client_estimate?.vehicle_class ? (
+          <div className="p-2">
+            <p className="text-sm">Estimated vehicle class: <strong className="capitalize">{lead.client_estimate.vehicle_class}</strong></p>
+          </div>
+        ) : (
+          <div className="p-2 text-xs text-slate-500">No vehicle details provided.</div>
         )}
       </div>
       <div className="w-[95%] xs:w-[95%] sm:w-[95%] md:w-[85%] border-[1px] h-max p-2">
