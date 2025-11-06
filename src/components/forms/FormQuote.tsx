@@ -22,6 +22,8 @@ import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
 import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
+import VehicleTypeAsyncSelect from '../VehicleTypeAsyncSelect';
+import { apiUrl } from '../../services/config';
 
 type QuoteFormWithFlags = FormQuoteTypes & {
   origin_city__isValid: boolean;
@@ -55,6 +57,7 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
         }),
       vehicle_make: yup.string().required('Make is required'),
       vehicle_model: yup.string().required('Model is required'),
+      vehicle_type: yup.string().required('Vehicle type is required'),
       vehicle_inop: yup.string().required('Condition is required'),
     })
   ).min(1, 'At least one vehicle is required').required(),
@@ -91,13 +94,19 @@ const FormQuote = () => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      Vehicles: [
-        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
-      ],
+      origin_city: '',
+      destination_city: '',
       transport_type: '1',
+      Vehicles: [
+        { vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_type: 'sedan', vehicle_inop: '0', vehicle_type_mode: 'preset' },
+      ],
+      first_name: '',
+      phone: '',
+      email: '',
+      ship_date: '',
       origin_city__isValid: false,
       destination_city__isValid: false,
-    } as QuoteFormWithFlags,
+    },
   });
 
   const { handleSubmit, control, setValue, watch, formState: { errors }, reset } = methods;
@@ -130,10 +139,11 @@ const FormQuote = () => {
   useEffect(() => {
     if (modelField !== '') {
       const isFormComplete = allFields.every(
-        (field) =>
+        (field: any) =>
           field.vehicle_model_year !== '' &&
           field.vehicle_make !== '' &&
-          field.vehicle_inop !== ''
+          field.vehicle_inop !== '' &&
+          field.vehicle_type !== ''
       );
       setDisabled(!isFormComplete);
     }
@@ -279,8 +289,38 @@ const FormQuote = () => {
                     )}
                     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                       <Controller name={`Vehicles.${index}.vehicle_model_year`} control={control} render={({ field }) => <AutoSuggestInput {...field} label="Year" options={years} />} />
-                      <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
-                      <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                      <MakeAsyncSelect name={`Vehicles.${index}.vehicle_make`} label="Make" endpoint={apiUrl('/api/vehicles/makes')} onPickedMake={() => setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })} />
+                      <ModelAsyncSelect name={`Vehicles.${index}.vehicle_model`} label="Model" endpoint={apiUrl('/api/vehicles/models')} make={watch(`Vehicles.${index}.vehicle_make`)} disabled={!watch(`Vehicles.${index}.vehicle_make`)} />
+                    </div>
+                    {/* Vehicle type: presets (3 per row) + Other (backend) */}
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-3 gap-3">
+                        {['sedan','coupe','suv','pickup','van','motorcycle'].map((opt) => (
+                          <Controller key={opt} name={`Vehicles.${index}.vehicle_type`} control={control} render={({ field }) => (
+                            <div>
+                              <input {...field} type="radio" id={`vt_${opt}_${index}`} value={opt} checked={field.value === opt && watch(`Vehicles.${index}.vehicle_type_mode`) !== 'other'} className="sr-only peer" onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setValue(`Vehicles.${index}.vehicle_type_mode`, 'preset', { shouldDirty: true, shouldValidate: true });
+                              }} />
+                              <label htmlFor={`vt_${opt}_${index}`} className="block text-center w-full py-2 px-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-[11px] capitalize transition-colors">{opt}</label>
+                            </div>
+                          )} />
+                        ))}
+                        <Controller name={`Vehicles.${index}.vehicle_type_mode`} control={control} render={({ field }) => (
+                          <div>
+                            <input type="radio" id={`vt_other_${index}`} value="other" checked={field.value === 'other'} className="sr-only peer" onChange={() => field.onChange('other')} />
+                            <label htmlFor={`vt_other_${index}`} className="block text-center w-full py-2 px-2 rounded-lg border border-amber-400 cursor-pointer peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 font-semibold text-[11px] uppercase transition-colors">Other</label>
+                          </div>
+                        )} />
+                      </div>
+                      {watch(`Vehicles.${index}.vehicle_type_mode`) === 'other' && (
+                        <VehicleTypeAsyncSelect
+                          name={`Vehicles.${index}.vehicle_type`}
+                          label="Other Type"
+                          endpoint={apiUrl('/api/vehicles/types')}
+                          make={watch(`Vehicles.${index}.vehicle_make`)}
+                        />
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
@@ -301,7 +341,7 @@ const FormQuote = () => {
                     </div>
                   </div>
                 ))}
-                <button type="button" disabled={disabled} onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })} className={`w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
+                <button type="button" disabled={disabled} onClick={() => append({ vehicle_model_year: '', vehicle_make: '', vehicle_model: '', vehicle_type: 'sedan', vehicle_inop: '0', vehicle_type_mode: 'preset' })} className={`w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
                   + Add Another Vehicle
                 </button>
                 {hasVehiclesError && (

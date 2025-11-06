@@ -13,7 +13,9 @@ export interface ZipResult {
     raw: ZipApiItem;
 }
 
-const BASE = import.meta.env.PUBLIC_ZIPCODES_API_BASE;
+// Use the main API base variable. If not defined, fall back to relative path
+// so local dev / proxy works the same as before.
+const BASE = import.meta.env.PUBLIC_API_URL;
 
 export async function searchZipcodes(
     q: string,

@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { apiUrl } from './config';
 
 const sendEmail = async (data: any) => {
   try {
-    const response = await axios.post("https://backupnode-production.up.railway.app/api/lead/send-email/",
+    const url = apiUrl('/api/lead/send-email/');
+    const response = await axios.post(url,
       JSON.stringify(data)
       , {
         headers: {

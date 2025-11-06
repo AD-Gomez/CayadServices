@@ -17,6 +17,7 @@ import { sendLeadToLanding } from '../../services/lead';
 import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
 import { isValidPhoneNumber } from 'libphonenumber-js/max';
+import { apiUrl } from '../../services/config';
 
 interface FormValues {
   origin_city: string;
@@ -196,7 +197,7 @@ function VehicleRow({
         <MakeAsyncSelect
           name={`Vehicles.${index}.vehicle_make`}
           label="Vehicle Make"
-          endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`}
+          endpoint={apiUrl('/api/vehicles/makes')}
           onPickedMake={() => {
             setValue(`Vehicles.${index}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true });
           }}
@@ -207,7 +208,7 @@ function VehicleRow({
         <ModelAsyncSelect
           name={`Vehicles.${index}.vehicle_model`}
           label="Vehicle Model"
-          endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`}
+          endpoint={apiUrl('/api/vehicles/models')}
           make={make}
           disabled={!make}
         />

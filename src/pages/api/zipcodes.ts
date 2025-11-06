@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 
-const BASE = import.meta.env.PUBLIC_ZIPCODES_API_BASE;
+// Use the main API base (PUBLIC_API_URL). If undefined, the API will serve
+// mock/local results so development isn't blocked.
+const BASE = import.meta.env.PUBLIC_API_URL;
 
 const MOCK = [
   { city: 'Miami', state: 'FL', zip_code: '33186' },

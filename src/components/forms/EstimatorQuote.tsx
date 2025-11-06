@@ -4,9 +4,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
 import { distanceForLocations, estimateTransitDays, formatMiles } from "../../services/distance";
-import { estimatePrice, type VehicleClass } from "../../utils/priceEstimator";
+import { estimatePrice } from "../../utils/priceEstimator";
+import { apiUrl } from "../../services/config";
 import MakeAsyncSelect from "../MakeAsyncSelect";
 import ModelAsyncSelect from "../ModelAsyncSelect";
+import VehicleTypeAsyncSelect from "../VehicleTypeAsyncSelect";
 import AutoSuggestInput from "../inputs/AutoSuggestInput";
 import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
@@ -52,14 +54,14 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
   .required();
 
 type Step2Values = {
-  vehicle_class: VehicleClass;
+  vehicle_type: string;
+  vehicle_type_mode?: 'preset' | 'other';
 };
 
 const step2Schema = yup
   .object({
-    vehicle_class: yup
-      .string()
-      .oneOf(["sedan", "coupe", "suv", "pickup", "van", "motorcycle"]).required(),
+    vehicle_type: yup.string().required(),
+    vehicle_type_mode: yup.mixed<'preset' | 'other'>().oneOf(['preset', 'other']).optional(),
   }) as yup.ObjectSchema<Step2Values>;
 
 type VehicleRow = {
@@ -104,7 +106,7 @@ function VehicleRows() {
               <MakeAsyncSelect
                 name={`Vehicles.${index}.vehicle_make`}
                 label="Make"
-                endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/makes`}
+                endpoint={apiUrl("/api/vehicles/makes")}
                 onPickedMake={() =>
                   setValue(`Vehicles.${index}.vehicle_model`, "", {
                     shouldDirty: true,
@@ -115,7 +117,7 @@ function VehicleRows() {
               <ModelAsyncSelect
                 name={`Vehicles.${index}.vehicle_model`}
                 label="Model"
-                endpoint={`https://backupdjango-production.up.railway.app/api/vehicles/models`}
+                endpoint={apiUrl("/api/vehicles/models")}
                 make={make}
                 disabled={!make}
               />
@@ -159,14 +161,92 @@ function VehicleRows() {
   );
 }
 
+// Helper component for vehicle type selection (preset + other)
+const PresetOrOtherVehicleType: React.FC<{ step: ReturnType<typeof useForm<Step2Values>> }> = ({ step }) => {
+  const presets: string[] = [
+    "sedan",
+    "coupe",
+    "suv",
+    "pickup",
+    "van",
+    "motorcycle",
+    "convertible",
+    "crossover",
+    "hatchback",
+    "minivan",
+  ];
+  const mode = step.watch('vehicle_type_mode');
+  const current = step.watch('vehicle_type');
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-3">
+        {presets.map((opt) => (
+          <Controller key={opt} name="vehicle_type" control={step.control} render={({ field }) => (
+            <div>
+              <input
+                {...field}
+                type="radio"
+                id={`preset_${opt}`}
+                value={opt}
+                checked={field.value === opt && mode === 'preset'}
+                className="sr-only peer"
+                onChange={(e) => {
+                  field.onChange(e.target.value);
+                  step.setValue('vehicle_type_mode', 'preset', { shouldDirty: true, shouldValidate: true });
+                }}
+              />
+              <label
+                htmlFor={`preset_${opt}`}
+                className="block text-center w-full py-2 px-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-[11px] capitalize tracking-tight transition-colors"
+              >
+                {opt}
+              </label>
+            </div>
+          )} />
+        ))}
+        <Controller name="vehicle_type_mode" control={step.control} render={({ field }) => (
+          <div>
+            <input
+              type="radio"
+              id="preset_other"
+              value="other"
+              checked={field.value === 'other'}
+              className="sr-only peer"
+              onChange={() => field.onChange('other')}
+            />
+            <label
+              htmlFor="preset_other"
+              className="block text-center w-full py-2 px-2 rounded-lg border border-amber-400 cursor-pointer peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 font-semibold text-[11px] uppercase transition-colors"
+            >
+              Other
+            </label>
+          </div>
+        )} />
+      </div>
+      {mode === 'other' && (
+        <div className="pt-1">
+          <VehicleTypeAsyncSelect
+            name="vehicle_type"
+            label="Other Type"
+            endpoint={apiUrl('/api/vehicles/types')}
+          />
+        </div>
+      )}
+      {mode === 'preset' && current && (
+        <p className="text-xs text-slate-500">Selected: {current}</p>
+      )}
+    </div>
+  );
+};
+
 export default function EstimatorQuote({ embedded = false }: { embedded?: boolean }) {
-  const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3 | 4>(0);
+  // Steps simplified: 0 Locations -> 1 Vehicle Type -> 2 Estimate -> 3 Contact
+  const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3>(0);
   const [miles, setMiles] = useState<number | null>(null);
   const [transit, setTransit] = useState<string | null>(null);
   const [estimate, setEstimate] = useState<number | null>(null);
   const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
-  const [path, setPath] = useState<"exact" | "contactOnly" | null>(null);
 
   // Step 1: Locations
   const step1 = useForm<Step1Values>({
@@ -180,20 +260,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     },
   });
 
-  // Step 2: Vehicle class + Transport type
   const step2 = useForm<Step2Values>({
     resolver: yupResolver(step2Schema),
     mode: "onChange",
-    defaultValues: { vehicle_class: "sedan" },
+    defaultValues: { vehicle_type: "sedan", vehicle_type_mode: 'preset' },
   });
 
-  // Step 3 (exact path): detailed vehicles
-  const step3 = useForm<ExactQuoteValues>({
-    mode: "onChange",
-    defaultValues: { Vehicles: [{ vehicle_model_year: "", vehicle_make: "", vehicle_model: "", vehicle_inop: "0" }] },
-  });
-
-  // Step 4: Contact (require at least one of phone or email; validate phone with libphonenumber; add honeypot)
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
     .object({
       first_name: yup
@@ -206,30 +278,19 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         .string()
         .optional()
         .test("valid-phone", "Enter a valid phone number", (val) => {
-          if (!val) return true; // optional if email is provided
-          try {
-            return isValidPhoneNumber(String(val));
-          } catch {
-            return false;
-          }
+          if (!val) return true;
+          try { return isValidPhoneNumber(String(val)); } catch { return false; }
         }),
-      email: yup
-        .string()
-        .optional()
-        .email("Email is not valid"),
+      email: yup.string().optional().email("Email is not valid"),
       ship_date: yup.string().required("Date is required"),
-      website: yup.string().max(0).optional(), // honeypot should stay empty
+      website: yup.string().max(0).optional(),
     })
-    .test(
-      "phone-or-email",
-      "Please provide at least a phone number or an email.",
-      (val) => {
-        if (!val) return false;
-        const hasPhone = !!val.phone && String(val.phone).trim() !== "";
-        const hasEmail = !!val.email && String(val.email).trim() !== "";
-        return hasPhone || hasEmail;
-      }
-    );
+    .test("phone-or-email", "Please provide at least a phone number or an email.", (val) => {
+      if (!val) return false;
+      const hasPhone = !!val.phone && String(val.phone).trim() !== "";
+      const hasEmail = !!val.email && String(val.email).trim() !== "";
+      return hasPhone || hasEmail;
+    });
   const step4 = useForm<ContactValues>({ resolver: yupResolver(contactSchema), mode: "onChange" });
 
   const computeEstimate = useCallback(async () => {
@@ -240,7 +301,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const dist = await distanceForLocations(s1.origin_city, s1.destination_city);
       setMiles(dist.miles);
       setTransit(estimateTransitDays(dist.miles));
-      const est = estimatePrice({ miles: dist.miles, vehicleClass: s2.vehicle_class, transportType: "Open" });
+      const est = estimatePrice({ miles: dist.miles, vehicleType: s2.vehicle_type, transportType: "Open" });
       setEstimate(est.estimate);
       setPerMile(est.perMile);
     } finally {
@@ -259,19 +320,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setActiveStep(2);
   };
 
-  const onClickExact = () => {
-    setPath("exact");
+  const goToContact = () => {
     setActiveStep(3);
-  };
-  const onClickContactOnly = () => {
-    setPath("contactOnly");
-    setActiveStep(4);
   };
 
   // Track when Step 4 becomes visible for a simple min-time anti-spam gate
   const [step4ShownAt, setStep4ShownAt] = useState<number | null>(null);
   useEffect(() => {
-    if (activeStep === 4) {
+    if (activeStep === 3) {
       setStep4ShownAt(Date.now());
     }
   }, [activeStep]);
@@ -279,8 +335,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const submitLead = async () => {
     const s1 = step1.getValues();
     const s2 = step2.getValues();
-    const s3 = step3.getValues();
-    const s4: any = step4.getValues();
+  const s4: any = step4.getValues();
     // Honeypot and min-time checks
     if (s4?.website && String(s4.website).trim() !== "") {
       showNotification({ text: "Error sending lead", icon: "error" });
@@ -293,8 +348,16 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     const payload: any = {
       ...s1,
       transport_type: "1", // assume Open for quick quote
-      ...(path === "exact" ? s3 : {}),
       ...s4,
+      client_estimate: {
+        miles,
+        per_mile: perMile,
+        total: estimate,
+        transit,
+        vehicle_type: (s2 as any).vehicle_type,
+        vehicle_class: (s2 as any).vehicle_type,
+        transport_type: "Open",
+      },
     };
     try {
       const formatted = { ...payload, ship_date: format(new Date(s4.ship_date), "MM/dd/yyyy") };
@@ -321,9 +384,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const content = (
     <div className="w-full">
       <>
+      {/* Vehicle Type Selection */}
       <div className={`${padding} border-b border-slate-200`}>
         <h1 className={`${titleSize} font-bold text-slate-800`}>Get Your Estimated Price</h1>
-        <p className="mt-1 text-sm text-slate-500">Answer 2 quick questions to see an estimated price. Then request your exact quote.</p>
       </div>
 
       {/* Step 1: Locations */}
@@ -345,19 +408,10 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {activeStep === 1 && (
         <FormProvider {...step2}>
           <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
-            <fieldset className="space-y-3">
+            <fieldset className="space-y-4">
               <legend className="text-md font-semibold text-slate-800">Vehicle Type</legend>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {(["sedan", "coupe", "suv", "pickup", "van", "motorcycle"] as VehicleClass[]).map((opt) => (
-                  <Controller key={opt} name="vehicle_class" control={step2.control} render={({ field }) => (
-                    <div>
-                      <input {...field} type="radio" id={`vc_${opt}`} value={opt} checked={field.value === opt} className="sr-only peer" />
-                      <label htmlFor={`vc_${opt}`} className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-sm capitalize">{opt}</label>
-                    </div>
-                  )} />
-                ))}
-              </div>
-              <p className="text-xs text-slate-500">Larger vehicles (SUVs, vans, pickups) can increase the price due to size and weight.</p>
+              <PresetOrOtherVehicleType step={step2} />
+              <p className="text-xs text-slate-500">Vehicle dimensions and weight affect pricing. SUVs, vans, and pickups usually cost more.</p>
             </fieldset>
             <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy}>
               {busy ? "Calculating..." : "See Estimated Price"}
@@ -368,7 +422,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
       {/* Step 3: Estimate & insights */}
       {activeStep === 2 && (
-  <div className={`${padding} space-y-6 w-full max-w-none`}>
+        <div className={`${padding} space-y-6 w-full max-w-none`}>
           <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5">
             <p className="text-sm text-slate-600 mb-1">Estimated Price</p>
             <div className="flex items-baseline gap-2">
@@ -384,9 +438,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <li>If the car doesn't run we have to use a winch or forklift to load/unload it, which increases the price of the quote.</li>
             </ul>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <button onClick={onClickExact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Request Exact Quote</button>
-            <button onClick={onClickContactOnly} className="w-full inline-flex items-center justify-center rounded-lg bg-white text-slate-700 border border-slate-300 font-semibold py-2.5 hover:bg-slate-50 transition-colors" type="button">Contact Me</button>
+          <div>
+            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Get my premium quote</button>
           </div>
           <div className="text-xs text-slate-500">
             {miles != null && (
@@ -397,20 +450,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       )}
 
       {/* Step 4 (exact path): Vehicle details */}
+      {/* Contact Step */}
       {activeStep === 3 && (
-        <FormProvider {...step3}>
-          <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); setActiveStep(4); }}>
-            <VehicleRows />
-            <div className="flex items-center justify-between pt-2">
-              <button type="button" onClick={() => setActiveStep(2)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-              <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold px-5 py-2.5 hover:bg-sky-700 transition-colors">Next: Contact</button>
-            </div>
-          </form>
-        </FormProvider>
-      )}
-
-      {/* Step 5: Contact */}
-      {activeStep === 4 && (
         <FormProvider {...step4}>
           <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -436,7 +477,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <FaRegPaperPlane />
             </button>
             <div className="flex items-center justify-between pt-2">
-              <button type="button" onClick={() => setActiveStep(path === "exact" ? 3 : 2)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+              <button type="button" onClick={() => setActiveStep(2)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
             </div>
           </form>
         </FormProvider>

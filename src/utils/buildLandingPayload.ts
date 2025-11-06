@@ -14,6 +14,15 @@ export type LandingVehicleInput = {
   vehicle_inop?: string | number | boolean;
 };
 
+export type ClientEstimate = {
+  miles: number | null;
+  per_mile: number | null;
+  total: number | null;
+  transit: string | null;
+  vehicle_class?: string;
+  transport_type?: string; // "Open" | "Enclosed" label
+};
+
 export type LandingFormInput = {
   first_name: string;
   phone: string;
@@ -35,6 +44,8 @@ export type LandingFormInput = {
   ship_date?: string;
   transport_type?: string | number;
   Vehicles?: LandingVehicleInput[];
+  /** Optional client-side estimate info to aid pricing follow-up */
+  client_estimate?: ClientEstimate;
 };
 
 export type LandingPayloadWithRoute = {
@@ -45,10 +56,12 @@ export type LandingPayloadWithRoute = {
   transport_type: TransportLabel;
   /** Optional client public IP, if captured client-side */
   client_ip?: string;
+  /** Optional client-side estimate info to aid pricing follow-up */
+  client_estimate?: ClientEstimate;
   Vehicles: Array<{
-    vehicle_model_year?: string | number;
-    vehicle_make?: string;
-    vehicle_model?: string;
+    model_year?: string | number;
+    make?: string;
+    model?: string;
     inop: boolean;
   }>;
   route: {
@@ -92,6 +105,7 @@ export function buildLandingPayloadWithRoute(input: LandingFormInput): LandingPa
     email: (input.email || "").trim().toLowerCase(),
     ship_date: toISODate(input.ship_date),
     transport_type: toTransportLabel(input.transport_type),
+    client_estimate: input.client_estimate,
     Vehicles,
     route: {
       origin: {

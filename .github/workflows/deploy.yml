@@ -41,7 +41,6 @@ jobs:
           cat > .env.production <<'EOF'
           PUBLIC_API_KEY=${{ vars.PUBLIC_API_KEY }}
           PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
-          PUBLIC_ZIPCODES_API_BASE=${{ vars.PUBLIC_ZIPCODES_API_BASE }}
           EOF
 
       - name: Build

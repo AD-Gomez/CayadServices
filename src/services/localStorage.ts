@@ -14,6 +14,9 @@ const saveEmail = (data: any) => {
       vehicleData[`vehicle_model_year_${index + 1}`] = vehicle.vehicle_model_year;
       vehicleData[`vehicle_make_${index + 1}`] = vehicle.vehicle_make;
       vehicleData[`vehicle_model_${index + 1}`] = vehicle.vehicle_model;
+      if (vehicle.vehicle_type) {
+        vehicleData[`vehicle_type_${index + 1}`] = vehicle.vehicle_type;
+      }
       vehicleData[`vehicle_inop_${index + 1}`] = "No Data"
       send = { ...send, ...vehicleData };
     });
