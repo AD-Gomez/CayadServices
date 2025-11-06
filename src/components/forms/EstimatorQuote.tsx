@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, FormProvider, useFieldArray, useForm, useWatch, useFormContext } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +17,7 @@ import { format } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
 import { showNotification } from "../../utils/notificaction";
+import { isValidPhoneNumber } from "libphonenumber-js/max";
 
 type TransportTypeVal = "1" | "2"; // 1 Open, 2 Enclosed
 
@@ -52,13 +53,13 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
 
 type Step2Values = {
   vehicle_class: VehicleClass;
-  transport_type: TransportTypeVal;
 };
 
 const step2Schema = yup
   .object({
-    vehicle_class: yup.string().oneOf(["sedan", "coupe", "suv", "pickup", "van", "motorcycle"]).required(),
-    transport_type: yup.string().oneOf(["1", "2"]).required(),
+    vehicle_class: yup
+      .string()
+      .oneOf(["sedan", "coupe", "suv", "pickup", "van", "motorcycle"]).required(),
   }) as yup.ObjectSchema<Step2Values>;
 
 type VehicleRow = {
@@ -70,9 +71,10 @@ type VehicleRow = {
 
 type ContactValues = {
   first_name: string;
-  phone: string;
-  email: string;
+  phone?: string; // optional, require at least one of phone/email via schema
+  email?: string; // optional, require at least one of phone/email via schema
   ship_date: string;
+  website?: string; // honeypot
 };
 
 type ExactQuoteValues = {
@@ -119,7 +121,8 @@ function VehicleRows() {
               />
             </div>
             <div className="mt-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Is it running?</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Is it running?</label>
+              <p className="text-xs text-slate-500 mb-2">Non-running vehicles require winch or forklift assistance and typically cost more.</p>
               <div className="flex gap-3">
                 <Controller name={`Vehicles.${index}.vehicle_inop`} control={control} render={({ field }) => (
                   <div>
@@ -181,7 +184,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const step2 = useForm<Step2Values>({
     resolver: yupResolver(step2Schema),
     mode: "onChange",
-    defaultValues: { vehicle_class: "sedan", transport_type: "1" },
+    defaultValues: { vehicle_class: "sedan" },
   });
 
   // Step 3 (exact path): detailed vehicles
@@ -190,22 +193,43 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     defaultValues: { Vehicles: [{ vehicle_model_year: "", vehicle_make: "", vehicle_model: "", vehicle_inop: "0" }] },
   });
 
-  // Step 4: Contact
-  const contactSchema: yup.ObjectSchema<ContactValues> = yup.object({
-    first_name: yup
-      .string()
-      .required("Name is required")
-      .matches(/^[a-zA-Z\s]+$/, "Name must only contain letters and spaces")
-      .min(3)
-      .max(20),
-    phone: yup.string().required("Phone is required"),
-    email: yup
-      .string()
-      .required("Email is required")
-      .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z]{2,6}$/)
-      .email("Email is not valid"),
-    ship_date: yup.string().required("Date is required"),
-  });
+  // Step 4: Contact (require at least one of phone or email; validate phone with libphonenumber; add honeypot)
+  const contactSchema: yup.ObjectSchema<ContactValues> = yup
+    .object({
+      first_name: yup
+        .string()
+        .required("Name is required")
+        .matches(/^[a-zA-Z\s]+$/, "Name must only contain letters and spaces")
+        .min(3)
+        .max(20),
+      phone: yup
+        .string()
+        .optional()
+        .test("valid-phone", "Enter a valid phone number", (val) => {
+          if (!val) return true; // optional if email is provided
+          try {
+            return isValidPhoneNumber(String(val));
+          } catch {
+            return false;
+          }
+        }),
+      email: yup
+        .string()
+        .optional()
+        .email("Email is not valid"),
+      ship_date: yup.string().required("Date is required"),
+      website: yup.string().max(0).optional(), // honeypot should stay empty
+    })
+    .test(
+      "phone-or-email",
+      "Please provide at least a phone number or an email.",
+      (val) => {
+        if (!val) return false;
+        const hasPhone = !!val.phone && String(val.phone).trim() !== "";
+        const hasEmail = !!val.email && String(val.email).trim() !== "";
+        return hasPhone || hasEmail;
+      }
+    );
   const step4 = useForm<ContactValues>({ resolver: yupResolver(contactSchema), mode: "onChange" });
 
   const computeEstimate = useCallback(async () => {
@@ -216,8 +240,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const dist = await distanceForLocations(s1.origin_city, s1.destination_city);
       setMiles(dist.miles);
       setTransit(estimateTransitDays(dist.miles));
-      const transportLabel = s2.transport_type === "2" ? "Enclosed" : "Open";
-      const est = estimatePrice({ miles: dist.miles, vehicleClass: s2.vehicle_class, transportType: transportLabel });
+      const est = estimatePrice({ miles: dist.miles, vehicleClass: s2.vehicle_class, transportType: "Open" });
       setEstimate(est.estimate);
       setPerMile(est.perMile);
     } finally {
@@ -245,14 +268,31 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setActiveStep(4);
   };
 
+  // Track when Step 4 becomes visible for a simple min-time anti-spam gate
+  const [step4ShownAt, setStep4ShownAt] = useState<number | null>(null);
+  useEffect(() => {
+    if (activeStep === 4) {
+      setStep4ShownAt(Date.now());
+    }
+  }, [activeStep]);
+
   const submitLead = async () => {
     const s1 = step1.getValues();
     const s2 = step2.getValues();
     const s3 = step3.getValues();
-    const s4 = step4.getValues();
+    const s4: any = step4.getValues();
+    // Honeypot and min-time checks
+    if (s4?.website && String(s4.website).trim() !== "") {
+      showNotification({ text: "Error sending lead", icon: "error" });
+      return;
+    }
+    if (step4ShownAt && Date.now() - step4ShownAt < 3000) {
+      showNotification({ text: "Please wait a moment before submitting.", icon: "error" });
+      return;
+    }
     const payload: any = {
       ...s1,
-      transport_type: s2.transport_type,
+      transport_type: "1", // assume Open for quick quote
       ...(path === "exact" ? s3 : {}),
       ...s4,
     };
@@ -295,13 +335,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
             </div>
             <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit">
-              Next: Vehicle & Trailer
+              Next: Vehicle Type
             </button>
           </form>
         </FormProvider>
       )}
 
-      {/* Step 2: Vehicle class + transport type */}
+      {/* Step 2: Vehicle Type (assumes Open & Runs) */}
       {activeStep === 1 && (
         <FormProvider {...step2}>
           <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
@@ -317,23 +357,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   )} />
                 ))}
               </div>
-            </fieldset>
-            <fieldset className="space-y-3">
-              <legend className="text-md font-semibold text-slate-800">Trailer Type</legend>
-              <div className="grid grid-cols-2 gap-3">
-                <Controller name="transport_type" control={step2.control} render={({ field }) => (
-                  <div>
-                    <input {...field} type="radio" id="tt_open" value="1" checked={field.value === "1"} className="sr-only peer" />
-                    <label htmlFor="tt_open" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-sm">Open</label>
-                  </div>
-                )} />
-                <Controller name="transport_type" control={step2.control} render={({ field }) => (
-                  <div>
-                    <input {...field} type="radio" id="tt_enclosed" value="2" checked={field.value === "2"} className="sr-only peer" />
-                    <label htmlFor="tt_enclosed" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-sm">Enclosed</label>
-                  </div>
-                )} />
-              </div>
+              <p className="text-xs text-slate-500">Larger vehicles (SUVs, vans, pickups) can increase the price due to size and weight.</p>
             </fieldset>
             <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy}>
               {busy ? "Calculating..." : "See Estimated Price"}
@@ -395,6 +419,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <CustomInput name="email" max={30} label="Email Address" />
               <DateInput name="ship_date" label="Preferred Pickup Date" />
             </div>
+            {/* Honeypot field to deter bots */}
+            <input type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...(step4.register as any)("website")} />
             <div className="flex items-start">
               <small className="text-xs text-slate-500">
                 By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
