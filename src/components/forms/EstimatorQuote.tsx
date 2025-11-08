@@ -52,13 +52,13 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
     destination_city__isValid: yup.boolean().default(false),
   })
   .required()
-  .test('different-origin-destination', 'El origen y el destino no pueden ser iguales', function (val) {
+  .test('different-origin-destination', 'Origin and destination cannot be the same', function (val) {
     if (!val) return true;
     const o = String((val as any).origin_city || '').trim().toLowerCase();
     const d = String((val as any).destination_city || '').trim().toLowerCase();
     if (!o || !d) return true;
     if (o === d) {
-      return this.createError({ path: 'destination_city', message: 'El origen y el destino no pueden ser iguales' });
+      return this.createError({ path: 'destination_city', message: 'Origin and destination cannot be the same' });
     }
     return true;
   });
@@ -130,11 +130,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3>(0);
   const [miles, setMiles] = useState<number | null>(null);
   const [transit, setTransit] = useState<string | null>(null);
-  const [estimate, setEstimate] = useState<number | null>(null);
+  // Totals from estimator API
+  const [estimate, setEstimate] = useState<number | null>(null); // kept for backwards compatibility (discounted total)
+  const [discountedTotal, setDiscountedTotal] = useState<number | null>(null);
+  const [normalTotal, setNormalTotal] = useState<number | null>(null);
   const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [vehicles, setVehicles] = useState<string[]>([]); // list of selected vehicle types
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
+  const [confidencePct, setConfidencePct] = useState<number | null>(null);
   
   // Aggregate meta derived from backend responses
   const { overallConfidence, sampleSizeTotal } = useMemo(() => {
@@ -234,7 +238,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       setEstResponses(results);
       // Aggregate (only consider available estimates with numeric totals)
       const avail = results.filter(r => r?.data?.estimate_available);
-      const lowSum = avail.reduce((acc, r) => acc + (Number(r.data?.low_estimate_total) || 0), 0);
+      // Sum discounted totals (preferred) and normal totals
+      const discountedSum = avail.reduce((acc, r) => acc + (Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total) || 0), 0);
+      // Prefer provided normal_estimate_total, else derive as discounted * 1.15
+      const normalSum = avail.reduce((acc, r) => {
+        const d = Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total);
+        const n = Number(r.data?.normal_estimate_total);
+        return acc + (Number.isFinite(n) ? n : (Number.isFinite(d) ? Math.round(d * 1.15 * 100) / 100 : 0));
+      }, 0);
       let usedMiles: number | null = null;
       const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
       if (typeof refFromResp === 'number') {
@@ -246,13 +257,28 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       }
       setMiles(usedMiles);
       setTransit(estimateTransitDays(usedMiles ?? null));
-      const roundedTotal = lowSum ? Math.round(lowSum * 100) / 100 : null;
-      setEstimate(roundedTotal);
-      if (roundedTotal != null && usedMiles) {
-        setPerMile(Math.round((roundedTotal / usedMiles) * 100) / 100);
+      const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
+      const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
+      setDiscountedTotal(roundedDiscounted);
+      setNormalTotal(roundedNormal);
+      // keep legacy 'estimate' aligned to discounted total
+      setEstimate(roundedDiscounted);
+      if (roundedDiscounted != null && usedMiles) {
+        setPerMile(Math.round((roundedDiscounted / usedMiles) * 100) / 100);
       } else {
         setPerMile(null);
       }
+      // Compute a weighted confidence percentage (by sample size). Fallbacks: min or single value.
+      const totalSamples = avail.reduce((acc, r) => acc + (Number(r?.data?.sample_size) || 0), 0);
+      let weightedPct: number | null = null;
+      if (totalSamples > 0) {
+        const num = avail.reduce((acc, r) => acc + ((Number(r?.data?.confidence_pct) || 0) * (Number(r?.data?.sample_size) || 0)), 0);
+        weightedPct = Math.round(num / totalSamples);
+      } else {
+        const firstPct = avail.find(r => typeof r?.data?.confidence_pct === 'number')?.data?.confidence_pct;
+        weightedPct = typeof firstPct === 'number' ? Math.round(firstPct) : null;
+      }
+      if (typeof weightedPct === 'number') setConfidencePct(Math.max(5, Math.min(99, weightedPct)));
     } finally {
       setBusy(false);
     }
@@ -407,26 +433,63 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {/* Step 3: Estimate & insights */}
       {activeStep === 2 && (
         <div className={`${padding} space-y-6 w-full max-w-none`}>
-          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5 space-y-1 mb-4">
-            <p className="text-sm text-slate-600">Estimate from</p>
-            <div className="flex items-baseline gap-2">
-              <p className="text-3xl font-extrabold text-slate-800">{estimate != null ? `$${estimate}` : "--"}</p>
-              <p className="text-xs text-slate-500">{perMile != null && miles != null ? `(~$${perMile}/mi · ${formatMiles(miles)})` : null}</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4 shadow-sm">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div>
+                <p className="text-xs tracking-wider text-slate-500">Special discount for you</p>
+                <div className="flex items-baseline gap-3">
+                  <p className="text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
+                  {perMile != null && miles != null && (
+                    <p className="text-xs text-slate-500">(~${perMile}/mi · {formatMiles(miles)})</p>
+                  )}
+                </div>
+                {normalTotal != null && (
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
+                    {discountedTotal != null && (
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-semibold">
+                        You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)} ({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}%)
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className="min-w-[180px] flex-1 sm:flex-initial">
+                <div className="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Confidence</span>
+                  <span>{confidencePct != null ? `${confidencePct}%` : (overallConfidence ? overallConfidence : "--")}</span>
+                </div>
+                <div className="mt-1 h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${(confidencePct ?? 0)}%`,
+                      backgroundColor: `hsl(${Math.round(((confidencePct ?? 0) / 100) * 120)}, 85%, 45%)`,
+                      transition: 'width 300ms ease-out'
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Low</span>
+                  <span>High</span>
+                </div>
+                {sampleSizeTotal ? (
+                  <p className="text-[10px] text-slate-400 mt-1">Sample size: n={sampleSizeTotal}</p>
+                ) : null}
+              </div>
             </div>
             {miles != null && (
-              <p className="text-xs text-slate-500 mt-2">Estimated transit time: {transit ?? "--"}</p>
+              <p className="text-xs text-slate-500">Estimated transit time: {transit ?? "--"}</p>
             )}
             <p className="text-[11px] text-slate-500">
-              Based on similar real orders
-              {overallConfidence ? ` (confidence: ${overallConfidence}${sampleSizeTotal ? `, n=${sampleSizeTotal}` : ''})` : ''}.
-              {' '}Final price may vary.
+              Based on similar real orders{overallConfidence ? ` (confidence: ${overallConfidence}${sampleSizeTotal ? `, n=${sampleSizeTotal}` : ''})` : ''}. Final price may vary.
             </p>
             {estResponses.length > 1 && (
-              <div className="pt-2">
+              <div className="pt-1">
                 <p className="text-[11px] font-medium text-slate-600">Breakdown:</p>
                 <ul className="text-[11px] text-slate-500 list-disc list-inside space-y-0.5">
                   {estResponses.map(r => (
-                    <li key={r.type}>{r.count}× {r.type}: ${r.data?.low_estimate_total ?? '--'}</li>
+                    <li key={r.type}>{r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</li>
                   ))}
                 </ul>
               </div>
