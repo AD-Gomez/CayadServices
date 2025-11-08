@@ -77,13 +77,27 @@ export type LandingPayloadWithRoute = {
 export function buildLandingPayloadWithRoute(input: LandingFormInput): LandingPayloadWithRoute {
   const o = parseCityStateZip(input.origin_city);
   const d = parseCityStateZip(input.destination_city);
+  // Ensure numeric values in client_estimate are rounded to two decimals
+  const round2 = (n: number | null | undefined): number | null => {
+    if (n === null || typeof n === 'undefined') return null;
+    // Keep integers intact but ensure two decimals via rounding
+    return Math.round(n * 100) / 100;
+  };
+  const clientEstimate = input.client_estimate
+    ? {
+        ...input.client_estimate,
+        miles: round2(input.client_estimate.miles),
+        per_mile: round2(input.client_estimate.per_mile),
+        total: round2(input.client_estimate.total),
+      }
+    : undefined;
   return {
     first_name: (input.first_name || "").trim(),
     phone: (input.phone || "").trim(),
     email: (input.email || "").trim().toLowerCase(),
     ship_date: toISODate(input.ship_date),
     transport_type: toTransportLabel(input.transport_type),
-    client_estimate: input.client_estimate,
+    client_estimate: clientEstimate,
     route: {
       origin: {
         city: o.city,

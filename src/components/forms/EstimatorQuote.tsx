@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
 import { distanceForLocations, estimateTransitDays, formatMiles } from "../../services/distance";
-import { estimatePrice } from "../../utils/priceEstimator";
+import { parseCityStateZip } from "../../utils/leadFormat";
 import { apiUrl } from "../../services/config";
 import MakeAsyncSelect from "../MakeAsyncSelect";
 import ModelAsyncSelect from "../ModelAsyncSelect";
@@ -54,7 +54,7 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
   .required();
 
 type Step2Values = {
-  vehicle_type: string;
+  vehicle_type: string; // current selector value used to add
   vehicle_type_mode?: 'preset' | 'other';
 };
 
@@ -75,7 +75,7 @@ type ContactValues = {
 // VehicleRows removed: estimator uses only vehicle_type (preset or other)
 
 // Helper component for vehicle type selection (preset + other)
-const PresetOrOtherVehicleType: React.FC<{ step: any }> = ({ step }) => {
+const PresetOrOtherVehicleType: React.FC<{ step: any; onAdd?: (t: string) => void; disableAdd?: boolean }> = ({ step, onAdd, disableAdd }) => {
   const presets: string[] = [
     "sedan",
     "coupe",
@@ -148,6 +148,18 @@ const PresetOrOtherVehicleType: React.FC<{ step: any }> = ({ step }) => {
       {mode === 'preset' && current && (
         <p className="text-xs text-slate-500">Selected: {current}</p>
       )}
+      {onAdd && (
+        <div className="pt-2">
+          <button
+            type="button"
+            disabled={!current || disableAdd}
+            onClick={() => current && onAdd(current)}
+            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors ${!current || disableAdd ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-sky-600 border-sky-600 text-white hover:bg-sky-700'}`}
+          >
+            Add Vehicle Type
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -160,6 +172,22 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [estimate, setEstimate] = useState<number | null>(null);
   const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
+  const [vehicles, setVehicles] = useState<string[]>([]); // list of selected vehicle types
+  const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
+  
+  // Aggregate meta derived from backend responses
+  const { overallConfidence, sampleSizeTotal } = useMemo(() => {
+    const avail = estResponses.filter((r) => r?.data?.estimate_available);
+    const rank: Record<string, number> = { low: 0, medium: 1, high: 2 };
+    let worst: string | null = null;
+    for (const r of avail) {
+      const c = String(r?.data?.confidence || '').toLowerCase();
+      if (!c || typeof rank[c] === 'undefined') continue;
+      if (worst == null || rank[c] < rank[worst]) worst = c;
+    }
+    const samples = avail.reduce((acc, r) => acc + (Number(r?.data?.sample_size) || 0), 0);
+    return { overallConfidence: worst, sampleSizeTotal: samples };
+  }, [estResponses]);
 
   // Step 1: Locations
   const step1 = useForm<Step1Values>({
@@ -208,19 +236,66 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   const computeEstimate = useCallback(async () => {
     const s1 = step1.getValues();
-    const s2 = step2.getValues();
+    const distinct = Array.from(new Set(vehicles));
     setBusy(true);
     try {
-      const dist = await distanceForLocations(s1.origin_city, s1.destination_city);
-      setMiles(dist.miles);
-      setTransit(estimateTransitDays(dist.miles));
-      const est = estimatePrice({ miles: dist.miles, vehicleType: s2.vehicle_type, transportType: "Open" });
-      setEstimate(est.estimate);
-      setPerMile(est.perMile);
+      // Try to extract zip codes from the user-provided city/zip strings
+      const o = parseCityStateZip(s1.origin_city || "");
+      const d = parseCityStateZip(s1.destination_city || "");
+      const origin_zip = o.postalCode || ((s1.origin_city || "").match(/(\d{5})/) || [""])[0];
+      const destination_zip = d.postalCode || ((s1.destination_city || "").match(/(\d{5})/) || [""])[0];
+      // Prefer canonical endpoint; alias kept for compatibility
+      const canonical = apiUrl("/api/public/price-estimate/");
+      const alias = apiUrl("/leads/public/price-estimate/");
+      const results: any[] = [];
+      for (const vt of distinct) {
+        const count = vehicles.filter(v => v === vt).length;
+        try {
+          let res = await fetch(canonical, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count })
+          });
+          if (!res.ok) {
+            // Try alias as fallback
+            res = await fetch(alias, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count })
+            });
+          }
+          if (res.ok) {
+            const j = await res.json();
+            results.push({ type: vt, count, data: j });
+          }
+        } catch {}
+      }
+      setEstResponses(results);
+      // Aggregate (only consider available estimates with numeric totals)
+      const avail = results.filter(r => r?.data?.estimate_available);
+      const lowSum = avail.reduce((acc, r) => acc + (Number(r.data?.low_estimate_total) || 0), 0);
+      let usedMiles: number | null = null;
+      const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
+      if (typeof refFromResp === 'number') {
+        usedMiles = refFromResp;
+      } else {
+        // fallback to distance service
+        const dist = await distanceForLocations(s1.origin_city, s1.destination_city);
+        usedMiles = dist.miles ?? null;
+      }
+      setMiles(usedMiles);
+      setTransit(estimateTransitDays(usedMiles ?? null));
+      const roundedTotal = lowSum ? Math.round(lowSum * 100) / 100 : null;
+      setEstimate(roundedTotal);
+      if (roundedTotal != null && usedMiles) {
+        setPerMile(Math.round((roundedTotal / usedMiles) * 100) / 100);
+      } else {
+        setPerMile(null);
+      }
     } finally {
       setBusy(false);
     }
-  }, [step1, step2]);
+  }, [step1, vehicles, miles]);
 
   const onSubmitStep1 = async (data: Step1Values) => {
     void data; // validation already handled
@@ -267,8 +342,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         per_mile: perMile,
         total: estimate,
         transit,
-        vehicle_type: (s2 as any).vehicle_type,
-        vehicle_class: (s2 as any).vehicle_type,
+        vehicle_type: vehicles[0] ?? (s2 as any).vehicle_type,
+        vehicle_class: vehicles[0] ?? (s2 as any).vehicle_type,
+        vehicles_count: vehicles.length,
         transport_type: "Open",
       },
     };
@@ -322,12 +398,43 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         <FormProvider {...step2}>
           <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
             <fieldset className="space-y-4">
-              <legend className="text-md font-semibold text-slate-800">Vehicle Type</legend>
-              <PresetOrOtherVehicleType step={step2} />
-              <p className="text-xs text-slate-500">Vehicle dimensions and weight affect pricing. SUVs, vans, and pickups usually cost more.</p>
+              <div className="flex items-center justify-between">
+                <legend className="text-md font-semibold text-slate-800">Vehicle Types</legend>
+                <div aria-live="polite" className="inline-flex items-center gap-2">
+                  <span className="text-xs text-slate-500">Added</span>
+                  <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
+                </div>
+              </div>
+              <PresetOrOtherVehicleType
+                step={step2}
+                onAdd={(t) => setVehicles(v => [...v, t])}
+                disableAdd={busy}
+              />
+              {vehicles.length > 0 && (
+                <div className="pt-3">
+                  <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-amber-900">You added {vehicles.length} vehicle{vehicles.length > 1 ? 's' : ''}</p>
+                        <p className="text-xs text-amber-800">These types will be used to request estimates for the route.</p>
+                      </div>
+                      <div className="text-sm text-amber-900 font-medium">{vehicles.length} total</div>
+                    </div>
+                    <div className="pt-2 flex flex-wrap gap-2">
+                      {vehicles.map((v, idx) => (
+                        <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
+                          {v}
+                          <button type="button" onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+              <p className="text-xs text-slate-500">Add each vehicle you plan to ship. You can remove any before calculating.</p>
             </fieldset>
-            <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy}>
-              {busy ? "Calculating..." : "See Estimated Price"}
+            <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy || vehicles.length === 0}>
+              {busy ? "Calculating..." : `See Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
             </button>
           </form>
         </FormProvider>
@@ -336,13 +443,27 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {/* Step 3: Estimate & insights */}
       {activeStep === 2 && (
         <div className={`${padding} space-y-6 w-full max-w-none`}>
-          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5">
-            <p className="text-sm text-slate-600 mb-1">Estimated Price</p>
+          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5 space-y-1">
+            <p className="text-sm text-slate-600">Minimum estimate from</p>
             <div className="flex items-baseline gap-2">
               <p className="text-3xl font-extrabold text-slate-800">{estimate != null ? `$${estimate}` : "--"}</p>
               <p className="text-xs text-slate-500">{perMile != null && miles != null ? `(~$${perMile}/mi · ${formatMiles(miles)})` : null}</p>
             </div>
-            <p className="text-xs text-slate-500 mt-1">Assuming Open and Runs & Drives</p>
+            <p className="text-[11px] text-slate-500">
+              Based on similar real orders
+              {overallConfidence ? ` (confidence: ${overallConfidence}${sampleSizeTotal ? `, n=${sampleSizeTotal}` : ''})` : ''}.
+              {' '}Final price may vary.
+            </p>
+            {estResponses.length > 1 && (
+              <div className="pt-2">
+                <p className="text-[11px] font-medium text-slate-600">Breakdown:</p>
+                <ul className="text-[11px] text-slate-500 list-disc list-inside space-y-0.5">
+                  {estResponses.map(r => (
+                    <li key={r.type}>{r.count}× {r.type}: ${r.data?.low_estimate_total ?? '--'}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 space-y-2 text-amber-900">
             <p className="text-sm font-semibold">Important</p>

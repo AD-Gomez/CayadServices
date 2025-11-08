@@ -46,9 +46,9 @@ export default function QuoteDetails() {
     setLead(data ?? null);
   }, []);
 
-  const { vehicleText, conditionText } = useMemo(() => {
+  const vehicleText = useMemo(() => {
     const vs = summarizeVehiclesFromEstimate(lead?.client_estimate);
-    return { vehicleText: vs.label, conditionText: vs.condition };
+    return vs.label;
   }, [lead]);
 
   useEffect(() => {
@@ -171,13 +171,7 @@ export default function QuoteDetails() {
             </span>
             <span className="font-semibold text-slate-800 bg-sky-50 text-sky-700 px-2 py-1 rounded-md">{transportType}</span>
           </li>
-          <li className="px-5 py-4 flex justify-between items-center">
-            <span className="text-slate-600 inline-flex items-center gap-1">
-              Vehicle Condition
-              <Tooltip label="Running vehicles can be driven onto the trailer. Not running requires special equipment." position="top" />
-            </span>
-            <span className="font-semibold text-slate-800">{conditionText}</span>
-          </li>
+          {/* Vehicle Condition removed: we no longer collect per-vehicle condition in the lead payload */}
           <li className="px-5 py-4 flex justify-between items-center">
             <span className="text-slate-600 inline-flex items-center gap-1">
               Service Type

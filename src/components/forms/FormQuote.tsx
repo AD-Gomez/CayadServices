@@ -24,6 +24,7 @@ import MakeAsyncSelect from '../MakeAsyncSelect';
 import ModelAsyncSelect from '../ModelAsyncSelect';
 import VehicleTypeAsyncSelect from '../VehicleTypeAsyncSelect';
 import { apiUrl } from '../../services/config';
+import { useMemo } from 'react';
 
 type QuoteFormWithFlags = FormQuoteTypes & {
   origin_city__isValid: boolean;
@@ -94,6 +95,7 @@ const FormQuote = () => {
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
+  const [vehicles, setVehicles] = useState<string[]>([]);
 
   useEffect(() => {
     const currentYear = new Date().getFullYear() + 1; // Include next year model
@@ -105,6 +107,17 @@ const FormQuote = () => {
   }, []);
 
   // Vehicle-specific state removed
+  const addVehicle = (t?: string) => {
+    if (!t) return;
+    setVehicles((v) => [...v, t]);
+  };
+  const removeVehicleAt = (idx: number) => setVehicles((v) => v.filter((_, i) => i !== idx));
+  const vehiclesSummary = useMemo(() => {
+    if (vehicles.length === 0) return '';
+    const counts: Record<string, number> = {};
+    vehicles.forEach((t) => { counts[t] = (counts[t] || 0) + 1; });
+    return Object.entries(counts).map(([t, c]) => `${c}× ${t}`).join(', ');
+  }, [vehicles]);
 
   const handleSubmitLead = async (data: any) => {
     try {
@@ -112,7 +125,7 @@ const FormQuote = () => {
       // Vehicles no longer required/collected
 
       // Phone comes already in E.164 (e.g., +13051234567) from the input component
-      const payload: any = { ...data };
+      const payload: any = { ...data, vehicles_summary: vehicles }; // include summary list for backend reference (optional)
       const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && resp.id) {
@@ -147,6 +160,7 @@ const FormQuote = () => {
       AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0", // Example key
       ...data,
       ship_date: formattedDate,
+      vehicles_summary: vehicles,
     };
     handleSubmitLead(dataToLead);
   };
@@ -198,7 +212,65 @@ const FormQuote = () => {
               </div>
             </fieldset>
 
-            {/* Vehicle details removed — forms no longer collect per-vehicle information */}
+            {/* Vehicles (types only, multi) */}
+            <fieldset className="space-y-4">
+              <div className="flex items-center gap-3 justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 bg-sky-500 text-white h-7 w-7 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                  <legend className="text-md font-semibold text-slate-800">Vehicles</legend>
+                </div>
+                <div aria-live="polite" className="inline-flex items-center gap-2">
+                  <span className="text-xs text-slate-500">Added</span>
+                  <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {/* Preset grid + other async select to add items */}
+                <Controller name={'__vehicle_type_temp'} control={control as any} render={({ field }) => (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-2">
+                      {['sedan','coupe','suv','pickup','van','motorcycle','convertible','crossover','hatchback','minivan'].map((opt) => (
+                        <button type="button" key={opt} onClick={() => addVehicle(opt)} className="text-[11px] capitalize w-full py-2 rounded-lg border border-slate-300 hover:bg-slate-50 font-semibold">
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-end">
+                      <div>
+                        <VehicleTypeAsyncSelect name="__vehicle_type_other" label="Other Type" endpoint={apiUrl('/api/vehicles/types')} />
+                      </div>
+                      <div>
+                        <button type="button" className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" onClick={() => {
+                          const val = (methods.getValues() as any)['__vehicle_type_other'];
+                          if (val) addVehicle(val);
+                        }}>Add Vehicle Type</button>
+                      </div>
+                    </div>
+                  </div>
+                )}/>
+                {vehicles.length > 0 && (
+                  <div className="pt-3">
+                    <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-semibold text-amber-900">You added {vehicles.length} vehicle{vehicles.length > 1 ? 's' : ''}</p>
+                          <p className="text-xs text-amber-800">We’ll use these types to calculate estimates. You can remove any before submitting.</p>
+                        </div>
+                        <div className="text-sm text-amber-900 font-medium">{vehiclesSummary}</div>
+                      </div>
+                      <div className="pt-2 flex flex-wrap gap-2">
+                        {vehicles.map((v, idx) => (
+                          <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
+                            {v}
+                            <button type="button" onClick={() => removeVehicleAt(idx)} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </fieldset>
 
             <fieldset className="space-y-5">
               <div className="flex items-center gap-3">
