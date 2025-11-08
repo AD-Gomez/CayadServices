@@ -444,7 +444,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {activeStep === 2 && (
         <div className={`${padding} space-y-6 w-full max-w-none`}>
           <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5 space-y-1">
-            <p className="text-sm text-slate-600">Minimum estimate from</p>
+            <p className="text-sm text-slate-600">Estimate from</p>
             <div className="flex items-baseline gap-2">
               <p className="text-3xl font-extrabold text-slate-800">{estimate != null ? `$${estimate}` : "--"}</p>
               <p className="text-xs text-slate-500">{perMile != null && miles != null ? `(~$${perMile}/mi · ${formatMiles(miles)})` : null}</p>
@@ -473,7 +473,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             </ul>
           </div>
           <div>
-            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Get my premium quote</button>
+            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Get a great deal — contact us now</button>
           </div>
           <div className="text-xs text-slate-500">
             {miles != null && (
@@ -507,7 +507,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 text-white font-bold py-3 px-6 hover:bg-sky-700 transition-all duration-300 text-base"
               type="submit"
             >
-              Get my premium quote
+              Request Premium Quote
               <FaRegPaperPlane />
             </button>
             <div className="flex items-center justify-between pt-2">
