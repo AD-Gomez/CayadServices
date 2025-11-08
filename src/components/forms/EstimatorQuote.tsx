@@ -397,6 +397,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy || vehicles.length === 0}>
               {busy ? "Calculating..." : `See Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
             </button>
+            <div className="flex items-center justify-between pt-2">
+              <button type="button" onClick={() => setActiveStep(0)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+            </div>
           </form>
         </FormProvider>
       )}
@@ -404,12 +407,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {/* Step 3: Estimate & insights */}
       {activeStep === 2 && (
         <div className={`${padding} space-y-6 w-full max-w-none`}>
-          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5 space-y-1">
+          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-5 space-y-1 mb-4">
             <p className="text-sm text-slate-600">Estimate from</p>
             <div className="flex items-baseline gap-2">
               <p className="text-3xl font-extrabold text-slate-800">{estimate != null ? `$${estimate}` : "--"}</p>
               <p className="text-xs text-slate-500">{perMile != null && miles != null ? `(~$${perMile}/mi · ${formatMiles(miles)})` : null}</p>
             </div>
+            {miles != null && (
+              <p className="text-xs text-slate-500 mt-2">Estimated transit time: {transit ?? "--"}</p>
+            )}
             <p className="text-[11px] text-slate-500">
               Based on similar real orders
               {overallConfidence ? ` (confidence: ${overallConfidence}${sampleSizeTotal ? `, n=${sampleSizeTotal}` : ''})` : ''}.
@@ -434,13 +440,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             </ul>
           </div>
           <div>
-            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Contact us now</button>
+            {/* Primary CTA and a nicer secondary Back button side-by-side on wide screens */}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <button onClick={goToContact} className="w-full sm:flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Contact us now</button>
+              <button type="button" onClick={() => setActiveStep(1)} className="self-start sm:self-auto inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 mt-2 sm:mt-0 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+            </div>
           </div>
-          <div className="text-xs text-slate-500">
-            {miles != null && (
-              <p>Estimated transit time: {transit ?? "--"}</p>
-            )}
-          </div>
+          {/* transit time moved up into the estimate card for a cleaner layout */}
         </div>
       )}
 
@@ -468,7 +474,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base"
               type="submit"
             >
-              Request YOUR Premium Quote
+              Request Your Premium Quote
               <FaRegPaperPlane />
             </button>
             <div className="flex items-center justify-between pt-2">
