@@ -51,7 +51,17 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
     origin_city__isValid: yup.boolean().default(false),
     destination_city__isValid: yup.boolean().default(false),
   })
-  .required();
+  .required()
+  .test('different-origin-destination', 'El origen y el destino no pueden ser iguales', function (val) {
+    if (!val) return true;
+    const o = String((val as any).origin_city || '').trim().toLowerCase();
+    const d = String((val as any).destination_city || '').trim().toLowerCase();
+    if (!o || !d) return true;
+    if (o === d) {
+      return this.createError({ path: 'destination_city', message: 'El origen y el destino no pueden ser iguales' });
+    }
+    return true;
+  });
 
 type Step2Values = {
   vehicle_type: string; // current selector value used to add
@@ -74,92 +84,43 @@ type ContactValues = {
 
 // VehicleRows removed: estimator uses only vehicle_type (preset or other)
 
-// Helper component for vehicle type selection (preset + other)
+// Helper component for vehicle type selection (4 presets + async select). Clicking immediately adds.
 const PresetOrOtherVehicleType: React.FC<{ step: any; onAdd?: (t: string) => void; disableAdd?: boolean }> = ({ step, onAdd, disableAdd }) => {
-  const presets: string[] = [
-    "sedan",
-    "coupe",
-    "suv",
-    "pickup",
-    "van",
-    "motorcycle",
-    "convertible",
-    "crossover",
-    "hatchback",
-    "minivan",
-  ];
-  const mode = step.watch('vehicle_type_mode');
-  const current = step.watch('vehicle_type');
+  // Updated to match backend types; removed 'pickup'
+  const presets: string[] = ["car", "suv", "van"];
+
+  // Auto-add when a value is selected from the backend async select
+  const other = step.watch('__vehicle_type_other');
+  useEffect(() => {
+    if (!onAdd) return;
+    if (other && typeof other === 'string') {
+      onAdd(other);
+      step.setValue('__vehicle_type_other', '', { shouldDirty: false, shouldValidate: false });
+    }
+  }, [other]);
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
         {presets.map((opt) => (
-          <Controller key={opt} name="vehicle_type" control={step.control} render={({ field }) => (
-            <div>
-              <input
-                {...field}
-                type="radio"
-                id={`preset_${opt}`}
-                value={opt}
-                checked={field.value === opt && mode === 'preset'}
-                className="sr-only peer"
-                onChange={(e) => {
-                  field.onChange(e.target.value);
-                  step.setValue('vehicle_type_mode', 'preset', { shouldDirty: true, shouldValidate: true });
-                }}
-              />
-              <label
-                htmlFor={`preset_${opt}`}
-                className="block text-center w-full py-2 px-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold text-[11px] capitalize tracking-tight transition-colors"
-              >
-                {opt}
-              </label>
-            </div>
-          )} />
-        ))}
-        <Controller name="vehicle_type_mode" control={step.control} render={({ field }) => (
-          <div>
-            <input
-              type="radio"
-              id="preset_other"
-              value="other"
-              checked={field.value === 'other'}
-              className="sr-only peer"
-              onChange={() => field.onChange('other')}
-            />
-            <label
-              htmlFor="preset_other"
-              className="block text-center w-full py-2 px-2 rounded-lg border border-amber-400 cursor-pointer peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 font-semibold text-[11px] uppercase transition-colors"
-            >
-              Other
-            </label>
-          </div>
-        )} />
-      </div>
-      {mode === 'other' && (
-        <div className="pt-1">
-          <VehicleTypeAsyncSelect
-            name="vehicle_type"
-            label="Other Type"
-            endpoint={apiUrl('/api/vehicles/types')}
-          />
-        </div>
-      )}
-      {mode === 'preset' && current && (
-        <p className="text-xs text-slate-500">Selected: {current}</p>
-      )}
-      {onAdd && (
-        <div className="pt-2">
           <button
+            key={opt}
             type="button"
-            disabled={!current || disableAdd}
-            onClick={() => current && onAdd(current)}
-            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors ${!current || disableAdd ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-sky-600 border-sky-600 text-white hover:bg-sky-700'}`}
+            disabled={disableAdd}
+            onClick={() => onAdd && onAdd(opt)}
+            className={`block text-center w-full py-2 px-2 rounded-lg border font-semibold text-[11px] capitalize tracking-tight transition-colors ${disableAdd ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'border-slate-300 hover:bg-slate-50'}`}
           >
-            Add Vehicle Type
+            {opt}
           </button>
-        </div>
-      )}
+        ))}
+      </div>
+      <div className="pt-1">
+        <VehicleTypeAsyncSelect
+          name="__vehicle_type_other"
+          label="Other Types"
+          endpoint={apiUrl('/api/vehicles/types')}
+        />
+      </div>
     </div>
   );
 };
@@ -204,7 +165,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const step2 = useForm<Step2Values>({
     resolver: yupResolver(step2Schema),
     mode: "onChange",
-    defaultValues: { vehicle_type: "sedan", vehicle_type_mode: 'preset' },
+    defaultValues: { vehicle_type: "car", vehicle_type_mode: 'preset' },
   });
 
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
@@ -387,7 +348,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
             </div>
             <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit">
-              Next: Vehicle Type
+              Next: Choose Vehicle
             </button>
           </form>
         </FormProvider>
@@ -473,7 +434,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             </ul>
           </div>
           <div>
-            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Get a great deal — contact us now</button>
+            <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Contact us now</button>
           </div>
           <div className="text-xs text-slate-500">
             {miles != null && (
@@ -504,10 +465,10 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               </small>
             </div>
             <button id="submit_button"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 text-white font-bold py-3 px-6 hover:bg-sky-700 transition-all duration-300 text-base"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base"
               type="submit"
             >
-              Request Premium Quote
+              Request YOUR Premium Quote
               <FaRegPaperPlane />
             </button>
             <div className="flex items-center justify-between pt-2">

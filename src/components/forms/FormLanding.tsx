@@ -48,6 +48,18 @@ const validationSchemaStep1: yup.ObjectSchema<Step1FormValues> = yup.object({
   destination_city__isValid: yup.boolean().default(false),
 }).required();
 
+// Ensure origin and destination differ
+validationSchemaStep1.test('different-origin-destination', 'El origen y el destino no pueden ser iguales', function (val) {
+  if (!val) return true;
+  const o = String((val as any).origin_city || '').trim().toLowerCase();
+  const d = String((val as any).destination_city || '').trim().toLowerCase();
+  if (!o || !d) return true;
+  if (o === d) {
+    return this.createError({ path: 'destination_city', message: 'El origen y el destino no pueden ser iguales' });
+  }
+  return true;
+});
+
 
 const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
   const methods = useForm<Step1FormValues>({
@@ -123,7 +135,7 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
             type="submit"
             className="bg-btn-blue flex items-center hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none justify-center cursor-pointer text-lg mb-4 w-full h-10 mt-5 text-white rounded-lg px-4 font-semibold"
           >
-            Add Vehicle Details
+            Next: Contact Info
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
               <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
             </svg>
@@ -232,18 +244,15 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
           </div>
           <button
             id="submit_button" disabled={disabled}
-            className={`bg-btn-blue hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold
+            className={`bg-orange-600 hover:bg-orange-700 transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold
               ${disabled ? 'opacity-[0.6] hover:cursor-not-allowed ' : ''}
               `}
             type="submit"
           >
-
             {disabled
               ? <p className='mr-2'>Loading</p>
-              : <p className='mr-2'>Submit</p>
+              : <p className='mr-2'>Request YOUR Premium Quote</p>
             }
-
-
             <FaRegPaperPlane />
           </button>
         </form>

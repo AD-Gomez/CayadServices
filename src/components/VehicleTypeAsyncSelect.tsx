@@ -64,7 +64,24 @@ async function fetchVehicleTypes(endpoint: string, params: Record<string, string
   return data;
 }
 
-const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Vehicle Type', endpoint, make, minLength = 0, disabled }) => {
+/*
+Endpoint contract (canonical list):
+GET /api/vehicles/types
+Query params:
+ - make (optional) - ignored for landing (returns canonical list regardless)
+ - search (optional) - filters by partial match on value or label (case-insensitive)
+Response 200: JSON array of { value: string, label: string }
+Example canonical list (backend):
+[
+  {"value":"car","label":"Car"},
+  {"value":"suv","label":"SUV"},
+  {"value":"crossover","label":"Crossover"},
+  ...
+  {"value":"other","label":"Other"}
+]
+NOTE: 'pickup' is intentionally not included in the canonical list.
+*/
+const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled }) => {
   const { control, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
 

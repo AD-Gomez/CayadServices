@@ -73,6 +73,18 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
   destination_city__isValid: yup.boolean().default(false),
 }).required();
 
+// Prevent selecting same origin and destination
+validationSchema.test('different-origin-destination', 'El origen y el destino no pueden ser iguales', function (val) {
+  if (!val) return true;
+  const o = String((val as any).origin_city || '').trim().toLowerCase();
+  const d = String((val as any).destination_city || '').trim().toLowerCase();
+  if (!o || !d) return true;
+  if (o === d) {
+    return this.createError({ path: 'destination_city', message: 'El origen y el destino no pueden ser iguales' });
+  }
+  return true;
+});
+
 const FormQuote = () => {
   const methods = useForm<QuoteFormWithFlags>({
     resolver: yupResolver<QuoteFormWithFlags>(validationSchema),
@@ -118,6 +130,16 @@ const FormQuote = () => {
     vehicles.forEach((t) => { counts[t] = (counts[t] || 0) + 1; });
     return Object.entries(counts).map(([t, c]) => `${c}× ${t}`).join(', ');
   }, [vehicles]);
+
+  // Auto-add when selecting an "Other Type" from async select
+  const otherType = methods.watch('__vehicle_type_other' as any) as any;
+  useEffect(() => {
+    if (otherType && typeof otherType === 'string') {
+      addVehicle(otherType);
+      methods.setValue('__vehicle_type_other' as any, '', { shouldDirty: false, shouldValidate: false });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [otherType]);
 
   const handleSubmitLead = async (data: any) => {
     try {
@@ -229,22 +251,14 @@ const FormQuote = () => {
                 <Controller name={'__vehicle_type_temp'} control={control as any} render={({ field }) => (
                   <div className="space-y-3">
                     <div className="grid grid-cols-3 gap-2">
-                      {['sedan','coupe','suv','pickup','van','motorcycle','convertible','crossover','hatchback','minivan'].map((opt) => (
+                      {['car','suv','van'].map((opt) => (
                         <button type="button" key={opt} onClick={() => addVehicle(opt)} className="text-[11px] capitalize w-full py-2 rounded-lg border border-slate-300 hover:bg-slate-50 font-semibold">
                           {opt}
                         </button>
                       ))}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-end">
-                      <div>
-                        <VehicleTypeAsyncSelect name="__vehicle_type_other" label="Other Type" endpoint={apiUrl('/api/vehicles/types')} />
-                      </div>
-                      <div>
-                        <button type="button" className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" onClick={() => {
-                          const val = (methods.getValues() as any)['__vehicle_type_other'];
-                          if (val) addVehicle(val);
-                        }}>Add Vehicle Type</button>
-                      </div>
+                    <div className="grid grid-cols-1 gap-2 items-end">
+                      <VehicleTypeAsyncSelect name="__vehicle_type_other" label="Other Types" endpoint={apiUrl('/api/vehicles/types')} />
                     </div>
                   </div>
                 )}/>
@@ -291,8 +305,8 @@ const FormQuote = () => {
                 <a href="/pdfs/Terms-and-Conditions.pdf" target="_blank" rel="noopener noreferrer" className="text-sky-600 underline hover:text-sky-700"> Terms </a>
                 and <a href="/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-sky-600 underline hover:text-sky-700"> Privacy Policy</a>, and consent to receive calls, texts, and emails.
               </small>
-              <button disabled={disabledSubmit} className={`mt-3 w-full flex items-center justify-center gap-2 bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-all duration-300 text-base ${disabledSubmit ? 'cursor-not-allowed bg-slate-400' : ''}`}>
-                Get My Premium Quote
+              <button disabled={disabledSubmit} className={`mt-3 w-full flex items-center justify-center gap-2 bg-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-orange-700 transition-all duration-300 text-base ${disabledSubmit ? 'cursor-not-allowed bg-slate-400' : ''}`}>
+                Request YOUR Premium Quote
                 <FaRegPaperPlane />
               </button>
             </div>
