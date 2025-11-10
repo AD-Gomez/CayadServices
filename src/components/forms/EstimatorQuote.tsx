@@ -362,7 +362,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       <>
       {/* Vehicle Type Selection */}
       <div className={`${padding} border-b border-slate-200`}>
-        <h1 className={`${titleSize} font-bold text-slate-800`}>Get Your Estimated Price</h1>
+        <h1 className={`${titleSize} font-bold text-slate-800`}>
+          {activeStep === 0 && 'Get Your Instant Quote'}
+          {activeStep === 1 && 'What Are You Shipping?'}
+          {activeStep === 2 && 'Your Quote Is Ready!'}
+          {activeStep === 3 && 'Almost Done!'}
+        </h1>
       </div>
 
       {/* Step 1: Locations */}
@@ -373,9 +378,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
               <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
             </div>
-            <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit">
-              Next: Choose Vehicle
-            </button>
+            <div>
+              <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit">
+                Show My Vehicle Options
+              </button>
+              <p className="mt-2 text-xs text-slate-500">Takes less than a minute</p>
+            </div>
           </form>
         </FormProvider>
       )}
@@ -386,7 +394,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
             <fieldset className="space-y-4">
               <div className="flex items-center justify-between">
-                <legend className="text-md font-semibold text-slate-800">Vehicle Types</legend>
+                <legend className="text-md font-semibold text-slate-800">What Are You Shipping?</legend>
                 <div aria-live="polite" className="inline-flex items-center gap-2">
                   <span className="text-xs text-slate-500">Added</span>
                   <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
@@ -420,11 +428,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               )}
               <p className="text-xs text-slate-500">Add each vehicle you plan to ship. You can remove any before calculating.</p>
             </fieldset>
-            <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy || vehicles.length === 0}>
-              {busy ? "Calculating..." : `See Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
-            </button>
-            <div className="flex items-center justify-between pt-2">
-              <button type="button" onClick={() => setActiveStep(0)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+            <div className="flex gap-2 items-start">
+              <button type="button" onClick={() => setActiveStep(0)} className="w-32 sm:w-36 inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                Back
+              </button>
+              <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy || vehicles.length === 0}>
+                {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
+              </button>
             </div>
           </form>
         </FormProvider>
@@ -498,15 +508,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 space-y-2 text-amber-900">
             <p className="text-sm font-semibold">Important</p>
             <ul className="list-disc list-inside text-sm space-y-1">
-              <li>Vehicle size and measurements affect the total price of the transport.</li>
-              <li>If the car doesn't run we have to use a winch or forklift to load/unload it, which increases the price of the quote.</li>
+              <li>Vehicle size and condition directly impact the total transport cost.</li>
             </ul>
           </div>
           <div>
-            {/* Primary CTA and a nicer secondary Back button side-by-side on wide screens */}
-            <div className="flex flex-col sm:flex-row gap-2">
-              <button onClick={goToContact} className="w-full sm:flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Contact us now</button>
-              <button type="button" onClick={() => setActiveStep(1)} className="self-start sm:self-auto inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 mt-2 sm:mt-0 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+            {/* Primary CTA with Back always on the same row */}
+            <div className="flex gap-2 items-start">
+              <button type="button" onClick={() => setActiveStep(1)} className="w-32 sm:w-36 inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+              <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
             </div>
           </div>
           {/* transit time moved up into the estimate card for a cleaner layout */}
@@ -533,15 +542,18 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a>, and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails. Message & data rates may apply.
               </small>
             </div>
-            <button id="submit_button"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base"
-              type="submit"
-            >
-              Request Your Premium Quote
-              <FaRegPaperPlane />
-            </button>
-            <div className="flex items-center justify-between pt-2">
-              <button type="button" onClick={() => setActiveStep(2)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+            <div className="flex gap-3 items-start pt-1">
+              <button type="button" onClick={() => setActiveStep(2)} className="w-32 sm:w-36 inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+              <div className="flex-1">
+                <button id="submit_button"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base"
+                  type="submit"
+                >
+                  Get My Final Quote
+                  <FaRegPaperPlane />
+                </button>
+                <p className="mt-2 text-xs text-slate-500">Get your personalized quote and delivery details</p>
+              </div>
             </div>
           </form>
         </FormProvider>

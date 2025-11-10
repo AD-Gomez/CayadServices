@@ -98,6 +98,21 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
     { delay: 200, minLength }
   );
 
+  // Hide canonical preset types that are already exposed as buttons in the UI
+  const filteredOptions = useMemo(() => {
+    if (!Array.isArray(options)) return options;
+    const presets = new Set(['car', 'suv', 'van']);
+    return options.filter((opt) => {
+      try {
+        const val = (opt?.value ?? '').toString().trim().toLowerCase();
+        const lab = (opt?.label ?? '').toString().trim().toLowerCase();
+        return !(presets.has(val) || presets.has(lab));
+      } catch {
+        return true;
+      }
+    });
+  }, [options]);
+
   const hasError = !!(errors as any)[name];
 
   return (
@@ -111,8 +126,11 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
             value={field.value ? { value: field.value, label: field.value } : null}
             onChange={(opt: any) => field.onChange(opt?.value ?? '')}
             onInputChange={(txt) => setSearch(txt)}
-            options={options}
+            options={filteredOptions}
             isLoading={loading}
+            // render menu in portal so it isn't clipped by parent containers
+            menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
+            menuPosition="fixed"
             isClearable
             isDisabled={disabled}
             classNamePrefix="react-select"
@@ -125,6 +143,7 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
                 borderRadius: '0.375rem',
                 '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
               }),
+              menuPortal: (base) => ({ ...base, zIndex: 9999 }),
               indicatorSeparator: () => ({ display: 'none' }),
             }}
             className={`p-2 peer border-0 border-b ${hasError ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:border-btn-blue transition bg-white`}

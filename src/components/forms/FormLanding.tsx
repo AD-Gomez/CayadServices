@@ -218,6 +218,8 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
     setActiveStep(step);
   };
 
+  // Inline Back uses handleStepBack(0) to return to Location step
+
   return (
     <FormProvider {...methods}>
       <section id="paso3" className={`form--quote--content mt-4 block max-w-[90%]`}>
@@ -242,19 +244,28 @@ const Step3 = ({ dataSubmit, handleSubmitLeadAndEmail, setActiveStep, setDataSub
               and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a> , and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails to that number using an automated system. Your agreement is not a condition of purchasing any products, goods, or services. You may opt out at any time by typing STOP. Message & data rates may apply.
             </small>
           </div>
-          <button
-            id="submit_button" disabled={disabled}
-            className={`bg-orange-600 hover:bg-orange-700 transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer w-full h-10 mt-5 text-white rounded-lg font-semibold
-              ${disabled ? 'opacity-[0.6] hover:cursor-not-allowed ' : ''}
-              `}
-            type="submit"
-          >
-            {disabled
-              ? <p className='mr-2'>Loading</p>
-              : <p className='mr-2'>Request YOUR Premium Quote</p>
-            }
-            <FaRegPaperPlane />
-          </button>
+          <div className="flex gap-3 items-stretch mt-4">
+            <button
+              type="button"
+              onClick={() => handleStepBack(0)}
+              className="w-32 sm:w-36 inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Back
+            </button>
+            <button
+              id="submit_button" disabled={disabled}
+              className={`flex-1 bg-orange-600 hover:bg-orange-700 transition-colors duration-500 ease-in-out focus:outline-none flex items-center justify-center cursor-pointer h-10 text-white rounded-lg font-semibold
+                ${disabled ? 'opacity-[0.6] hover:cursor-not-allowed ' : ''}
+                `}
+              type="submit"
+            >
+              {disabled
+                ? <p className='mr-2'>Loading</p>
+                : <p className='mr-2'>Request your Premium Quote</p>
+              }
+              <FaRegPaperPlane />
+            </button>
+          </div>
         </form>
         <footer className="flex justify-around text-center py-4">
           <div className="flex flex-col items-center" >
