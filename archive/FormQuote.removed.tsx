@@ -1,4 +1,4 @@
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm, useFieldArray } from 'react-hook-form';
 import axios from 'axios';
 import logoCayad from '../../../public/img/logo-cayad.webp';
 import type { FormQuoteTypes } from '../../types/formQuote.type';
@@ -26,9 +26,18 @@ import VehicleTypeAsyncSelect from '../VehicleTypeAsyncSelect';
 import { apiUrl } from '../../services/config';
 import { useMemo } from 'react';
 
+type VehicleRow = {
+  vehicle_type: string;
+  vehicle_year: string;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_inop: string; // '0' runs, '1' not running
+};
+
 type QuoteFormWithFlags = FormQuoteTypes & {
   origin_city__isValid: boolean;
   destination_city__isValid: boolean;
+  Vehicles: VehicleRow[];
 };
 
 const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
@@ -45,7 +54,16 @@ const validationSchema: yup.ObjectSchema<QuoteFormWithFlags> = yup.object({
       return this.parent?.destination_city__isValid === true;
     }),
   transport_type: yup.string().required('Transport type is required'),
-  // Vehicles removed: forms no longer collect per-vehicle details
+  // Vehicles: multi rows with unified type select
+  Vehicles: yup.array().of(yup.object({
+    vehicle_type: yup.string().required('Type is required'),
+    vehicle_year: yup.string().required('Year is required').matches(/^(19|20)\d{2}$/,'Year must be YYYY').test('year-range','Year out of range', function (val){
+      if (!val) return false; const y = Number(val); const max = new Date().getFullYear()+1; const min = 1970; return y >= min && y <= max;
+    }),
+    vehicle_make: yup.string().required('Make is required').max(40),
+    vehicle_model: yup.string().required('Model is required').max(60),
+    vehicle_inop: yup.string().oneOf(['0','1']).required(),
+  }).required()).required().min(1,'Add at least one vehicle'),
   first_name: yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Z\s]+$/, 'Name must only contain letters and spaces')
@@ -100,6 +118,7 @@ const FormQuote = () => {
       ship_date: '',
       origin_city__isValid: false,
       destination_city__isValid: false,
+      Vehicles: [ { vehicle_type: 'car', vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' } ],
     },
   });
 
@@ -107,7 +126,9 @@ const FormQuote = () => {
 
   const [years, setYears] = useState<{ value: string; label: string }[]>([]);
   const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
-  const [vehicles, setVehicles] = useState<string[]>([]);
+
+  // FieldArray for Vehicles
+  const { fields: vehicleFields, append, remove } = useFieldArray({ control, name: 'Vehicles' as const });
 
   useEffect(() => {
     const currentYear = new Date().getFullYear() + 1; // Include next year model
@@ -118,28 +139,17 @@ const FormQuote = () => {
     setYears(yearsArray);
   }, []);
 
-  // Vehicle-specific state removed
-  const addVehicle = (t?: string) => {
-    if (!t) return;
-    setVehicles((v) => [...v, t]);
-  };
-  const removeVehicleAt = (idx: number) => setVehicles((v) => v.filter((_, i) => i !== idx));
+  // Summary by type
+  const vehiclesWatch = watch('Vehicles');
   const vehiclesSummary = useMemo(() => {
-    if (vehicles.length === 0) return '';
+    if (!vehiclesWatch || vehiclesWatch.length === 0) return '';
     const counts: Record<string, number> = {};
-    vehicles.forEach((t) => { counts[t] = (counts[t] || 0) + 1; });
+    vehiclesWatch.forEach((row) => {
+      const t = String(row?.vehicle_type || '').trim();
+      if (!t) return; counts[t] = (counts[t] || 0) + 1;
+    });
     return Object.entries(counts).map(([t, c]) => `${c}× ${t}`).join(', ');
-  }, [vehicles]);
-
-  // Auto-add when selecting an "Other Type" from async select
-  const otherType = methods.watch('__vehicle_type_other' as any) as any;
-  useEffect(() => {
-    if (otherType && typeof otherType === 'string') {
-      addVehicle(otherType);
-      methods.setValue('__vehicle_type_other' as any, '', { shouldDirty: false, shouldValidate: false });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [otherType]);
+  }, [vehiclesWatch]);
 
   const handleSubmitLead = async (data: any) => {
     try {
@@ -147,7 +157,7 @@ const FormQuote = () => {
       // Vehicles no longer required/collected
 
       // Phone comes already in E.164 (e.g., +13051234567) from the input component
-      const payload: any = { ...data, vehicles_summary: vehicles }; // include summary list for backend reference (optional)
+      const payload: any = { ...data, vehicles_summary: vehiclesSummary };
       const resp = await sendLeadToLanding(payload);
 
       if (resp?.status === "success" && resp.id) {
@@ -182,7 +192,7 @@ const FormQuote = () => {
       AuthKey: "f895aa95-10ea-41ae-984f-c123bf7e0ff0", // Example key
       ...data,
       ship_date: formattedDate,
-      vehicles_summary: vehicles,
+      vehicles_summary: vehiclesSummary,
     };
     handleSubmitLead(dataToLead);
   };
@@ -234,7 +244,7 @@ const FormQuote = () => {
               </div>
             </fieldset>
 
-            {/* Vehicles (types only, multi) */}
+            {/* Vehicles (multi rows with unified type select) */}
             <fieldset className="space-y-4">
               <div className="flex items-center gap-3 justify-between">
                 <div className="flex items-center gap-3">
@@ -243,42 +253,95 @@ const FormQuote = () => {
                 </div>
                 <div aria-live="polite" className="inline-flex items-center gap-2">
                   <span className="text-xs text-slate-500">Added</span>
-                  <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
+                  <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicleFields.length}</span>
                 </div>
               </div>
               <div className="space-y-3">
-                {/* Preset grid + other async select to add items */}
-                <Controller name={'__vehicle_type_temp'} control={control as any} render={({ field }) => (
-                  <div className="space-y-3">
-                    <div className="grid grid-cols-3 gap-2">
-                      {['car','suv','van'].map((opt) => (
-                        <button type="button" key={opt} onClick={() => addVehicle(opt)} className="text-[11px] capitalize w-full py-2 rounded-lg border border-slate-300 hover:bg-slate-50 font-semibold">
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                    <div className="grid grid-cols-1 gap-2 items-end">
-                      <VehicleTypeAsyncSelect name="__vehicle_type_other" label="Other Types" endpoint={apiUrl('/api/vehicles/types')} />
-                    </div>
-                  </div>
-                )}/>
-                {vehicles.length > 0 && (
+                <div className="space-y-4">
+                  {vehicleFields.map((item, index) => {
+                    const base = `Vehicles.${index}` as const;
+                    const makeWatch = watch(`${base}.vehicle_make` as any);
+                    return (
+                      <div key={item.id} className="p-3 pt-4 border border-slate-200 rounded-lg space-y-3 bg-slate-50/50 relative">
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-start">
+                          <Controller name={`${base}.vehicle_year` as any} control={control} render={({ field }) => (
+                            <div className="flex flex-col">
+                              <select {...field} className="bg-white border border-slate-300 rounded-md px-2 py-2 text-sm focus:outline-none focus:border-sky-600">
+                                <option value="">Year</option>
+                                {years.map(y => <option key={y.value} value={y.value}>{y.label}</option>)}
+                              </select>
+                              <span className="mt-1 text-[11px] text-slate-500">Year</span>
+                            </div>
+                          )} />
+                          <div className="col-span-1 md:col-span-2">
+                            <MakeAsyncSelect
+                              name={`${base}.vehicle_make`}
+                              label="Make"
+                              endpoint={apiUrl('/api/vehicles/makes')}
+                              onPickedMake={() => setValue(`${base}.vehicle_model`, '', { shouldDirty: true, shouldValidate: true })}
+                            />
+                          </div>
+                          <div className="col-span-1 md:col-span-2">
+                            <ModelAsyncSelect
+                              name={`${base}.vehicle_model`}
+                              label="Model"
+                              endpoint={apiUrl('/api/vehicles/models')}
+                              make={makeWatch}
+                              disabled={!makeWatch}
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-start">
+                          <div className="md:col-span-2">
+                            <VehicleTypeAsyncSelect
+                              name={`${base}.vehicle_type`}
+                              label="Type"
+                              endpoint={apiUrl('/api/vehicles/types')}
+                              hidePresets={false}
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Running?</label>
+                              <div className="flex gap-3">
+                                <Controller name={`${base}.vehicle_inop` as any} control={control} render={({ field }) => (
+                                  <div>
+                                    <input {...field} type="radio" id={`run_yes_${index}`} value="0" checked={field.value === '0'} className="sr-only peer" />
+                                    <label htmlFor={`run_yes_${index}`} className="text-xs block text-center w-full px-3 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
+                                  </div>
+                                )} />
+                                <Controller name={`${base}.vehicle_inop` as any} control={control} render={({ field }) => (
+                                  <div>
+                                    <input {...field} type="radio" id={`run_no_${index}`} value="1" checked={field.value === '1'} className="sr-only peer" />
+                                    <label htmlFor={`run_no_${index}`} className="text-xs block text-center w-full px-3 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
+                                  </div>
+                                )} />
+                              </div>
+                              <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles require winch/forklift assistance.</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start justify-end md:col-span-1">
+                            {vehicleFields.length > 1 && (
+                              <button type="button" onClick={() => remove(index)} className="text-red-600 border border-red-400 hover:bg-red-600 hover:text-white rounded-md px-3 py-2 text-xs font-semibold transition-colors">Remove</button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {vehicleFields.length < 10 && (
+                    <button type="button" onClick={() => append({ vehicle_type: 'car', vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' })} className="w-full font-semibold py-2 px-4 rounded-lg border-2 border-dashed border-slate-300 text-slate-500 hover:border-sky-500 hover:text-sky-500 transition-colors text-sm">+ Add Another Vehicle</button>
+                  )}
+                </div>
+                {vehicleFields.length > 0 && (
                   <div className="pt-3">
                     <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm font-semibold text-amber-900">You added {vehicles.length} vehicle{vehicles.length > 1 ? 's' : ''}</p>
-                          <p className="text-xs text-amber-800">We’ll use these types to calculate estimates. You can remove any before submitting.</p>
+                          <p className="text-sm font-semibold text-amber-900">You added {vehicleFields.length} vehicle{vehicleFields.length > 1 ? 's' : ''}</p>
+                          <p className="text-xs text-amber-800">We’ll use these details to provide accurate quotes.</p>
                         </div>
                         <div className="text-sm text-amber-900 font-medium">{vehiclesSummary}</div>
-                      </div>
-                      <div className="pt-2 flex flex-wrap gap-2">
-                        {vehicles.map((v, idx) => (
-                          <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
-                            {v}
-                            <button type="button" onClick={() => removeVehicleAt(idx)} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
-                          </span>
-                        ))}
                       </div>
                     </div>
                   </div>

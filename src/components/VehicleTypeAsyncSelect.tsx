@@ -11,6 +11,7 @@ type Props = {
   make?: string | undefined; // optional filter
   minLength?: number;
   disabled?: boolean;
+  hidePresets?: boolean; // when true, filter out car/suv/van from options (default true to preserve old behavior)
 };
 
 type CacheEntry = { ts: number; data: Option[] };
@@ -81,7 +82,7 @@ Example canonical list (backend):
 ]
 NOTE: 'pickup' is intentionally not included in the canonical list.
 */
-const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled }) => {
+const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled, hidePresets = true }) => {
   const { control, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
 
@@ -101,6 +102,7 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
   // Hide canonical preset types that are already exposed as buttons in the UI
   const filteredOptions = useMemo(() => {
     if (!Array.isArray(options)) return options;
+    if (!hidePresets) return options;
     const presets = new Set(['car', 'suv', 'van']);
     return options.filter((opt) => {
       try {
@@ -111,12 +113,13 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
         return true;
       }
     });
-  }, [options]);
+  }, [options, hidePresets]);
 
   const hasError = !!(errors as any)[name];
 
   return (
-    <div className="flex relative flex-col mb-4">
+    <div className="flex flex-col">
+      <label htmlFor={name} className="block text-xs font-semibold text-slate-700 mb-1.5">{label}</label>
       <Controller
         name={name}
         control={control}
@@ -141,19 +144,20 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
                 boxShadow: 'none',
                 border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
                 borderRadius: '0.375rem',
+                minHeight: '2.5rem',
                 '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
               }),
               menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+              valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
+              input: (p) => ({ ...p, margin: 0 }),
+              placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
+              singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
               indicatorSeparator: () => ({ display: 'none' }),
             }}
-            className={`p-2 peer border-0 border-b ${hasError ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:border-btn-blue transition bg-white`}
+            className={`bg-white`}
           />
         )}
       />
-      <label htmlFor={name}
-        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all ${hasError ? 'text-red-500' : 'peer-focus:text-btn-blue'}`}>
-        {label}
-      </label>
       {hasError && <span className="text-red-500 text-xs mt-1">{String((errors as any)[name]?.message)}</span>}
     </div>
   );

@@ -38,7 +38,12 @@ const MakeAsyncSelect: React.FC<Props> = ({
   const hasError = !!(errors as any)[name];
 
   return (
-    <div className="flex relative flex-col mb-4">
+    <div className="flex flex-col">
+      {label && (
+        <label htmlFor={name} className="block text-xs font-semibold text-slate-700 mb-1.5">
+          {label}
+        </label>
+      )}
       <Controller
         name={name}
         control={control}
@@ -56,15 +61,26 @@ const MakeAsyncSelect: React.FC<Props> = ({
             isLoading={loading}
             isClearable
             classNamePrefix="react-select"
-            placeholder={`Select ${label}`}
-            className={`p-2 peer border-0 border-b ${hasError ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:border-btn-blue transition bg-white`}
+            placeholder={label ? `Select ${label}` : 'Select'}
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                boxShadow: 'none',
+                border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
+                borderRadius: '0.375rem',
+                minHeight: '2.5rem',
+                '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
+              }),
+              valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
+              input: (p) => ({ ...p, margin: 0 }),
+              placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
+              singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
+              indicatorSeparator: () => ({ display: 'none' }),
+            }}
+            className={`bg-white`}
           />
         )}
       />
-      <label htmlFor={name}
-        className={`absolute left-0 -top-3.5 font-bold text-[#555] text-sm transition-all ${hasError ? 'text-red-500' : 'peer-focus:text-blue-500'}`}>
-        {label}
-      </label>
       {hasError && <span className="text-red-500 text-xs mt-1">{String((errors as any)[name]?.message)}</span>}
     </div>
   );

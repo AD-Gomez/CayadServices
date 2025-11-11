@@ -64,14 +64,22 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
   });
 
 type Step2Values = {
-  vehicle_type: string; // current selector value used to add
-  vehicle_type_mode?: 'preset' | 'other';
+  vehicle_type: string;
+  vehicle_year?: string;
+  vehicle_make?: string;
+  vehicle_model?: string;
+  vehicle_inop?: '0' | '1';
 };
 
 const step2Schema = yup
   .object({
     vehicle_type: yup.string().required(),
-    vehicle_type_mode: yup.mixed<'preset' | 'other'>().oneOf(['preset', 'other']).optional(),
+    vehicle_year: yup.string().optional().matches(/^(19|20)\d{2}$/,'Year must be YYYY').test('year-range','Year out of range', function (val){
+      if (!val) return true; const y = Number(val); const max = new Date().getFullYear()+1; const min = 1970; return y >= min && y <= max;
+    }),
+    vehicle_make: yup.string().optional().max(40),
+    vehicle_model: yup.string().optional().max(60),
+    vehicle_inop: yup.mixed<'0'|'1'>().oneOf(['0','1']).optional(),
   }) as yup.ObjectSchema<Step2Values>;
 
 type ContactValues = {
@@ -82,47 +90,12 @@ type ContactValues = {
   website?: string; // honeypot
 };
 
-// VehicleRows removed: estimator uses only vehicle_type (preset or other)
-
-// Helper component for vehicle type selection (4 presets + async select). Clicking immediately adds.
-const PresetOrOtherVehicleType: React.FC<{ step: any; onAdd?: (t: string) => void; disableAdd?: boolean }> = ({ step, onAdd, disableAdd }) => {
-  // Updated to match backend types; removed 'pickup'
-  const presets: string[] = ["car", "suv", "van"];
-
-  // Auto-add when a value is selected from the backend async select
-  const other = step.watch('__vehicle_type_other');
-  useEffect(() => {
-    if (!onAdd) return;
-    if (other && typeof other === 'string') {
-      onAdd(other);
-      step.setValue('__vehicle_type_other', '', { shouldDirty: false, shouldValidate: false });
-    }
-  }, [other]);
-
-  return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-3">
-        {presets.map((opt) => (
-          <button
-            key={opt}
-            type="button"
-            disabled={disableAdd}
-            onClick={() => onAdd && onAdd(opt)}
-            className={`block text-center w-full py-2 px-2 rounded-lg border font-semibold text-[11px] capitalize tracking-tight transition-colors ${disableAdd ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'border-slate-300 hover:bg-slate-50'}`}
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
-      <div className="pt-1">
-        <VehicleTypeAsyncSelect
-          name="__vehicle_type_other"
-          label="Other Types"
-          endpoint={apiUrl('/api/vehicles/types')}
-        />
-      </div>
-    </div>
-  );
+type VehicleRow = {
+  vehicle_type: string;
+  vehicle_year: string;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_inop: '0' | '1';
 };
 
 export default function EstimatorQuote({ embedded = false }: { embedded?: boolean }) {
@@ -137,7 +110,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [normalTotal, setNormalTotal] = useState<number | null>(null);
   const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
-  const [vehicles, setVehicles] = useState<string[]>([]); // list of selected vehicle types
+  const [vehicles, setVehicles] = useState<VehicleRow[]>([]); // cart of full vehicle rows
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
   const [confidencePct, setConfidencePct] = useState<number | null>(null);
   
@@ -170,7 +143,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const step2 = useForm<Step2Values>({
     resolver: yupResolver(step2Schema),
     mode: "onChange",
-    defaultValues: { vehicle_type: "car", vehicle_type_mode: 'preset' },
+    defaultValues: { vehicle_type: "car", vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
   });
 
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
@@ -202,7 +175,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   const computeEstimate = useCallback(async () => {
     const s1 = step1.getValues();
-    const distinct = Array.from(new Set(vehicles));
+    // Aggregate by vehicle_type from cart
+    const distinct = Array.from(new Set(vehicles.map(v => v.vehicle_type)));
     setBusy(true);
     try {
       // Try to extract zip codes from the user-provided city/zip strings
@@ -215,7 +189,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const alias = apiUrl("/leads/public/price-estimate/");
       const results: any[] = [];
       for (const vt of distinct) {
-        const count = vehicles.filter(v => v === vt).length;
+        const count = vehicles.filter(v => v.vehicle_type === vt).length;
         try {
           let res = await fetch(canonical, {
             method: 'POST',
@@ -302,8 +276,24 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setActiveStep(1);
   };
 
-  const onSubmitStep2 = async (data: Step2Values) => {
-    void data;
+  // Step 2 handlers: add to cart and next
+  const addVehicleToCart = async () => {
+    const ok = await step2.trigger(["vehicle_type","vehicle_year","vehicle_make","vehicle_model","vehicle_inop"]);
+    if (!ok) return;
+    const vals = step2.getValues();
+    setVehicles(prev => [...prev, {
+      vehicle_type: vals.vehicle_type,
+      vehicle_year: vals.vehicle_year || '',
+      vehicle_make: vals.vehicle_make || '',
+      vehicle_model: vals.vehicle_model || '',
+      vehicle_inop: vals.vehicle_inop || '0',
+    }]);
+    // Reset fields for adding another
+    step2.reset({ vehicle_type: vals.vehicle_type, vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' }, { keepDefaultValues: false });
+  };
+
+  const proceedToEstimate = async () => {
+    if (vehicles.length === 0) return;
     await computeEstimate();
     setActiveStep(2);
   };
@@ -342,12 +332,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         per_mile: perMile,
         total: estimate,
         transit,
-        vehicle_type: vehicles[0] ?? (s2 as any).vehicle_type,
-        vehicle_class: vehicles[0] ?? (s2 as any).vehicle_type,
+        vehicle_type: vehicles[0]?.vehicle_type ?? s2.vehicle_type,
+        vehicle_class: vehicles[0]?.vehicle_type ?? s2.vehicle_type,
         vehicles_count: vehicles.length,
         transport_type: "Open",
       },
     };
+    (payload as any).Vehicles = vehicles;
     try {
       const formatted = { ...payload, ship_date: format(new Date(s4.ship_date), "MM/dd/yyyy") };
       const resp = await sendLeadToLanding(formatted);
@@ -401,37 +392,115 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         </FormProvider>
       )}
 
-      {/* Step 2: Vehicle Type (assumes Open & Runs) */}
+      {/* Step 2: Vehicle details and cart */}
       {activeStep === 1 && (
         <FormProvider {...step2}>
-          <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
+          <form className={`${padding} space-y-6 w-full max-w-none`}>
             <fieldset className="space-y-4">
               <div className="flex items-center justify-between">
-                <legend className="text-md font-semibold text-slate-800">Select your vehicle type</legend>
+                <legend className="text-md font-semibold text-slate-800">Add your vehicle</legend>
                 <div aria-live="polite" className="inline-flex items-center gap-2">
                   <span className="text-xs text-slate-500">Added</span>
                   <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
                 </div>
               </div>
-              <PresetOrOtherVehicleType
-                step={step2}
-                onAdd={(t) => setVehicles(v => [...v, t])}
-                disableAdd={busy}
-              />
-              {vehicles.length > 0 && (
-                <div className="pt-3">
-                  <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-amber-900">You added {vehicles.length} vehicle{vehicles.length > 1 ? 's' : ''}</p>
-                        <p className="text-xs text-amber-800">These types will be used to request estimates for the route.</p>
-                      </div>
-                      <div className="text-sm text-amber-900 font-medium">{vehicles.length} total</div>
+              {/* Single backend type select (including presets) */}
+              {/* Layout: 1 column on mobile, 2 columns on md+ for better readability */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                {/* Vehicle Type */}
+                <div className="md:col-span-1">
+                  <VehicleTypeAsyncSelect
+                    name="vehicle_type"
+                    label="Vehicle Type"
+                    endpoint={apiUrl('/api/vehicles/types')}
+                    hidePresets={false}
+                  />
+                </div>
+                {/* Vehicle Year */}
+                <div className="md:col-span-1">
+                  <Controller name="vehicle_year" control={step2.control} render={({ field }) => (
+                    <div className="flex flex-col">
+                      <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
+                      <select id="vehicle_year" {...field} className="appearance-none bg-white border border-slate-300 rounded-md px-3 h-10 text-sm focus:outline-none focus:border-sky-600">
+                        <option value="">Select year</option>
+                        {Array.from({ length: 50 }, (_, i) => {
+                          const current = new Date().getFullYear() + 1;
+                          const y = String(current - i);
+                          return <option key={y} value={y}>{y}</option>;
+                        })}
+                      </select>
                     </div>
+                  )} />
+                </div>
+                {/* Vehicle Make */}
+                <div className="md:col-span-1">
+                  <MakeAsyncSelect
+                    name="vehicle_make"
+                    label="Vehicle Make"
+                    endpoint={apiUrl('/api/vehicles/makes')}
+                    onPickedMake={() => {
+                      step2.setValue('vehicle_model','',{ shouldDirty: true, shouldValidate: true });
+                    }}
+                  />
+                </div>
+                {/* Vehicle Model */}
+                <div className="md:col-span-1">
+                  <ModelAsyncSelect
+                    name="vehicle_model"
+                    label="Vehicle Model"
+                    endpoint={apiUrl('/api/vehicles/models')}
+                    make={step2.watch('vehicle_make')}
+                    disabled={!step2.watch('vehicle_make')}
+                  />
+                </div>
+                {/* Running status */}
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Is it running?</label>
+                  <Controller
+                    name="vehicle_inop"
+                    control={step2.control}
+                    defaultValue={'0'}
+                    render={({ field }) => (
+                      <div className="flex flex-wrap gap-3">
+                        <div>
+                          <input
+                            type="radio"
+                            id="running_yes"
+                            value="0"
+                            checked={(field.value ?? '0') === '0'}
+                            onChange={() => field.onChange('0')}
+                            className="sr-only peer"
+                          />
+                          <label htmlFor="running_yes" className="text-sm block text-center min-w-[96px] px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
+                        </div>
+                        <div>
+                          <input
+                            type="radio"
+                            id="running_no"
+                            value="1"
+                            checked={field.value === '1'}
+                            onChange={() => field.onChange('1')}
+                            className="sr-only peer"
+                          />
+                          <label htmlFor="running_no" className="text-sm block text-center min-w-[96px] px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
+                        </div>
+                      </div>
+                    )}
+                  />
+                  <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles require winch/forklift assistance and may cost more.</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-end">
+                <button type="button" onClick={addVehicleToCart} className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Add vehicle</button>
+              </div>
+              {vehicles.length > 0 && (
+                <div className="pt-2">
+                  <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
+                    <p className="text-sm font-semibold text-amber-900">Vehicles added</p>
                     <div className="pt-2 flex flex-wrap gap-2">
                       {vehicles.map((v, idx) => (
                         <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
-                          {v}
+                          {`${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()} · {v.vehicle_type} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
                           <button type="button" onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
                         </span>
                       ))}
@@ -439,13 +508,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   </div>
                 </div>
               )}
-              <p className="text-xs text-slate-500">Add each vehicle you plan to ship. You can remove any before calculating.</p>
+              <p className="text-xs text-slate-500">Add each vehicle to your cart. Then continue to see your estimated price.</p>
             </fieldset>
             <div className="flex gap-2 items-start">
               <button type="button" onClick={() => setActiveStep(0)} className="w-32 sm:w-36 inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
                 Back
               </button>
-              <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit" disabled={busy || vehicles.length === 0}>
+              <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button" disabled={busy || vehicles.length === 0} onClick={proceedToEstimate}>
                 {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
               </button>
             </div>
