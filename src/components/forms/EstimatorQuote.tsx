@@ -14,7 +14,7 @@ import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
-import { FaRegPaperPlane } from "react-icons/fa";
+import { FaRegPaperPlane, FaPlus } from "react-icons/fa";
 import { format } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
@@ -143,7 +143,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const step2 = useForm<Step2Values>({
     resolver: yupResolver(step2Schema),
     mode: "onChange",
-    defaultValues: { vehicle_type: "car", vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
+    // Start with no preselected vehicle type so the user must choose explicitly
+    defaultValues: { vehicle_type: "", vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
   });
 
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
@@ -491,7 +492,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 </div>
               </div>
               <div className="flex items-center justify-end">
-                <button type="button" onClick={addVehicleToCart} className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Add vehicle</button>
+                <button
+                  type="button"
+                  onClick={addVehicleToCart}
+                  aria-label="Add vehicle to cart"
+                  className="inline-flex items-center gap-2 rounded-lg bg-sky-600 text-white px-4 py-2 text-sm font-semibold hover:bg-sky-700 transition-colors"
+                >
+                  <FaPlus className="w-4 h-4" />
+                  Add vehicle
+                </button>
               </div>
               {vehicles.length > 0 && (
                 <div className="pt-2">
