@@ -324,6 +324,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       showNotification({ text: "Please wait a moment before submitting.", icon: "error" });
       return;
     }
+    // Determine primary vehicle (first in the cart) or fallback to current step2 values
+    const primaryVehicle = vehicles[0] ?? {
+      vehicle_type: s2.vehicle_type,
+      vehicle_year: s2.vehicle_year || '',
+      vehicle_make: s2.vehicle_make || '',
+      vehicle_model: s2.vehicle_model || '',
+      vehicle_inop: s2.vehicle_inop || '0',
+    };
+
     const payload: any = {
       ...s1,
       transport_type: "1", // assume Open for quick quote
@@ -333,12 +342,20 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         per_mile: perMile,
         total: estimate,
         transit,
-        vehicle_type: vehicles[0]?.vehicle_type ?? s2.vehicle_type,
-        vehicle_class: vehicles[0]?.vehicle_type ?? s2.vehicle_type,
+        vehicle_type: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
+        vehicle_class: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
         vehicles_count: vehicles.length,
         transport_type: "Open",
+        // include the specific primary vehicle details so backend receives year/make/model/inop
+        primary_vehicle: {
+          year: primaryVehicle.vehicle_year || '',
+          make: primaryVehicle.vehicle_make || '',
+          model: primaryVehicle.vehicle_model || '',
+          inop: primaryVehicle.vehicle_inop || '0',
+        },
       },
     };
+    // Also include the full vehicles array for completeness
     (payload as any).Vehicles = vehicles;
     try {
       const formatted = { ...payload, ship_date: format(new Date(s4.ship_date), "MM/dd/yyyy") };
