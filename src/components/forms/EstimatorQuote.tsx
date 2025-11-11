@@ -130,6 +130,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3>(0);
   const [miles, setMiles] = useState<number | null>(null);
   const [transit, setTransit] = useState<string | null>(null);
+  // We only show the miles actually used for pricing; no extra provenance shown to end-users.
   // Totals from estimator API
   const [estimate, setEstimate] = useState<number | null>(null); // kept for backwards compatibility (discounted total)
   const [discountedTotal, setDiscountedTotal] = useState<number | null>(null);
@@ -247,8 +248,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         return acc + (Number.isFinite(n) ? n : (Number.isFinite(d) ? Math.round(d * 1.15 * 100) / 100 : 0));
       }, 0);
       let usedMiles: number | null = null;
+      // Prefer the backend-declared distance actually used for pricing when available
+      const pricingMiles = avail.find(r => typeof r?.data?.distance_used_for_pricing_miles === 'number')?.data?.distance_used_for_pricing_miles;
       const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
-      if (typeof refFromResp === 'number') {
+      if (typeof pricingMiles === 'number') {
+        usedMiles = pricingMiles;
+      } else if (typeof refFromResp === 'number') {
         usedMiles = refFromResp;
       } else {
         // fallback to distance service
@@ -256,7 +261,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         usedMiles = dist.miles ?? null;
       }
       setMiles(usedMiles);
-      setTransit(estimateTransitDays(usedMiles ?? null));
+      // Do not show additional provenance to end users; we only display the distance used for pricing.
+      // Prefer backend-provided transit estimate when available (integer days).
+      const respTransitDays = avail.find(r => typeof r?.data?.estimated_transit_days === 'number')?.data?.estimated_transit_days;
+      if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) {
+        setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
+      } else {
+        // fallback to local heuristic string
+        setTransit(estimateTransitDays(usedMiles ?? null));
+      }
       const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
       const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
       setDiscountedTotal(roundedDiscounted);
@@ -394,7 +407,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           <form className={`${padding} space-y-6 w-full max-w-none`} onSubmit={step2.handleSubmit(onSubmitStep2)}>
             <fieldset className="space-y-4">
               <div className="flex items-center justify-between">
-                <legend className="text-md font-semibold text-slate-800">What Are You Shipping?</legend>
+                <legend className="text-md font-semibold text-slate-800">Select your vehicle type</legend>
                 <div aria-live="polite" className="inline-flex items-center gap-2">
                   <span className="text-xs text-slate-500">Added</span>
                   <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
@@ -450,7 +463,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 <div className="flex items-baseline gap-3">
                   <p className="text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
                   {perMile != null && miles != null && (
-                    <p className="text-xs text-slate-500">(~${perMile}/mi · {formatMiles(miles)})</p>
+                    <p className="text-xs text-slate-500">~${perMile}/mi · {formatMiles(miles)}</p>
                   )}
                 </div>
                 {normalTotal != null && (
@@ -483,16 +496,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   <span>Low</span>
                   <span>High</span>
                 </div>
-                {sampleSizeTotal ? (
-                  <p className="text-[10px] text-slate-400 mt-1">Sample size: n={sampleSizeTotal}</p>
-                ) : null}
               </div>
             </div>
             {miles != null && (
               <p className="text-xs text-slate-500">Estimated transit time: {transit ?? "--"}</p>
             )}
             <p className="text-[11px] text-slate-500">
-              Based on similar real orders{overallConfidence ? ` (confidence: ${overallConfidence}${sampleSizeTotal ? `, n=${sampleSizeTotal}` : ''})` : ''}. Final price may vary.
+              Based on similar real orders. Final price may vary.
             </p>
             {estResponses.length > 1 && (
               <div className="pt-1">
