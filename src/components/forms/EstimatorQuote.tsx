@@ -358,7 +358,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     // Also include the full vehicles array for completeness
     (payload as any).Vehicles = vehicles;
     try {
-      const formatted = { ...payload, ship_date: format(new Date(s4.ship_date), "MM/dd/yyyy") };
+  const formatted = { ...payload, ship_date: formatShipDateLocal(s4.ship_date as any) };
       const resp = await sendLeadToLanding(formatted);
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
         saveNumberLead(String(resp.id));
@@ -670,4 +670,34 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   if (embedded) return content;
 
   return <div className="bg-white rounded-xl shadow-lg border border-slate-200">{content}</div>;
+}
+
+// Ensures date formatting without timezone shifts (avoids off-by-one day)
+function formatShipDateLocal(input: string | Date | null | undefined): string {
+  if (!input) return "";
+  // If it's a plain 'yyyy-MM-dd' string, compose MM/dd/yyyy directly
+  if (typeof input === 'string') {
+    const m = input.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (m) {
+      const [, y, mm, dd] = m;
+      return `${mm}/${dd}/${y}`;
+    }
+    // Try Date parse as fallback but normalize to local date part
+    const d = new Date(input);
+    if (!isNaN(d.getTime())) {
+      const local = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const mm = String(local.getMonth() + 1).padStart(2, '0');
+      const dd = String(local.getDate()).padStart(2, '0');
+      const y = String(local.getFullYear());
+      return `${mm}/${dd}/${y}`;
+    }
+    return String(input);
+  }
+  // It's a Date: take local Y/M/D
+  const d = input as Date;
+  const local = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const mm = String(local.getMonth() + 1).padStart(2, '0');
+  const dd = String(local.getDate()).padStart(2, '0');
+  const y = String(local.getFullYear());
+  return `${mm}/${dd}/${y}`;
 }

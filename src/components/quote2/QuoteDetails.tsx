@@ -4,12 +4,37 @@ import { getLead } from "../../services/localStorage";
 import { distanceForLocations, estimateTransitDays, formatKm, formatMiles } from "../../services/distance";
 import { format, parse } from "date-fns";
 
+type VehicleRow = {
+  vehicle_type: string;
+  vehicle_year: string;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_inop: '0' | '1';
+};
+
 type Lead = {
   origin_city?: string;
   destination_city?: string;
   transport_type?: string; // '1' open, '2' enclosed
   ship_date?: string; // MM/dd/yyyy
-  client_estimate?: { vehicle_class?: string };
+  first_name?: string;
+  phone?: string;
+  email?: string;
+  client_estimate?: {
+    vehicle_class?: string;
+    // optional backend fields provided by price-estimate: miles, kilometers, transit (string like '5 days')
+    miles?: number | null;
+    kilometers?: number | null;
+    transit?: string | null;
+    primary_vehicle?: {
+      year?: string;
+      make?: string;
+      model?: string;
+      inop?: '0' | '1';
+      type?: string; // optional, if present
+    };
+  };
+  Vehicles?: VehicleRow[];
 };
 
 function safeParseDate(input?: string): Date | null {
@@ -29,9 +54,19 @@ function formatLongDate(input?: string): string {
   return d ? format(d, "MMMM d, yyyy") : "";
 }
 
-function summarizeVehiclesFromEstimate(est?: { vehicle_class?: string } | undefined): { label: string; condition: string } {
-  if (!est || !est.vehicle_class) return { label: "", condition: "" };
-  return { label: est.vehicle_class, condition: "" };
+function getPrimaryVehicle(lead: Lead | null): {
+  year?: string;
+  make?: string;
+  model?: string;
+  inop?: '0' | '1';
+  type?: string;
+} | null {
+  if (!lead) return null;
+  const pv = lead.client_estimate?.primary_vehicle;
+  if (pv && (pv.year || pv.make || pv.model)) return pv;
+  const v0 = lead.Vehicles?.[0];
+  if (v0) return { year: v0.vehicle_year, make: v0.vehicle_make, model: v0.vehicle_model, inop: v0.vehicle_inop, type: v0.vehicle_type };
+  return null;
 }
 
 export default function QuoteDetails() {
@@ -46,14 +81,26 @@ export default function QuoteDetails() {
     setLead(data ?? null);
   }, []);
 
+  const primaryVehicle = useMemo(() => getPrimaryVehicle(lead), [lead]);
+  const vehiclesCount = lead?.Vehicles?.length || 0;
+  const vehicleType = primaryVehicle?.type || lead?.client_estimate?.vehicle_class || "";
   const vehicleText = useMemo(() => {
-    const vs = summarizeVehiclesFromEstimate(lead?.client_estimate);
-    return vs.label;
-  }, [lead]);
+    const parts = [primaryVehicle?.year, primaryVehicle?.make, primaryVehicle?.model].filter(Boolean).join(" ").trim();
+    return parts || vehicleType || "";
+  }, [primaryVehicle, vehicleType]);
+  const vehicleCondition = primaryVehicle?.inop === '1' ? 'Non-running' : primaryVehicle?.inop === '0' ? 'Running' : '';
 
   useEffect(() => {
     const origin = lead?.origin_city?.trim();
     const dest = lead?.destination_city?.trim();
+    // If backend provided miles in client_estimate, prefer it and skip remote distance lookup
+    const backendMiles = lead?.client_estimate?.miles;
+    if (typeof backendMiles === 'number' && !isNaN(backendMiles)) {
+      setDistanceMi(backendMiles);
+      // kilometers optional: compute if needed
+      setDistanceKm(lead?.client_estimate?.kilometers ?? null);
+      return;
+    }
     if (!origin || !dest) {
       setDistanceMi(null);
       setDistanceKm(null);
@@ -75,7 +122,8 @@ export default function QuoteDetails() {
 
   const transportType = lead?.transport_type === "2" ? "Enclosed Transport" : lead?.transport_type ? "Open Transport" : "";
   const shipDate = formatLongDate(lead?.ship_date);
-  const transit = estimateTransitDays(distanceMi);
+  // Prefer backend-provided transit string when available
+  const transit = lead?.client_estimate?.transit ?? estimateTransitDays(distanceMi);
 
   // If no data, show empty fields as requested
   const originLabel = lead?.origin_city ?? "";
@@ -126,8 +174,9 @@ export default function QuoteDetails() {
                   Distance
                   <Tooltip label="Approximate driving distance between origin and destination." position="top" />
                 </span>: <span className="font-semibold text-slate-800">{formatMiles(distanceMi, 0)}</span>
-                {" "}
-                <span className="text-slate-400">({formatKm(distanceKm, 0)})</span>
+                {distanceKm != null ? (
+                  <span className="text-slate-400"> ({formatKm(distanceKm, 0)})</span>
+                ) : null}
               </span>
             ) : (
               <span>
@@ -145,7 +194,13 @@ export default function QuoteDetails() {
                 Vehicle
                 <Tooltip label="The main vehicle you’re shipping. If you entered multiple, we show the first plus a count." position="top" />
               </p>
-              <p className="font-semibold text-slate-700">{vehicleText}</p>
+              <p className="font-semibold text-slate-700">{vehicleText}{vehiclesCount > 1 ? ` (+${vehiclesCount - 1} more)` : ''}</p>
+              {vehicleType && (
+                <p className="text-xs text-slate-500 mt-0.5">Type: {vehicleType}</p>
+              )}
+              {vehicleCondition && (
+                <p className="text-xs text-slate-500">Condition: {vehicleCondition}</p>
+              )}
             </div>
             <div>
               <p className="text-slate-500 inline-flex items-center gap-1">
@@ -155,6 +210,18 @@ export default function QuoteDetails() {
               <p className="font-semibold text-slate-700">{shipDate}</p>
             </div>
           </div>
+          {vehiclesCount > 1 && (
+            <div className="mt-2">
+              <p className="text-xs text-slate-500 mb-1">All vehicles</p>
+              <div className="flex flex-wrap gap-2">
+                {lead?.Vehicles?.map((v, idx) => (
+                  <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-amber-50 text-amber-900 px-3 py-1 text-[12px] font-medium border border-amber-200">
+                    {`${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()} · {v.vehicle_type} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -199,6 +266,27 @@ export default function QuoteDetails() {
               <Tooltip label="We show both miles and kilometers for convenience." position="top" />
             </span>
             <span className="font-semibold text-slate-800">{distanceMi ? formatMiles(distanceMi, 0) : ""}</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Contact Details */}
+      <div className="bg-white border border-slate-200 rounded-xl shadow-sm mt-6">
+        <div className="p-5 border-b border-slate-200">
+          <h2 className="text-lg font-semibold text-slate-800">Contact Details</h2>
+        </div>
+        <ul className="divide-y divide-slate-200 text-sm">
+          <li className="px-5 py-4 flex justify-between items-center">
+            <span className="text-slate-600">Name</span>
+            <span className="font-semibold text-slate-800">{lead?.first_name || ''}</span>
+          </li>
+          <li className="px-5 py-4 flex justify-between items-center">
+            <span className="text-slate-600">Phone</span>
+            <span className="font-semibold text-slate-800">{lead?.phone || ''}</span>
+          </li>
+          <li className="px-5 py-4 flex justify-between items-center">
+            <span className="text-slate-600">Email</span>
+            <span className="font-semibold text-slate-800">{lead?.email || ''}</span>
           </li>
         </ul>
       </div>
