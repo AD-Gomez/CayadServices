@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
+import Select from 'react-select';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
@@ -436,19 +437,51 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 </div>
                 {/* Vehicle Year */}
                 <div className="md:col-span-1">
-                  <Controller name="vehicle_year" control={step2.control} render={({ field }) => (
-                    <div className="flex flex-col">
-                      <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
-                      <select id="vehicle_year" {...field} className="appearance-none bg-white border border-slate-300 rounded-md px-3 h-10 text-sm focus:outline-none focus:border-sky-600">
-                        <option value="">Select year</option>
-                        {Array.from({ length: 50 }, (_, i) => {
-                          const current = new Date().getFullYear() + 1;
-                          const y = String(current - i);
-                          return <option key={y} value={y}>{y}</option>;
-                        })}
-                      </select>
-                    </div>
-                  )} />
+                  <Controller
+                    name="vehicle_year"
+                    control={step2.control}
+                    render={({ field }) => {
+                      // build year options (same range as before)
+                      const current = new Date().getFullYear() + 1;
+                      const years = Array.from({ length: 50 }, (_, i) => {
+                        const y = String(current - i);
+                        return { value: y, label: y };
+                      });
+                      const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
+                      return (
+                        <div className="flex flex-col">
+                          <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
+                          <Select
+                            inputId="vehicle_year"
+                            value={field.value ? { value: field.value, label: field.value } : null}
+                            onChange={(opt: any) => field.onChange(opt?.value ?? '')}
+                            options={years}
+                            isClearable
+                            classNamePrefix="react-select"
+                            placeholder="Select year"
+                            styles={{
+                              control: (provided) => ({
+                                ...provided,
+                                boxShadow: 'none',
+                                border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
+                                borderRadius: '0.375rem',
+                                minHeight: '2.5rem',
+                                '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
+                              }),
+                              valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
+                              input: (p) => ({ ...p, margin: 0 }),
+                              placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
+                              singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
+                              indicatorSeparator: () => ({ display: 'none' }),
+                              menu: (p) => ({ ...p, maxHeight: '12rem' }),
+                              menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
+                            }}
+                            className={`bg-white`}
+                          />
+                        </div>
+                      );
+                    }}
+                  />
                 </div>
                 {/* Vehicle Make */}
                 <div className="md:col-span-1">
