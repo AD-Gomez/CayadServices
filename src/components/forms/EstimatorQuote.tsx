@@ -498,10 +498,10 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-2">
                   <button type="button"
                           onClick={() => setVehicleMode('specific')}
-                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Specific (Year, Make, Model)</button>
+                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
                   <button type="button"
                           onClick={() => setVehicleMode('generic')}
-                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Generic Type (Not listed)</button>
+                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
                 </div>
                 <p className="text-[11px] text-slate-500">
                   {vehicleMode==='specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
