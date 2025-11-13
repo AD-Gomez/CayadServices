@@ -148,6 +148,23 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     defaultValues: { vehicle_type: "", vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
   });
 
+  // Modo de selección: 'specific' (año/marca/modelo) o 'generic' (solo tipo cuando no sabe detalles)
+  const [vehicleMode, setVehicleMode] = useState<'specific' | 'generic'>('specific');
+  // Reset fields not used when switching modes to avoid confusion
+  useEffect(() => {
+    if (vehicleMode === 'generic') {
+      // Clear specific fields
+      step2.setValue('vehicle_year','');
+      step2.setValue('vehicle_make','');
+      step2.setValue('vehicle_model','');
+    } else {
+      // Clear generic field
+      step2.setValue('vehicle_type','');
+    }
+  }, [vehicleMode]);
+  // Evitar auto-agregar duplicados mientras el usuario aún edita
+  const [lastAddedSignature, setLastAddedSignature] = useState<string>('');
+
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
     .object({
       first_name: yup
@@ -283,16 +300,64 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     const ok = await step2.trigger(["vehicle_type","vehicle_year","vehicle_make","vehicle_model","vehicle_inop"]);
     if (!ok) return;
     const vals = step2.getValues();
-    setVehicles(prev => [...prev, {
+    // Este método se mantiene para compatibilidad, pero la UX ahora auto-agrega.
+    const row: VehicleRow = {
       vehicle_type: vals.vehicle_type,
-      vehicle_year: vals.vehicle_year || '',
-      vehicle_make: vals.vehicle_make || '',
-      vehicle_model: vals.vehicle_model || '',
+      vehicle_year: vehicleMode === 'specific' ? (vals.vehicle_year || '') : '',
+      vehicle_make: vehicleMode === 'specific' ? (vals.vehicle_make || '') : '',
+      vehicle_model: vehicleMode === 'specific' ? (vals.vehicle_model || '') : '',
       vehicle_inop: vals.vehicle_inop || '0',
-    }]);
-    // Reset fields for adding another
-    step2.reset({ vehicle_type: vals.vehicle_type, vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' }, { keepDefaultValues: false });
+    };
+    setVehicles(prev => [...prev, row]);
+    setLastAddedSignature(signatureForRow(row));
+    // Reset según modo
+    if (vehicleMode === 'generic') {
+      step2.reset({ vehicle_type: '', vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: vals.vehicle_inop || '0' });
+    } else {
+      step2.reset({ vehicle_type: vals.vehicle_type, vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: vals.vehicle_inop || '0' });
+    }
   };
+
+  // Firma única para evitar duplicaciones accidentales
+  function signatureForRow(r: VehicleRow): string {
+    return `${r.vehicle_type}|${r.vehicle_year}|${r.vehicle_make}|${r.vehicle_model}|${r.vehicle_inop}`.toLowerCase();
+  }
+
+  // Auto-agregar en modo genérico cuando se selecciona el tipo
+  useEffect(() => {
+    if (vehicleMode !== 'generic') return;
+    const vt = step2.getValues('vehicle_type');
+    if (!vt) return;
+    const row: VehicleRow = { vehicle_type: vt, vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: step2.getValues('vehicle_inop') || '0' };
+    const sig = signatureForRow(row);
+    if (sig === lastAddedSignature) return;
+    setVehicles(prev => [...prev, row]);
+    setLastAddedSignature(sig);
+    showNotification({ text: 'Vehicle type added', icon: 'success' });
+    // limpiar para permitir añadir otro tipo
+    step2.setValue('vehicle_type','');
+  }, [step2.watch('vehicle_type'), vehicleMode]);
+
+  // Auto-agregar en modo específico cuando año+make+model completos
+  useEffect(() => {
+    if (vehicleMode !== 'specific') return;
+    const year = step2.getValues('vehicle_year');
+    const make = step2.getValues('vehicle_make');
+    const model = step2.getValues('vehicle_model');
+    if (!year || !make || !model) return;
+    // Inferimos un tipo para cálculo si no hay uno elegido (fallback 'car')
+    const inferredType = step2.getValues('vehicle_type') || 'car';
+    const row: VehicleRow = { vehicle_type: inferredType, vehicle_year: year, vehicle_make: make, vehicle_model: model, vehicle_inop: step2.getValues('vehicle_inop') || '0' };
+    const sig = signatureForRow(row);
+    if (sig === lastAddedSignature) return;
+    setVehicles(prev => [...prev, row]);
+    setLastAddedSignature(sig);
+    showNotification({ text: 'Specific vehicle added', icon: 'success' });
+    // Reset para permitir otro
+    step2.setValue('vehicle_year','');
+    step2.setValue('vehicle_make','');
+    step2.setValue('vehicle_model','');
+  }, [step2.watch('vehicle_year'), step2.watch('vehicle_make'), step2.watch('vehicle_model'), vehicleMode]);
 
   const proceedToEstimate = async () => {
     if (vehicles.length === 0) return;
@@ -356,8 +421,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         },
       },
     };
-    // Also include the full vehicles array for completeness
-    (payload as any).Vehicles = vehicles;
+    // Sanitizar vehículos para envío: si tiene datos específicos borramos vehicle_type público
+    const sanitizedVehicles = vehicles.map(v => {
+      const hasSpecific = (v.vehicle_year || v.vehicle_make || v.vehicle_model);
+      return hasSpecific ? { ...v, vehicle_type: '' } : v;
+    });
+    (payload as any).Vehicles = sanitizedVehicles;
     try {
   const formatted = { ...payload, ship_date: formatShipDateLocal(s4.ship_date as any) };
       const resp = await sendLeadToLanding(formatted);
@@ -414,7 +483,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       {/* Step 2: Vehicle details and cart */}
       {activeStep === 1 && (
         <FormProvider {...step2}>
-          <form className={`${padding} space-y-6 w-full max-w-none`}>
+          <form className={`${padding} space-y-4 w-full max-w-none`}>
             <fieldset className="space-y-4">
               <div className="flex items-center justify-between">
                 <legend className="text-md font-semibold text-slate-800">Add your vehicle</legend>
@@ -423,135 +492,152 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
                 </div>
               </div>
-              {/* Single backend type select (including presets) */}
-              {/* Layout: 1 column on mobile, 2 columns on md+ for better readability */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                {/* Vehicle Type */}
-                <div className="md:col-span-1">
-                  <VehicleTypeAsyncSelect
-                    name="vehicle_type"
-                    label="Vehicle Type"
-                    endpoint={apiUrl('/api/vehicles/types')}
-                    hidePresets={false}
-                  />
+              {/* Selector de modo de captura */}
+              <div className="rounded-md border border-slate-200 p-3 bg-slate-50 space-y-2">
+                <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
+                <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-2">
+                  <button type="button"
+                          onClick={() => setVehicleMode('specific')}
+                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Specific (Year, Make, Model)</button>
+                  <button type="button"
+                          onClick={() => setVehicleMode('generic')}
+                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Generic Type (Not listed)</button>
                 </div>
-                {/* Vehicle Year */}
-                <div className="md:col-span-1">
-                  <Controller
-                    name="vehicle_year"
-                    control={step2.control}
-                    render={({ field }) => {
-                      // build year options (same range as before)
-                      const current = new Date().getFullYear() + 1;
-                      const years = Array.from({ length: 50 }, (_, i) => {
-                        const y = String(current - i);
-                        return { value: y, label: y };
-                      });
-                      const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
-                      return (
-                        <div className="flex flex-col">
-                          <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
-                          <Select
-                            inputId="vehicle_year"
-                            value={field.value ? { value: field.value, label: field.value } : null}
-                            onChange={(opt: any) => field.onChange(opt?.value ?? '')}
-                            options={years}
-                            isClearable
-                            classNamePrefix="react-select"
-                            placeholder="Select year"
-                            styles={{
-                              control: (provided) => ({
-                                ...provided,
-                                boxShadow: 'none',
-                                border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
-                                borderRadius: '0.375rem',
-                                minHeight: '2.5rem',
-                                '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
-                              }),
-                              valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
-                              input: (p) => ({ ...p, margin: 0 }),
-                              placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
-                              singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
-                              indicatorSeparator: () => ({ display: 'none' }),
-                              menu: (p) => ({ ...p, maxHeight: '12rem' }),
-                              menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
-                            }}
-                            className={`bg-white`}
-                          />
-                        </div>
-                      );
-                    }}
-                  />
-                </div>
-                {/* Vehicle Make */}
-                <div className="md:col-span-1">
-                  <MakeAsyncSelect
-                    name="vehicle_make"
-                    label="Vehicle Make"
-                    endpoint={apiUrl('/api/vehicles/makes')}
-                    onPickedMake={() => {
-                      step2.setValue('vehicle_model','',{ shouldDirty: true, shouldValidate: true });
-                    }}
-                  />
-                </div>
-                {/* Vehicle Model */}
-                <div className="md:col-span-1">
-                  <ModelAsyncSelect
-                    name="vehicle_model"
-                    label="Vehicle Model"
-                    endpoint={apiUrl('/api/vehicles/models')}
-                    make={step2.watch('vehicle_make')}
-                    disabled={!step2.watch('vehicle_make')}
-                  />
-                </div>
-                {/* Running status */}
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Is it running?</label>
-                  <Controller
-                    name="vehicle_inop"
-                    control={step2.control}
-                    defaultValue={'0'}
-                    render={({ field }) => (
-                      <div className="flex flex-wrap gap-3">
-                        <div>
-                          <input
-                            type="radio"
-                            id="running_yes"
-                            value="0"
-                            checked={(field.value ?? '0') === '0'}
-                            onChange={() => field.onChange('0')}
-                            className="sr-only peer"
-                          />
-                          <label htmlFor="running_yes" className="text-sm block text-center min-w-[96px] px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">Yes</label>
-                        </div>
-                        <div>
-                          <input
-                            type="radio"
-                            id="running_no"
-                            value="1"
-                            checked={field.value === '1'}
-                            onChange={() => field.onChange('1')}
-                            className="sr-only peer"
-                          />
-                          <label htmlFor="running_no" className="text-sm block text-center min-w-[96px] px-4 py-2 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors">No</label>
-                        </div>
-                      </div>
-                    )}
-                  />
-                  <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles require winch/forklift assistance and may cost more.</p>
-                </div>
+                <p className="text-[11px] text-slate-500">
+                  {vehicleMode==='specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
+                  {vehicleMode==='generic' && 'Select only a generic type if you do not know the details OR your exact vehicle does not appear. It will be added automatically.'}
+                </p>
               </div>
-              <div className="flex items-center justify-end">
-                <button
-                  type="button"
-                  onClick={addVehicleToCart}
-                  aria-label="Add vehicle to cart"
-                  className="inline-flex items-center gap-2 rounded-lg bg-sky-600 text-white px-4 py-2 text-sm font-semibold hover:bg-sky-700 transition-colors"
-                >
-                  <FaPlus className="w-4 h-4" />
-                  Add vehicle
-                </button>
+              {/* Fields in compact two-column rows */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 pt-1">
+                {vehicleMode==='generic' && (
+                  <>
+                    <div className="md:col-span-1">
+                      <VehicleTypeAsyncSelect
+                        name="vehicle_type"
+                        label={'Vehicle Type'}
+                        endpoint={apiUrl('/api/vehicles/types')}
+                        hidePresets={false}
+                      />
+                      <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
+                    </div>
+                    <div className="md:col-span-1">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
+                      <Controller
+                        name="vehicle_inop"
+                        control={step2.control}
+                        defaultValue={'0'}
+                        render={({ field }) => (
+                          <div className="flex items-center">
+                            <button
+                              type="button"
+                              aria-pressed={(field.value ?? '0') !== '1'}
+                              onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
+                            >
+                              <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
+                            </button>
+                            <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
+                          </div>
+                        )}
+                      />
+                      <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
+                    </div>
+                  </>
+                )}
+
+                {vehicleMode==='specific' && (
+                  <>
+                    {/* Row 1: Year, Make */}
+                    <div className="md:col-span-1">
+                      <Controller
+                        name="vehicle_year"
+                        control={step2.control}
+                        render={({ field }) => {
+                          const current = new Date().getFullYear() + 1;
+                          const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
+                          const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
+                          return (
+                            <div className="flex flex-col">
+                              <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
+                              <Select
+                                inputId="vehicle_year"
+                                value={field.value ? { value: field.value, label: field.value } : null}
+                                onChange={(opt: any) => field.onChange(opt?.value ?? '')}
+                                options={years}
+                                isClearable
+                                classNamePrefix="react-select"
+                                placeholder="Select year"
+                                styles={{
+                                  control: (provided) => ({
+                                    ...provided,
+                                    boxShadow: 'none',
+                                    border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
+                                    borderRadius: '0.375rem',
+                                    minHeight: '2.5rem',
+                                    '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
+                                  }),
+                                  valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
+                                  input: (p) => ({ ...p, margin: 0 }),
+                                  placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
+                                  singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
+                                  indicatorSeparator: () => ({ display: 'none' }),
+                                  menu: (p) => ({ ...p, maxHeight: '12rem' }),
+                                  menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
+                                }}
+                                className={`bg-white`}
+                              />
+                            </div>
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="md:col-span-1">
+                      <MakeAsyncSelect
+                        name="vehicle_make"
+                        label="Vehicle Make"
+                        endpoint={apiUrl('/api/vehicles/makes')}
+                        onPickedMake={() => {
+                          step2.setValue('vehicle_model','',{ shouldDirty: true, shouldValidate: true });
+                        }}
+                      />
+                    </div>
+                    {/* Row 2: Model, Running toggle */}
+                    <div className="md:col-span-1">
+                      <ModelAsyncSelect
+                        name="vehicle_model"
+                        label="Vehicle Model"
+                        endpoint={apiUrl('/api/vehicles/models')}
+                        make={step2.watch('vehicle_make')}
+                        disabled={!step2.watch('vehicle_make')}
+                      />
+                    </div>
+                    <div className="md:col-span-1">
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
+                      <Controller
+                        name="vehicle_inop"
+                        control={step2.control}
+                        defaultValue={'0'}
+                        render={({ field }) => (
+                          <div className="flex items-center">
+                            <button
+                              type="button"
+                              aria-pressed={(field.value ?? '0') !== '1'}
+                              onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
+                            >
+                              <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
+                            </button>
+                            <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
+                          </div>
+                        )}
+                      />
+                      <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
+                    </div>
+                  </>
+                )}
               </div>
+              {/* Botón manual removido: ahora se agregan automáticamente según modo */}
               {vehicles.length > 0 && (
                 <div className="pt-2">
                   <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
@@ -559,7 +645,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                     <div className="pt-2 flex flex-wrap gap-2">
                       {vehicles.map((v, idx) => (
                         <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
-                          {`${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()} · {v.vehicle_type} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
+                          {v.vehicle_year || v.vehicle_make || v.vehicle_model ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim() : v.vehicle_type || 'Tipo'} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
                           <button type="button" onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
                         </span>
                       ))}
@@ -567,7 +653,6 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   </div>
                 </div>
               )}
-              <p className="text-xs text-slate-500">Add each vehicle to your cart. Then continue to see your estimated price.</p>
             </fieldset>
             <div className="flex gap-2 items-start">
               <button type="button" onClick={() => setActiveStep(0)} className="w-32 sm:w-36 inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">

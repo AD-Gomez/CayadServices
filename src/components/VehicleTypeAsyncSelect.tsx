@@ -56,13 +56,25 @@ async function fetchVehicleTypes(endpoint: string, params: Record<string, string
   if (cached) return cached;
 
   const qs = new URLSearchParams(params).toString();
-  const r = await fetch(`${endpoint}?${qs}`, {
-    headers: { Accept: 'application/json' },
-  });
-  if (!r.ok) throw new Error('Failed to fetch vehicle types');
-  const data = (await r.json()) as Option[];
-  setCached(endpoint, params, data);
-  return data;
+  const url = `${endpoint}${qs ? `?${qs}` : ''}`;
+  try {
+    console.debug('[VehicleType] fetching', url);
+    const r = await fetch(url, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!r.ok) {
+      const txt = await r.text().catch(() => '');
+      console.error('[VehicleType] fetch failed', r.status, txt);
+      throw new Error('Failed to fetch vehicle types');
+    }
+    const data = (await r.json()) as Option[];
+    console.debug('[VehicleType] fetched', data?.length ?? 'nil', 'items');
+    setCached(endpoint, params, data);
+    return data;
+  } catch (e) {
+    console.error('[VehicleType] fetch error', e);
+    throw e;
+  }
 }
 
 /*
@@ -85,19 +97,32 @@ NOTE: 'pickup' is intentionally not included in the canonical list.
 const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled, hidePresets = true }) => {
   const { control, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
+  const [refreshTick, setRefreshTick] = useState(0);
+  const [autoRetried, setAutoRetried] = useState(false);
 
   const params = useMemo(() => {
     const p: Record<string, string> = {};
     if (make) p.make = make;
     if (search.trim()) p.search = search.trim();
+    // include refresh tick so consumers can force re-fetch
+    if (refreshTick) p._r = String(refreshTick);
     return p;
-  }, [make, search]);
+  }, [make, search, refreshTick]);
 
-  const { options, loading } = useAsyncOptions(
+  const { options, loading, error } = useAsyncOptions(
     (p) => fetchVehicleTypes(endpoint, p),
     params,
     { delay: 200, minLength }
   );
+
+  // If we get an empty result silently (possibly cached), attempt one automatic retry to bypass cache.
+  React.useEffect(() => {
+    if (!loading && Array.isArray(options) && options.length === 0 && error == null && !autoRetried) {
+      setRefreshTick(t => t + 1);
+      setAutoRetried(true);
+      console.debug('[VehicleType] auto retry triggered due to empty options');
+    }
+  }, [loading, options, error, autoRetried]);
 
   // Hide canonical preset types that are already exposed as buttons in the UI
   const filteredOptions = useMemo(() => {
@@ -158,6 +183,15 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', 
           />
         )}
       />
+      {!loading && (Array.isArray(options) && options.length === 0) && (
+        <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-2">
+          <span>No types available.</span>
+          <button type="button" onClick={() => setRefreshTick(t => t + 1)} className="text-btn-blue underline text-[11px]">Retry</button>
+        </div>
+      )}
+      {error != null && (
+        <div className="mt-2 text-[11px] text-red-600">Unable to load types. Try again later.</div>
+      )}
       {hasError && <span className="text-red-500 text-xs mt-1">{String((errors as any)[name]?.message)}</span>}
     </div>
   );
