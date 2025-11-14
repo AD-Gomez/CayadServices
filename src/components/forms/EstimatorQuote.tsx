@@ -194,97 +194,176 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   const computeEstimate = useCallback(async () => {
     const s1 = step1.getValues();
-    // Aggregate by vehicle_type from cart
-    const distinct = Array.from(new Set(vehicles.map(v => v.vehicle_type)));
+    // Build mixed vehicles list (generic types and specific vehicles)
+    type MixedItem = (
+      { kind: 'generic'; type: string; inop?: boolean; count: number } |
+      { kind: 'specific'; type?: string; year?: number; make?: string; model?: string; inop?: boolean; count: number }
+    );
+    const genericsMap = new Map<string, MixedItem>();
+    const specificsMap = new Map<string, MixedItem>();
+    for (const v of vehicles) {
+      const inop = (v.vehicle_inop === '1');
+      const hasSpecific = !!(v.vehicle_year || v.vehicle_make || v.vehicle_model);
+      if (hasSpecific) {
+        const key = [v.vehicle_type || '', v.vehicle_year || '', v.vehicle_make || '', v.vehicle_model || '', inop ? '1' : '0'].join('|').toLowerCase();
+        if (!specificsMap.has(key)) {
+          specificsMap.set(key, {
+            kind: 'specific',
+            type: v.vehicle_type || undefined,
+            year: v.vehicle_year ? Number(v.vehicle_year) : undefined,
+            make: v.vehicle_make || undefined,
+            model: v.vehicle_model || undefined,
+            inop,
+            count: 1,
+          });
+        } else {
+          specificsMap.get(key)!.count += 1;
+        }
+      } else {
+        const t = (v.vehicle_type || '').toLowerCase();
+        if (!t) continue;
+        const key = `${t}|${inop ? '1' : '0'}`;
+        if (!genericsMap.has(key)) {
+          genericsMap.set(key, { kind: 'generic', type: t, inop, count: 1 });
+        } else {
+          genericsMap.get(key)!.count += 1;
+        }
+      }
+    }
+    const mixedItems: MixedItem[] = [...genericsMap.values(), ...specificsMap.values()];
     setBusy(true);
     try {
-      // Try to extract zip codes from the user-provided city/zip strings
+      // Extract zips from inputs
       const o = parseCityStateZip(s1.origin_city || "");
       const d = parseCityStateZip(s1.destination_city || "");
       const origin_zip = o.postalCode || ((s1.origin_city || "").match(/(\d{5})/) || [""])[0];
       const destination_zip = d.postalCode || ((s1.destination_city || "").match(/(\d{5})/) || [""])[0];
-      // Prefer canonical endpoint; alias kept for compatibility
+      // Endpoints
       const canonical = apiUrl("/api/public/price-estimate/");
       const alias = apiUrl("/leads/public/price-estimate/");
+      // Unified request payload
+      const unifiedPayload: any = {
+        origin_zip,
+        destination_zip,
+        transport_type: 'open',
+        vehicles: mixedItems.map(it => it.kind === 'generic'
+          ? { type: it.type, inop: !!it.inop, count: it.count }
+          : { type: it.type, year: it.year, make: it.make, model: it.model, inop: !!it.inop, count: it.count }
+        ),
+      };
+
       const results: any[] = [];
-      for (const vt of distinct) {
-        const count = vehicles.filter(v => v.vehicle_type === vt).length;
-        try {
-          let res = await fetch(canonical, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count })
-          });
-          if (!res.ok) {
-            // Try alias as fallback
-            res = await fetch(alias, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count })
-            });
+      let unifiedResp: any | null = null;
+      try {
+        let res = await fetch(canonical, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(unifiedPayload) });
+        if (!res.ok) {
+          res = await fetch(alias, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(unifiedPayload) });
+        }
+        if (res.ok) unifiedResp = await res.json();
+      } catch {}
+
+      if (unifiedResp && (Array.isArray(unifiedResp.items) || typeof unifiedResp.estimate_available !== 'undefined')) {
+        const items = Array.isArray(unifiedResp.items) ? unifiedResp.items : [];
+        if (items.length > 0) {
+          for (const it of items) {
+            const label = (it.year && it.make && it.model) ? `${it.year} ${it.make} ${it.model}` : (it.type || 'vehicle');
+            const count = Number(it.count || 1) || 1;
+            results.push({ type: String(label), count, data: it });
           }
-          if (res.ok) {
-            const j = await res.json();
-            results.push({ type: vt, count, data: j });
+        } else {
+          results.push({ type: 'vehicles', count: vehicles.length, data: unifiedResp });
+        }
+        setEstResponses(results);
+        const discountedSum = (typeof unifiedResp.discounted_estimate_total === 'number')
+          ? Number(unifiedResp.discounted_estimate_total)
+          : items.reduce((acc: number, it: any) => acc + (Number(it.discounted_estimate_total ?? it.low_estimate_total) || 0), 0);
+        const normalSum = (typeof unifiedResp.normal_estimate_total === 'number')
+          ? Number(unifiedResp.normal_estimate_total)
+          : items.reduce((acc: number, it: any) => {
+              const d2 = Number(it.discounted_estimate_total ?? it.low_estimate_total);
+              const n2 = Number(it.normal_estimate_total);
+              return acc + (Number.isFinite(n2) ? n2 : (Number.isFinite(d2) ? Math.round(d2 * 1.15 * 100) / 100 : 0));
+            }, 0);
+        let usedMiles: number | null = null;
+        const pricingMiles = typeof unifiedResp.distance_used_for_pricing_miles === 'number' ? unifiedResp.distance_used_for_pricing_miles : undefined;
+        const refFromResp = typeof unifiedResp.reference_distance_miles === 'number' ? unifiedResp.reference_distance_miles : undefined;
+        if (typeof pricingMiles === 'number') usedMiles = pricingMiles;
+        else if (typeof refFromResp === 'number') usedMiles = refFromResp;
+        else { const dist = await distanceForLocations(s1.origin_city, s1.destination_city); usedMiles = dist.miles ?? null; }
+        setMiles(usedMiles);
+        const respTransitDays = typeof unifiedResp.estimated_transit_days === 'number' ? unifiedResp.estimated_transit_days : undefined;
+        if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
+        else setTransit(estimateTransitDays(usedMiles ?? null));
+        const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
+        const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
+        setDiscountedTotal(roundedDiscounted);
+        setNormalTotal(roundedNormal);
+        setEstimate(roundedDiscounted);
+        setPerMile(roundedDiscounted != null && usedMiles ? Math.round((roundedDiscounted / usedMiles) * 100) / 100 : null);
+        const topPct = typeof unifiedResp.confidence_pct === 'number' ? unifiedResp.confidence_pct : null;
+        if (typeof topPct === 'number') setConfidencePct(Math.max(5, Math.min(99, Math.round(topPct))));
+        else if (Array.isArray(items) && items.length) {
+          const totalSamples = items.reduce((acc: number, it: any) => acc + (Number(it.sample_size) || 0), 0);
+          if (totalSamples > 0) {
+            const num = items.reduce((acc: number, it: any) => acc + ((Number(it.confidence_pct) || 0) * (Number(it.sample_size) || 0)), 0);
+            const w = Math.round(num / totalSamples);
+            setConfidencePct(Math.max(5, Math.min(99, w)));
+          } else {
+            const firstPct = items.find((it: any) => typeof it?.confidence_pct === 'number')?.confidence_pct;
+            if (typeof firstPct === 'number') setConfidencePct(Math.max(5, Math.min(99, Math.round(firstPct))));
           }
-        } catch {}
-      }
-      setEstResponses(results);
-      // Aggregate (only consider available estimates with numeric totals)
-      const avail = results.filter(r => r?.data?.estimate_available);
-      // Sum discounted totals (preferred) and normal totals
-      const discountedSum = avail.reduce((acc, r) => acc + (Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total) || 0), 0);
-      // Prefer provided normal_estimate_total, else derive as discounted * 1.15
-      const normalSum = avail.reduce((acc, r) => {
-        const d = Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total);
-        const n = Number(r.data?.normal_estimate_total);
-        return acc + (Number.isFinite(n) ? n : (Number.isFinite(d) ? Math.round(d * 1.15 * 100) / 100 : 0));
-      }, 0);
-      let usedMiles: number | null = null;
-      // Prefer the backend-declared distance actually used for pricing when available
-      const pricingMiles = avail.find(r => typeof r?.data?.distance_used_for_pricing_miles === 'number')?.data?.distance_used_for_pricing_miles;
-      const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
-      if (typeof pricingMiles === 'number') {
-        usedMiles = pricingMiles;
-      } else if (typeof refFromResp === 'number') {
-        usedMiles = refFromResp;
+        }
       } else {
-        // fallback to distance service
-        const dist = await distanceForLocations(s1.origin_city, s1.destination_city);
-        usedMiles = dist.miles ?? null;
+        // Backward compatibility: per-type loop
+        const distinct = Array.from(new Set(vehicles.map(v => v.vehicle_type)));
+        for (const vt of distinct) {
+          const count = vehicles.filter(v => v.vehicle_type === vt).length;
+          try {
+            let res = await fetch(canonical, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count }) });
+            if (!res.ok) {
+              res = await fetch(alias, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count }) });
+            }
+            if (res.ok) {
+              const j = await res.json();
+              results.push({ type: vt, count, data: j });
+            }
+          } catch {}
+        }
+        setEstResponses(results);
+        const avail = results.filter(r => r?.data?.estimate_available);
+        const discountedSum = avail.reduce((acc, r) => acc + (Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total) || 0), 0);
+        const normalSum = avail.reduce((acc, r) => {
+          const d2 = Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total);
+          const n2 = Number(r.data?.normal_estimate_total);
+          return acc + (Number.isFinite(n2) ? n2 : (Number.isFinite(d2) ? Math.round(d2 * 1.15 * 100) / 100 : 0));
+        }, 0);
+        let usedMiles: number | null = null;
+        const pricingMiles = avail.find(r => typeof r?.data?.distance_used_for_pricing_miles === 'number')?.data?.distance_used_for_pricing_miles;
+        const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
+        if (typeof pricingMiles === 'number') usedMiles = pricingMiles;
+        else if (typeof refFromResp === 'number') usedMiles = refFromResp;
+        else { const dist = await distanceForLocations(s1.origin_city, s1.destination_city); usedMiles = dist.miles ?? null; }
+        setMiles(usedMiles);
+        const respTransitDays = avail.find(r => typeof r?.data?.estimated_transit_days === 'number')?.data?.estimated_transit_days;
+        if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
+        else setTransit(estimateTransitDays(usedMiles ?? null));
+        const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
+        const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
+        setDiscountedTotal(roundedDiscounted);
+        setNormalTotal(roundedNormal);
+        setEstimate(roundedDiscounted);
+        setPerMile(roundedDiscounted != null && usedMiles ? Math.round((roundedDiscounted / usedMiles) * 100) / 100 : null);
+        const totalSamples = avail.reduce((acc, r) => acc + (Number(r?.data?.sample_size) || 0), 0);
+        let weightedPct: number | null = null;
+        if (totalSamples > 0) {
+          const num = avail.reduce((acc, r) => acc + ((Number(r?.data?.confidence_pct) || 0) * (Number(r?.data?.sample_size) || 0)), 0);
+          weightedPct = Math.round(num / totalSamples);
+        } else {
+          const firstPct = avail.find(r => typeof r?.data?.confidence_pct === 'number')?.data?.confidence_pct;
+          weightedPct = typeof firstPct === 'number' ? Math.round(firstPct) : null;
+        }
+        if (typeof weightedPct === 'number') setConfidencePct(Math.max(5, Math.min(99, weightedPct)));
       }
-      setMiles(usedMiles);
-      // Do not show additional provenance to end users; we only display the distance used for pricing.
-      // Prefer backend-provided transit estimate when available (integer days).
-      const respTransitDays = avail.find(r => typeof r?.data?.estimated_transit_days === 'number')?.data?.estimated_transit_days;
-      if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) {
-        setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
-      } else {
-        // fallback to local heuristic string
-        setTransit(estimateTransitDays(usedMiles ?? null));
-      }
-      const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
-      const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
-      setDiscountedTotal(roundedDiscounted);
-      setNormalTotal(roundedNormal);
-      // keep legacy 'estimate' aligned to discounted total
-      setEstimate(roundedDiscounted);
-      if (roundedDiscounted != null && usedMiles) {
-        setPerMile(Math.round((roundedDiscounted / usedMiles) * 100) / 100);
-      } else {
-        setPerMile(null);
-      }
-      // Compute a weighted confidence percentage (by sample size). Fallbacks: min or single value.
-      const totalSamples = avail.reduce((acc, r) => acc + (Number(r?.data?.sample_size) || 0), 0);
-      let weightedPct: number | null = null;
-      if (totalSamples > 0) {
-        const num = avail.reduce((acc, r) => acc + ((Number(r?.data?.confidence_pct) || 0) * (Number(r?.data?.sample_size) || 0)), 0);
-        weightedPct = Math.round(num / totalSamples);
-      } else {
-        const firstPct = avail.find(r => typeof r?.data?.confidence_pct === 'number')?.data?.confidence_pct;
-        weightedPct = typeof firstPct === 'number' ? Math.round(firstPct) : null;
-      }
-      if (typeof weightedPct === 'number') setConfidencePct(Math.max(5, Math.min(99, weightedPct)));
     } finally {
       setBusy(false);
     }
