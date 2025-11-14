@@ -15,7 +15,7 @@ import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
-import { FaRegPaperPlane, FaPlus } from "react-icons/fa";
+import { FaRegPaperPlane, FaPlus, FaTrash } from "react-icons/fa";
 import { format } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
@@ -516,7 +516,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       <VehicleTypeAsyncSelect
                         name="vehicle_type"
                         label={'Vehicle Type'}
-                        endpoint={apiUrl('/api/vehicles/types')}
+                        endpoint={apiUrl('/api/vehicles/types/?for_landing=1')}
                         hidePresets={false}
                       />
                       <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
@@ -646,7 +646,16 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       {vehicles.map((v, idx) => (
                         <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
                           {v.vehicle_year || v.vehicle_make || v.vehicle_model ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim() : v.vehicle_type || 'Tipo'} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
-                          <button type="button" onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))} className="text-slate-400 hover:text-slate-600 leading-none">Remove</button>
+                          <button
+                            type="button"
+                            onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))}
+                            aria-label={`Remove vehicle ${idx + 1}`}
+                            title="Remove vehicle"
+                            className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
+                          >
+                            <FaTrash className="h-3 w-3" />
+                            <span className="sr-only">Remove vehicle</span>
+                          </button>
                         </span>
                       ))}
                     </div>

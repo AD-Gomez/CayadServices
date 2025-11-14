@@ -11,7 +11,7 @@ type Props = {
   make?: string | undefined; // optional filter
   minLength?: number;
   disabled?: boolean;
-  hidePresets?: boolean; // when true, filter out car/suv/van from options (default true to preserve old behavior)
+  hidePresets?: boolean; // when true, filter out car/suv/van from options (default false to show full API results)
 };
 
 type CacheEntry = { ts: number; data: Option[] };
@@ -54,9 +54,22 @@ async function fetchVehicleTypes(endpoint: string, params: Record<string, string
   // Try localStorage cache first
   const cached = getCached(endpoint, params);
   if (cached) return cached;
-
   const qs = new URLSearchParams(params).toString();
-  const url = `${endpoint}${qs ? `?${qs}` : ''}`;
+  // Build URL robustly: if endpoint already contains query params, append with '&'.
+  // Use the URL constructor when running in the browser to correctly merge params.
+  let url = `${endpoint}${qs ? `?${qs}` : ''}`;
+  if (typeof window !== 'undefined') {
+    try {
+      const base = window.location.origin;
+      const u = new URL(endpoint, base);
+      // merge/overwrite params
+      Object.entries(params).forEach(([k, v]) => u.searchParams.set(k, v));
+      url = u.toString();
+    } catch (e) {
+      // fallback to simple concat
+      url = `${endpoint}${qs ? `?${qs}` : ''}`;
+    }
+  }
   try {
     console.debug('[VehicleType] fetching', url);
     const r = await fetch(url, {
@@ -94,7 +107,7 @@ Example canonical list (backend):
 ]
 NOTE: 'pickup' is intentionally not included in the canonical list.
 */
-const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled, hidePresets = true }) => {
+const VehicleTypeAsyncSelect: React.FC<Props> = ({ name, label = 'Other Types', endpoint, make, minLength = 0, disabled, hidePresets = false }) => {
   const { control, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
   const [refreshTick, setRefreshTick] = useState(0);
