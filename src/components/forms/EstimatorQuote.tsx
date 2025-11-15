@@ -7,6 +7,7 @@ import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
 import { distanceForLocations, estimateTransitDays, formatMiles } from "../../services/distance";
 import { parseCityStateZip } from "../../utils/leadFormat";
 import { apiUrl } from "../../services/config";
+import { postPriceEstimate, type PriceEstimateRequest, type PriceEstimateResponse } from "../../services/priceEstimate";
 import MakeAsyncSelect from "../MakeAsyncSelect";
 import ModelAsyncSelect from "../ModelAsyncSelect";
 import VehicleTypeAsyncSelect from "../VehicleTypeAsyncSelect";
@@ -238,29 +239,19 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const d = parseCityStateZip(s1.destination_city || "");
       const origin_zip = o.postalCode || ((s1.origin_city || "").match(/(\d{5})/) || [""])[0];
       const destination_zip = d.postalCode || ((s1.destination_city || "").match(/(\d{5})/) || [""])[0];
-      // Endpoints
-      const canonical = apiUrl("/api/public/price-estimate/");
-      const alias = apiUrl("/leads/public/price-estimate/");
-      // Unified request payload
-      const unifiedPayload: any = {
+      // Unified request payload (supports generic and specific vehicles)
+      const unifiedPayload: PriceEstimateRequest = {
         origin_zip,
         destination_zip,
         transport_type: 'open',
         vehicles: mixedItems.map(it => it.kind === 'generic'
           ? { type: it.type, inop: !!it.inop, count: it.count }
-          : { type: it.type, year: it.year, make: it.make, model: it.model, inop: !!it.inop, count: it.count }
+          : { type: it.type, year: it.year!, make: it.make!, model: it.model!, inop: !!it.inop, count: it.count }
         ),
       };
 
       const results: any[] = [];
-      let unifiedResp: any | null = null;
-      try {
-        let res = await fetch(canonical, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(unifiedPayload) });
-        if (!res.ok) {
-          res = await fetch(alias, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(unifiedPayload) });
-        }
-        if (res.ok) unifiedResp = await res.json();
-      } catch {}
+      let unifiedResp: PriceEstimateResponse | null = await postPriceEstimate(unifiedPayload);
 
       if (unifiedResp && (Array.isArray(unifiedResp.items) || typeof unifiedResp.estimate_available !== 'undefined')) {
         const items = Array.isArray(unifiedResp.items) ? unifiedResp.items : [];
@@ -318,16 +309,18 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const distinct = Array.from(new Set(vehicles.map(v => v.vehicle_type)));
         for (const vt of distinct) {
           const count = vehicles.filter(v => v.vehicle_type === vt).length;
-          try {
-            let res = await fetch(canonical, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count }) });
-            if (!res.ok) {
-              res = await fetch(alias, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ origin_zip, destination_zip, vehicle_type: vt, transport_type: 'open', inop: false, vehicles_count: count }) });
-            }
-            if (res.ok) {
-              const j = await res.json();
-              results.push({ type: vt, count, data: j });
-            }
-          } catch {}
+          const legacyPayload: PriceEstimateRequest = {
+            origin_zip,
+            destination_zip,
+            transport_type: 'open',
+            vehicle_type: vt,
+            inop: false,
+            vehicles_count: count,
+          };
+          const resp = await postPriceEstimate(legacyPayload);
+          if (resp) {
+            results.push({ type: vt, count, data: resp });
+          }
         }
         setEstResponses(results);
         const avail = results.filter(r => r?.data?.estimate_available);
