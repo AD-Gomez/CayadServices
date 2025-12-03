@@ -76,12 +76,12 @@ type Step2Values = {
 const step2Schema = yup
   .object({
     vehicle_type: yup.string().required(),
-    vehicle_year: yup.string().optional().matches(/^(19|20)\d{2}$/,'Year must be YYYY').test('year-range','Year out of range', function (val){
-      if (!val) return true; const y = Number(val); const max = new Date().getFullYear()+1; const min = 1970; return y >= min && y <= max;
+    vehicle_year: yup.string().optional().matches(/^(19|20)\d{2}$/, 'Year must be YYYY').test('year-range', 'Year out of range', function (val) {
+      if (!val) return true; const y = Number(val); const max = new Date().getFullYear() + 1; const min = 1970; return y >= min && y <= max;
     }),
     vehicle_make: yup.string().optional().max(40),
     vehicle_model: yup.string().optional().max(60),
-    vehicle_inop: yup.mixed<'0'|'1'>().oneOf(['0','1']).optional(),
+    vehicle_inop: yup.mixed<'0' | '1'>().oneOf(['0', '1']).optional(),
   }) as yup.ObjectSchema<Step2Values>;
 
 type ContactValues = {
@@ -112,10 +112,11 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [normalTotal, setNormalTotal] = useState<number | null>(null);
   const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [vehicles, setVehicles] = useState<VehicleRow[]>([]); // cart of full vehicle rows
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
   const [confidencePct, setConfidencePct] = useState<number | null>(null);
-  
+
   // Aggregate meta derived from backend responses
   const { overallConfidence, sampleSizeTotal } = useMemo(() => {
     const avail = estResponses.filter((r) => r?.data?.estimate_available);
@@ -155,12 +156,12 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   useEffect(() => {
     if (vehicleMode === 'generic') {
       // Clear specific fields
-      step2.setValue('vehicle_year','');
-      step2.setValue('vehicle_make','');
-      step2.setValue('vehicle_model','');
+      step2.setValue('vehicle_year', '');
+      step2.setValue('vehicle_make', '');
+      step2.setValue('vehicle_model', '');
     } else {
       // Clear generic field
-      step2.setValue('vehicle_type','');
+      step2.setValue('vehicle_type', '');
     }
   }, [vehicleMode]);
   // Evitar auto-agregar duplicados mientras el usuario aún edita
@@ -271,10 +272,10 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const normalSum = (typeof unifiedResp.normal_estimate_total === 'number')
           ? Number(unifiedResp.normal_estimate_total)
           : items.reduce((acc: number, it: any) => {
-              const d2 = Number(it.discounted_estimate_total ?? it.low_estimate_total);
-              const n2 = Number(it.normal_estimate_total);
-              return acc + (Number.isFinite(n2) ? n2 : (Number.isFinite(d2) ? Math.round(d2 * 1.15 * 100) / 100 : 0));
-            }, 0);
+            const d2 = Number(it.discounted_estimate_total ?? it.low_estimate_total);
+            const n2 = Number(it.normal_estimate_total);
+            return acc + (Number.isFinite(n2) ? n2 : (Number.isFinite(d2) ? Math.round(d2 * 1.15 * 100) / 100 : 0));
+          }, 0);
         let usedMiles: number | null = null;
         const pricingMiles = typeof unifiedResp.distance_used_for_pricing_miles === 'number' ? unifiedResp.distance_used_for_pricing_miles : undefined;
         const refFromResp = typeof unifiedResp.reference_distance_miles === 'number' ? unifiedResp.reference_distance_miles : undefined;
@@ -369,7 +370,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   // Step 2 handlers: add to cart and next
   const addVehicleToCart = async () => {
-    const ok = await step2.trigger(["vehicle_type","vehicle_year","vehicle_make","vehicle_model","vehicle_inop"]);
+    const ok = await step2.trigger(["vehicle_type", "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_inop"]);
     if (!ok) return;
     const vals = step2.getValues();
     // Este método se mantiene para compatibilidad, pero la UX ahora auto-agrega.
@@ -407,7 +408,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setLastAddedSignature(sig);
     showNotification({ text: 'Vehicle type added', icon: 'success' });
     // limpiar para permitir añadir otro tipo
-    step2.setValue('vehicle_type','');
+    step2.setValue('vehicle_type', '');
   }, [step2.watch('vehicle_type'), vehicleMode]);
 
   // Auto-agregar en modo específico cuando año+make+model completos
@@ -426,9 +427,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setLastAddedSignature(sig);
     showNotification({ text: 'Specific vehicle added', icon: 'success' });
     // Reset para permitir otro
-    step2.setValue('vehicle_year','');
-    step2.setValue('vehicle_make','');
-    step2.setValue('vehicle_model','');
+    step2.setValue('vehicle_year', '');
+    step2.setValue('vehicle_make', '');
+    step2.setValue('vehicle_model', '');
   }, [step2.watch('vehicle_year'), step2.watch('vehicle_make'), step2.watch('vehicle_model'), vehicleMode]);
 
   const proceedToEstimate = async () => {
@@ -450,18 +451,21 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   }, [activeStep]);
 
   const submitLead = async () => {
+    if (submitting) return;
     const s1 = step1.getValues();
     const s2 = step2.getValues();
-  const s4: any = step4.getValues();
+    const s4: any = step4.getValues();
     // Honeypot and min-time checks
     if (s4?.website && String(s4.website).trim() !== "") {
       showNotification({ text: "Error sending lead", icon: "error" });
       return;
     }
-    if (step4ShownAt && Date.now() - step4ShownAt < 3000) {
+    // Reduced to 1s to avoid blocking legitimate fast users (autofill)
+    if (step4ShownAt && Date.now() - step4ShownAt < 1000) {
       showNotification({ text: "Please wait a moment before submitting.", icon: "error" });
       return;
     }
+    setSubmitting(true);
     // Determine primary vehicle (first in the cart) or fallback to current step2 values
     const primaryVehicle = vehicles[0] ?? {
       vehicle_type: s2.vehicle_type,
@@ -500,7 +504,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     });
     (payload as any).Vehicles = sanitizedVehicles;
     try {
-  const formatted = { ...payload, ship_date: formatShipDateLocal(s4.ship_date as any) };
+      const formatted = { ...payload, ship_date: formatShipDateLocal(s4.ship_date as any) };
       const resp = await sendLeadToLanding(formatted);
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
         saveNumberLead(String(resp.id));
@@ -512,9 +516,11 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         }, 1200);
       } else {
         showNotification({ text: "Error sending quote", icon: "error" });
+        setSubmitting(false);
       }
     } catch (e) {
       showNotification({ text: "Error sending lead", icon: "error" });
+      setSubmitting(false);
     }
   };
 
@@ -524,344 +530,346 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const content = (
     <div className="w-full">
       <>
-      {/* Vehicle Type Selection */}
-      <div className={`${padding} border-b border-slate-200`}>
-        <h1 className={`${titleSize} font-bold text-slate-800`}>
-          {activeStep === 0 && 'Get Your Instant Quote'}
-          {activeStep === 1 && 'What Are You Shipping?'}
-          {activeStep === 2 && 'Your Quote Is Ready!'}
-          {activeStep === 3 && 'Almost Done!'}
-        </h1>
-      </div>
+        {/* Vehicle Type Selection */}
+        <div className={`${padding} border-b border-slate-200`}>
+          <h1 className={`${titleSize} font-bold text-slate-800`}>
+            {activeStep === 0 && 'Get Your Instant Estimated Price'}
+            {activeStep === 1 && 'What Are You Shipping?'}
+            {activeStep === 2 && 'Your Estimated Price is Ready!'}
+            {activeStep === 3 && 'Almost Done!'}
+          </h1>
+        </div>
 
-      {/* Step 1: Locations */}
-      {activeStep === 0 && (
-        <FormProvider {...step1}>
-          <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={step1.handleSubmit(onSubmitStep1)}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
-              <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
-            </div>
-            <div>
-              <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="submit">
-                Show My Vehicle Options
-              </button>
-              <p className="mt-2 text-xs text-slate-500">Takes less than a minute</p>
-            </div>
-          </form>
-        </FormProvider>
-      )}
+        {/* Step 1: Locations */}
+        {activeStep === 0 && (
+          <FormProvider {...step1}>
+            <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={step1.handleSubmit(onSubmitStep1)}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
+                <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
+              </div>
+              <div>
+                <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="submit">
+                  Show My Vehicle Options
+                </button>
+                <p className="mt-2 text-xs text-slate-500">Takes less than a minute</p>
+              </div>
+            </form>
+          </FormProvider>
+        )}
 
-      {/* Step 2: Vehicle details and cart */}
-      {activeStep === 1 && (
-        <FormProvider {...step2}>
-          <form className={`${padding} space-y-4 w-full max-w-none`}>
-            <fieldset className="space-y-4">
-              <div className="flex items-center justify-between">
-                <legend className="text-md font-semibold text-slate-800">Add your vehicle</legend>
-                <div aria-live="polite" className="inline-flex items-center gap-2">
-                  <span className="text-xs text-slate-500">Added</span>
-                  <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
-                </div>
-              </div>
-              {/* Selector de modo de captura */}
-              <div className="rounded-md border border-slate-200 p-3 bg-slate-50 space-y-2">
-                <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
-                <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-2">
-                  <button type="button"
-                          onClick={() => setVehicleMode('specific')}
-                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
-                  <button type="button"
-                          onClick={() => setVehicleMode('generic')}
-                          className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode==='generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
-                </div>
-                <p className="text-[11px] text-slate-500">
-                  {vehicleMode==='specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
-                  {vehicleMode==='generic' && 'Select only a generic type if you do not know the details OR your exact vehicle does not appear. It will be added automatically.'}
-                </p>
-              </div>
-              {/* Fields in compact two-column rows */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 pt-1">
-                {vehicleMode==='generic' && (
-                  <>
-                    <div className="md:col-span-1">
-                      <VehicleTypeAsyncSelect
-                        name="vehicle_type"
-                        label={'Vehicle Type'}
-                        endpoint={apiUrl('/api/vehicles/types/?for_landing=1')}
-                        hidePresets={false}
-                      />
-                      <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
-                    </div>
-                    <div className="md:col-span-1">
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
-                      <Controller
-                        name="vehicle_inop"
-                        control={step2.control}
-                        defaultValue={'0'}
-                        render={({ field }) => (
-                          <div className="flex items-center">
-                            <button
-                              type="button"
-                              aria-pressed={(field.value ?? '0') !== '1'}
-                              onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
-                            >
-                              <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
-                            </button>
-                            <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
-                          </div>
-                        )}
-                      />
-                      <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
-                    </div>
-                  </>
-                )}
-
-                {vehicleMode==='specific' && (
-                  <>
-                    {/* Row 1: Year, Make */}
-                    <div className="md:col-span-1">
-                      <Controller
-                        name="vehicle_year"
-                        control={step2.control}
-                        render={({ field }) => {
-                          const current = new Date().getFullYear() + 1;
-                          const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
-                          const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
-                          return (
-                            <div className="flex flex-col">
-                              <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
-                              <Select
-                                inputId="vehicle_year"
-                                value={field.value ? { value: field.value, label: field.value } : null}
-                                onChange={(opt: any) => field.onChange(opt?.value ?? '')}
-                                options={years}
-                                isClearable
-                                classNamePrefix="react-select"
-                                placeholder="Select year"
-                                styles={{
-                                  control: (provided) => ({
-                                    ...provided,
-                                    boxShadow: 'none',
-                                    border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
-                                    borderRadius: '0.375rem',
-                                    minHeight: '2.5rem',
-                                    '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
-                                  }),
-                                  valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
-                                  input: (p) => ({ ...p, margin: 0 }),
-                                  placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
-                                  singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
-                                  indicatorSeparator: () => ({ display: 'none' }),
-                                  menu: (p) => ({ ...p, maxHeight: '12rem' }),
-                                  menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
-                                }}
-                                className={`bg-white`}
-                              />
-                            </div>
-                          );
-                        }}
-                      />
-                    </div>
-                    <div className="md:col-span-1">
-                      <MakeAsyncSelect
-                        name="vehicle_make"
-                        label="Vehicle Make"
-                        endpoint={apiUrl('/api/vehicles/makes')}
-                        onPickedMake={() => {
-                          step2.setValue('vehicle_model','',{ shouldDirty: true, shouldValidate: true });
-                        }}
-                      />
-                    </div>
-                    {/* Row 2: Model, Running toggle */}
-                    <div className="md:col-span-1">
-                      <ModelAsyncSelect
-                        name="vehicle_model"
-                        label="Vehicle Model"
-                        endpoint={apiUrl('/api/vehicles/models')}
-                        make={step2.watch('vehicle_make')}
-                        disabled={!step2.watch('vehicle_make')}
-                      />
-                    </div>
-                    <div className="md:col-span-1">
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
-                      <Controller
-                        name="vehicle_inop"
-                        control={step2.control}
-                        defaultValue={'0'}
-                        render={({ field }) => (
-                          <div className="flex items-center">
-                            <button
-                              type="button"
-                              aria-pressed={(field.value ?? '0') !== '1'}
-                              onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
-                            >
-                              <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
-                            </button>
-                            <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
-                          </div>
-                        )}
-                      />
-                      <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
-                    </div>
-                  </>
-                )}
-              </div>
-              {/* Botón manual removido: ahora se agregan automáticamente según modo */}
-              {vehicles.length > 0 && (
-                <div className="pt-2">
-                  <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
-                    <p className="text-sm font-semibold text-amber-900">Vehicles added</p>
-                    <div className="pt-2 flex flex-wrap gap-2">
-                      {vehicles.map((v, idx) => (
-                        <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
-                          {v.vehicle_year || v.vehicle_make || v.vehicle_model ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim() : v.vehicle_type || 'Tipo'} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
-                          <button
-                            type="button"
-                            onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))}
-                            aria-label={`Remove vehicle ${idx + 1}`}
-                            title="Remove vehicle"
-                            className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
-                          >
-                            <FaTrash className="h-3 w-3" />
-                            <span className="sr-only">Remove vehicle</span>
-                          </button>
-                        </span>
-                      ))}
-                    </div>
+        {/* Step 2: Vehicle details and cart */}
+        {activeStep === 1 && (
+          <FormProvider {...step2}>
+            <form className={`${padding} space-y-4 w-full max-w-none`}>
+              <fieldset className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <legend className="text-md font-semibold text-slate-800">Add your vehicle</legend>
+                  <div aria-live="polite" className="inline-flex items-center gap-2">
+                    <span className="text-xs text-slate-500">Added</span>
+                    <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
                   </div>
                 </div>
-              )}
-            </fieldset>
-            <div className="flex gap-2 items-start">
-              <button type="button" onClick={() => setActiveStep(0)} className="w-32 sm:w-36 inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-                Back
-              </button>
-              <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button" disabled={busy || vehicles.length === 0} onClick={proceedToEstimate}>
-                {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` (${vehicles.length} vehicle${vehicles.length>1? 's':''})` : ''}`}
-              </button>
-            </div>
-          </form>
-        </FormProvider>
-      )}
+                {/* Selector de modo de captura */}
+                <div className="rounded-md border border-slate-200 p-3 bg-slate-50 space-y-2">
+                  <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
+                  <div className="flex flex-col gap-2">
+                    <button type="button"
+                      onClick={() => setVehicleMode('specific')}
+                      className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
+                    <button type="button"
+                      onClick={() => setVehicleMode('generic')}
+                      className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    {vehicleMode === 'specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
+                    {vehicleMode === 'generic' && 'Select only a generic type if you do not know the details OR your exact vehicle does not appear. It will be added automatically.'}
+                  </p>
+                </div>
+                {/* Fields in responsive layout */}
+                <div className="grid grid-cols-1 gap-4 pt-1">
+                  {vehicleMode === 'generic' && (
+                    <>
+                      <div>
+                        <VehicleTypeAsyncSelect
+                          name="vehicle_type"
+                          label={'Vehicle Type'}
+                          endpoint={apiUrl('/api/vehicles/types/?for_landing=1')}
+                          hidePresets={false}
+                        />
+                        <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
+                        <Controller
+                          name="vehicle_inop"
+                          control={step2.control}
+                          defaultValue={'0'}
+                          render={({ field }) => (
+                            <div className="flex items-center">
+                              <button
+                                type="button"
+                                aria-pressed={(field.value ?? '0') !== '1'}
+                                onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
+                              >
+                                <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
+                              </button>
+                              <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
+                            </div>
+                          )}
+                        />
+                        <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
+                      </div>
+                    </>
+                  )}
 
-      {/* Step 3: Estimate & insights */}
-      {activeStep === 2 && (
-        <div className={`${padding} space-y-6 w-full max-w-none`}>
-          <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4 shadow-sm">
-            <div className="flex items-start justify-between gap-3 flex-wrap">
-              <div>
-                <p className="text-xs tracking-wider text-slate-500">Special discount for you</p>
-                <div className="flex items-baseline gap-3">
-                  <p className="text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
-                  {perMile != null && miles != null && (
-                    <p className="text-xs text-slate-500">~${perMile}/mi · {formatMiles(miles)}</p>
+                  {vehicleMode === 'specific' && (
+                    <>
+                      {/* Year */}
+                      <div>
+                        <Controller
+                          name="vehicle_year"
+                          control={step2.control}
+                          render={({ field }) => {
+                            const current = new Date().getFullYear() + 1;
+                            const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
+                            const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
+                            return (
+                              <div className="flex flex-col">
+                                <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
+                                <Select
+                                  inputId="vehicle_year"
+                                  value={field.value ? { value: field.value, label: field.value } : null}
+                                  onChange={(opt: any) => field.onChange(opt?.value ?? '')}
+                                  options={years}
+                                  isClearable
+                                  classNamePrefix="react-select"
+                                  placeholder="Select year"
+                                  styles={{
+                                    control: (provided) => ({
+                                      ...provided,
+                                      boxShadow: 'none',
+                                      border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
+                                      borderRadius: '0.375rem',
+                                      minHeight: '2.5rem',
+                                      '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
+                                    }),
+                                    valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
+                                    input: (p) => ({ ...p, margin: 0 }),
+                                    placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
+                                    singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
+                                    indicatorSeparator: () => ({ display: 'none' }),
+                                    menu: (p) => ({ ...p, maxHeight: '12rem' }),
+                                    menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
+                                  }}
+                                  className={`bg-white`}
+                                />
+                              </div>
+                            );
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <MakeAsyncSelect
+                          name="vehicle_make"
+                          label="Vehicle Make"
+                          endpoint={apiUrl('/api/vehicles/makes')}
+                          onPickedMake={() => {
+                            step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: true });
+                          }}
+                        />
+                      </div>
+                      {/* Model */}
+                      <div>
+                        <ModelAsyncSelect
+                          name="vehicle_model"
+                          label="Vehicle Model"
+                          endpoint={apiUrl('/api/vehicles/models')}
+                          make={step2.watch('vehicle_make')}
+                          disabled={!step2.watch('vehicle_make')}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
+                        <Controller
+                          name="vehicle_inop"
+                          control={step2.control}
+                          defaultValue={'0'}
+                          render={({ field }) => (
+                            <div className="flex items-center">
+                              <button
+                                type="button"
+                                aria-pressed={(field.value ?? '0') !== '1'}
+                                onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
+                              >
+                                <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
+                              </button>
+                              <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
+                            </div>
+                          )}
+                        />
+                        <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
+                      </div>
+                    </>
                   )}
                 </div>
-                {normalTotal != null && (
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
-                    {discountedTotal != null && (
-                      <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-semibold">
-                        You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)} ({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}%)
-                      </span>
-                    )}
+                {/* Botón manual removido: ahora se agregan automáticamente según modo */}
+                {vehicles.length > 0 && (
+                  <div className="pt-2">
+                    <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
+                      <p className="text-sm font-semibold text-amber-900">Vehicles added</p>
+                      <div className="pt-2 flex flex-wrap gap-2">
+                        {vehicles.map((v, idx) => (
+                          <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
+                            {v.vehicle_year || v.vehicle_make || v.vehicle_model ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim() : v.vehicle_type || 'Tipo'} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
+                            <button
+                              type="button"
+                              onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))}
+                              aria-label={`Remove vehicle ${idx + 1}`}
+                              title="Remove vehicle"
+                              className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
+                            >
+                              <FaTrash className="h-3 w-3" />
+                              <span className="sr-only">Remove vehicle</span>
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )}
-              </div>
-              <div className="min-w-[180px] flex-1 sm:flex-initial">
-                <div className="flex items-center justify-between text-[11px] text-slate-500">
-                  <span>Confidence</span>
-                  <span>{confidencePct != null ? `${confidencePct}%` : (overallConfidence ? overallConfidence : "--")}</span>
-                </div>
-                <div className="mt-1 h-2 w-full rounded-full bg-slate-200 overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${(confidencePct ?? 0)}%`,
-                      backgroundColor: `hsl(${Math.round(((confidencePct ?? 0) / 100) * 120)}, 85%, 45%)`,
-                      transition: 'width 300ms ease-out'
-                    }}
-                  />
-                </div>
-                <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                  <span>Low</span>
-                  <span>High</span>
-                </div>
-              </div>
-            </div>
-            {miles != null && (
-              <p className="text-xs text-slate-500">Estimated transit time: {transit ?? "--"}</p>
-            )}
-            <p className="text-[11px] text-slate-500">
-              Based on similar real orders. Final price may vary.
-            </p>
-            {estResponses.length > 1 && (
-              <div className="pt-1">
-                <p className="text-[11px] font-medium text-slate-600">Breakdown:</p>
-                <ul className="text-[11px] text-slate-500 list-disc list-inside space-y-0.5">
-                  {estResponses.map(r => (
-                    <li key={r.type}>{r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 space-y-2 text-amber-900">
-            <p className="text-sm font-semibold">Important</p>
-            <ul className="list-disc list-inside text-sm space-y-1">
-              <li>Vehicle size and condition directly impact the total transport cost.</li>
-            </ul>
-          </div>
-          <div>
-            {/* Primary CTA with Back always on the same row */}
-            <div className="flex gap-2 items-start">
-              <button type="button" onClick={() => setActiveStep(1)} className="w-32 sm:w-36 inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-              <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
-            </div>
-          </div>
-          {/* transit time moved up into the estimate card for a cleaner layout */}
-        </div>
-      )}
-
-      {/* Step 4 (exact path): Vehicle details */}
-      {/* Contact Step */}
-      {activeStep === 3 && (
-        <FormProvider {...step4}>
-          <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
-              <CustomInputPhone name="phone" type="text" max={14} label="Phone Number" />
-              <CustomInput name="email" max={30} label="Email Address" />
-              <DateInput name="ship_date" label="Preferred Pickup Date" />
-            </div>
-            {/* Honeypot field to deter bots */}
-            <input type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...(step4.register as any)("website")} />
-            <div className="flex items-start">
-              <small className="text-xs text-slate-500">
-                By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
-                <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
-                and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a>, and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails. Message & data rates may apply.
-              </small>
-            </div>
-            <div className="flex gap-3 items-start pt-1">
-              <button type="button" onClick={() => setActiveStep(2)} className="w-32 sm:w-36 inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-              <div className="flex-1">
-                <button id="submit_button"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base"
-                  type="submit"
-                >
-                  Get My Final Quote
-                  <FaRegPaperPlane />
+              </fieldset>
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
+                <button type="button" onClick={() => setActiveStep(0)} className="inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2.5 px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                  Back
                 </button>
-                <p className="mt-2 text-xs text-slate-500">Get your personalized quote and delivery details</p>
+                <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button" disabled={busy || vehicles.length === 0} onClick={proceedToEstimate}>
+                  {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` · ${numberToWord(vehicles.length)} vehicle${vehicles.length > 1 ? 's' : ''}` : ''}`}
+                </button>
+              </div>
+            </form>
+          </FormProvider>
+        )}
+
+        {/* Step 3: Estimate & insights */}
+        {activeStep === 2 && (
+          <div className={`${padding} space-y-6 w-full max-w-none`}>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 space-y-4 shadow-sm">
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs tracking-wider uppercase text-slate-500">Special discount for you</p>
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <p className="text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
+                    {perMile != null && miles != null && (
+                      <p className="text-xs text-slate-500">~${perMile}/mi · {formatMiles(miles)}</p>
+                    )}
+                  </div>
+                  {normalTotal != null && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
+                      {discountedTotal != null && (
+                        <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-semibold">
+                          You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)} ({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}%)
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className="w-full sm:min-w-[180px] sm:flex-1 sm:flex-initial">
+                  <div className="flex items-center justify-between text-[11px] text-slate-500">
+                    <span>Confidence</span>
+                    <span>{confidencePct != null ? `${confidencePct}%` : (overallConfidence ? overallConfidence : "--")}</span>
+                  </div>
+                  <div className="mt-1 h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${(confidencePct ?? 0)}%`,
+                        backgroundColor: `hsl(${Math.round(((confidencePct ?? 0) / 100) * 120)}, 85%, 45%)`,
+                        transition: 'width 300ms ease-out'
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                    <span>Low</span>
+                    <span>High</span>
+                  </div>
+                </div>
+              </div>
+              {miles != null && (
+                <p className="text-xs text-slate-500">Estimated transit time: {transit ?? "--"}</p>
+              )}
+              <p className="text-[11px] text-slate-500">
+                Based on similar real orders. Final price may vary.
+              </p>
+              {estResponses.length > 1 && (
+                <div className="pt-1">
+                  <p className="text-[11px] font-medium text-slate-600">Breakdown:</p>
+                  <ul className="text-[11px] text-slate-500 list-disc list-inside space-y-0.5">
+                    {estResponses.map(r => (
+                      <li key={r.type}>{r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 sm:p-4 space-y-2 text-amber-900">
+              <p className="text-sm font-semibold">Important</p>
+              <ul className="list-disc list-inside text-xs sm:text-sm space-y-1">
+                <li>This is an estimated price based on past orders. Our specialists will confirm the final price.</li>
+                <li>Vehicle size and condition directly impact the total transport cost.</li>
+              </ul>
+            </div>
+            <div>
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
+                <button type="button" onClick={() => setActiveStep(1)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+                <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
               </div>
             </div>
-          </form>
-        </FormProvider>
-      )}
+            {/* transit time moved up into the estimate card for a cleaner layout */}
+          </div>
+        )}
+
+        {/* Step 4 (exact path): Vehicle details */}
+        {/* Contact Step */}
+        {activeStep === 3 && (
+          <FormProvider {...step4}>
+            <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
+                <CustomInputPhone name="phone" type="text" max={14} label="Phone Number" />
+                <CustomInput name="email" max={30} label="Email Address" />
+                <DateInput name="ship_date" label="Preferred Pickup Date" />
+              </div>
+              {/* Honeypot field to deter bots */}
+              <input type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...(step4.register as any)("website")} />
+              <div className="flex items-start">
+                <small className="text-xs text-slate-500">
+                  By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
+                  <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
+                  and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a>, and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails. Message & data rates may apply.
+                </small>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start pt-1">
+                <button type="button" onClick={() => setActiveStep(2)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+                <div className="flex-1">
+                  <button id="submit_button"
+                    disabled={submitting}
+                    className={`w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    type="submit"
+                  >
+                    Get My Final Quote
+                    <FaRegPaperPlane />
+                  </button>
+                  <p className="mt-2 text-xs text-slate-500">Get your personalized quote and delivery details</p>
+                </div>
+              </div>
+            </form>
+          </FormProvider>
+        )}
       </>
     </div>
   );
@@ -899,4 +907,9 @@ function formatShipDateLocal(input: string | Date | null | undefined): string {
   const dd = String(local.getDate()).padStart(2, '0');
   const y = String(local.getFullYear());
   return `${mm}/${dd}/${y}`;
+}
+
+function numberToWord(n: number): string {
+  const words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+  return words[n] || String(n);
 }
