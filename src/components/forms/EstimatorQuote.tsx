@@ -22,6 +22,7 @@ import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
 import { showNotification } from "../../utils/notificaction";
 import { isValidPhoneNumber } from "libphonenumber-js/max";
+import Swal from "sweetalert2";
 
 type TransportTypeVal = "1" | "2"; // 1 Open, 2 Enclosed
 
@@ -182,7 +183,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           if (!val) return true;
           try { return isValidPhoneNumber(String(val)); } catch { return false; }
         }),
-      email: yup.string().optional().email("Email is not valid"),
+      email: yup.string().optional(),
       ship_date: yup.string().required("Date is required"),
       website: yup.string().max(0).optional(),
     })
@@ -450,6 +451,84 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     }
   }, [activeStep]);
 
+  const [emailSuggestion, setEmailSuggestion] = useState<string>('');
+  const [emailStatus, setEmailStatus] = useState<'idle' | 'loading' | 'valid' | 'invalid' | 'warning' | 'blocked'>('idle');
+  const [emailConfirmedOverride, setEmailConfirmedOverride] = useState(false);
+
+  const validateEmail = async (email: string): Promise<'valid' | 'blocked' | 'warning' | 'idle'> => {
+    if (!email) {
+      setEmailStatus('idle');
+      return 'valid';
+    }
+
+    // Always validate against backend to ensure score is checked
+    setEmailStatus('loading');
+    try {
+      const response = await fetch(apiUrl('/api/customers/validate-email-landing/'), {
+        method: 'POST',
+        headers: {
+          'X-API-KEY': import.meta.env.PUBLIC_API_KEY || '',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+      const score = typeof data.score === 'number' ? data.score : 0;
+
+      if (score < 50) {
+        setEmailStatus('blocked');
+        step4.setError('email', {
+          type: 'manual',
+          message: 'Invalid email address.'
+        });
+        return 'blocked';
+      }
+
+      // Score >= 50: Check for suggestions or valid
+      if (data.suggested) {
+        setEmailSuggestion(data.suggested);
+        setEmailStatus('warning');
+        // Don't set error yet, just warning UI
+        return 'warning';
+      }
+
+      // Valid
+      step4.clearErrors('email');
+      setEmailSuggestion('');
+      setEmailStatus('valid');
+      return 'valid';
+
+    } catch (error) {
+      console.error('Email validation error:', error);
+      setEmailStatus('idle');
+      return 'valid'; // Fallback
+    }
+  };
+
+  const handleEmailConfirmation = async () => {
+    const result = await Swal.fire({
+      title: 'Verify Email Address',
+      html: `We couldn't verify <b>${step4.getValues('email')}</b>.<br/>It might be a typo or a temporary address.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0284c7', // sky-600
+      cancelButtonColor: '#64748b', // slate-500
+      confirmButtonText: 'Use this email anyway',
+      cancelButtonText: 'Let me check again',
+      reverseButtons: true,
+      focusCancel: true,
+    });
+
+    if (result.isConfirmed) {
+      setEmailConfirmedOverride(true);
+      step4.clearErrors('email');
+      setEmailStatus('valid'); // Visually valid now
+      return true;
+    }
+    return false;
+  };
+
   const submitLead = async () => {
     if (submitting) return;
     const s1 = step1.getValues();
@@ -465,6 +544,34 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       showNotification({ text: "Please wait a moment before submitting.", icon: "error" });
       return;
     }
+
+    if (s4.email && !emailConfirmedOverride) {
+      // If status is blocked, stop immediately
+      if (emailStatus === 'blocked') {
+        showNotification({ text: "Please provide a valid email address.", icon: "error" });
+        return;
+      }
+
+      // If status is invalid (legacy) or warning, ask for confirmation
+      if (emailStatus === 'invalid' || emailStatus === 'warning') {
+        const confirmed = await handleEmailConfirmation();
+        if (!confirmed) return;
+      } else if (emailStatus === 'idle') {
+        // Validate if not yet validated
+        const status = await validateEmail(s4.email);
+
+        if (status === 'blocked') {
+          showNotification({ text: "Please provide a valid email address.", icon: "error" });
+          return;
+        }
+
+        if (status === 'warning') {
+          const confirmed = await handleEmailConfirmation();
+          if (!confirmed) return;
+        }
+      }
+    }
+
     setSubmitting(true);
     // Determine primary vehicle (first in the cart) or fallback to current step2 values
     const primaryVehicle = vehicles[0] ?? {
@@ -841,7 +948,71 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
                 <CustomInputPhone name="phone" type="text" max={14} label="Phone Number" />
-                <CustomInput name="email" max={30} label="Email Address" />
+                <div>
+                  <CustomInput
+                    name="email"
+                    max={30}
+                    label="Email Address"
+                    skipAutoValid={true}
+                    isLoading={emailStatus === 'loading'}
+                    status={
+                      emailStatus === 'warning' ? 'warning' :
+                        emailStatus === 'valid' ? 'success' :
+                          (emailStatus === 'invalid' || emailStatus === 'blocked') ? 'error' : undefined
+                    }
+                    rightElement={
+                      emailStatus === 'warning' ? (
+                        <span className="text-amber-500" title="Suggestion available">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                            <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      ) : undefined
+                    }
+                    onBlur={(e) => validateEmail(e.target.value)}
+                    onChange={() => {
+                      if (emailSuggestion) setEmailSuggestion('');
+                      if (emailStatus !== 'idle') setEmailStatus('idle');
+                      if (emailConfirmedOverride) setEmailConfirmedOverride(false);
+                      step4.clearErrors('email');
+                    }}
+                  />
+                  {/* Suggestion Card */}
+                  {emailSuggestion && (
+                    <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 shadow-sm fadeInUp">
+                      <div className="text-amber-500 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                          <path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.387 17.387 0 005.268 0zM9.772 17.119a18.994 18.994 0 01-2.966-.231 18.992 18.992 0 01-4.245-2.381 9.712 9.712 0 006.089 6.216 12.182 12.182 0 011.122-3.604z" />
+                          <path d="M2.279 12.752a9.711 9.711 0 01.945-5.003 12.754 12.754 0 004.339 2.708 18.991 18.991 0 00.214 4.772 17.165 17.165 0 01-5.498-2.477zM12 10.5a12.74 12.74 0 018.996-3.795A9.708 9.708 0 0012 2.99a9.708 9.708 0 00-8.996 3.715 12.74 12.74 0 018.996 3.795z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-amber-800 font-medium">Possible typo detected</p>
+                        <p className="text-xs text-amber-700 mt-1">
+                          Did you mean <button type="button" className="font-bold underline hover:text-amber-900" onClick={() => {
+                            step4.setValue('email', emailSuggestion);
+                            setEmailSuggestion('');
+                            setEmailStatus('valid');
+                            step4.clearErrors('email');
+                          }}>{emailSuggestion}</button>?
+                        </p>
+                      </div>
+                      <button type="button" onClick={() => setEmailSuggestion('')} className="text-amber-400 hover:text-amber-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                          <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                  {/* Invalid Email Confirmation UI (if not using modal, or as helper) */}
+                  {emailStatus === 'invalid' && !emailConfirmedOverride && (
+                    <div className="mt-1 flex justify-end">
+                      <button type="button" onClick={handleEmailConfirmation} className="text-[10px] text-slate-400 hover:text-slate-600 underline">
+                        I am sure this email is correct
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <DateInput name="ship_date" label="Preferred Pickup Date" />
               </div>
               {/* Honeypot field to deter bots */}
