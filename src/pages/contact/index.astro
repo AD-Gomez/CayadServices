@@ -22,87 +22,93 @@ import { FaPhone } from "react-icons/fa";
 
 <Layout title="Contact Us | Cayad Auto Transport" 
 content="You need to get in touch with us? Call now or visit our website. We are always here to help.">
-  <section
-    class="w-[80%] xs:w-full sm:w-full md:w-full xs:px-4 sm:px-4 md:px-4 my-12 mx-auto flex flex-col justify-between"
-  >
-    <h1 class="text-4xl font-semibold">Cayad Auto Transport Contact</h1>
-    <h2 class="text-sm mt-2 text-[#555]">
-      To Get a Premium Quote or discuss your concerns about car transportation,
-      contact us directly or fill out the form and we will get back to you
-      shortly
-    </h2>
-  </section>
-  <section
-    class="w-[80%] my-12 mx-auto xs:w-full sm:w-full flex xs:flex-col sm:flex-col md:flex-col justify-between"
-  >
-    <div class="w-[48%] xs:w-full sm:w-full md:w-full xs:px-4 sm:px-4 md:px-4">
-      <div class="w-full shadow-2xl bg-btn-blue py-8 rounded-xl h-max">
-        <h3 class="text-white ml-4 text-2xl font-semibold">Our location</h3>
+  <div class="relative bg-slate-50 py-24 sm:py-32">
+    <div class="absolute inset-x-0 top-0 -z-10 h-1/2 bg-gray-50 opacity-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center mb-16">
+        <h1 class="text-4xl font-bold font-heading tracking-tight text-slate-900 sm:text-6xl mb-4">
+          Contact Cayad Auto Transport
+        </h1>
+        <p class="text-lg leading-8 text-slate-600">
+          To get a premium quote or discuss your transport needs, contact us directly or fill out the form. We're here to help.
+        </p>
       </div>
-      <div class="map w-full mt-8">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13746.382951171547!2d-87.2973415!3d30.5324684!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x889095ee7be6367f%3A0xad61013643e158fe!2sCayad%20Auto%20Transport!5e0!3m2!1sen!2sve!4v1708374379148!5m2!1sen!2sve"
-          height="450"
-          style="border:0;"
-          class="w-full rounded-xl"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-    <div
-      class="w-[45%] xs:mt-4 sm:mt-4 md:mt-4 xs:w-full sm:w-full md:w-full xs:px-4 sm:px-4 md:px-4"
-    >
-      <div
-        class="w-full bg-btn-blue shadow-2xl flex flex-col items-center py-8 rounded-xl h-max"
-      >
-        <h3 class="text-white text-2xl font-semibold">
-          Reaching out to a specialist !
-        </h3>
-        <button
-          class="bg-[#007BAF] mt-8 w-[200px] hover:bg-btn-hover duration-300 rounded-xl px-7 py-3"
-        >
-          <a
-            class="text-white text-xl flex w-full justify-center items-center"
-            href="tel:+14696190747"
-            >Call Now <FaPhone className="text-[#FFFF] ml-4" />
-          </a>
-        </button>
-      </div>
-      <div
-        class="w-full mt-4 shadow-2xl bg-btn-blue flex flex-col items-center py-8 rounded-xl h-max"
-      >
-        <h3 class="text-white text-2xl font-semibold">Business Hours</h3>
-        <div class="w-[80%] xs:w-[90%] sm:w-[90%] mt-8 text-base text-white">
-          <p>Weekdays: 8:00am to 5:00pm</p>
-          <p>Sat & Sun: 8:00am to 5:00pm</p>
+
+      <div class="mx-auto grid max-w-4xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-2">
+        <!-- Location and Map -->
+        <div class="flex flex-col gap-8">
+          <div class="rounded-2xl bg-white p-8 shadow-card ring-1 ring-gray-900/5">
+            <h3 class="text-2xl font-bold font-heading text-slate-900 mb-6 flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-btn-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>              
+              </span>
+              Our Location
+            </h3>
+            <p class="text-slate-600 mb-6 text-lg">
+              PACE, FL 32571
+            </p>
+            <div class="overflow-hidden rounded-xl shadow-md border border-slate-100">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13746.382951171547!2d-87.2973415!3d30.5324684!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x889095ee7be6367f%3A0xad61013643e158fe!2sCayad%20Auto%20Transport!5e0!3m2!1sen!2sve!4v1708374379148!5m2!1sen!2sve"
+                height="350"
+                style="border:0;"
+                class="w-full"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Options -->
+        <div class="flex flex-col gap-6">
+          <!-- Call Card -->
+          <div class="rounded-2xl bg-white p-8 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-gray-900/5 group">
+            <h3 class="text-xl font-bold font-heading text-slate-900 mb-2">Talk to a Specialist</h3>
+            <p class="text-slate-600 mb-6">Immediate assistance for your shipping needs.</p>
+            <a href="tel:+14696190747" class="inline-flex w-full items-center justify-center rounded-xl bg-btn-blue px-6 py-4 text-lg font-semibold text-white shadow-sm hover:bg-btn-hover transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 group-hover:scale-[1.02] duration-300">
+              <FaPhone className="mr-3 h-5 w-5" />
+              (469) 619-0747
+            </a>
+          </div>
+
+          <!-- Email Card -->
+          <div class="rounded-2xl bg-white p-8 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-gray-900/5 group">
+             <h3 class="text-xl font-bold font-heading text-slate-900 mb-2">Email Us</h3>
+             <p class="text-slate-600 mb-6">Send us a message and we'll reply shortly.</p>
+             <a href="mailto:info@cayadservices.com" class="inline-flex w-full items-center justify-center rounded-xl bg-slate-50 px-6 py-4 text-lg font-semibold text-slate-900 border border-slate-200 hover:bg-slate-100 transition-colors group-hover:scale-[1.02] duration-300">
+               info@cayadservices.com
+             </a>
+          </div>
+
+          <!-- Hours Card -->
+          <div class="rounded-2xl bg-slate-900 p-8 shadow-card shadow-slate-200 text-white relative overflow-hidden">
+             <div class="relative z-10">
+                <h3 class="text-xl font-bold font-heading mb-4">Business Hours</h3>
+                <dl class="space-y-2 text-slate-300">
+                  <div class="flex justify-between border-b border-white/10 pb-2">
+                    <dt>Weekdays</dt>
+                    <dd class="font-semibold text-white">8:00 am - 5:00 pm</dd>
+                  </div>
+                  <div class="flex justify-between pt-2">
+                    <dt>Sat & Sun</dt>
+                    <dd class="font-semibold text-white">8:00 am - 5:00 pm</dd>
+                  </div>
+                </dl>
+             </div>
+             <!-- Decorative background effect -->
+             <div class="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-white/10 blur-2xl"></div>
+             <div class="absolute bottom-0 left-0 -ml-8 -mb-8 h-32 w-32 rounded-full bg-btn-blue/20 blur-2xl"></div>
+          </div>
+
         </div>
       </div>
-      <div
-        class="w-full shadow-2xl mt-4 bg-btn-blue flex flex-col items-center py-8 rounded-xl h-max"
-      >
-        <h3 class="text-white text-xl font-semibold">
-          PACE, FL 32571
-        </h3>
-        <button
-          class="bg-[#007BAF] mt-8 w-[90%] rounded-xl px-7 py-3"
-          onclick="window.location.href='mailto:info@cayadservices.com'"
-        >
-          <a class="text-white text-base flex w-full items-center">
-            info@cayadservices.com
-          </a>
-        </button>
-        <button class="bg-[#007BAF] mt-4 w-[90%] rounded-xl px-7 py-3">
-          <a
-            class="text-white text-base flex w-full items-center"
-            href="tel:+14696190747"
-          >
-            (469) 619-0747
-          </a>
-        </button>
-      </div>
     </div>
-  </section>
+  </div>
 
   <ButtonScrollTop client:load />
 </Layout>

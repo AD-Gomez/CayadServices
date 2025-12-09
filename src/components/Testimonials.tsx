@@ -99,9 +99,9 @@ const testimonials = [
 
 const renderStars = (rating: number) => {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row gap-0.5">
       {[...Array(rating)].map((_, index) => (
-        <svg key={index} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5 fill-yellow-400">
+        <svg key={index} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-yellow-400 drop-shadow-sm">
           <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
         </svg>
       ))}
@@ -166,12 +166,12 @@ const Testimonials = ({ title, position }: testimonialsType) => {
   };
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto fadeInUp xs:w-full md:w-11/12 px-4" data-wow-delay="0.5s">
+    <div className="w-full max-w-[1200px] mx-auto fadeInUp md:w-11/12 px-4" data-wow-delay="0.5s">
       {position === 'left'
-        ? <h2 className="xs:px-4 sm:px-4 w-full mb-8 text-4xl font-medium">
+        ? <h2 className="px-4 w-full mb-10 text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-slate-900 tracking-tight">
           {title}
         </h2>
-        : <h2 className="text-center mb-8 text-4xl font-medium">
+        : <h2 className="text-center mb-10 text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-slate-900 tracking-tight">
           {title}
         </h2>
       }
@@ -197,31 +197,31 @@ const Testimonials = ({ title, position }: testimonialsType) => {
           },
         }}
         pagination={{ clickable: true }}
-  autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 3000 }}
         onSlideChange={handleSlideChange}
-        className="h-[350px] w-full xs:px-4 sm:px-4 overflow-hidden"
+        className="min-h-[320px] md:h-[350px] w-full px-2 sm:px-4 overflow-visible"
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>
-            <div className={`relative w-full box-border overflow-hidden cursor-pointer xs:px-4 sm:px-4 p-4 my-5 ${activeIndex === index ? 'shadow-2xl fadeInUp' : ''}`}>
-              <a href={testimonial.link} target="_blank">
-                <FaQuoteRight className="text-text-light bg-transparent text-5xl absolute top-0 right-1" />
-                <div className="w-full xs:px-4 sm:px-4 flex flex-row xs:flex-row md:flex-row justify-evenly items-center">
-                  <div className="w-16">
-                    <img loading="eager" src={PRELOADED_BLOBS.get(testimonial.image.src) ?? testimonial.image.src} width={50} height={50} className="bg-contain rounded-[50%] h-[50px] w-[50px]" alt="img customer" />
+            <div className={`relative w-full box-border overflow-hidden cursor-pointer p-6 my-4 bg-white rounded-2xl transition-all duration-300 ${activeIndex === index ? 'shadow-card-hover scale-[1.02] ring-1 ring-blue-50' : 'shadow-card hover:shadow-card-hover hover:scale-[1.01]'}`}>
+              <a href={testimonial.link} target="_blank" className="block h-full">
+                <FaQuoteRight className="text-blue-100/50 text-6xl absolute top-4 right-4 -z-0" />
+                <div className="w-full flex flex-row items-center gap-4 relative z-10 mb-4">
+                  <div className="shrink-0">
+                    <img loading="eager" src={PRELOADED_BLOBS.get(testimonial.image.src) ?? testimonial.image.src} width={50} height={50} className="object-cover rounded-full h-14 w-14 ring-2 ring-white shadow-md" alt="img customer" />
                   </div>
-                  <div className="text-center md:text-left">
-                    <h4 className="text-xl font-normal mb-2">
+                  <div className="text-left flex-grow">
+                    <h4 className="text-lg font-bold font-heading text-slate-900">
                       {testimonial.name}
                     </h4>
                     {renderStars(testimonial.rating)}
                   </div>
-                  <div className="w-16 mt-4">
-                    <img loading="eager" src={PRELOADED_BLOBS.get((testimonial as any).userImage.src) ?? (testimonial as any).userImage.src} width={50} height={50} className="bg-cover" alt="image google" />
+                  <div className="shrink-0">
+                    <img loading="eager" src={PRELOADED_BLOBS.get((testimonial as any).userImage.src) ?? (testimonial as any).userImage.src} width={50} height={50} className="object-contain w-8 h-8 opacity-80" alt="image google" />
                   </div>
                 </div>
-                <div className="flex flex-col p-4  text-p-landing">
-                  {testimonial.comment}
+                <div className="relative z-10 text-slate-600 font-sans leading-relaxed text-base italic">
+                  "{testimonial.comment}"
                 </div>
               </a>
             </div>

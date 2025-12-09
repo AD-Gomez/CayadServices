@@ -24,23 +24,32 @@ export default {
 				'banner-5': "url('./public/img/banner5.webp')"
 			},
 			height: {
-				'600': '600px',
-				'700': '750px',
+				'450': '450px',
 				'500': '500px',
 				'550': '550px',
-				'500': '500px',
-				'450': '450px'
+				'600': '600px',
+				'700': '750px'
 			},
 			width: {
 				'450': '400px',
 				'455': '450px'
 			},
 			screens: {
-				'xs': { 'min': '200px', 'max': '600px' },
-				'sm': { 'min': '600px', 'max': '767px' },
-				'md': { 'min': '768px', 'max': '1223px' },
-				'lg': { 'min': '1024px', 'max': '1279px' },
-				'xl': { 'min': '1280px', 'max': '1985px' },
+				'xs': '375px',
+				'sm': '640px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
+				'2xl': '1536px'
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				heading: ['Outfit', 'sans-serif'],
+			},
+			boxShadow: {
+				'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+				'card': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+				'card-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03)',
 			}
 		},
 		keyframes: {
@@ -57,7 +66,6 @@ export default {
 			marquee: 'marquee 8s linear infinite',
 			'spin-slow': 'spin 1s linear infinite',
 		},
-
 	},
 	variants: {
 		extend: {
