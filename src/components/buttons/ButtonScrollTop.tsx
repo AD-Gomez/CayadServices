@@ -25,7 +25,7 @@ const ButtonScrollTop = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-20 flex flex-col items-end">
+    <div className="fixed bottom-4 right-20 flex flex-col items-end z-50">
 
       <div
         className={`fixed right-[70px] ${isAtBottom ? 'bottom-[100px]' : 'bottom-[1.2rem]'} transition-all duration-300`}
@@ -57,3 +57,4 @@ const ButtonScrollTop = () => {
 };
 
 export default ButtonScrollTop;
+

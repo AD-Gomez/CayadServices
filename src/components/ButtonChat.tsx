@@ -45,7 +45,7 @@ const ButtonChat = () => {
 
   return (
     <div
-      className={`fixed ${isAtBottom ? 'bottom-24' : 'bottom-4'} right-4 flex flex-col items-end`}
+      className={`fixed ${isAtBottom ? 'bottom-24' : 'bottom-4'} right-4 flex flex-col items-end z-50`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -68,7 +68,7 @@ const ButtonChat = () => {
             className="h-12 w-12 flex items-center justify-center bg-green-500 text-[2rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
             aria-label="Open WhatsApp"
             data-gtm="whatsapp-button"
-            
+
           >
             <IoLogoWhatsapp />
           </a>
@@ -97,3 +97,4 @@ const ButtonChat = () => {
 };
 
 export default ButtonChat;
+

@@ -23,126 +23,123 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   content="Cost effective enclosed car transport 10.000+ shippings, ensuring the highest level of safety and protection for your vehicle during transit. 5 stars call now !"
 >
   <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+    class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background"
   >
-    <div class="w-[80%]">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center">
       <p
-        class="changing-text text-white text-6xl"
+        class="text-white text-lg font-bold mb-4 tracking-wider uppercase"
       >
         Enclosed Car Transport
       </p>
-      <h1 class="text-white text-lg font-semibold">
+      <h1 class="text-white text-4xl sm:text-5xl md:text-7xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg leading-tight">
         The most cost effective enclosed car shipping in the U.S
       </h1>
       <GetQuoete />
     </div>
   </div>
 
-  <div class="w-full mt-12 flex justify-center mb-8">
-    <Testimonials title="Real Enclosed Auto Transport Services" client:load />
-  </div>
-
-  <div class="w-full mt-12 mb-12 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          Enclosed Auto Shipping Services
-        </h2>
-        <p class="mb-2">
-        Protect what matters most. With <strong>enclosed vehicle transportation</strong>, your luxury or classic car travels shielded from weather and road debris safe, secure, and handled with expert care.
-        <br /><br />
-        Need pricing? Our <strong>enclosed car transport quote</strong> tool gives you instant, transparent rates based on your route and vehicle type, no hidden <strong>car carrier cost</strong>, just premium protection from start to finish.
-        <br /><br />
-        Choose peace of mind. Choose <strong>Cayad</strong>.
-      </p>
-  
-        
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="mb-20">
+        <Testimonials title="Real Enclosed Auto Transport Services" client:load />
       </div>
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img
-          src="/img/enclosed-car2.webp"
-          class="rounded-xl"
-          height={400}
-          width={640}
-          sizes="(max-width: 600px) 100vw, 50vw"
-          alt="enclosed auto transport"
-        />
-      </div>
-    </div>
-  </div>
 
-  <div class="w-full mt-12 mb-12 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img
-          src="/img/enclosed-car1.webp"
-          width="1632"
-          height="918"
-          class="rounded-xl"
-          alt="enclosed auto transport deportive vehicle"
-        />
-      </div>
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h2 class="text-3xl mt-2 sm:text-4xl md:text-5xl font-semibold mb-4">
-          How Much Does Enclosed Auto Transport Cost?
-        </h2>
-        <p class="mb-2">
-          Wondering <strong>how much do car haulers charge per mile</strong>? On average, <strong>enclosed car shipping rates</strong> are 30–40% higher than <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">open transport</a> due to the added protection. Expect to pay around $709 for short routes, $929 for medium, and $1179+ for long-distance shipping. <br><br>At Cayad, we deliver the best value on your <strong>enclosed auto transport cost</strong>, combining security, care, and competitive pricing.
-        </p>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full mb-2 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          Do You Need Enclosed Car Transport? 
-        </h2>
-        <div
-          class="lg:w-1/2 feature-text animate__animated animate__fadeInUp"
-          data-wow-delay="0.1s"
-        >
-          <div
-            class="flex mb-5 animate__animated animate__fadeInUp"
-            data-wow-delay="0.3s"
-          >
-            <ol>
-              <p class="mb-2">
-                Not sure if <strong>enclosed auto transport</strong> is the right fit? Consider these quick questions:
-              </p>
-              <ul class="list-disc ml-6 mt-4 text-black text-sm">
-                <li>Do you consider your vehicle a valuable investment?</li>
-                <li>Are you concerned about snow, cold weather, or road conditions?</li>
-                <li>Is protecting your car from dust, dirt, or flying debris important to you?</li>
-                <li>Does your vehicle have a custom finish or vintage paint job?</li>
-                <li>Do you want extra protection against theft or vandalism?</li>
-              </ul>
-              <p class="mt-2 mb-2">
-                If you answered yes to any of these, enclosed shipping through trusted <strong>automobile carriers</strong> is your best choice. 
-                While the <strong>auto transport cost per mile</strong> may be slightly higher, the added security is worth every penny, especially for high-value or rare vehicles.
-              </p>
-
-            </ol>
-          </div>
+       <!-- Section 1 -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 mb-20">
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 leading-tight">
+            Enclosed Auto Shipping Services
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-6">
+            Protect what matters most. With <strong>enclosed vehicle transportation</strong>, your luxury or classic car travels shielded from weather and road debris safe, secure, and handled with expert care.
+          </p>
+          <p class="text-lg text-slate-600 leading-relaxed mb-6">
+            Need pricing? Our <strong>enclosed car transport quote</strong> tool gives you instant, transparent rates based on your route and vehicle type, no hidden <strong>car carrier cost</strong>, just premium protection from start to finish.
+          </p>
+          <p class="text-lg text-slate-900 font-semibold">
+            Choose peace of mind. Choose <strong>Cayad</strong>.
+          </p>
+        </div>
+        <div class="w-full lg:w-1/2">
+           <img
+            src="/img/enclosed-car2.webp"
+            class="rounded-2xl shadow-2xl w-full transform hover:scale-[1.02] transition-transform duration-500"
+            height={400}
+            width={640}
+            alt="enclosed auto transport"
+          />
         </div>
       </div>
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img
-          src="/img/enclosed-car3.webp"
-          width="1000"
-          height="750"
-          class="rounded-xl"
-          alt="enclosed car transport vehicle been pick up"
-        />
+
+       <!-- Section 2 -->
+      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-20">
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 leading-tight">
+             How Much Does Enclosed Auto Transport Cost?
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed">
+            Wondering <strong>how much do car haulers charge per mile</strong>? On average, <strong>enclosed car shipping rates</strong> are 30–40% higher than <a href="/for-individuals/open-car-transport/" class="text-btn-blue font-semibold hover:underline">open transport</a> due to the added protection. Expect to pay around $709 for short routes, $929 for medium, and $1179+ for long-distance shipping. 
+            <br><br>
+            At Cayad, we deliver the best value on your <strong>enclosed auto transport cost</strong>, combining security, care, and competitive pricing.
+          </p>
+        </div>
+         <div class="w-full lg:w-1/2">
+          <img
+            src="/img/enclosed-car1.webp"
+            width="1632"
+            height="918"
+            class="rounded-2xl shadow-2xl w-full transform hover:scale-[1.02] transition-transform duration-500"
+            alt="enclosed auto transport deportive vehicle"
+          />
+        </div>
       </div>
+
+       <!-- Section 3 -->
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="w-full lg:w-1/2">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 leading-tight">
+            Do You Need Enclosed Car Transport?
+          </h2>
+          <p class="text-lg text-slate-600 mb-6">
+            Not sure if <strong>enclosed auto transport</strong> is the right fit? Consider these quick questions:
+          </p>
+          
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start text-slate-700">
+               <span class="mr-3 mt-1 text-btn-blue">●</span> Do you consider your vehicle a valuable investment?
+            </li>
+            <li class="flex items-start text-slate-700">
+               <span class="mr-3 mt-1 text-btn-blue">●</span> Are you concerned about snow, cold weather, or road conditions?
+            </li>
+             <li class="flex items-start text-slate-700">
+               <span class="mr-3 mt-1 text-btn-blue">●</span> Is protecting your car from dust, dirt, or flying debris important to you?
+            </li>
+             <li class="flex items-start text-slate-700">
+               <span class="mr-3 mt-1 text-btn-blue">●</span> Does your vehicle have a custom finish or vintage paint job?
+            </li>
+             <li class="flex items-start text-slate-700">
+               <span class="mr-3 mt-1 text-btn-blue">●</span> Do you want extra protection against theft or vandalism?
+            </li>
+          </ul>
+
+          <p class="text-lg text-slate-600 leading-relaxed bg-blue-50 p-6 rounded-xl border border-blue-100">
+            If you answered yes to any of these, enclosed shipping through trusted <strong>automobile carriers</strong> is your best choice. 
+            While the <strong>auto transport cost per mile</strong> may be slightly higher, the added security is worth every penny, especially for high-value or rare vehicles.
+          </p>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <img
+            src="/img/enclosed-car3.webp"
+            width="1000"
+            height="750"
+            class="rounded-2xl shadow-2xl w-full transform hover:scale-[1.02] transition-transform duration-500"
+            alt="enclosed car transport vehicle been pick up"
+          />
+        </div>
+      </div>
+
     </div>
   </div>
 
