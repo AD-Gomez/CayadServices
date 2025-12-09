@@ -320,8 +320,8 @@ export default function Navbar() {
               </button>
             </div>
             <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-slate-100">
-                <div className="space-y-2 py-6">
+              <div className="-my-6 divide-y divide-slate-100 flex flex-col min-h-[calc(100vh-80px)]">
+                <div className="space-y-2 py-6 flex-1">
 
                   <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
@@ -341,7 +341,7 @@ export default function Navbar() {
                     )}
                   </Disclosure>
 
-                  <Disclosure as="div" className="-mx-3">
+                  <Disclosure as="div" className="-mx-3" defaultOpen={isPopoverIndividualsActive}>
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-slate-900 hover:bg-slate-50 hover:text-[#00a1e1]">
@@ -366,7 +366,7 @@ export default function Navbar() {
                     )}
                   </Disclosure>
 
-                  <Disclosure as="div" className="-mx-3">
+                  <Disclosure as="div" className="-mx-3" defaultOpen={isPopoverBusinessesActive}>
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-slate-900 hover:bg-slate-50 hover:text-[#00a1e1]">
@@ -384,7 +384,7 @@ export default function Navbar() {
                     )}
                   </Disclosure>
 
-                  <Disclosure as="div" className="-mx-3">
+                  <Disclosure as="div" className="-mx-3" defaultOpen={isPopoverWhyUsActive}>
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-slate-900 hover:bg-slate-50 hover:text-[#00a1e1]">
@@ -417,10 +417,11 @@ export default function Navbar() {
                   </div>
 
                 </div>
+                <div className="py-6 mt-auto text-center text-xs text-slate-400">
+                  <p className="text-[10px] uppercase font-medium tracking-[0.2em] mb-1 text-slate-500">IN GOD WE TRUST</p>
+                  <p>&copy; 2023-2025 Cayad Services LLC</p>
+                </div>
               </div>
-            </div>
-            <div className="absolute bottom-4 left-6 right-6 text-center text-xs text-slate-400">
-              <p>&copy; 2023-2025 Cayad Services LLC</p>
             </div>
           </Dialog.Panel>
         </Dialog>
