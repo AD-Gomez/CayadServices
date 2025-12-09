@@ -18,11 +18,23 @@ export type SpecificVehicleReq = {
   count?: number; // default 1
 };
 
+export type TimeframeSeasonality = {
+  shipping_timeframe: string;
+  ship_date: string;
+  total_modifier: number;
+  timeframe_modifier: number;
+  timeframe_reason: string;
+  seasonality_modifier: number;
+  seasonality_reason: string;
+};
+
 // Backwards-compat legacy fields are optional and should not be sent when using vehicles[]
 export type PriceEstimateRequest = {
   origin_zip: string; // 5-digit US ZIP
   destination_zip: string; // 5-digit US ZIP
   transport_type: TransportType; // "open" | "enclosed"
+  shipping_timeframe?: string;
+  ship_date?: string; // YYYY-MM-DD
   vehicles?: Array<GenericVehicleReq | SpecificVehicleReq>;
   // legacy (single vehicle type):
   vehicle_type?: string;
@@ -63,6 +75,8 @@ export type PriceEstimateResponse = {
   confidence?: "low" | "medium" | "high";
   confidence_pct?: number;
   sample_size?: number;
+  // New fields
+  timeframe_seasonality?: TimeframeSeasonality;
 };
 
 export async function postPriceEstimate(payload: PriceEstimateRequest, signal?: AbortSignal): Promise<PriceEstimateResponse | null> {

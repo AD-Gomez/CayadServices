@@ -7,7 +7,7 @@ import ZipcodeAutocompleteRHF from "../inputs/ZipcodeAutocompleteRHF";
 import { distanceForLocations, estimateTransitDays, formatMiles } from "../../services/distance";
 import { parseCityStateZip } from "../../utils/leadFormat";
 import { apiUrl } from "../../services/config";
-import { postPriceEstimate, type PriceEstimateRequest, type PriceEstimateResponse } from "../../services/priceEstimate";
+import { postPriceEstimate, type PriceEstimateRequest, type PriceEstimateResponse, type TransportType } from "../../services/priceEstimate";
 import MakeAsyncSelect from "../MakeAsyncSelect";
 import ModelAsyncSelect from "../ModelAsyncSelect";
 import VehicleTypeAsyncSelect from "../VehicleTypeAsyncSelect";
@@ -165,8 +165,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       step2.setValue('vehicle_type', '');
     }
   }, [vehicleMode]);
-  // Evitar auto-agregar duplicados mientras el usuario aún edita
   const [lastAddedSignature, setLastAddedSignature] = useState<string>('');
+
+  const [transportType, setTransportType] = useState<TransportType>('open');
 
   const contactSchema: yup.ObjectSchema<ContactValues> = yup
     .object({
@@ -245,7 +246,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const unifiedPayload: PriceEstimateRequest = {
         origin_zip,
         destination_zip,
-        transport_type: 'open',
+        transport_type: transportType, // Use selected transport type
         vehicles: mixedItems.map(it => it.kind === 'generic'
           ? { type: it.type, inop: !!it.inop, count: it.count }
           : { type: it.type, year: it.year!, make: it.make!, model: it.model!, inop: !!it.inop, count: it.count }
@@ -314,7 +315,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           const legacyPayload: PriceEstimateRequest = {
             origin_zip,
             destination_zip,
-            transport_type: 'open',
+            transport_type: transportType, // Use selected transport type
             vehicle_type: vt,
             inop: false,
             vehicles_count: count,
@@ -591,7 +592,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
     const payload: any = {
       ...s1,
-      transport_type: "1", // assume Open for quick quote
+      transport_type: transportType === 'open' ? "1" : "2", // 1 Open, 2 Enclosed
       ...s4,
       client_estimate: {
         miles,
@@ -601,7 +602,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         vehicle_type: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
         vehicle_class: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
         vehicles_count: vehicles.length,
-        transport_type: "Open",
+        transport_type: transportType === 'open' ? "Open" : "Enclosed",
         // include the specific primary vehicle details so backend receives year/make/model/inop
         primary_vehicle: {
           year: primaryVehicle.vehicle_year || '',
@@ -685,6 +686,20 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                     <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
                   </div>
                 </div>
+
+                {/* Transport Type Selector */}
+                <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
+                  <p className="text-xs text-slate-600 font-medium">Transport Type</p>
+                  <div className="flex flex-row gap-3">
+                    <button type="button"
+                      onClick={() => setTransportType('open')}
+                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${transportType === 'open' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Open Transport</button>
+                    <button type="button"
+                      onClick={() => setTransportType('enclosed')}
+                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${transportType === 'enclosed' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Enclosed Transport</button>
+                  </div>
+                </div>
+
                 {/* Selector de modo de captura */}
                 <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
                   <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
@@ -1077,7 +1092,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           </FormProvider>
         )}
       </>
-    </div>
+    </div >
   );
 
   if (embedded) return content;
