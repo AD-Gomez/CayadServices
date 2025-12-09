@@ -91,7 +91,9 @@ const { title, content } = Astro.props;
     </noscript>
     <!--google tag body -->
     <Navbar client:load />
-    <slot />
+    <main class="pt-[72px] sm:pt-[80px]">
+      <slot />
+    </main>
     <ButtonChat client:load />
     <Footer />
     <SocialProof client:load />

@@ -90,11 +90,11 @@ export default function Navbar() {
   const isPopoverHowItWorkActive = pathsToCheckHowItWork.some(path => isActive(path));
 
   return (
-    <>
+    <div className="fixed top-0 left-0 right-0 z-50 w-full">
       <MarqueeText />
       <header
         className={classNames(
-          "sticky top-0 z-50 transition-all duration-300 border-t-[4px] border-[#00a1e1]",
+          "transition-all duration-300 border-t-[4px] border-[#00a1e1]",
           scrolled ? "bg-white/95 backdrop-blur-md shadow-md py-2" : "bg-white py-4"
         )}
       >
@@ -425,6 +425,6 @@ export default function Navbar() {
           </Dialog.Panel>
         </Dialog>
       </header>
-    </>
+    </div>
   )
 }
