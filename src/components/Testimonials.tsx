@@ -199,7 +199,7 @@ const Testimonials = ({ title, position }: testimonialsType) => {
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
         onSlideChange={handleSlideChange}
-        className="min-h-[320px] md:h-[350px] w-full px-2 sm:px-4 overflow-visible"
+        className="min-h-[320px] md:h-[350px] w-full px-2 sm:px-4 overflow-hidden"
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id}>

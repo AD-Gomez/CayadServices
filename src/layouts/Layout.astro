@@ -19,7 +19,7 @@ const { title, content } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-x-clip">
   <head>
     <!--google tag head -->
     <script is:inline>
@@ -80,7 +80,7 @@ const { title, content } = Astro.props;
     <title>{title}</title>
   </head>
 
-  <body class="relative font-sans text-slate-800 antialiased">
+  <body class="relative font-sans text-slate-800 antialiased overflow-x-hidden">
     <!--google tag body -->
     <noscript>
       <iframe
