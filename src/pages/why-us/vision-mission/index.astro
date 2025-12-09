@@ -18,40 +18,40 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
 
 <Layout title="Vision & Mission | Cayad Auto Transport"
 content="Our mission is to become the most cost-effective car shipper industry in the U.S. by integrating top-notch tools with the highly expertise of specialists.">
-  <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
-  >
-    <div class="w-[80%]">
-      <p
-        class="text-white text-[4rem] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
-      >
-      Exceptional Delivery and Rapid Growth
-      </p>
-      <p class="text-white text-lg font-semibold">
+  <div class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background">
+     <div class="absolute inset-0 bg-black/50 z-0"></div>
+     <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg">
+        Exceptional Delivery and Rapid Growth
+      </h1>
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
         Rich History of Innovation, Dependability and Success
       </p>
       <GetQuote />
     </div>
   </div>
 
-  <div class="w-full flex mt-8 justify-center">
-    <div class="w-[80%]">
-      <h1
-        class="text-[#232b36] text-[30px] xs:text-[1.8rem] sm:text-[1.8rem] font-bold"
-      >
-      Exceptional Car Shipping Service in U.S and Rapid Growth
-      </h1>
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+          Exceptional Car Shipping Service in U.S and Rapid Growth
+        </h2>
+      </div>
+
+      <div class="w-full mb-20">
+         <!-- StepVision component container -->
+         <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm">
+           <StepVision client:load />
+         </div>
+      </div>
+
+      <div class="mb-12">
+        <Testimonials title="Real Auto Transport Testimonials" client:load />
+      </div>
+
     </div>
-  </div>
-
-  <div
-    class="w-full flex flex-col items-center overflow-hidden pt-16 pb-16 relative"
-  >
-    <StepVision client:load />
-  </div>
-
-  <div class="w-full mt-8 flex justify-center mb-8">
-    <Testimonials title="Real Auto Transport Testimonials" client:load />
   </div>
 
   <SecondFooter />

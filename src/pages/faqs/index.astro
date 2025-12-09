@@ -12,442 +12,221 @@ import ButtonScrollTop from "../../components/buttons/ButtonScrollTop";
       url("/img/bannerfaqs.webp") center center no-repeat;
     background-size: cover;
   }
-
-  .faq-title h2 {
-    position: relative;
-    margin-bottom: 45px;
-    display: inline-block;
-    font-weight: 600;
-    line-height: 1;
-  }
-
-  .faq-title h2::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    width: 60px;
-    height: 2px;
-    background: #007bef;
-    bottom: -25px;
-    margin-left: -30px;
-  }
-
-  .service-item a.btn-slide,
-  .price-item a.btn-slide,
-  .team-item div.btn-slide {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    font-size: 0;
-  }
-
-    .service-item a.btn-slide i,
-  .service-item a.btn-slide span,
-  .price-item a.btn-slide i,
-  .price-item a.btn-slide span,
-  .team-item div.btn-slide i,
-  .team-item div.btn-slide span {
-    position: relative;
-    height: 40px;
-    padding: 0 15px;
-    display: inline-flex;
-    align-items: center;
-    font-size: 16px;
-    color: #ffffff;
-    background: #00a1e1;
-    border-radius: 0 35px 35px 0;
-    transition: 0.5s;
-    z-index: 2;
-  }
-
-  .team-item div.btn-slide span a i {
-    padding: 0 10px;
-  }
-
-  .team-item div.btn-slide span a:hover i {
-    background: #007bef;
-  }
-
-  .service-item a.btn-slide span,
-  .price-item a.btn-slide span,
-  .team-item div.btn-slide span {
-    padding-left: 0;
-    left: -100%;
-    z-index: 1;
-  }
-
-  .service-item:hover a.btn-slide i,
-  .price-item:hover a.btn-slide i,
-  .team-item:hover div.btn-slide i {
-    border-radius: 0;
-  }
-
-  .service-item:hover a.btn-slide span,
-  .price-item:hover a.btn-slide span,
-  .team-item:hover div.btn-slide span {
-    left: 0;
-  }
-
-  .service-item a.btn-slide:hover i,
-  .service-item a.btn-slide:hover span,
-  .price-item a.btn-slide:hover i,
-  .price-item a.btn-slide:hover span {
-    background: #007bef;
-  }
 </style>
-
 
 <Layout title="Car Shipping Faqs | Cayad Auto Transport"
 content="Cayad Auto Transport most common questions. Visit our FAQs for pricing, tracking, and insurance details. Contact us for quotes">
-  <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
-  >
-    <div class="w-[80%]">
-      <p class="changing-text text-white text-6xl"
-      >
-        FAQs
-      </p>
-      <h1 class="text-white text-lg font-semibold">
-        How much is car shipping? and most commons questions..
+  
+  <div class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background">
+     <div class="absolute inset-0 bg-black/50 z-0"></div>
+     <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg">
+        Frequently Asked Questions
       </h1>
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
+        How much does it cost? How does it work? We have the answers.
+      </p>
       <GetQuote />
     </div>
   </div>
 
-  <div class="w-full mt-12 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex xs:flex-col sm:flex-col"
-    >
-      <div class="w-[40%] mr-4 xs:hidden sm:hidden h-[300px]">
-        <img src="/img/faqs.webp" width="1139" height="689" alt="car transport common questions"/>
-      </div>
-      <div class="w-1/2 xs:w-full sm:w-full ml-4 xs:ml-0 sm:ml-0">
-        <div class="w-full faq-title flex justify-center">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-            FAQs
-          </h2>
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 space-y-24">
+      
+      <!-- General FAQs -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-card hidden lg:block">
+           <img src="/img/faqs.webp" alt="General FAQs" class="w-full h-full object-cover absolute inset-0" />
         </div>
-        <Accordion client:load title="How long will it take?">
-          <p class="mt-2 font-serif">0-500 Miles: 1-2 Days</p>
-          <p class="mt-2 font-serif">501-1,000 Miles: 2-3</p>
-          <p class="mt-2 font-serif">1,001-1,500 Miles: 3-5</p>
-          <p class="mt-2 font-serif">1,501-2,000 Miles: 4-7</p>
-          <p class="mt-2 font-serif">2,001-2,500 Miles: 7-10</p>
-          <p class="mt-2 font-serif">2,500+ Miles: 10-14</p>
-          <p class="mt-2 font-serif">
-            Once your designated carrier is assigned you will receive a precise
-            ETA for your shipment.
-          </p>
-        </Accordion>
-        <Accordion
-          client:load
-          title="How fast can Cayad find a carrier for me?"
-        >
-          <p class="font-serif">
-          Car carriers respond faster to bids that are priced competitively and align with their existing routes.
-          <br /><br />
-          At Cayad Auto Transport, we help you <strong>price your vehicle shipping quote</strong> correctly, so you can <strong>get your car shipped</strong> quickly, safely, and at the right rate. Our smart pricing increases your chances of <strong>booking reliable auto transport</strong> that fits your schedule.
-        </p>
-        </Accordion>
-        <Accordion client:load title="Is Cayad Licensed & Bonded?">
-          <p class="font-serif">
-          Cayad Auto Transport is a <strong>licensed and bonded car shipping company</strong>, operating under FMCSA Motor Carrier Number <strong>MC:1558686</strong>.
-          <br /><br />
-          We work diligently to match your auto transport needs with <strong>reliable and highly rated carriers</strong>. While rare, if accidental damage occurs during transit, you can rest assured the <strong>carrier's insurance policy</strong> will provide protection for your <strong>vehicle shipment</strong>.
-        </p>
-
-        </Accordion>
-        <Accordion
-          client:load
-          title="Can I leave personal items in my vehicle?"
-        >
-          <p class="font-serif">
-          Yes, you may place <strong>personal items in your vehicle during transport</strong>, but it’s important to inform your Cayad Auto Transport agent in advance. We must get approval from your assigned carrier.
-          <br /><br />
-          However, for safety and insurance reasons, we generally recommend <strong>not shipping personal belongings inside your vehicle</strong>. Following these <strong>auto transport guidelines</strong> helps ensure a smoother and more secure shipment.
-        </p>
-        </Accordion>
-        <Accordion client:load title="What's the deal with insurance?">
-          <p class="font-serif">
-          Understanding <strong>auto transport insurance</strong> is essential. At Cayad Auto Transport, we ensure every assigned carrier is <strong>licensed and fully insured</strong> with the FMCSA (Federal Motor Carrier Safety Administration).
-          <br /><br />
-          Your vehicle is covered under the <strong>carrier’s insurance policy</strong>, typically ranging from $100,000 to $1,000,000 depending on the trailer type.
-          <br /><br />
-          To help you prepare, we’ve provided a 
-          <span class="text-btn-blue hover:underline hover:cursor-pointer">
-            <a href="/pdfs/Cayad_shippingInstructions.pdf" download>checklist</a>
-          </span>
-          for pickup and delivery steps, and a 
-          <span class="text-btn-blue ml-2 hover:underline hover:cursor-pointer">
-            <a href="/pdfs/sample-bill-of-lading.pdf" download>Bill of Lading example</a>
-          </span> 
-          for filing a claim if needed.
-          <br /><br />
-          While damage during transit is rare, it’s reassuring to know your <strong>auto shipment is protected</strong>.
-        </p>
-        </Accordion>
-      </div>
-    </div>
-
-    <div class="w-full mt-12 flex justify-center">
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 xs:flex-col sm:flex-col flex"
-      >
-        <div class="w-[40%] xs:hidden sm:hidden mr-4 h-[300px]">
-          <img src="/img/money.webp" width="1920" height="1500" alt="car shipping cash"/>
-        </div>
-        <div class="w-1/2 xs:w-full sm:w-full ml-4 xs:ml-0 sm:ml-0">
-          <div class="w-full faq-title flex justify-center">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-              Money
-            </h2>
+        <div class="space-y-6">
+          <div class="mb-4">
+             <span class="text-btn-blue font-bold tracking-wider uppercase text-sm">General Information</span>
+             <h2 class="text-3xl md:text-4xl font-bold font-heading text-slate-900 mt-2">Common Questions</h2>
           </div>
-          <Accordion client:load title="How does Cayad come up my quote?">
-            <p class="mt-4 font-serif">
-              Your <strong>vehicle shipping quote</strong> is based on live rates from the <strong>National Load Board</strong> to ensure accuracy.
-            </p>
-            <p class="mt-4 font-serif">
-              Avoid cheap quotes <strong>carriers prefer better-paying loads</strong>, so <strong>below-market prices</strong> often lead to delays.
-            </p>
-            <p class="mt-4 font-serif">
-              Cayad Auto Transport offers a fair <strong>car shipping cost</strong> upfront for fast, on-time delivery.
-            </p>
+          
+          <div class="space-y-4">
+              <Accordion client:load title="How long will it take?">
+              <div class="space-y-2 text-slate-600 mt-2">
+                <p><strong>0-500 Miles:</strong> 1-2 Days</p>
+                <p><strong>501-1,000 Miles:</strong> 2-3 Days</p>
+                <p><strong>1,001-1,500 Miles:</strong> 3-5 Days</p>
+                <p><strong>1,501-2,000 Miles:</strong> 4-7 Days</p>
+                <p><strong>2,001-2,500 Miles:</strong> 7-10 Days</p>
+                <p><strong>2,500+ Miles:</strong> 10-14 Days</p>
+                <p class="mt-4 italic">Once your designated carrier is assigned you will receive a precise ETA for your shipment.</p>
+              </div>
+            </Accordion>
+            
+            <Accordion client:load title="How fast can Cayad find a carrier for me?">
+              <div class="text-slate-600 space-y-4 mt-2">
+                <p>Car carriers respond faster to bids that are priced competitively and align with their existing routes.</p>
+                <p>At Cayad Auto Transport, we help you <strong>price your vehicle shipping quote</strong> correctly, so you can <strong>get your car shipped</strong> quickly, safely, and at the right rate. Our smart pricing increases your chances of <strong>booking reliable auto transport</strong> that fits your schedule.</p>
+              </div>
+            </Accordion>
+  
+            <Accordion client:load title="Is Cayad Licensed & Bonded?">
+              <div class="text-slate-600 space-y-4 mt-2">
+                <p>Cayad Auto Transport is a <strong>licensed and bonded car shipping company</strong>, operating under FMCSA Motor Carrier Number <strong>MC:1558686</strong>.</p>
+                <p>We work diligently to match your auto transport needs with <strong>reliable and highly rated carriers</strong>. While rare, if accidental damage occurs during transit, you can rest assured the <strong>carrier's insurance policy</strong> will provide protection for your <strong>vehicle shipment</strong>.</p>
+              </div>
+            </Accordion>
 
+            <Accordion client:load title="Can I leave personal items in my vehicle?">
+              <div class="text-slate-600 space-y-4 mt-2">
+                <p>Yes, you may place <strong>personal items in your vehicle during transport</strong>, but it’s important to inform your Cayad Auto Transport agent in advance. We must get approval from your assigned carrier.</p>
+                <p>However, for safety and insurance reasons, we generally recommend <strong>not shipping personal belongings inside your vehicle</strong>. Following these <strong>auto transport guidelines</strong> helps ensure a smoother and more secure shipment.</p>
+              </div>
+            </Accordion>
 
-          </Accordion>
-          <Accordion
-            client:load
-            title="Do I need to put a credit or debit card on file to start the process?"
-          >
-            <p class="font-serif">
-            At Cayad Auto Transport, we <strong>don’t charge a deposit</strong> until your vehicle is assigned to a <strong>reputable carrier</strong> at a price you approve. 
-            We request your <strong>credit card info upfront</strong> to avoid double bookings and delays common issues when working with multiple brokers.
-            <br /><br />
-            If we can’t find the right carrier, <strong>you won’t be charged</strong>. There are <strong>no cancellation fees</strong>. 
-            We only get paid when a driver is dispatched, so we’re committed to finding you the <strong>best rate and on-time pickup</strong>.
-          </p>
-
-
-          </Accordion>
-          <Accordion client:load title="Is the final price firm?">
-            <p class="font-serif">
-              Yes, once you approve the carrier the price is guaranteed. We
-              guarantee the price with the carrier so there is no confusion or
-              surprises.
-            </p>
-          </Accordion>
-          <Accordion client:load title="When is the balance due?">
-            <p class="font-serif">
-            Unlike many other auto shippers, <strong>we don’t require any upfront payment</strong>. You won’t be charged until your vehicle is officially assigned to a carrier.
-            <br /><br />
-            When you place your order, your <strong>credit card is securely stored on file</strong> and an authorization is made but no charge is processed. Once your vehicle is dispatched, the deposit will be charged.
-            <br /><br />
-            The remaining balance is due upon delivery, paid directly to the carrier via <strong>cash or certified funds</strong>. 
-            <br /><br />
-            <em>*Ask your Cayad agent about other payment options.</em>
-          </p>
-
-          </Accordion>
-          <Accordion client:load title="What's the cancellation fee?">
-            <p class="font-serif">
-              Nothing. There will never be a cancellation fee
-            </p>
-          </Accordion>
-          <Accordion
-            client:load
-            title="Do the carriers accepts credit or debit cards for the balance due upon delivery?"
-          >
-            <p class="font-serif">
-              Most carriers does not accept credit cards, and if they do, there
-              is often a 4% fee added including Paypal. We recommend
-              Cash, Zelle, Venmo and Cash App.
-            </p>
-          </Accordion>
-          <Accordion
-            client:load
-            title="Why are some other guys quoting me a lower price?"
-          >
-            <p class="font-serif">
-            When comparing <strong>auto transport companies</strong>, beware of <strong>low-priced quotes</strong> they often cause pickup delays. Choosing an <strong>experienced car shipping broker</strong> ensures better service and fair pricing.
-            <br /><br />
-            At Cayad Auto Transport, your <strong>car shipping quote</strong> is based on <strong>seasonal demand</strong> and real-time <strong>national load board rates</strong>.
-            <br /><br />
-            We thoroughly vet every carrier, checking DOT ratings, references, and requiring a <strong>certified insurance certificate</strong>.
-            <br /><br />
-            With Cayad, your vehicle is shipped by a <strong>fully licensed, insured, and trusted carrier</strong> no surprises.
-          </p>
-
-
-          </Accordion>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-full mt-12 flex justify-center">
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 xs:flex-col sm:flex-col flex"
-      >
-        <div class="w-[40%] xs:hidden sm:hidden mr-4 h-[300px]">
-          <img src="/img/transport.avif" width="626" height="417" alt="car shipping trailer"/>
-        </div>
-        <div class="w-1/2 xs:w-full sm:w-full ml-4 xs:ml-0 sm:ml-0">
-          <div class="w-full faq-title flex justify-center">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-              Transport
-            </h2>
+            <Accordion client:load title="What's the deal with insurance?">
+               <div class="text-slate-600 space-y-4 mt-2">
+                <p>Understanding <strong>auto transport insurance</strong> is essential. At Cayad Auto Transport, we ensure every assigned carrier is <strong>licensed and fully insured</strong> with the FMCSA (Federal Motor Carrier Safety Administration).</p>
+                <p>Your vehicle is covered under the <strong>carrier’s insurance policy</strong>, typically ranging from $100,000 to $1,000,000 depending on the trailer type.</p>
+                <p>To help you prepare, we’ve provided a <a href="/pdfs/Cayad_shippingInstructions.pdf" download class="text-btn-blue hover:underline font-semibold">checklist</a> for pickup and delivery steps, and a <a href="/pdfs/sample-bill-of-lading.pdf" download class="text-btn-blue hover:underline font-semibold">Bill of Lading example</a> for filing a claim if needed.</p>
+                <p>While damage during transit is rare, it’s reassuring to know your <strong>auto shipment is protected</strong>.</p>
+              </div>
+            </Accordion>
           </div>
-          <Accordion
-            client:load
-            title="What if the truck is too large for my drop off or pick up area?"
-          >
-          <p class="mt-4 font-serif">
-            Most <strong>auto transport trucks</strong> are up to 75 feet long and may not access tight residential areas. If needed, we’ll arrange a nearby meeting spot for pickup or delivery.
-          </p>
-          <p class="mt-4 font-serif">
-            Being flexible with location can sometimes lower your <strong>car shipping rate</strong>.
-          </p>
-          <p class="mt-4 font-serif">
-            At Cayad Auto Transport, we manage the full process and work only with <strong>licensed, insured carriers</strong> to ensure safe, efficient delivery.
-          </p>
-
-
-          </Accordion>
-          <Accordion
-            client:load
-            title="How can I track my vehicle once it's on the truck?"
-          >
-            <p class="font-serif">
-              You will have direct contact with the driver while your vehicle is
-              in transit. The driver will give you updates and can also contact
-              the carrier at any time as well.
-            </p>
-          </Accordion>
-          <Accordion
-            client:load
-            title="Will my car be on the same truck the whole way?"
-          >
-            <p class="font-serif">
-              Yes, the vehicle is kept on the same truck the entire time.
-            </p>
-          </Accordion>
-          <Accordion client:load title="Is my delivery ETA guaranteed?">
-            <p class="font-serif">
-              Time-frames are not guaranteed in the transportation.
-              <br />
-              <br />
-              Similar to plane travel, if there is bad weather or the circumstances
-              are outside of control there can be delays.
-              <br />
-              <br />
-              However, they are usually on time and always in communication either
-              way.
-            </p>
-          </Accordion>
         </div>
       </div>
-    </div>
 
-    <div class="w-full mt-12 flex justify-center">
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 xs:flex-col sm:flex-col flex"
-      >
-        <div class="w-[40%] xs:hidden sm:hidden ml-4">
-          <img src="/img/whois.webp" width="999" height="696" class="rounded-xl" alt="car transport operator"/>
+      <!-- Money FAQs -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:grid-flow-dense">
+         <div class="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-card hidden lg:block lg:col-start-2">
+           <img src="/img/money.webp" alt="Payment FAQs" class="w-full h-full object-cover absolute inset-0" />
         </div>
-        <div class="w-1/2 xs:w-full sm:w-full ml-4 xs:ml-0 sm:ml-0">
-          <div class="w-full faq-title flex justify-center">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-              Who is who?
-            </h2>
+        <div class="space-y-6 lg:col-start-1">
+          <div class="mb-4">
+             <span class="text-btn-blue font-bold tracking-wider uppercase text-sm">Pricing & Payments</span>
+             <h2 class="text-3xl md:text-4xl font-bold font-heading text-slate-900 mt-2">Money Matters</h2>
           </div>
-          <Accordion client:load title="What's an auto transport broker?">
-            <p class="mt-4 font-serif">
-            An <strong>auto transport broker</strong> secures the best price and matches you with a <strong>licensed, certified carrier</strong>. We handle all logistics for a smooth pickup and delivery.
-          </p>
-          <p class="mt-4 font-serif">
-            Most <strong>car shipping quotes</strong> including ours come from brokers. We don’t own trucks; we partner with vetted carriers based on your route and budget.
-          </p>
-          <p class="mt-4 font-serif">
-            Each quote includes a <strong>broker fee</strong> and a <strong>carrier fee</strong> paid to the driver.
-          </p>
+          
+          <div class="space-y-4">
+             <Accordion client:load title="How does Cayad come up my quote?">
+                <div class="text-slate-600 space-y-4 mt-2">
+                  <p>Your <strong>vehicle shipping quote</strong> is based on live rates from the <strong>National Load Board</strong> to ensure accuracy.</p>
+                  <p>Avoid cheap quotes—<strong>carriers prefer better-paying loads</strong>, so <strong>below-market prices</strong> often lead to delays.</p>
+                  <p>Cayad Auto Transport offers a fair <strong>car shipping cost</strong> upfront for fast, on-time delivery.</p>
+                </div>
+            </Accordion>
+
+            <Accordion client:load title="Do I need to put a credit or debit card on file to start?">
+               <div class="text-slate-600 space-y-4 mt-2">
+                <p>At Cayad Auto Transport, we <strong>don’t charge a deposit</strong> until your vehicle is assigned to a <strong>reputable carrier</strong> at a price you approve.</p>
+                <p>We request your <strong>credit card info upfront</strong> to avoid double bookings and delays common issues when working with multiple brokers.</p>
+                <p>If we can’t find the right carrier, <strong>you won’t be charged</strong>. There are <strong>no cancellation fees</strong>. We only get paid when a driver is dispatched, so we’re committed to finding you the <strong>best rate and on-time pickup</strong>.</p>
+              </div>
+            </Accordion>
+
+            <Accordion client:load title="Is the final price firm?">
+               <p class="text-slate-600 mt-2">Yes, once you approve the carrier the price is guaranteed. We guarantee the price with the carrier so there is no confusion or surprises.</p>
+            </Accordion>
+
+             <Accordion client:load title="When is the balance due?">
+                <div class="text-slate-600 space-y-4 mt-2">
+                  <p>Unlike many other auto shippers, <strong>we don’t require any upfront payment</strong>. You won’t be charged until your vehicle is officially assigned to a carrier.</p>
+                  <p>The remaining balance is due upon delivery, paid directly to the carrier via <strong>cash or certified funds</strong>.</p>
+                  <p class="italic text-sm">*Ask your Cayad agent about other payment options.</p>
+                </div>
+            </Accordion>
+            
+            <Accordion client:load title="What's the cancellation fee?">
+               <p class="text-slate-600 mt-2">Nothing. There will never be a cancellation fee.</p>
+            </Accordion>
 
 
+            <Accordion client:load title="Do carriers accept credit/debit cards for the balance?">
+              <p class="text-slate-600 mt-2">Most carriers does not accept credit cards, and if they do, there is often a 4% fee added including Paypal. We recommend Cash, Zelle, Venmo and Cash App.</p>
+            </Accordion>
 
-          </Accordion>
-          <Accordion client:load title="What's an auto transport carrier?">
-          <p class="mt-4 font-serif">
-            <strong>Auto transport carriers</strong> are responsible for moving your vehicle from Point A to Point B. While they handle the transport, they rely on brokers like Cayad to connect them with customers.
-          </p>
-          <p class="mt-4 font-serif">
-            We work only with <strong>licensed, insured, and top-rated carriers</strong> to ensure your vehicle is shipped safely and on time.
-          </p>
-          <p class="mt-4 font-serif">
-            Get your free quote today or call us at  
-            <span class="text-btn-blue mb-2 hover:underline hover:cursor-pointer">
-              <a href="tel:+14696190747">(469) 619-0747</a>
-            </span> 
-            to speak with a live auto transport expert.
-          </p>
+             <Accordion client:load title="Why are some other guys quoting me a lower price?">
+                 <div class="text-slate-600 space-y-4 mt-2">
+                  <p>When comparing <strong>auto transport companies</strong>, beware of <strong>low-priced quotes</strong>—they often cause pickup delays. Choosing an <strong>experienced car shipping broker</strong> ensures better service and fair pricing.</p>
+                  <p>At Cayad Auto Transport, your quote is based on seasonal demand and real-time national load board rates. We Vet every carrier. Your vehicle is shipped by a fully licensed, insured, and trusted carrier—no surprises.</p>
+                </div>
+            </Accordion>
 
-
-          </Accordion>
-          <Accordion client:load title="What's a quote provider?">
-            <p class="font-serif">
-            <strong>Auto transport quote providers</strong> are websites that collect your shipping details and share them with 5–12 licensed brokers, like us. These platforms don’t move your car they connect you with companies that do.
-            <br /><br />
-            Most brokers rely on these <strong>car shipping comparison websites</strong> to reach customers. While Cayad Auto Transport has its own website, many of our clients first find us through these quote networks.
-          </p>
-
-          </Accordion>
+          </div>
         </div>
       </div>
+
+       <!-- Transport FAQs -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-card hidden lg:block">
+           <img src="/img/transport.avif" alt="Transport FAQs" class="w-full h-full object-cover absolute inset-0" />
+        </div>
+        <div class="space-y-6">
+          <div class="mb-4">
+             <span class="text-btn-blue font-bold tracking-wider uppercase text-sm">Logistics</span>
+             <h2 class="text-3xl md:text-4xl font-bold font-heading text-slate-900 mt-2">Transport Details</h2>
+          </div>
+          
+          <div class="space-y-4">
+             <Accordion client:load title="What if the truck is too large for my area?">
+                <div class="text-slate-600 space-y-4 mt-2">
+                  <p>Most <strong>auto transport trucks</strong> are up to 75 feet long and may not access tight residential areas. If needed, we’ll arrange a nearby meeting spot (like a large parking lot) for pickup or delivery.</p>
+                  <p>Being flexible with location can sometimes lower your <strong>car shipping rate</strong>.</p>
+                </div>
+             </Accordion>
+
+             <Accordion client:load title="How can I track my vehicle?">
+                <p class="text-slate-600 mt-2">You will have direct contact with the driver while your vehicle is in transit. The driver will give you updates and can also contact the carrier at any time as well.</p>
+             </Accordion>
+             
+              <Accordion client:load title="Will my car be on the same truck the whole way?">
+                <p class="text-slate-600 mt-2">Yes, the vehicle is kept on the same truck the entire time, unless explicitly discussed otherwise for complex routes.</p>
+             </Accordion>
+
+              <Accordion client:load title="Is my delivery ETA guaranteed?">
+                <div class="text-slate-600 space-y-4 mt-2">
+                  <p>Time-frames are not guaranteed in transportation.</p>
+                  <p>Similar to air travel, weather or unforeseen circumstances can cause delays. However, our carriers are usually on time and always in communication.</p>
+                </div>
+             </Accordion>
+
+          </div>
+        </div>
+      </div>
+
+       <!-- Who is Who FAQs -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:grid-flow-dense">
+         <div class="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-card hidden lg:block lg:col-start-2">
+           <img src="/img/whois.webp" alt="Who is Who" class="w-full h-full object-cover absolute inset-0" />
+        </div>
+        <div class="space-y-6 lg:col-start-1">
+          <div class="mb-4">
+             <span class="text-btn-blue font-bold tracking-wider uppercase text-sm">Definitions</span>
+             <h2 class="text-3xl md:text-4xl font-bold font-heading text-slate-900 mt-2">Who is Who?</h2>
+          </div>
+          
+          <div class="space-y-4">
+             <Accordion client:load title="What's an auto transport broker?">
+                 <div class="text-slate-600 space-y-4 mt-2">
+                  <p>An <strong>auto transport broker</strong> secures the best price and matches you with a <strong>licensed, certified carrier</strong>. We handle all logistics for a smooth pickup and delivery.</p>
+                  <p>Most <strong>car shipping quotes</strong> including ours come from brokers. We don’t own trucks; we partner with vetted carriers based on your route and budget.</p>
+                </div>
+             </Accordion>
+
+             <Accordion client:load title="What's an auto transport carrier?">
+                 <div class="text-slate-600 space-y-4 mt-2">
+                  <p><strong>Auto transport carriers</strong> are responsible for moving your vehicle from Point A to Point B.</p>
+                  <p>We work only with <strong>licensed, insured, and top-rated carriers</strong> to ensure your vehicle is shipped safely and on time.</p>
+                  <p class="mt-2">Get your free quote today or call us at <a href="tel:+14696190747" class="text-btn-blue hover:underline font-semibold">(469) 619-0747</a>.</p>
+                </div>
+             </Accordion>
+
+             <Accordion client:load title="What's a quote provider?">
+                 <div class="text-slate-600 space-y-4 mt-2">
+                  <p><strong>Auto transport quote providers</strong> are websites that collect your shipping details and share them with multiple licensed brokers. These platforms don’t move your car; they lead generation sites.</p>
+                  <p>While Cayad Auto Transport has its own website, many of our clients first find us through these quote networks.</p>
+                </div>
+             </Accordion>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="w-full flex justify-center h-max mt-4 mb-4">
-    <div
-      class="w-[50%] xs:w-[96%] sm:w-[96%] h-8 border-b-4 border-b-[#00000]"
-    >
-    </div>
-  </div>
-
-  <!-- <div class="w-full flex justify-center mt-8 h-max mb-4">
-    <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
-      <div
-        class="wow w-[30%] xs:w-full sm:w-full"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <div class="service-item shadow-sm p-4">
-          <div class="overflow-hidden max-h-[300px] mb-4">
-            <img
-              class="w-full rounded-xl h-auto"
-              src="/img/luggaab.webp"
-              alt=""
-            />
-          </div>
-          <h4 class="text-xl font-semibold mb-3">
-            Can I Put Stuff in My Vehicle?
-          </h4>
-          <p>Can I Put Stuff in My Vehicle When Shipping It?</p>
-          <a class="btn-slide mt-4 text-blue-500 hover:underline" href="#"
-            ><i class="fa fa-arrow-right"
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-5 stroke-2"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </i><span>Read More</span></a
-          >
-        </div>
-      </div>
-    </div>
-  </div> -->
 
   <ButtonScrollTop client:load />
 </Layout>

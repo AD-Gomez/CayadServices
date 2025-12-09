@@ -1,355 +1,169 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
-import { IoArrowRedo } from "react-icons/io5";
-import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import SecondFooter from "../../../components/SecondFooter.astro";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
 <link rel="canonical" href="https://cayadservices.com/why-us/our-team/" />
 
 <style>
-  .service-item:hover img,
-  .team-item:hover img {
-    /* transform: scale(1.1); */
-  }
-
-  .service-item a.btn-slide,
-  .price-item a.btn-slide,
-  .team-item div.btn-slide {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    font-size: 0;
-  }
-
-  .service-item a.btn-slide i,
-  .service-item a.btn-slide span,
-  .price-item a.btn-slide i,
-  .price-item a.btn-slide span,
-  .team-item div.btn-slide i,
-  .team-item div.btn-slide span {
-    position: relative;
-    height: 40px;
-    padding: 0 15px;
-    display: inline-flex;
-    align-items: center;
-    font-size: 16px;
-    color: #ffffff;
-    background: #00a1ef;
-    border-radius: 0 35px 35px 0;
-    transition: 0.5s;
-    z-index: 2;
-  }
-
-  .team-item div.btn-slide span a i {
-    padding: 0 10px;
-  }
-
-  .team-item div.btn-slide span a:hover i {
-    background: var(--secondary);
-  }
-
-  .service-item a.btn-slide span,
-  .price-item a.btn-slide span,
-  .team-item div.btn-slide span {
-    padding-left: 0;
-    left: -100%;
-    z-index: 1;
-  }
-
-  .service-item:hover a.btn-slide i,
-  .price-item:hover a.btn-slide i,
-  .team-item:hover div.btn-slide i {
-    border-radius: 0;
-  }
-
-  .service-item:hover a.btn-slide span,
-  .price-item:hover a.btn-slide span,
-  .team-item:hover div.btn-slide span {
-    left: 0;
-  }
-
-  .service-item a.btn-slide:hover i,
-  .service-item a.btn-slide:hover span,
-  .price-item a.btn-slide:hover i,
-  .price-item a.btn-slide:hover span {
-    background: var(--secondary);
+  .custom-background {
+    background:
+      linear-gradient(hsla(250, 75%, 5%, 0.5), rgba(6, 3, 21, 0.5)),
+      url("/img/how.webp") center center no-repeat;
+    background-size: cover;
   }
 </style>
 
 <Layout title="Car Shipping Team | Cayad Auto Transport"
 content="Cayad boasts a team of seasoned professionals dedicated to delivering effective car shipping solutions for the industry. Get A Quote Now!">
-  <div class="w-full flex flex-col items-center">
-    <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mt-24">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-        The Executive Team of Cayad Auto Transport
+  <div class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg">
+        The Executive Team
       </h1>
-      <p class="mb-4">
-        At Cayad, our executive team is a powerhouse of experienced
-        professionals dedicated to providing industry-leading services and
-        ensuring unmatched customer satisfaction. Comprised of seasoned
-        individuals who have held key roles within the industry, each member
-        brings a rich background of expertise and unique insights gained from
-        hands-on experience and strategic leadership.</p>
-        
-        <p class="mb-4">
-        Their collective efforts have been pivotal in car shipping inside U.S the industry, introducing
-        innovative solutions, and setting the standard for service delivery.
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
+        Seasoned professionals dedicated to delivering results
       </p>
-      <div
-        class="w-full grid grid-cols-3 mt-32 mb-12 gap-10 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1"
-      >
-        <div
-          class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          <img
-            class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-            src="/img/ca.webp"
-            width="1080"
-            height="1080"
-            alt="car transport Managing Member Carlos M"
-          />
-          <h5
-            class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-          >
-            Carlos M
-          </h5>
-          <p class="text-[#555555] text-sm font-semibold text-center">
-            Managing Member
-          </p>
-        </div>
-
-        <div
-          class="flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          <img
-            class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-            src="/img/ad.webp"
-            width="1080"
-            height="1080"
-            alt="auto transport ceo ad gomez"
-          />
-          <h5
-            class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-          >
-            AD Gomez
-          </h5>
-          <p class="text-[#555555] text-sm font-semibold text-center">
-            Chief Executive Officer
-          </p>
-        </div>
-
-        
-      </div>
-    </div>
-
-    <div class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-        The Specialist Team
-      </h2>
-      <p class="mt-2 text-sm">
-        At Cayad Auto Transport, we have a renowned workforce comprised of
-        highly skilled professionals with unique abilities and extensive
-        experience. Our team meticulously tracks and monitors each route,
-        ensuring a top-notch A+ service
-      </p>
-      <div
-        class="w-full grid grid-cols-3 mt-32 mb-12 gap-10 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1"
-      >
-        <div
-          class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          <img
-            class="rounded-full w-[300px] border-4 border-btn-blue h-[300px] xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-            src="/img/md.webp"
-            width="1080"
-            height="1080"
-            alt="auto transport specialist maiky g"
-          />
-          <h5
-            class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-          >
-            Maiky G
-          </h5>
-          <p class="text-[#555555] text-sm font-semibold text-center">
-            Transportation Specialist
-            <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 221-1462" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 221-1462</a></div>
-          </p>
-        </div>
-
-        <div
-          class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          <img
-            class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-            src="/img/jackie.webp"
-            width="1080"
-            height="1080"
-            alt="auto transport specialist jackie m"
-          />
-          <h5
-            class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-          >
-            Jackie H
-          </h5>
-          <p class="text-[#555555] text-sm font-semibold text-center">
-            Transportation Specialist
-            <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(904) 664-8294" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(904) 664-8294</a></div>
-          </p>
-        </div>
-
-        <div
-          class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          <img
-            class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-            src="/img/mari.webp"
-            width="1080"
-            height="1080"
-            alt="auto transport specialist mari c"
-          />
-          <h5
-            class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-          >
-            Mari C
-          </h5>
-          <p class="text-[#555555] text-sm font-semibold text-center">
-            Transportation Specialist
-            <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(256) 692-8212" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(256) 692-8212</a></div>
-          </p>
-        </div>
-
-        <div
-        class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-        data-wow-delay="0.5s"
-      >
-        <img
-          class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-          src="/img/erick.webp"
-          width="1080"
-          height="1080"
-          alt="auto transport specialist erick c"
-        />
-        <h5
-          class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-        >
-          Erick C
-        </h5>
-        <p class="text-[#555555] text-sm font-semibold text-center">
-          Transportation Specialist
-          <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 330-1074" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 330-1074</a></div>
-        
-        </p>
-      </div>
-
-      <div
-        class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-        data-wow-delay="0.5s"
-      >
-        <img
-          class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-          src="/img/leo.webp"
-          width="1080"
-          height="1080"
-          alt="auto transport specialist erick c"
-        />
-        <h5
-          class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-        >
-          Leo J
-        </h5>
-        <p class="text-[#555555] text-sm font-semibold text-center">
-          Transportation Specialist
-          <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 362-2442" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 362-2442</a></div>
-        
-        </p>
-      </div>
-
-      <div
-        class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-        data-wow-delay="0.5s"
-      >
-        <img
-          class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-          src="/img/lukas.webp"
-          width="1080"
-          height="1080"
-          alt="auto transport specialist erick c"
-        />
-        <h5
-          class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-        >
-          Lukas R
-        </h5>
-        <p class="text-[#555555] text-sm font-semibold text-center">
-          Transportation Specialist
-          <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 362-2994" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 362-2994</a></div>
-        
-        </p>
-      </div>
-
-      <div
-        class="min-h-[500px] flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-        data-wow-delay="0.5s"
-      >
-        <img
-          class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-          src="/img/alex.webp"
-          width="1080"
-          height="1080"
-          alt="auto transport specialist erick c"
-        />
-        <h5
-          class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-        >
-          Alex G
-        </h5>
-        <p class="text-[#555555] text-sm font-semibold text-center">
-          Transportation Specialist
-          <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 269-3086" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 269-3086</a></div>
-        
-        </p>
-      </div>
-
-      <div
-        class="flex flex-col items-center max-h-[550px] w-[100%] md:w-full sm:w-full xs:w-full wow fadeInUp"
-        data-wow-delay="0.5s"
-      >
-        <img
-          class="rounded-full w-[300px] h-[300px] border-4 border-btn-blue xs:w-[300px] xs:h-[300px] sm:w-[300px] sm:h-[300px] align-middle"
-          src="/img/rick.webp"
-          width="1080"
-          height="1080"
-          alt="auto transport specialist erick c"
-        />
-        <h5
-          class="mb-0 mt-4 text-center text-[#232b36] text-3xl font-semibold"
-        >
-          Rick F
-        </h5>
-        <p class="text-[#555555] text-sm font-semibold text-center">
-          Transportation Specialist
-          <div class="flex p-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-[#00a1ef] mr-2 mt-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg><a href="tel:(254) 362-5006" class="text-[18px]  text-[#00a1ef] font-semibold leading-6 ">(254) 362-5006</a></div>
-        
-        </p>
-      </div>
-
-      
-
-      
-      </div>
-      <p class="mb-4">
-        We are proud to present part of the team and encourage you to
-        familiarize yourself with these remarkable individuals and their
-        contributions to our organization.
-      </p>
+      <GetQuote />
     </div>
   </div>
 
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="text-center mb-16 max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-6">
+          Experienced Leadership
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          At Cayad, our executive team is a powerhouse of experienced professionals dedicated to providing industry-leading services. Each member brings a rich background of expertise and unique insights gained from hands-on experience and strategic leadership.
+        </p>
+      </div>
+
+      <!-- Executives Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-4xl mx-auto mb-24">
+        
+        <div class="bg-white rounded-2xl p-8 shadow-card border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+          <img
+            class="rounded-full w-48 h-48 border-4 border-btn-blue object-cover mb-6 shadow-lg"
+            src="/img/ca.webp"
+            width="300" height="300"
+            alt="Carlos M"
+          />
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-1">Carlos M</h3>
+          <p class="text-btn-blue font-semibold mb-3">Managing Member</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-card border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+          <img
+            class="rounded-full w-48 h-48 border-4 border-btn-blue object-cover mb-6 shadow-lg"
+            src="/img/ad.webp"
+            width="300" height="300"
+            alt="AD Gomez"
+          />
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-1">AD Gomez</h3>
+          <p class="text-btn-blue font-semibold mb-3">Chief Executive Officer</p>
+        </div>
+
+      </div>
+
+      <div class="text-center mb-16 max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-6">
+          The Specialist Team
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          Our renowned workforce is comprised of highly skilled professionals with unique abilities and extensive experience. Our team meticulously tracks and monitors each route, ensuring a top-notch A+ service.
+        </p>
+      </div>
+
+      <!-- Specialists Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/md.webp" alt="Maiky G" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Maiky G</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2542211462" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 221-1462</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/jackie.webp" alt="Jackie H" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Jackie H</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:9046648294" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(904) 664-8294</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/mari.webp" alt="Mari C" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Mari C</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2566928212" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(256) 692-8212</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/erick.webp" alt="Erick C" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Erick C</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2543301074" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 330-1074</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/leo.webp" alt="Leo J" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Leo J</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2543622442" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 362-2442</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/lukas.webp" alt="Lukas R" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Lukas R</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2543622994" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 362-2994</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/alex.webp" alt="Alex G" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Alex G</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2542693086" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 269-3086</span>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-card border border-slate-100 flex flex-col items-center text-center hover:shadow-card-hover transition-all duration-300">
+          <img class="rounded-full w-32 h-32 border-4 border-slate-100 object-cover mb-4" src="/img/rick.webp" alt="Rick F" width="300" height="300"/>
+          <h4 class="text-xl font-bold text-slate-900 mb-1">Rick F</h4>
+          <p class="text-slate-500 font-medium text-sm mb-3">Transportation Specialist</p>
+          <a href="tel:2543625006" class="text-btn-blue font-semibold hover:underline flex items-center gap-2">
+             <span>(254) 362-5006</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-16 max-w-3xl mx-auto">
+        <p class="text-lg text-slate-600">
+          We are proud to present part of the team and encourage you to familiarize yourself with these remarkable individuals and their contributions to our organization.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <SecondFooter />
   <ButtonScrollTop client:load />
 </Layout>

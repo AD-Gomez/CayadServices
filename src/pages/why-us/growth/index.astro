@@ -1,13 +1,10 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import GetQuoete from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import GetQuote from "../../../components/buttons/GetQuote.astro";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
 import SecondFooter from "../../../components/SecondFooter.astro";
-import { FaDotCircle } from "react-icons/fa";
-import { IoMdArrowDropright } from "react-icons/io";
-import { HiChevronRight } from "react-icons/hi";
+import { FaCheckCircle } from "react-icons/fa";
 ---
 <link rel="canonical" href="https://cayadservices.com/why-us/growth" />
 
@@ -18,432 +15,194 @@ import { HiChevronRight } from "react-icons/hi";
       url("/img/how.webp") center center no-repeat;
     background-size: cover;
   }
-
-  .content--right::after {
-    content: url("../../../../public/icons/leftArrow.svg");
-    color: #e5e7eb;
-    font-weight: 700;
-    position: absolute; /* Posicionamiento absoluto */
-    left: -16px;
-  }
-
-  @media (max-width: 767px) {
-    .content--right::after {
-      content: none;
-    }
-
-    .content--left::after {
-      content: none;
-    }
-  }
 </style>
 
 <Layout
   title="Car Shipping History | Cayad Auto Transport"
   content="See how Cayad Auto Transport turned a vision into a nationwide leader in affordable and reliable car shipping"
 >
-  <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
-  >
-    <div class="w-[80%]">
-      <h1
-        class="changing-text text-white text-6xl"
-      >
+  <div class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg">
         Growing With You
       </h1>
-      <p class="text-white text-lg font-semibold">
-          Innovation in Car Shipping.
-
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
+        Innovation in Car Shipping
       </p>
-      <GetQuoete />
+      <GetQuote />
     </div>
   </div>
 
-  <div class="w-full mt-12 flex justify-center mb-8">
-    <Testimonials title="Real Growth & Real Stories" client:load />
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
-      >
-        Trusted
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="mb-20">
+        <Testimonials title="Real Growth & Real Stories" client:load />
       </div>
 
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="ml-0">
-          <h3 class="text-xl font-medium text-[#000000] mb-2">Real Brand. Real Trust</h3>
-          <p>
-          You’ll now find Cayad with the blue check across top platforms. It’s one more way we show you we’re real, we’re growing, and we’re here to stay.
-          </p>
+      <div class="space-y-16 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+        
+        <!-- Item 1 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+             <FaCheckCircle />
+           </div>
+           
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Trusted</div>
+                 <div class="text-slate-500 text-sm">Brand</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <div>
+                    <h3 class="font-bold text-slate-900 mb-2">Real Brand. Real Trust</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                       You’ll now find Cayad with the blue check across top platforms. It’s one more way we show you we’re real, we’re growing, and we’re here to stay.
+                    </p>
+                 </div>
+                 <img src="/img/check.png" alt="check brand" class="w-full max-w-[150px] mx-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+              </div>
+           </div>
         </div>
 
-        <img
-          src="/img/check.png"
-          alt="check image"
-          class="w-48"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 bg-btn-blue text-white rounded-full border-2"
-      >
-        Achieving
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] h-[200px] xs:flex-col sm:flex-col xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="mr-4">
-          <img
-            src="/img/gps.png"
-            alt="gps imagen"
-            class="w-48"
-          />
+        <!-- Item 2 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+               <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Achieving</div>
+                 <div class="text-slate-500 text-sm">Tech</div>
+              </div>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <img src="/img/gps.png" alt="gps tracking" class="w-full max-w-[150px] mx-auto order-2 md:order-1 opacity-90 group-hover:opacity-100 transition-opacity" />
+                 <div class="order-1 md:order-2">
+                    <h3 class="font-bold text-slate-900 mb-2">Tracking Systems</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                       Our advanced tracking systems keep you updated every step of the way. No guesswork, no stress, just full transparency from dispatch to drop-off.
+                    </p>
+                 </div>
+              </div>
+           </div>
         </div>
 
-        <div>
-          <h3 class="text-xl font-medium text-[#000000] mb-2">
-            Tracking Systems
-          </h3>
-          <p>
-            Our advanced tracking systems keep you updated every step of the way. No guesswork, no stress, just full transparency from dispatch to drop-off.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
-      >
-        Performance
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="ml-0">
-          <h3 class="text-xl font-medium text-[#000000] mb-2">New Headquarters, Built for Growth</h3>
-          <p>
-          We’ve expanded to a new headquarters in <a href="/contact/" class="text-btn-blue hover:underline">Pace, Florida</a>, giving our team the space and structure to serve you better than ever.
-          </p>
+        <!-- Item 3 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Performance</div>
+                 <div class="text-slate-500 text-sm">Expansion</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <div>
+                    <h3 class="font-bold text-slate-900 mb-2">New Headquarters</h3>
+                     <p class="text-slate-600 text-sm leading-relaxed">
+                       We’ve expanded to a new headquarters in <a href="/contact/" class="text-btn-blue hover:underline">Pace, Florida</a>, giving our team the space and structure to serve you better than ever.
+                    </p>
+                 </div>
+                 <img src="/img/headquater.png" alt="headquarters" class="w-full max-w-[150px] mx-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+              </div>
+           </div>
         </div>
 
-        <img
-          src="/img/headquater.png"
-          alt="headquater image"
-          class="w-48"
-        />
-      </div>
-    </div>
-  </div>
-  
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 bg-btn-blue text-white rounded-full border-2"
-      >
-        Value
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] h-[200px] xs:flex-col sm:flex-col xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="mr-0">
-          <img
-            src="/img/headquarters.png"
-            alt="partnering image"
-            class="w-48"
-          />
+        <!-- Item 4 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Value</div>
+                 <div class="text-slate-500 text-sm">Partnerships</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <img src="/img/headquarters.png" alt="dealerships" class="w-full max-w-[150px] mx-auto order-2 md:order-1 opacity-90 group-hover:opacity-100 transition-opacity" />
+                 <div class="order-1 md:order-2">
+                    <h3 class="font-bold text-slate-900 mb-2">Partnering With Dealerships</h3>
+                     <p class="text-slate-600 text-sm leading-relaxed">
+                        We now work directly with <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">dealerships</a> nationwide, accelerating process and securing better rates for everyone we serve.
+                    </p>
+                 </div>
+              </div>
+           </div>
+        </div>
+        
+         <!-- Item 5 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Oriented</div>
+                 <div class="text-slate-500 text-sm">CRM</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <div>
+                    <h3 class="font-bold text-slate-900 mb-2">New CRM</h3>
+                     <p class="text-slate-600 text-sm leading-relaxed">
+                        Our new CRM is built for you, <strong>tracking every shipment</strong>, simplifying communication, and making the entire <strong>auto transport experience</strong> faster and more personal.
+                    </p>
+                 </div>
+                 <img src="/img/crm.png" alt="crm system" class="w-full max-w-[150px] mx-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+              </div>
+           </div>
         </div>
 
-        <div>
-          <h3 class="text-xl font-medium text-[#000000] mb-2">
-            Partnering With <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">Dealerships</a>
-          </h3>
-          <p class=>
-          We now work directly with <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">dealerships</a> nationwide, accelerating process and securing better rates for everyone we serve.
-          </p>
+        <!-- Item 6 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Reliable</div>
+                 <div class="text-slate-500 text-sm">Trademark</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <img src="/img/trade_mark.jpg" alt="trademark" class="w-full max-w-[150px] mx-auto order-2 md:order-1 opacity-90 group-hover:opacity-100 transition-opacity rounded-lg" />
+                 <div class="order-1 md:order-2">
+                    <h3 class="font-bold text-slate-900 mb-2">Cayad® Is a Registered Trademark</h3>
+                     <p class="text-slate-600 text-sm leading-relaxed">
+                        Cayad® is now officially <a href="https://en.wikipedia.org/wiki/Trademark" class="text-btn-blue hover:underline">trademark</a>. It's more than a name, it’s a commitment to excellence.
+                    </p>
+                 </div>
+              </div>
+           </div>
         </div>
+
+        <!-- Item 7 -->
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+           <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 group-[.is-active]:bg-btn-blue text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <FaCheckCircle />
+           </div>
+           <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card border border-slate-100 hover:shadow-card-hover transition-all duration-300">
+              <div class="flex items-center justify-between space-x-2 mb-4">
+                 <div class="font-bold font-heading text-slate-900 text-xl">Effective</div>
+                 <div class="text-slate-500 text-sm">Service</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                 <div>
+                    <h3 class="font-bold text-slate-900 mb-2">Top-Rated Service</h3>
+                     <p class="text-slate-600 text-sm leading-relaxed">
+                        We proudly serve 10,000+ satisfied customers, backed by our impressive <a href="/why-us/reviews/" class="text-btn-blue hover:underline">5-star review</a> rating.
+                    </p>
+                 </div>
+                 <img src="/img/review2.png" alt="5 star review" class="w-full max-w-[150px] mx-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+              </div>
+           </div>
+        </div>
+
       </div>
+
     </div>
   </div>
 
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
-      >
-        Oriented
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="ml-0">
-          <h3 class="text-xl font-medium text-[#000000] mb-2">New CRM</h3>
-          <p>
-          Our new CRM is built for you, <strong>tracking every shipment</strong>, simplifying communication, and making the entire <strong>auto transport experience</strong> faster and more personal.
-          </p>
-        </div>
-
-        <img
-          src="/img/crm.png"
-          alt="crm image"
-          class="w-48"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 bg-btn-blue text-white rounded-full border-2"
-      >
-        Reliable
-
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] h-[200px] xs:flex-col sm:flex-col xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="mr-4">
-          <img
-            src="/img/trade_mark.jpg"
-            alt="trade mark logo"
-            class="w-48"
-          />
-        </div>
-
-        <div>
-          <h3 class="text-xl font-medium text-[#000000] mb-2">
-            Cayad® Is a Registered <a href="https://en.wikipedia.org/wiki/Trademark" class="text-btn-blue hover:underline">Trademark</a>
-          </h3>
-          <p>
-          Cayad® is now officially <a href="https://en.wikipedia.org/wiki/Trademark" class="text-btn-blue hover:underline">trademark</a>. It's more than a name, it’s a commitment to excellence in every shipment.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
-      >
-        Effective
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="ml-0">
-          <h3 class="text-xl font-medium text-[#000000] mb-2">Top-Rated Service</h3>
-          <p>
-            <strong>Cayad Auto Transport</strong> has established itself as one of the <strong>leading
-            auto transport companies</strong> in the country. We proudly serve 10.000+
-            of satisfied customers, including individuals and corporate clients
-            in the moving and relocation, <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">dealership</a>, and <a href="/for-businesses/auto-auctions/" class="text-btn-blue hover:underline">auction</a> sectors, all
-            backed by our impressive <a href="/why-us/reviews/" class="text-btn-blue hover:underline">5-star review</a> rating.
-          </p>
-        </div>
-
-        <img
-          src="/img/review2.png"
-          alt="car shipping 5 star review"
-          class="w-48"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 bg-btn-blue text-white rounded-full border-2"
-      >
-        Consistence
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] h-[200px] xs:flex-col sm:flex-col xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="mr-4">
-          <img
-            src="/img/bainw.png"
-            alt="car transport web site"
-            class="w-48"
-          />
-        </div>
-
-        <div>
-          <h3 class="text-xl font-medium text-[#000000] mb-2">
-            New website
-          </h3>
-          <p class="text-sm mt-2">
-              Our new website is built for you, faster, smarter, and easier to navigate, with everything you need in one place.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="w-[100%] xs:w-full sm:w-full xs:px-4 sm:px-4 flex flex-col mb-12 mx-auto"
-  >
-    <div
-      class="w-[86%] xs:w-full sm:w-full mx-auto flex xs:justify-center sm:justify-center"
-    >
-      <h5
-        class="text-center w-[100px] p-2 rounded-full bg-btn-blue text-white border-2"
-      >
-        Effective
-      </h5>
-    </div>
-    <div
-      class="flex xs:flex-col sm:flex-col w-[80%] xs:w-full sm:w-full mx-auto mt-2 justify-between"
-    >
-      <div class="h-[200px] xs:hidden sm:hidden bg-btn-blue relative w-[4px]">
-        <FaDotCircle
-          className="text-btn-blue absolute top-[45%] left-[-6px] bg-white "
-        />
-      </div>
-
-      <div
-        class="w-[85%] xs:w-full sm:w-full md:w-[90%] xs:flex-col sm:flex-col h-[200px] xs:h-max sm:h-max md:h-max flex justify-center items-center p-4 relative border-4 content--right"
-      >
-        <div class="ml-0">
-          <h4 class="text-xl font-medium text-[#000000] mb-2">Remotely adapted</h4>
-          <p>
-            When the pandemic reshaped the way the world works, <strong>Cayad Auto Transport</strong> adapted fast.
-              We embraced remote operations to protect our team and keep serving our clients without interruption.
-              Today, that shift makes us more agile, efficient, and accessible
-          </p>
-        </div>
-
-        <img
-          src="/img/pandemia.png"
-          alt="pandemic"
-          class="w-48"
-        />
-      </div>
-    </div>
-  </div>
-
+  <SecondFooter />
+  <ButtonScrollTop client:load />
 </Layout>
