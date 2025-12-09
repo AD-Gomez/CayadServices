@@ -1,0 +1,25 @@
+/* Navbar responsive styles using native CSS media queries */
+/* This ensures no flash during React hydration */
+
+/* Mobile menu button - visible by default, hidden on md+ */
+.navbar-mobile-btn {
+  display: flex;
+}
+
+/* Desktop menu - hidden by default, visible on md+ */
+.navbar-desktop-menu {
+  display: none;
+}
+
+/* On screens 768px and wider */
+@media (min-width: 768px) {
+  .navbar-mobile-btn {
+    display: none !important;
+  }
+  
+  .navbar-desktop-menu {
+    display: flex !important;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
