@@ -87,7 +87,7 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
   };
 
   return (
-  <div className="relative mb-4"> {/* slightly larger bottom margin to separate label/helper from next element */}
+    <div className="relative mb-4"> {/* slightly larger bottom margin to separate label/helper from next element */}
       <Controller
         name={name}
         control={control}
@@ -136,7 +136,7 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
                         }
                       }
                     }
-                  } catch {}
+                  } catch { }
                   onChange(raw);
                 }}
                 onBlur={onBlur}
@@ -157,7 +157,7 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
                   buttonClassName: `h-10 bg-white border ${showError ? 'border-red-500 focus:border-red-500' : valid ? 'border-green-500 focus:border-green-500' : 'border-slate-300 focus:border-btn-blue'} rounded-l-md pl-3 pr-3 min-w-[84px] flex items-center justify-start gap-2`,
                   dropdownStyleProps: {
                     className: 'absolute z-[9999] max-h-[160px] overflow-auto bg-white shadow-xl', // Cambiado de max-h-[50vh] a max-h-[160px]
-                    style: { 
+                    style: {
                       position: 'absolute',
                       maxHeight: '160px' // Cambiado de '50vh' a '160px'
                     },
@@ -189,13 +189,16 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
           );
         }}
       />
-              <p className={`mt-2 text-xs ${(showErrorGlobal ? 'text-red-500' : 'text-slate-500')}`} aria-live="polite">
-        {needsMoreDigitsGlobal && minRequiredGlobal
-          ? `Enter at least ${minRequiredGlobal} digits for ${countryLabelEN}. Missing ${Number(minRequiredGlobal) - nsnLenGlobal}.`
-          : showErrorGlobal
-          ? String((errors as any)[name]?.message)
-          : (iso2Global && parsedGlobal?.formatInternational?.()) || 'Select your country with the flag and type your phone number. It will be saved in international format (+country code...).'}
-      </p>
+      {/* Only show helper text when there's an error, digits missing, or a valid formatted number */}
+      {(showErrorGlobal || needsMoreDigitsGlobal || (iso2Global && parsedGlobal?.formatInternational?.())) && (
+        <p className={`mt-1.5 text-xs ${(showErrorGlobal ? 'text-red-500' : 'text-slate-500')}`} aria-live="polite">
+          {needsMoreDigitsGlobal && minRequiredGlobal
+            ? `Missing ${Number(minRequiredGlobal) - nsnLenGlobal} digit${Number(minRequiredGlobal) - nsnLenGlobal !== 1 ? 's' : ''} for ${countryLabelEN}.`
+            : showErrorGlobal
+              ? String((errors as any)[name]?.message)
+              : parsedGlobal?.formatInternational?.()}
+        </p>
+      )}
     </div>
   );
 };

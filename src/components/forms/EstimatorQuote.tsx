@@ -644,8 +644,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const content = (
     <div className="w-full">
       <>
-        {/* Vehicle Type Selection */}
-        <div className={`${padding} border-b border-slate-200 transition-all duration-300 ease-in-out`}>
+        {/* Header with title */}
+        <div className={`${padding} pb-4 mb-2 border-b border-slate-200 transition-all duration-300 ease-in-out`}>
           <h1 className={`${titleSize} font-bold text-slate-800`}>
             {activeStep === 0 && 'Get Your Instant Estimated Price'}
             {activeStep === 1 && 'What Are You Shipping?'}
@@ -888,14 +888,21 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       <p className="text-xs text-slate-500">~${perMile}/mi · {formatMiles(miles)}</p>
                     )}
                   </div>
-                  {normalTotal != null && (
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
-                      {discountedTotal != null && (
-                        <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 text-xs font-semibold">
-                          You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)} ({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}%)
+                  {normalTotal != null && discountedTotal != null && (
+                    <div className="mt-2 flex flex-wrap items-center gap-3">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs text-slate-400">Regular:</span>
+                        <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5">
+                        <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm font-semibold text-emerald-700">
+                          You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)}
                         </span>
-                      )}
+                        <span className="text-xs text-emerald-600">({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}% off)</span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -960,9 +967,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         {activeStep === 3 && (
           <FormProvider {...step4}>
             <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
+              {/* Row 1: Full Name & Phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
                 <CustomInputPhone name="phone" type="text" max={14} label="Phone Number" />
+              </div>
+              {/* Row 2: Email & Pickup Date */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <CustomInput
                     name="email"
