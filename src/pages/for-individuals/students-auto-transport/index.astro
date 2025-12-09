@@ -26,233 +26,236 @@ import CountNumber from "../../../components/CountNumber";
 <Layout title="College Students Car Shipping | Cayad Auto Transport"
 content="Affordable car shipping for college students. Book now with Cayad Auto Transport, the most reliable nationwide service!">
   <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+    class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background"
   >
-    <div class="w-[80%]">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
       <p
-        class="changing-text text-white text-6xl"
+        class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg"
       >
         Head to college with Cayad
       </p>
-      <h1 class="text-white text-lg font-semibold">
+      <h1 class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
         Need to ship a car to college? We're here to help!
       </h1>
       <GetQuoete />
     </div>
   </div>
 
-  <div class="w-full mt-12 flex justify-center mb-8">
-    <Testimonials
-      position="center"
-      title="College experience with Cayad"
-      client:load
-    />
-  </div>
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-20">
+        <Testimonials
+          position="center"
+          title="College experience with Cayad"
+          client:load
+        />
+      </div>
 
-  <div class="flex flex-col xs:flex-col sm:flex-col items-center h-max w-full">
-    <div class="w-[80%] xs:w-[100%] sm:w-[100%] px-4">
-      <h2
-        data-aos="fade-up"
-        class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4"
-      >
-        College Students Trust Cayad for a Reason
-      </h2>
-
-      <div
-        class="grid mt-8 grid-cols-2 xs:grid-cols-1 sm:grid-cols-1 w-full gap-6"
-      >
-        <div
+      <div class="text-center mb-16">
+        <h2
           data-aos="fade-up"
-          class="col-lg-6 col-md-6 p-4 xs:p-0 sm:p-0 hover:shadow-lg hover:shadow-btn-blue duration-300 wow fadeInUp"
-          data-wow-delay="0.3s"
+          class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6"
         >
-          <h3 class="text-xl font-medium text-[#000000] mb-2">
+          College Students Trust Cayad for a Reason
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        <div
+          class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <h3 class="text-xl font-bold font-heading text-slate-900 mb-4">
             Safe to home or campus
           </h3>
-          <p class="mb-2"  >
+          <p class="text-slate-600 leading-relaxed">
             <strong>Moving to college</strong> is exciting but stressful. With Cayad Auto Transport, you get your car to campus safely and affordably. No stress, no hassle!
           </p>
         </div>
         <div
+          class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100"
           data-aos="fade-up"
-          class="col-lg-6 col-md-6 hover:shadow-lg hover:shadow-btn-blue duration-300 wow fadeInUp"
-          data-wow-delay="0.5s"
+          data-aos-delay="200"
         >
-          <div class="team-item p-4 xs:p-0 sm:p-0">
-            <h3 class="text-xl font-medium text-[#000000] mb-2">
-              No driving alone
-            </h3>
-            <p class="mb-2"  >
-              Skip the risk. <strong>Ship your car to college</strong> safely with Cayad Auto Transport, your reliable nationwide service to and from campus.
-            </p>
-          </div>
-        </div>
-        <div
-          data-aos="fade-up"
-          class="col-lg-6 col-md-6 hover:shadow-lg hover:shadow-btn-blue duration-300 wow fadeInUp"
-          data-wow-delay="0.7s"
-        >
-          <div class="team-item p-4 xs:p-0 sm:p-0">
-            <h3 class="text-xl font-medium text-[#000000] mb-2">
-              Extra luggage allowed
-            </h3>
-            <p class="mb-2"  >
-              You’re allowed one suitcase or box (under 100 lbs.) in your trunk at no extra cost. Just remember, the trucker can check for unlawful items.
-            </p>
-          </div>
-        </div>
-        <div
-          data-aos="fade-up"
-          class="col-lg-6 col-md-6 hover:shadow-lg hover:shadow-btn-blue duration-300 wow fadeInUp"
-          data-wow-delay="0.9s"
-        >
-          <div class="team-item p-4 xs:p-0 sm:p-0">
-            <h3 class="text-xl font-medium text-[#000000] mb-2">
-              Save time
-            </h3>
-            <p class="mb-2"  >
-              Driving across the country adds miles and stress to your car. Skip the hassle. Let Cayad Auto Transport handle your <strong>student car transport.</strong>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full mt-12 mb-12 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <div class="mt-0">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">Your Trusted Car Shipping</h2>
-          <p class="text-base mt-4">
-            With Cayad, you get fast, reliable, and affordable <strong>car shipping</strong> designed for college students. We’re fully bonded, verified, and committed to giving you excellent service.
+          <h3 class="text-xl font-bold font-heading text-slate-900 mb-4">
+            No driving alone
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+            Skip the risk. <strong>Ship your car to college</strong> safely with Cayad Auto Transport, your reliable nationwide service to and from campus.
           </p>
         </div>
-        <div class="mt-8">
-          <h3 class="text-xl font-medium text-[#000000] mb-2">Affordable Auto Transport</h3>
-          <p class="text-base mt-4">
-            We know your student budget matters. With discounted cash pricing and flexible options, Cayad makes <strong>nationwide car shipping</strong> affordable and stress-free
+        <div
+          class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <h3 class="text-xl font-bold font-heading text-slate-900 mb-4">
+            Extra luggage allowed
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+            You’re allowed one suitcase or box (under 100 lbs.) in your trunk at no extra cost. Just remember, the trucker can check for unlawful items.
+          </p>
+        </div>
+        <div
+          class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <h3 class="text-xl font-bold font-heading text-slate-900 mb-4">
+            Save time
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+            Driving across the country adds miles and stress to your car. Skip the hassle. Let Cayad Auto Transport handle your <strong>student car transport.</strong>
           </p>
         </div>
       </div>
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/student1.webp" width="360" height="240" class="rounded-xl w-[90%] object-cover" alt="car transport some students on campus"/>
-      </div>
-    </div>
-  </div>
 
-  <div class="w-full mt-4 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/student2.webp" width="360" height="240" class="rounded-xl w-[90%] object-cover" alt="car shipping for student in campus"/>
-      </div>
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h2 class="text-3xl mt-4 sm:text-4xl md:text-5xl font-semibold mb-4">
-          Flexible <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">Door-to-Door</a> Pickup and Delivery
-        </h2>
-        <p class="mb-2">
-          With Cayad, you enjoy flexible <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">door-to-door</a> service that fits your schedule. Whether you’re moving to campus or home, we make <strong>student car shipping</strong> easy, convenient, and reliable.
-        </p>
-
-        <h3 class="text-xl mt-4 font-medium text-[#000000] mb-2">
-          Excellent Customer Service
-        </h3>
-        <p class="mb-2 mt-4">
-          Stay connected anytime! With Cayad, you can easily track your car’s journey by chatting with us, getting fast updates, friendly support, and no hassle.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full flex p-4 justify-center">
-    <div
-      class="w-[80%] xs:w-full sm:w- flex xs:flex-col sm:flex-col justify-around"
-    >
-      <div class="w-1/2 xs:w-full sm:w-full p-2">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          Cayad Auto Transport is your deal
-        </h2>
-        <p class="mb-2">
-          <br>
-          <li>Fast and Reliable Service ✔</li>
-          <li>Premium Prices ✔</li>
-          <br>
-          <li>Professional Service ✔</li> 
-          <li>Large Carrier Network ✔</li> 
-          <br>
-          <li>Rated 5/5 stars ✔</li>
-        </p>
-        <div class="mt-4">
-          <NumberPhone />
-        </div>
-      </div>
-      <CountNumber client:load />
-    </div>
-  </div>
-
-  <div
-    class="w-full flex mb-8 flex-col items-center xs:min-w-[100%] xs:px-0 sm:min-w-[100%] sm:px-0 mx-auto overflow-hidden px-0"
-  >
-    <div
-      class="w-[80%] xs:min-w-[100%] xs:px-4 sm:min-w-[100%] sm:px-4 py-10 px-0"
-    >
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-        Top Reasons Students Choose Cayad
-      </h2>
-      <div
-        class="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 gap-10"
-      >
-        <div class="wow" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-            <img src="/img/dollar.webp" width="1080" height="1080" class="w-24 h-20 mb-2" alt="car shipping dollar logo"/>
-            <div class="ml-4">
-              <h5 class="font-semibold">Premium Auto Transportation</h5>
-              <p class="xs:text-start sm:text-start mb-0">
-              You enjoy premium car shipping designed for students, expert handling, safe delivery, and a smooth process, all at a price that fits your budget. Focus on what matters while we handle your <strong>student car shipping</strong> with top-tier service.
-              </p>
-            </div>
+      <!-- Content Section 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+        <div class="space-y-6">
+          <div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-4">Your Trusted Car Shipping</h2>
+            <p class="text-lg text-slate-600 leading-relaxed">
+              With Cayad, you get fast, reliable, and affordable <strong>car shipping</strong> designed for college students. We’re fully bonded, verified, and committed to giving you excellent service.
+            </p>
           </div>
-          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="300">
-            <img src="/img/easy.webp" width="1080" height="1080" class="w-24 h-20 mb-2" alt="car shipping easy logo"/>
-            <div class="ml-4">
-              <h5 class="font-semibold">A+ Team You Can Trust</h5>
-              <p class="xs:text-start sm:text-start mb-0">
-                You’re backed by an A+ claims team ready to support you. We ensure your car is safely moved and give you peace of mind with expert help every step of the way, so you can relax while we handle your <strong>student car shipping</strong>.
-              </p>
-            </div>
-          </div>
-          <div class="flex mb-10 wow" data-aos="fade-up" data-aos-delay="500">
-            <img src="/img/call.webp" width="120" height="120" class="w-24 h-24 mb-2" alt="car shipping call logo"/>
-            <div class="ml-4">
-              <h5 class="font-semibold">Expert Assistance</h5>
-              <p class="xs:text-start sm:text-start mb-0">
-                You get expert support at every step. Our trained team guides you through paperwork, answers your questions, and ensures your car is secured, making your <strong>student car shipping</strong> smooth and stress-free.
-              </p>
-            </div>
+          <div>
+            <h3 class="text-2xl font-bold font-heading text-slate-900 mb-2">Affordable Auto Transport</h3>
+            <p class="text-lg text-slate-600 leading-relaxed">
+              We know your student budget matters. With discounted cash pricing and flexible options, Cayad makes <strong>nationwide car shipping</strong> affordable and stress-free
+            </p>
           </div>
         </div>
-        <div
-          class="w-[95%] wow"
-          data-aos="fade-right"
-          data-aos-delay="100"
-          style="min-height: 400px;"
-        >
-          <div class="h-full">
-            <img
-              src="/img/student.webp"
-              class="object-cover rounded-xl w-full h-full"
-              width="850"
-              height="374"
-              alt="car shipping for students on class"
-            />
+        <div class="relative h-full" data-aos="fade-left">
+           <img src="/img/student1.webp" width="360" height="240" class="rounded-2xl shadow-2xl w-full object-cover" alt="car transport some students on campus"/>
+        </div>
+      </div>
+
+      <!-- Content Section 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+         <div class="order-2 md:order-1 relative h-full" data-aos="fade-right">
+           <img src="/img/student2.webp" width="360" height="240" class="rounded-2xl shadow-2xl w-full object-cover" alt="car shipping for student in campus"/>
+         </div>
+         <div class="order-1 md:order-2 space-y-6">
+           <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+             Flexible <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">Door-to-Door</a> Pickup and Delivery
+           </h2>
+           <p class="text-lg text-slate-600 leading-relaxed">
+             With Cayad, you enjoy flexible <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">door-to-door</a> service that fits your schedule. Whether you’re moving to campus or home, we make <strong>student car shipping</strong> easy, convenient, and reliable.
+           </p>
+           
+           <h3 class="text-2xl font-bold font-heading text-slate-900 pt-4">
+             Excellent Customer Service
+           </h3>
+           <p class="text-lg text-slate-600 leading-relaxed">
+             Stay connected anytime! With Cayad, you can easily track your car’s journey by chatting with us, getting fast updates, friendly support, and no hassle.
+           </p>
+         </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="bg-slate-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+            Cayad Auto Transport is your deal
+          </h2>
+          <ul class="space-y-4">
+             <li class="flex items-center text-lg font-medium text-slate-700">
+               <span class="text-green-500 mr-2">✔</span> Fast and Reliable Service
+             </li>
+             <li class="flex items-center text-lg font-medium text-slate-700">
+               <span class="text-green-500 mr-2">✔</span> Premium Prices
+             </li>
+             <li class="flex items-center text-lg font-medium text-slate-700">
+               <span class="text-green-500 mr-2">✔</span> Professional Service
+             </li>
+             <li class="flex items-center text-lg font-medium text-slate-700">
+               <span class="text-green-500 mr-2">✔</span> Large Carrier Network
+             </li>
+             <li class="flex items-center text-lg font-medium text-slate-700">
+               <span class="text-green-500 mr-2">✔</span> Rated 5/5 stars
+             </li>
+          </ul>
+          <div class="pt-6">
+            <NumberPhone />
           </div>
+        </div>
+        <div class="flex justify-center">
+             <div class="w-full max-w-md">
+                 <CountNumber client:load />
+             </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="py-16 bg-white">
+     <div class="max-w-7xl mx-auto px-4 md:px-6">
+       <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6">
+            Top Reasons Students Choose Cayad
+          </h2>
+       </div>
+
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-8">
+             <div class="flex gap-4 items-start" data-aos="fade-up" data-aos-delay="100">
+               <div class="flex-shrink-0 bg-blue-50 rounded-xl p-3">
+                 <img src="/img/dollar.webp" width="1080" height="1080" class="w-12 h-12 object-contain" alt="car shipping dollar logo"/>
+               </div>
+               <div>
+                  <h5 class="text-xl font-bold font-heading text-slate-900 mb-2">Premium Auto Transportation</h5>
+                  <p class="text-slate-600 leading-relaxed">
+                    You enjoy premium car shipping designed for students, expert handling, safe delivery, and a smooth process, all at a price that fits your budget. Focus on what matters while we handle your <strong>student car shipping</strong> with top-tier service.
+                  </p>
+               </div>
+             </div>
+
+             <div class="flex gap-4 items-start" data-aos="fade-up" data-aos-delay="200">
+               <div class="flex-shrink-0 bg-blue-50 rounded-xl p-3">
+                 <img src="/img/easy.webp" width="1080" height="1080" class="w-12 h-12 object-contain" alt="car shipping easy logo"/>
+               </div>
+               <div>
+                  <h5 class="text-xl font-bold font-heading text-slate-900 mb-2">A+ Team You Can Trust</h5>
+                  <p class="text-slate-600 leading-relaxed">
+                    You’re backed by an A+ claims team ready to support you. We ensure your car is safely moved and give you peace of mind with expert help every step of the way, so you can relax while we handle your <strong>student car shipping</strong>.
+                  </p>
+               </div>
+             </div>
+
+             <div class="flex gap-4 items-start" data-aos="fade-up" data-aos-delay="300">
+               <div class="flex-shrink-0 bg-blue-50 rounded-xl p-3">
+                 <img src="/img/call.webp" width="120" height="120" class="w-12 h-12 object-contain" alt="car shipping call logo"/>
+               </div>
+               <div>
+                  <h5 class="text-xl font-bold font-heading text-slate-900 mb-2">Expert Assistance</h5>
+                  <p class="text-slate-600 leading-relaxed">
+                     You get expert support at every step. Our trained team guides you through paperwork, answers your questions, and ensures your car is secured, making your <strong>student car shipping</strong> smooth and stress-free.
+                  </p>
+               </div>
+             </div>
+          </div>
+
+          <div class="relative h-full" data-aos="fade-left">
+             <img
+               src="/img/student.webp"
+               class="object-cover rounded-2xl shadow-2xl w-full h-full"
+               width="850"
+               height="374"
+               alt="car shipping for students on class"
+             />
+          </div>
+       </div>
+
+     </div>
+  </div>
+
   <ButtonScrollTop client:load />
 </Layout>

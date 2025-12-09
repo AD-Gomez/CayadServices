@@ -19,628 +19,287 @@ import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
   title="Ship Car To Another State | Cayad Auto Transport"
   content="Looking to ship your car to another state? Take advantage of unbeatable deals with Cayad auto transport services. Contact us today!"
 >
-  <container
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
+  <div
+    class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background"
   >
-    <div class="w-[80%]">
-      <p
-        class="changing-text text-white text-6xl"
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg"
       >
         Ship a Car to Another State
-      </p>
-      <h1 class="text-white text-lg font-semibold">
-        Shipping your car to another state at the best price
       </h1>
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
+        Shipping your car to another state at the best price
+      </p>
       <GetQuote />
     </div>
-  </container>
-
-  <div class="w-full h-max mt-12 flex justify-center mb-8">
-    <Testimonials
-      title="Trusted Car Shipping to Another State"
-      client:load
-    />
   </div>
-  <container
-    class="w-[80%] flex flex-col items-center xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
-  >
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-      How Does Transporting a Car From State to State Work?
-    </h2>
-    <p class="text-base mt-2 w-full">
-      Every month, thousands of people rely on <strong>auto transport services</strong>  to move their vehicles from one state to another. Whether you're relocating for work, retiring to a warmer climate, buying a car online, or helping family, <strong>transporting a car from state to state</strong> is easier than you might think. 
-      <br /><br />
-      With the right <strong>auto transport provider</strong>, the process is quick and stress-free. Whether your vehicle needs to travel just across the border or across the country, it all starts with getting a fast, accurate state-to-state <strong>car shipping quote.</strong> 
-      <br /><br />
-      Need guidance? Speak directly with a Cayad shipping advisor today at 
-      <span class="text-btn-blue mb-2 hover:underline hover:cursor-pointer">
-        <a href="tel:+14696190747">(469) 619-0747</a>
-      </span>
-      we're here to help you every step of the way.
-</p>
-  </container>
 
-  <container
-    class="w-[100%] h-max py-8 mt-12 bg-[#e2e6ec] flex flex-col items-center xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto"
-  >
-    <section class="w-[80%] xs:w-full sm:w-full">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-        Transport your car to another state in 3 easy steps with Cayad
-      </h2>
-      <p class="text-base mt-4 w-full">
-        Transporting your vehicle from point A to point B is easier than you may
-        think! In fact, there are just three simple steps, watch the video to
-        learn more.
-      </p>
-      <section class="w-full flex xs:flex-col sm:flex-col items-start">
-        <div class="w-[45%] xs:w-full sm:w-full mt-12 flex flex-col">
-          <div>
-            <div class="flex mt-4">
-              <div class="rounded-[50%]">
-                <svg
-                  class="icon-Cayad"
-                  width="65"
-                  height="58"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="25 25 150 150"
-                >
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="mb-20">
+        <Testimonials
+          title="Trusted Car Shipping to Another State"
+          client:load
+        />
+      </div>
+
+       <div class="text-center mb-16 max-w-4xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 leading-tight">
+           How Does Transporting a Car From State to State Work?
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          Every month, thousands of people rely on <strong>auto transport services</strong> to move their vehicles from one state to another. Whether you're relocating for work, retiring to a warmer climate, buying a car online, or helping family, <strong>transporting a car from state to state</strong> is easier than you might think.
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+           With the right <strong>auto transport provider</strong>, the process is quick and stress-free. Whether your vehicle needs to travel just across the border or across the country, it all starts with getting a fast, accurate state-to-state <strong>car shipping quote.</strong>
+        </p>
+        <p class="text-lg font-semibold text-slate-900">
+          Need guidance? Speak directly with a Cayad shipping advisor today at <a href="tel:+14696190747" class="text-btn-blue hover:underline">(469) 619-0747</a> we're here to help you every step of the way.
+        </p>
+       </div>
+
+    </div>
+  </div>
+
+  <!-- Steps Section -->
+  <div class="py-16 bg-[#e2e6ec]">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+       <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6">
+          Transport your car to another state in 3 easy steps with Cayad
+        </h2>
+        <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+          Transporting your vehicle from point A to point B is easier than you may
+          think! In fact, there are just three simple steps, watch the video to
+          learn more.
+        </p>
+      </div>
+
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+         <div class="space-y-8">
+            <!-- Step 1 -->
+           <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <svg class="w-16 h-16" viewBox="25 25 150 150">
                   <defs>
                     <style>
-                      .book-order-cls-1 {
-                        fill: #00a1ef;
-                      }
-
-                      .book-order-cls-2,
-                      .book-order-cls-4 {
-                        fill: #fff;
-                      }
-
-                      .book-order-cls-3 {
-                        fill: none;
-                      }
-
-                      .book-order-cls-3,
-                      .book-order-cls-4 {
-                        stroke: #fff;
-                        stroke-miterlimit: 10;
-                        stroke-width: 3.17px;
-                      }
+                      .book-order-cls-1 { fill: #00a1ef; }
+                      .book-order-cls-2, .book-order-cls-4 { fill: #fff; }
+                      .book-order-cls-3 { fill: none; }
+                      .book-order-cls-3, .book-order-cls-4 { stroke: #fff; stroke-miterlimit: 10; stroke-width: 3.17px; }
                     </style>
                   </defs>
-                  <circle
-                    class="book-order-cls-1"
-                    cx="100"
-                    cy="100"
-                    r="73.28"
-                    transform="translate(-19.26 24) rotate(-12.49)"></circle>
-                  <rect
-                    class="book-order-cls-2"
-                    x="52.85"
-                    y="60.8"
-                    width="93"
-                    height="63.34"
-                    rx="2.89"></rect>
-                  <rect
-                    class="book-order-cls-1"
-                    x="59.52"
-                    y="67.21"
-                    width="79.67"
-                    height="48.63"></rect>
-                  <polyline
-                    class="book-order-cls-2"
-                    points="91.92 138.47 67.71 138.52 63.13 146.66 135.71 146.66 131.13 138.52 107.22 138.47"
-                  ></polyline>
-                  <path
-                    class="book-order-cls-2"
-                    d="M92.06,128.24v9.06c0,2.37,3.3,4.29,7.36,4.29s7.36-1.92,7.36-4.29v-9.06"
-                  ></path>
-                  <line
-                    class="book-order-cls-3"
-                    x1="69.19"
-                    y1="79.44"
-                    x2="96.61"
-                    y2="79.44"></line>
-                  <line
-                    class="book-order-cls-3"
-                    x1="69.19"
-                    y1="89.67"
-                    x2="96.61"
-                    y2="89.67"></line>
-                  <line
-                    class="book-order-cls-3"
-                    x1="69.19"
-                    y1="99.9"
-                    x2="96.61"
-                    y2="99.9"></line>
-                  <rect
-                    class="book-order-cls-4"
-                    x="103.69"
-                    y="79.44"
-                    width="23.15"
-                    height="20.46"></rect>
+                  <circle class="book-order-cls-1" cx="100" cy="100" r="73.28" transform="translate(-19.26 24) rotate(-12.49)"></circle>
+                  <rect class="book-order-cls-2" x="52.85" y="60.8" width="93" height="63.34" rx="2.89"></rect>
+                  <rect class="book-order-cls-1" x="59.52" y="67.21" width="79.67" height="48.63"></rect>
+                  <polyline class="book-order-cls-2" points="91.92 138.47 67.71 138.52 63.13 146.66 135.71 146.66 131.13 138.52 107.22 138.47"></polyline>
+                  <path class="book-order-cls-2" d="M92.06,128.24v9.06c0,2.37,3.3,4.29,7.36,4.29s7.36-1.92,7.36-4.29v-9.06"></path>
+                  <line class="book-order-cls-3" x1="69.19" y1="79.44" x2="96.61" y2="79.44"></line>
+                  <line class="book-order-cls-3" x1="69.19" y1="89.67" x2="96.61" y2="89.67"></line>
+                  <line class="book-order-cls-3" x1="69.19" y1="99.9" x2="96.61" y2="99.9"></line>
+                  <rect class="book-order-cls-4" x="103.69" y="79.44" width="23.15" height="20.46"></rect>
                 </svg>
               </div>
-              <div class="ml-4">
-                <p class="text-[24px] text-btn-blue font-bold">Step 1</p>
-                <p class="text-[16px] font-semibold">
-                  Quote and book your order
-                </p>
+              <div class="pt-2">
+                <h3 class="text-2xl font-bold text-btn-blue">Step 1</h3>
+                <p class="text-xl font-semibold text-slate-800">Quote and book your order</p>
               </div>
-            </div>
-            <div class="flex mt-4">
-              <div class="rounded-[50%]">
-                <svg
-                  class="icon-Cayad"
-                  width="65"
-                  height="58"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="25 25 150 150"
-                >
+           </div>
+
+           <!-- Step 2 -->
+           <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <svg class="w-16 h-16" viewBox="25 25 150 150">
                   <defs>
-                    <style>
-                      .pich-up-cls-1 {
-                        fill: #00a1ef;
-                      }
-
-                      .pich-up-cls-2 {
-                        fill: #fff;
-                      }
-
-                      .pich-up-cls-3 {
-                        fill: none;
-                      }
+                     <style>
+                      .pich-up-cls-1 { fill: #00a1ef; }
+                      .pich-up-cls-2 { fill: #fff; }
+                      .pich-up-cls-3 { fill: none; }
                     </style>
                   </defs>
-                  <circle
-                    class="pich-up-cls-1"
-                    cx="100.22"
-                    cy="100"
-                    r="73.28"
-                    transform="translate(-19.26 24.04) rotate(-12.49)"></circle>
-                  <circle
-                    class="pich-up-cls-2"
-                    cx="64.14"
-                    cy="118.91"
-                    r="9.52"
-                    transform="translate(-31.57 23.55) rotate(-16.76)"></circle>
-                  <circle
-                    class="pich-up-cls-2"
-                    cx="133.23"
-                    cy="118.91"
-                    r="9.52"
-                    transform="translate(-28.63 43.48) rotate(-16.76)"></circle>
-                  <path
-                    class="pich-up-cls-2"
-                    d="M147.91,118l10.31.06a4.43,4.43,0,0,0,4.24-3.2,12.28,12.28,0,0,0,.24-6.62c-1.34-4.91-16.91-13.89-33.55-15.69C127.09,92.31,117.6,82.15,109.4,78c-3.61-1.85-30-1.55-37-.84-.64.06-5.36.61-22.66,14.68l-8.51.5a2.68,2.68,0,0,0-2.5,2.6l-.6,20.48a3.54,3.54,0,0,0,3.54,3.54h7.62s2.35-9.71,14.23-9.82c0,0,11.11-.78,16,9.27l38.74.27s2.57-10.1,16.3-9.65C134.57,109,145,109.56,147.91,118Z"
-                  ></path>
-                  <polyline
-                    class="pich-up-cls-2"
-                    points="106.25 78.13 106.19 92.03 129.14 92.59"></polyline>
-                  <polyline
-                    class="pich-up-cls-3"
-                    points="48.39 91.81 67.44 91.81 67.5 79.31"></polyline>
-                  <rect
-                    class="pich-up-cls-2"
-                    x="76.3"
-                    y="77.52"
-                    width="20.99"
-                    height="14.51"></rect>
+                  <circle class="pich-up-cls-1" cx="100.22" cy="100" r="73.28" transform="translate(-19.26 24.04) rotate(-12.49)"></circle>
+                  <circle class="pich-up-cls-2" cx="64.14" cy="118.91" r="9.52" transform="translate(-31.57 23.55) rotate(-16.76)"></circle>
+                  <circle class="pich-up-cls-2" cx="133.23" cy="118.91" r="9.52" transform="translate(-28.63 43.48) rotate(-16.76)"></circle>
+                  <path class="pich-up-cls-2" d="M147.91,118l10.31.06a4.43,4.43,0,0,0,4.24-3.2,12.28,12.28,0,0,0,.24-6.62c-1.34-4.91-16.91-13.89-33.55-15.69C127.09,92.31,117.6,82.15,109.4,78c-3.61-1.85-30-1.55-37-.84-.64.06-5.36.61-22.66,14.68l-8.51.5a2.68,2.68,0,0,0-2.5,2.6l-.6,20.48a3.54,3.54,0,0,0,3.54,3.54h7.62s2.35-9.71,14.23-9.82c0,0,11.11-.78,16,9.27l38.74.27s2.57-10.1,16.3-9.65C134.57,109,145,109.56,147.91,118Z"></path>
+                  <polyline class="pich-up-cls-2" points="106.25 78.13 106.19 92.03 129.14 92.59"></polyline>
+                  <polyline class="pich-up-cls-3" points="48.39 91.81 67.44 91.81 67.5 79.31"></polyline>
+                  <rect class="pich-up-cls-2" x="76.3" y="77.52" width="20.99" height="14.51"></rect>
                 </svg>
               </div>
-
-              <div class="ml-4">
-                <p class="text-[24px] text-btn-blue font-bold">Step 2</p>
-                <p class="text-[16px] font-semibold">We pick up your vehicle</p>
+              <div class="pt-2">
+                <h3 class="text-2xl font-bold text-btn-blue">Step 2</h3>
+                <p class="text-xl font-semibold text-slate-800">We pick up your vehicle</p>
               </div>
-            </div>
-            <div class="flex mt-4">
-              <div class="rounded-[50%]">
-                <svg
-                  class="icon-Cayad"
-                  width="65"
-                  height="58"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="25 25 150 150"
-                >
-                  <defs>
+           </div>
+
+           <!-- Step 3 -->
+           <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <svg class="w-16 h-16" viewBox="25 25 150 150">
+                   <defs>
                     <style>
-                      .receive-vehicle-cls-1 {
-                        fill: #00a1ef;
-                      }
-
-                      .receive-vehicle-cls-2 {
-                        fill: #fff;
-                      }
-
-                      .receive-vehicle-cls-3 {
-                        fill: #0c91d0;
-                      }
+                      .receive-vehicle-cls-1 { fill: #00a1ef; }
+                      .receive-vehicle-cls-2 { fill: #fff; }
+                      .receive-vehicle-cls-3 { fill: #0c91d0; }
                     </style>
                   </defs>
-                  <circle
-                    class="receive-vehicle-cls-1"
-                    cx="100.22"
-                    cy="100"
-                    r="73.28"
-                    transform="translate(-19.26 24.04) rotate(-12.49)"></circle>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M76.59,134.34H60.76a1.35,1.35,0,0,1-1.29-1,63.42,63.42,0,0,1-1.84-14.7c0-7.88,2.44-12.67,7.9-15.53,4.88-2.55,15.9-3.74,34.69-3.74s29.82,1.19,34.7,3.74c5.45,2.85,7.89,7.65,7.89,15.53a63.35,63.35,0,0,1-1.84,14.7,1.34,1.34,0,0,1-1.29,1H123.85"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M139.68,134.6H123.85v-.53h15.83a1.06,1.06,0,0,0,1-.79,63,63,0,0,0,1.83-14.63c0-7.77-2.39-12.49-7.75-15.3-4.84-2.53-15.82-3.7-34.57-3.7s-29.73,1.18-34.57,3.71c-5.36,2.8-7.75,7.52-7.75,15.29a62.45,62.45,0,0,0,1.83,14.63,1.06,1.06,0,0,0,1,.79H76.59v.53H60.76a1.59,1.59,0,0,1-1.54-1.19,62.78,62.78,0,0,1-1.85-14.76c0-8,2.48-12.86,8-15.76,4.93-2.57,16-3.77,34.82-3.77s29.9,1.2,34.82,3.77c5.55,2.9,8,7.77,8,15.76a64.44,64.44,0,0,1-1.84,14.76A1.61,1.61,0,0,1,139.68,134.6Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M131.4,103.61a.91.91,0,0,1-1-.67c-1.89-8.31-4.81-15.45-6-16.88-2.77-3-15-3.75-21.8-3.73H98.73c-13.54,0-20.35,2.14-22,3.88-1.27,1.46-4.56,8.68-6.73,17a1,1,0,0,1-1,.69,1.52,1.52,0,0,1-.51-.09,1.6,1.6,0,0,1-.8-.62,1.1,1.1,0,0,1-.18-.88c2.12-8.86,5.31-16.68,7-18.48C77.24,81,86.34,79.14,98.74,79.1h4c12.37,0,21.36,1.72,24,4.61,1.61,1.79,4.41,9.52,6.23,18.32a1.45,1.45,0,0,1-1,1.49,1.41,1.41,0,0,1-.52.1Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M69,104.2a1.76,1.76,0,0,1-.6-.1,1.84,1.84,0,0,1-.93-.73,1.34,1.34,0,0,1-.22-1.08c2.2-9.17,5.38-16.79,7.06-18.6,2.81-3,11.94-4.82,24.42-4.85l4,0h.38c12.24,0,21.12,1.76,23.79,4.71,1.77,2,4.59,10.23,6.29,18.43a1.69,1.69,0,0,1-1.18,1.8,1.92,1.92,0,0,1-.61.11h0a1.15,1.15,0,0,1-1.2-.87c-1.84-8.1-4.75-15.35-6-16.77-2.72-2.92-15.32-3.67-21.6-3.64l-3.91,0c-12.6,0-20,1.93-21.82,3.79-1.13,1.3-4.42,8.27-6.66,16.92a1.23,1.23,0,0,1-1.24.88ZM103.1,79.35H98.74c-12.15,0-21.36,1.84-24,4.7-1.65,1.76-4.83,9.55-6.94,18.36a.83.83,0,0,0,.15.66,1.35,1.35,0,0,0,.67.52,1.12,1.12,0,0,0,.42.08.69.69,0,0,0,.72-.49c2.11-8.11,5.43-15.57,6.79-17.15,1.73-1.8,8.58-3.92,22.21-4h3.91c6.83,0,19.15.75,22,3.81,1.27,1.51,4.19,8.7,6.07,17a.64.64,0,0,0,.69.46h0a1.12,1.12,0,0,0,.43-.08,1.17,1.17,0,0,0,.84-1.19C130.79,93,128,85.54,126.5,83.88,124,81.08,115,79.35,103.1,79.35Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M73.32,132.92V142a3.47,3.47,0,0,1-3.61,3.32H65A3.48,3.48,0,0,1,61.34,142v-9.06"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M69.71,146.88H65a5.06,5.06,0,0,1-5.19-4.9v-9.06h3.17V142a1.89,1.89,0,0,0,2,1.73h4.76a1.9,1.9,0,0,0,2-1.73v-9.06h3.17V142A5.06,5.06,0,0,1,69.71,146.88Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M139.46,132.92V142a3.48,3.48,0,0,1-3.61,3.32h-4.77a3.47,3.47,0,0,1-3.6-3.32v-9.06"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-2"
-                    d="M135.85,146.88h-4.77a5.06,5.06,0,0,1-5.19-4.9v-9.06h3.17V142a1.89,1.89,0,0,0,2,1.73h4.77a1.89,1.89,0,0,0,2-1.73v-9.06H141V142A5.06,5.06,0,0,1,135.85,146.88Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-1"
-                    d="M71.11,117.37a1,1,0,0,0-.24-.05l-6-.81a1.78,1.78,0,0,0-1.84,2c.1,2.16.32,4.08.5,5.35a1.73,1.73,0,0,0,1.63,1.58H76a1.78,1.78,0,0,0,1.65-1.89v-1a2,2,0,0,0-.17-.84C76.32,119.11,71.92,117.62,71.11,117.37Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-1"
-                    d="M129.08,117.37a1.11,1.11,0,0,1,.25-.05l6-.81a1.78,1.78,0,0,1,1.84,2c-.1,2.16-.33,4.08-.5,5.35a1.73,1.73,0,0,1-1.63,1.58H124.19a1.77,1.77,0,0,1-1.64-1.89v-1a2,2,0,0,1,.17-.84C123.87,119.11,128.28,117.62,129.08,117.37Z"
-                  ></path>
-                  <path
-                    class="receive-vehicle-cls-1"
-                    d="M116.1,116.57H84.34a1.66,1.66,0,0,0-1.45.86,6.8,6.8,0,0,0-.65,3.26,9.05,9.05,0,0,0,.73,3.83,1.69,1.69,0,0,0,1.52,1H116a1.69,1.69,0,0,0,1.52-1,8.9,8.9,0,0,0,.73-3.83,6.8,6.8,0,0,0-.65-3.26A1.66,1.66,0,0,0,116.1,116.57Z"
-                  ></path>
-                  <rect
-                    class="receive-vehicle-cls-2"
-                    x="86.91"
-                    y="42.65"
-                    width="29.61"
-                    height="29.61"></rect>
-                  <circle
-                    class="receive-vehicle-cls-2"
-                    cx="101.71"
-                    cy="57.45"
-                    r="14.8"
-                    transform="translate(-10.02 23.36) rotate(-12.49)"></circle>
-                  <path
-                    class="receive-vehicle-cls-3"
-                    d="M98.57,66.13a1.64,1.64,0,0,1-1.13-.46L92.3,60.52a1.58,1.58,0,0,1,2.24-2.24l4,4L109,50.86a1.57,1.57,0,0,1,2.24-.09,1.59,1.59,0,0,1,.09,2.24L99.73,65.62a1.57,1.57,0,0,1-1.13.51Z"
-                  ></path>
+                  <circle class="receive-vehicle-cls-1" cx="100.22" cy="100" r="73.28" transform="translate(-19.26 24.04) rotate(-12.49)"></circle>
+                  <path class="receive-vehicle-cls-2" d="M76.59,134.34H60.76a1.35,1.35,0,0,1-1.29-1,63.42,63.42,0,0,1-1.84-14.7c0-7.88,2.44-12.67,7.9-15.53,4.88-2.55,15.9-3.74,34.69-3.74s29.82,1.19,34.7,3.74c5.45,2.85,7.89,7.65,7.89,15.53a63.35,63.35,0,0,1-1.84,14.7,1.34,1.34,0,0,1-1.29,1H123.85"></path>
+                  <path class="receive-vehicle-cls-2" d="M139.68,134.6H123.85v-.53h15.83a1.06,1.06,0,0,0,1-.79,63,63,0,0,0,1.83-14.63c0-7.77-2.39-12.49-7.75-15.3-4.84-2.53-15.82-3.7-34.57-3.7s-29.73,1.18-34.57,3.71c-5.36,2.8-7.75,7.52-7.75,15.29a62.45,62.45,0,0,0,1.83,14.63,1.06,1.06,0,0,0,1,.79H76.59v.53H60.76a1.59,1.59,0,0,1-1.54-1.19,62.78,62.78,0,0,1-1.85-14.76c0-8,2.48-12.86,8-15.76,4.93-2.57,16-3.77,34.82-3.77s29.9,1.2,34.82,3.77c5.55,2.9,8,7.77,8,15.76a64.44,64.44,0,0,1-1.84,14.76A1.61,1.61,0,0,1,139.68,134.6Z"></path>
+                  <path class="receive-vehicle-cls-2" d="M131.4,103.61a.91.91,0,0,1-1-.67c-1.89-8.31-4.81-15.45-6-16.88-2.77-3-15-3.75-21.8-3.73H98.73c-13.54,0-20.35,2.14-22,3.88-1.27,1.46-4.56,8.68-6.73,17a1,1,0,0,1-1,.69,1.52,1.52,0,0,1-.51-.09,1.6,1.6,0,0,1-.8-.62,1.1,1.1,0,0,1-.18-.88c2.12-8.86,5.31-16.68,7-18.48C77.24,81,86.34,79.14,98.74,79.1h4c12.37,0,21.36,1.72,24,4.61,1.61,1.79,4.41,9.52,6.23,18.32a1.45,1.45,0,0,1-1,1.49,1.41,1.41,0,0,1-.52.1Z"></path>
+                  <path class="receive-vehicle-cls-2" d="M69,104.2a1.76,1.76,0,0,1-.6-.1,1.84,1.84,0,0,1-.93-.73,1.34,1.34,0,0,1-.22-1.08c2.2-9.17,5.38-16.79,7.06-18.6,2.81-3,11.94-4.82,24.42-4.85l4,0h.38c12.24,0,21.12,1.76,23.79,4.71,1.77,2,4.59,10.23,6.29,18.43a1.69,1.69,0,0,1-1.18,1.8,1.92,1.92,0,0,1-.61.11h0a1.15,1.15,0,0,1-1.2-.87c-1.84-8.1-4.75-15.35-6-16.77-2.72-2.92-15.32-3.67-21.6-3.64l-3.91,0c-12.6,0-20,1.93-21.82,3.79-1.13,1.3-4.42,8.27-6.66,16.92a1.23,1.23,0,0,1-1.24.88ZM103.1,79.35H98.74c-12.15,0-21.36,1.84-24,4.7-1.65,1.76-4.83,9.55-6.94,18.36a.83.83,0,0,0,.15.66,1.35,1.35,0,0,0,.67.52,1.12,1.12,0,0,0,.42.08.69.69,0,0,0,.72-.49c2.11-8.11,5.43-15.57,6.79-17.15,1.73-1.8,8.58-3.92,22.21-4h3.91c6.83,0,19.15.75,22,3.81,1.27,1.51,4.19,8.7,6.07,17a.64.64,0,0,0,.69.46h0a1.12,1.12,0,0,0,.43-.08,1.17,1.17,0,0,0,.84-1.19C130.79,93,128,85.54,126.5,83.88,124,81.08,115,79.35,103.1,79.35Z"></path>
+                  <path class="receive-vehicle-cls-2" d="M73.32,132.92V142a3.47,3.47,0,0,1-3.61,3.32H65A3.48,3.48,0,0,1,61.34,142v-9.06"></path>
+                  <path class="receive-vehicle-cls-2" d="M69.71,146.88H65a5.06,5.06,0,0,1-5.19-4.9v-9.06h3.17V142a1.89,1.89,0,0,0,2,1.73h4.76a1.9,1.9,0,0,0,2-1.73v-9.06h3.17V142A5.06,5.06,0,0,1,69.71,146.88Z"></path>
+                  <path class="receive-vehicle-cls-2" d="M139.46,132.92V142a3.48,3.48,0,0,1-3.61,3.32h-4.77a3.47,3.47,0,0,1-3.6-3.32v-9.06"></path>
+                  <path class="receive-vehicle-cls-2" d="M135.85,146.88h-4.77a5.06,5.06,0,0,1-5.19-4.9v-9.06h3.17V142a1.89,1.89,0,0,0,2,1.73h4.77a1.89,1.89,0,0,0,2-1.73v-9.06H141V142A5.06,5.06,0,0,1,135.85,146.88Z"></path>
+                  <path class="receive-vehicle-cls-1" d="M71.11,117.37a1,1,0,0,0-.24-.05l-6-.81a1.78,1.78,0,0,0-1.84,2c.1,2.16.32,4.08.5,5.35a1.73,1.73,0,0,0,1.63,1.58H76a1.78,1.78,0,0,0,1.65-1.89v-1a2,2,0,0,0-.17-.84C76.32,119.11,71.92,117.62,71.11,117.37Z"></path>
+                  <path class="receive-vehicle-cls-1" d="M129.08,117.37a1.11,1.11,0,0,1,.25-.05l6-.81a1.78,1.78,0,0,1,1.84,2c-.1,2.16-.33,4.08-.5,5.35a1.73,1.73,0,0,1-1.63,1.58H124.19a1.77,1.77,0,0,1-1.64-1.89v-1a2,2,0,0,1,.17-.84C123.87,119.11,128.28,117.62,129.08,117.37Z"></path>
+                  <path class="receive-vehicle-cls-1" d="M116.1,116.57H84.34a1.66,1.66,0,0,0-1.45.86,6.8,6.8,0,0,0-.65,3.26,9.05,9.05,0,0,0,.73,3.83,1.69,1.69,0,0,0,1.52,1H116a1.69,1.69,0,0,0,1.52-1,8.9,8.9,0,0,0,.73-3.83,6.8,6.8,0,0,0-.65-3.26A1.66,1.66,0,0,0,116.1,116.57Z"></path>
+                  <rect class="receive-vehicle-cls-2" x="86.91" y="42.65" width="29.61" height="29.61"></rect>
+                  <circle class="receive-vehicle-cls-2" cx="101.71" cy="57.45" r="14.8" transform="translate(-10.02 23.36) rotate(-12.49)"></circle>
+                  <path class="receive-vehicle-cls-3" d="M98.57,66.13a1.64,1.64,0,0,1-1.13-.46L92.3,60.52a1.58,1.58,0,0,1,2.24-2.24l4,4L109,50.86a1.57,1.57,0,0,1,2.24-.09,1.59,1.59,0,0,1,.09,2.24L99.73,65.62a1.57,1.57,0,0,1-1.13.51Z"></path>
                 </svg>
               </div>
-
-              <div class="ml-4">
-                <p class="text-[24px] text-btn-blue font-bold">Step 3</p>
-                <p class="text-[16px] font-semibold">Receive your vehicle</p>
+              <div class="pt-2">
+                <h3 class="text-2xl font-bold text-btn-blue">Step 3</h3>
+                <p class="text-xl font-semibold text-slate-800">Receive your vehicle</p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-[45%] xs:w-full sm:w-full mt-12">
-          <div class="w-full flex justify-center">
-            <iframe
+           </div>
+         </div>
+         <div class="flex items-center justify-center">
+             <iframe
               id="js-video-iframe"
               frameborder="0"
               allowfullscreen="1"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               title="How Auto Transport Works - Explained In 3 Simple Steps"
-              width="860"
-              height="284"
+              width="640"
+              height="360"
               src="https://www.youtube.com/embed/_W-kApES2fk?rel=0"
-              class="video-how max-h-[281px] max-w-[577px] xs:max-w-[90%] xs:max-h-[288px]"
+              class="rounded-xl shadow-2xl w-full max-w-lg aspect-video"
             ></iframe>
-          </div>
-        </div>
-      </section>
+         </div>
+       </div>
 
-      <h2 class="text-3xl mt-4 sm:text-4xl md:text-5xl font-semibold mb-4">
-        The Best Company to Transport Your Car to Another State
-      </h2>
-      <p class="mt-8">
-      Your vehicle isn’t just a possession it’s part of your daily life. That’s why choosing the right company to <strong>transport your car to another state</strong> matters. 
-      <br /><br />
-      Start by looking for a provider with proven experience, strong customer <a href="/why-us/reviews/" class="text-btn-blue hover:underline">reviews</a>, and a reputation for reliable service. Make sure they are fully licensed and insured, so your vehicle is protected every step of the way.
-      <br /><br />
-      A reputable <strong>auto transport company</strong> will take the time to understand your schedule, your budget, and your specific needs offering the best <strong>shipping option</strong> for your situation with full transparency and support.
-    </p>
-      <GetQuote />
-    </section>
-  </container>
-
-  <!-- <section
-    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex justify-between xs:flex-col sm:flex-col"
-  >
-    <container class="w-[45%] xs:w-full sm:w-full">
-      <div class="w-full mt-8">
-        <img
-          src="/img/distance.webp"
-          width="1292" height="627"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car transport distance map"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Distance</h3>
-        <p class="text-sm mt-4">
-          Total distance is the main factor in determining the cost of car
-          shipping. A distance of less than 500 miles is around $1.85/mile,
-          between 500 and 1,500 miles is about $.91/mile and distances more than
-          1,500 miles are roughly $.59/mile. While longer distances lead to a
-          higher overall price, the per-mile cost is discounted.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/vmam.webp"
-          width="450" height="265"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car shipping auction or dealer"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Vehicle year, make & model</h3>
-        <p class="text-sm mt-4">
-          Cars, vans and trucks come in all different sizes, an economy car will
-          be lighter and take up less space on a trailer than a full-sized,
-          luxury SUV. Longer and taller vehicles and those with modifications
-          like larger tires and roof racks may require vehicle transport
-          adjustments that could increase the shipping cost.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/vd.webp"
-          width="1200" height="788"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car transport hauler"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Method of transport</h3>
-        <p class="text-sm mt-4">
-          Open and enclosed are the main auto transport options. Open transport
-          is most commonly used, but means vehicles will be exposed to
-          environmental elements and debris. Enclosed transport costs more, but
-          provides some basic protection. It is typically used for classic or
-          exotic vehicles or cars with low clearance
-        </p>
-      </div>
-    </container>
-
-    <container class="w-[45%] xs:w-full sm:w-full">
-      <div class="w-full mt-8">
-        <img
-          src="/img/route.webp"
-          width="450" height="224"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car shipping route map"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Route</h3>
-        <p class="text-sm mt-4">
-          The route refers to what highways or roads the car carrier will need
-          to travel to transport your vehicle. Do you live in a congested city?
-          Or in a rural town up a steep mountain road? Both of these routes have
-          unique challenges that may determine the type of carrier needed and
-          impact transport time and costs.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/calendar.webp"
-          width="940" height="622"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car transport calendar"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Date</h3>
-        <p class="text-sm mt-4">
-          It’s best to book your auto transport service at least two weeks in
-          advance as the availability of carriers fluctuates during certain
-          seasons and geographic locations. Having a flexible date for shipment
-          will be more economical, but if you do have timeline limitations, a
-          guaranteed pickup date can be arranged for a higher cost.
-        </p>
-      </div>
-      <div class="w-full mt-8">
-        <img
-          src="/img/vc.webp"
-          width="1024" height="523"
-          class="w-full max-h-[350px] min-h-[340px] rounded-xl"
-          alt="car transport condition report"
-        />
-
-        <h3 class="text-xl font-medium text-[#000000] mb-2">Condition of vehicle</h3>
-        <p class="text-sm mt-4">
-          It’s crucial to know the condition of the vehicle being transported.
-          Fully operational vehicles are less expensive to ship as they can be
-          driven and easily loaded and unloaded on and off trailers. Inoperable
-          vehicles that require special equipment such as a winch, forklift or
-          flatbed tow truck/wrecker to load, will increase shipping costs.
-        </p>
-      </div>
-    </container>
-  </section> -->
-
-  <section
-    class="w-[80%] xs:w-full sm:w-full xs:px-4 sm:px-4 mx-auto mb-12 flex flex-col justify-between xs:flex-col sm:flex-col"
-  ><br>
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-      How long does it take to ship your car to another state?
-    </h2>
-    <p class="mt-4">
-    The time it takes to <strong>ship a car to a different state</strong> depends on several factors, including distance, route, season, and carrier availability. 
-    <br /><br />
-    While shorter routes may be completed faster, longer hauls can take more time, especially if multiple vehicles are being picked up or delivered along the way. Planning ahead helps ensure a smoother experience when you <strong>transport your car to another state</strong>.
-  </p>
-
-    <!-- <h3 class="text-4xl font-semibold mt-12">
-      Factors that affect how long your car shipping could take
-    </h3>
-    <container
-      class="mt-8 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
-    >
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
-      >
-        <h4 class="text-3xl font-semibold">Distance</h4>
-        <p class="mt-8">
-          Typically, the farther the distance between the pickup and delivery
-          locations, the longer the shipping time. An experienced auto
-          transporter will optimize the route to be as efficient as possible.
-          Keep in mind that longer shipping distances increase the potential for
-          delays caused by traffic jams, construction or rest schedules for
-          drivers.
-        </p>
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
-      >
-        <h4 class="text-3xl font-semibold">Route</h4>
-        <p class="mt-8">
-          A direct route is usually the fastest, but ones with steep inclines or
-          tight turns may require a different path or more time to navigate
-          safely. A reputable auto transport company with experience in your
-          intended shipping route can provide an estimated shipping time that
-          captures potential challenges along the shipping route to ensure
-          timely delivery.
-        </p>
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
-      >
-        <h4 class="text-3xl font-semibold">Seasonality & </h4>
-        <h4 class="text-3xl font-semibold">Weather</h4>
-        <p class="mt-8">
-          Typically, the farther the distance between the pickup and delivery
-          locations, the longer the shipping time. An experienced auto
-          transporter will optimize the route to be as efficient as possible.
-          Keep in mind that longer shipping distances increase the potential for
-          delays caused by traffic jams, construction or rest schedules for
-          drivers.
-        </p>
-      </div>
-    </container> -->
-
-    <container
-      class="w-full xs:w-full sm:w-full flex xs:flex-col sm:flex-col justify-between"
-    >
-      <div class="w-[45%] xs:w-full sm:w-full mt-8">
-        <img src="/img/opc.webp" width="1078" height="720" class="w-full rounded-xl" alt="car shipping hauler" />
-
-        <h3 class="text-xl font-medium text-[#000000] mt-4 mb-2"><a
-            href="/for-individuals/open-car-transport/"
-            class="text-btn-blue hover:underline">Open car shipping</a
-          ></h3>
-        <p class="text-sm mt-4">
-        <a
-            href="/for-individuals/open-car-transport/"
-            class="text-btn-blue hover:underline">Open car shipping</a> is the most common way of <strong>moving cars from state to state</strong>. Vehicles are shipped on open trailers fast, affordable, and ideal for most cars.
-        <br /><br />
-        It’s a simple way to <strong>ship a car from state to state</strong>, though your vehicle will be exposed to weather and road conditions.
-      </p>
-      </div>
-
-      <div class="w-[45%] xs:w-full sm:w-full mt-8">
-        <img
-          src="/img/enclosed-car.webp"
-          class="w-full rounded-xl"
-          width="1600"
-          height="1200"
-          alt="enclosed auto transport"
-        />
-
-        <h3 class="text-xl font-medium mt-4 text-[#000000] mb-2"><a
-            href="/for-individuals/enclosed-auto-transport/"
-            class="text-btn-blue hover:underline"
-          >
-            Enclosed car shipping</a
-          ></h3>
-        <p class="text-sm mt-4">
-        <a
-            href="/for-individuals/enclosed-auto-transport/"
-            class="text-btn-blue hover:underline"
-          >
-            Enclosed transport</a
-          > is a premium option for <strong>shipping cars to another state</strong>. Your vehicle travels in a fully enclosed trailer, protected from weather and road debris.
-        <br /><br />
-        It's ideal when you <strong>transport a car from state to state</strong> and need extra care perfect for luxury, exotic, or collector vehicles.
-      </p>
-      </div>
-    </container>
-
-    <h3 class="text-3xl sm:text-4xl md:text-5xl font-semibold mt-4">
-      State-to-State Car Shipping Services You Can Trust
-    </h3>
-    <container
-      class="mt-8 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
-    >
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-4"
-      >
-        <a
-          href="http://www.cayadservices.com/for-individuals/open-car-transport/"
-        >
-          <h4 class="text-xl font-medium text-[#000000] mb-2">Open car shipping</h4>
-          <p class="mt-4">
-          Open transport is the easiest way to <strong>transport a car from one state to another</strong>. It’s cost-effective and widely available, with trailers that move up to 10 vehicles.
-          <br /><br />
-          For most <strong>car transport out of state</strong>, open shipping is the go-to option.
-        </p>
-        </a>
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
-      >
-        <a
-          href="http://www.cayadservices.com/for-individuals/snowbirds-auto-transport/"
-        >
-          <h4 class="text-xl font-medium text-[#000000] mb-2">Snowbirds car shipping</h4>
-          <p class="mt-8">
-          Snowbirds trust Cayad Auto Transport to <strong>transport your car to another state</strong> with ease. <br><br>We make <strong>car shipping from state to state</strong> simple, reliable, and stress-free for seasonal travelers.
-        </p>
-        </a>
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
-      >
-        <h4 class="text-xl font-medium text-[#000000] mb-2">Dealerships car shipping</h4>
-        <p class="mt-8">
-          <a href="http://www.cayadservices.com/for-businesses/auto-dealers/">
-          Cayad helps auto dealers with <strong>car transportation from state to state</strong> using reliable service and smart tech to <strong>transport vehicles to another state</strong> efficiently.
-        </a>
-        </p>
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
-      >
-        <a href="http://www.cayadservices.com/for-businesses/heavy-haul/">
-          <h4 class="text-xl font-medium text-[#000000] mb-2">Heavy Haul shipping</h4>
-          <p class="mt-8">
-          Need <strong>to ship a car to another state</strong>? At Cayad, our specialized trailers make <strong>getting your car shipped to another state</strong> safe and easy.
+       <div class="mt-16 text-center max-w-4xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 font-heading">
+            The Best Company to Transport Your Car to Another State
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">
+            Your vehicle isn’t just a possession it’s part of your daily life. That’s why choosing the right company to <strong>transport your car to another state</strong> matters.
+            <br /><br />
+            Start by looking for a provider with proven experience, strong customer <a href="/why-us/reviews/" class="text-btn-blue hover:underline">reviews</a>, and a reputation for reliable service. Make sure they are fully licensed and insured, so your vehicle is protected every step of the way.
+            <br /><br />
+            A reputable <strong>auto transport company</strong> will take the time to understand your schedule, your budget, and your specific needs offering the best <strong>shipping option</strong> for your situation with full transparency and support.
           </p>
-        </a>
-      </div>
-    </container>
-    <a
-      class="text-btn-blue hover:underline hover:cursor-pointer"
-      href="/how-auto-transport-works/">See how to ship a car</a
-    >
-  </section>
+          <GetQuote />
+       </div>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+     <div class="max-w-7xl mx-auto px-4 md:px-6">
+        
+       <!-- Info Section -->
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+          <div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6 leading-tight">
+              How long does it take to ship your car to another state?
+            </h2>
+            <p class="text-lg text-slate-600 leading-relaxed">
+              The time it takes to <strong>ship a car to a different state</strong> depends on several factors, including distance, route, season, and carrier availability.
+              <br /><br />
+              While shorter routes may be completed faster, longer hauls can take more time, especially if multiple vehicles are being picked up or delivered along the way. Planning ahead helps ensure a smoother experience when you <strong>transport your car to another state</strong>.
+            </p>
+          </div>
+          <div>
+              <!-- Optional illustration or just cleaner text -->
+          </div>
+       </div>
+
+       <!-- Options -->
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div class="group">
+             <div class="overflow-hidden rounded-2xl shadow-lg mb-6">
+               <img src="/img/opc.webp" width="1078" height="720" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500" alt="car shipping hauler" />
+             </div>
+             <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4">
+               <a href="/for-individuals/open-car-transport/" class="hover:text-btn-blue transition-colors">
+                 Open car shipping
+               </a>
+             </h3>
+             <p class="text-slate-600 leading-relaxed">
+                <a href="/for-individuals/open-car-transport/" class="text-btn-blue font-semibold hover:underline">Open car shipping</a> is the most common way of <strong>moving cars from state to state</strong>. Vehicles are shipped on open trailers fast, affordable, and ideal for most cars. It’s a simple way to <strong>ship a car from state to state</strong>, though your vehicle will be exposed to weather and road conditions.
+             </p>
+          </div>
+
+          <div class="group">
+             <div class="overflow-hidden rounded-2xl shadow-lg mb-6">
+               <img src="/img/enclosed-car.webp" width="1600" height="1200" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500" alt="enclosed auto transport" />
+             </div>
+             <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4">
+               <a href="/for-individuals/enclosed-auto-transport/" class="hover:text-btn-blue transition-colors">
+                 Enclosed car shipping
+               </a>
+             </h3>
+             <p class="text-slate-600 leading-relaxed">
+                <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue font-semibold hover:underline">Enclosed transport</a> is a premium option for <strong>shipping cars to another state</strong>. Your vehicle travels in a fully enclosed trailer, protected from weather and road debris. It's ideal when you <strong>transport a car from state to state</strong> and need extra care perfect for luxury, exotic, or collector vehicles.
+             </p>
+          </div>
+       </div>
+
+       <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6">
+            State-to-State Car Shipping Services You Can Trust
+          </h2>
+       </div>
+
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          
+          <a href="/for-individuals/open-car-transport/" class="bg-slate-50 p-6 rounded-xl hover:shadow-lg hover:shadow-btn-blue/20 transition-all duration-300 border border-slate-100 group">
+             <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-btn-blue">Open car shipping</h4>
+             <p class="text-sm text-slate-600 leading-relaxed">
+               Open transport is the easiest way to <strong>transport a car from one state to another</strong>. It’s cost-effective and widely available.
+             </p>
+          </a>
+          
+          <a href="/for-individuals/snowbirds-auto-transport/" class="bg-slate-50 p-6 rounded-xl hover:shadow-lg hover:shadow-btn-blue/20 transition-all duration-300 border border-slate-100 group">
+             <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-btn-blue">Snowbirds car shipping</h4>
+             <p class="text-sm text-slate-600 leading-relaxed">
+               Snowbirds trust Cayad Auto Transport to <strong>transport your car to another state</strong> with ease, simple and reliable.
+             </p>
+          </a>
+
+          <a href="/for-businesses/auto-dealers/" class="bg-slate-50 p-6 rounded-xl hover:shadow-lg hover:shadow-btn-blue/20 transition-all duration-300 border border-slate-100 group">
+             <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-btn-blue">Dealerships car shipping</h4>
+             <p class="text-sm text-slate-600 leading-relaxed">
+               Cayad helps auto dealers with <strong>car transportation from state to state</strong> using reliable service and smart tech.
+             </p>
+          </a>
+
+          <a href="/for-businesses/heavy-haul/" class="bg-slate-50 p-6 rounded-xl hover:shadow-lg hover:shadow-btn-blue/20 transition-all duration-300 border border-slate-100 group">
+             <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-btn-blue">Heavy Haul shipping</h4>
+             <p class="text-sm text-slate-600 leading-relaxed">
+               Need <strong>to ship a car to another state</strong>? Our specialized trailers make it safe and easy.
+             </p>
+          </a>
+
+       </div>
+
+       <div class="text-center">
+          <a
+            class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-btn-blue rounded-full hover:bg-btn-hover transition-colors shadow-lg shadow-btn-blue/30"
+            href="/how-auto-transport-works/"
+          >
+            See how to ship a car
+          </a>
+       </div>
+
+     </div>
+  </div>
+
+  <ButtonScrollTop client:load />
 </Layout>
-<ButtonScrollTop client:load />
