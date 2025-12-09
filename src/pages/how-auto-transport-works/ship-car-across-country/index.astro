@@ -1,12 +1,10 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import GetQuoete from "../../../components/buttons/GetQuote.astro";
+import GetQuote from "../../../components/buttons/GetQuote.astro";
 import Testimonials from "../../../components/Testimonials";
 import ButtonScrollTop from "../../../components/buttons/ButtonScrollTop";
-import GetQuote from "../../../components/buttons/GetQuote.astro";
 ---
 <!-- RF-16/4/25 -->
-
 <link rel="canonical" href="https://cayadservices.com/how-auto-transport-works/ship-car-across-country" />
 <style>
   .custom-background {
@@ -16,281 +14,210 @@ import GetQuote from "../../../components/buttons/GetQuote.astro";
     background-size: cover;
   }
 </style>
+
 <Layout
   title="Cross Country Car Shipping Services | Cayad Auto Transport"
   content="Ship your car across the country fast, safe, and cheap with Cayad. Get a quote now."
 >
-  <div
-    class="container-fluid flex flex-col items-center justify-center custom-background h-[60vh]"
-  >
-    <div class="w-[80%]">
+  <div class="relative w-full h-[50vh] min-h-[400px] flex flex-col items-center justify-center custom-background">
+     <div class="absolute inset-0 bg-black/50 z-0"></div>
+     <div class="relative z-10 w-full max-w-7xl px-6 lg:px-8 text-center text-white">
       <h1
-        class="text-white changing-text text-white text-6xl"
+        class="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-6 tracking-tight drop-shadow-lg"
       >
-      Cross Country Car Shipping
+        Cross Country Car Shipping
       </h1>
-      <p class="text-white mb-2">
-        Cross country auto shipping in the U.S. 
+      <p class="text-xl sm:text-2xl font-medium mb-8 drop-shadow-md bg-black/20 inline-block px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
+        Cross country auto shipping in the U.S.
       </p>
-      <GetQuoete />
+      <GetQuote />
     </div>
   </div>
 
-  <div class="w-full mt-12 flex justify-center mb-8">
-    <Testimonials title="Stories from Cross Country Car Movers" client:load />
-  </div>
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="mb-20">
+        <Testimonials title="Stories from Cross Country Car Movers" client:load />
+      </div>
 
-
-  <div class="w-full mt-12 mb-12 flex flex-col items-center">
-    
-
-    <h2
-      class="text-3xl w-[80%] xs:w-full sm:w-full xs:px-4 font-semibold mb-4"
-    >
-    What Is Cross Country Car Shipping?
-    </h2>
-    <div
-      class="w-[80%] mt-12 xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <div class="mt-0">
-          <p class="text-base text-black">
+       <!-- Section 1: Intro -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+        <div class="space-y-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+            What Is Cross Country Car Shipping?
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed">
             <strong>Shipping your car across the country</strong> doesn’t have to be stressful. At <strong>Cayad</strong>, we simplify the entire <strong>cross country car shipping</strong> process by handling every detail, from pickup to delivery. Whether you’re moving for work, relocating your family, or buying a car out of state, we make it easy to <strong>move your car across the country</strong> with confidence.
           </p>
-          <p class="text-base mt-4 text-black">
+          <p class="text-lg text-slate-600 leading-relaxed">
             ✅ No terminals. <br>
             ✅ No confusion. <br>
             ✅ Just smooth, <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">door-to-door</a> <strong> vehicle transport cross country</strong>.
           </p>
-          <p class="text-base mt-4 text-black">
-            With <strong>getting car shipped across country</strong> becoming more common, we’re proud to be among the <a href="https://www.google.com/search?q=Cayad+Auto+Transport&stick=H4sIAAAAAAAA_-NgU1I1qLCwsDSwNE1NNU9KNTM2M0-zMqhITDEzNDA0NjMxTjU0tUhLXcQq4pxYmZii4Fhakq8QUpSYV1yQX1QCAPrLA65AAAAA&hl=en&mat=Ca_YtLh4fCmaElcBmzl_pZi_14bm7xLy513CXIDPpRDtt3ImKEw5m-dOSx7vKw3d0sdUAEkHdouqHJNEMZZXl8A3ugJC8gZSpP6nLhy71NhnPpvCPJ-Ijf4_TzCMbcSl-r4&authuser=0/" class="text-btn-blue hover:underline">top-rated</a><strong> car movers cross country</strong>. Our team is trusted for <strong>shipping automobiles across country</strong> with care, speed, and transparency. When it comes to <strong>shipping autos</strong>, Cayad delivers peace of mind, mile after mile.
+          <p class="text-lg text-slate-600 leading-relaxed">
+            With <strong>getting car shipped across country</strong> becoming more common, we’re proud to be among the <a href="https://www.google.com/search?q=Cayad+Auto+Transport" class="text-btn-blue hover:underline">top-rated</a><strong> car movers cross country</strong>. Our team is trusted for <strong>shipping automobiles across country</strong> with care, speed, and transparency.
           </p>
         </div>
+        <div class="relative h-full" data-aos="fade-left">
+           <img src="/img/sd.webp" width="940" height="622" class="rounded-2xl shadow-2xl w-full object-cover" alt="car transport calendar"/>
+        </div>
       </div>
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/sd.webp" width="940" height="622" class="rounded-xl" alt="car transport calendar"/>
-      </div>
-    </div>
-  </div>
-  
 
-  <div class="w-full mt-12 mb-12 flex flex-col items-center">
-    <div
-      class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-    >
-      <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-        <img src="/img/img-home.webp" width="1600" height="708" class="rounded-xl" alt="car shipping hotshot"/>
+       <!-- Section 2: Cost -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+         <div class="order-2 md:order-1 relative h-full" data-aos="fade-right">
+           <img src="/img/img-home.webp" width="1600" height="708" class="rounded-2xl shadow-2xl w-full object-cover" alt="car shipping hotshot"/>
+         </div>
+         <div class="order-1 md:order-2 space-y-6">
+           <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+              How Much Does It Cost to Ship a Car Across the Country?
+           </h2>
+           <p class="text-lg text-slate-600 leading-relaxed">
+              Your final <strong>car shipping cost</strong> depends on several factors: the distance, your vehicle type, transport method (<a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">open</a> or <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a>), and the pickup date. At <strong>Cayad</strong>, we provide real-time quotes with full transparency, no hidden fees.
+           </p>
+           <p class="text-lg text-slate-600 leading-relaxed bg-blue-50 p-4 rounded-xl border border-blue-100">
+              💡 Want the best <strong>cross country car transport cost</strong>? Book early and stay flexible with your pickup date. We’ll show you exactly <strong>how much to transport a car cross country</strong> in seconds.
+           </p>
+           <div class="pt-4">
+              <a href="/quote" class="inline-block bg-btn-blue text-white text-lg font-bold px-8 py-4 rounded-full hover:bg-btn-hover transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                Get Your Quote Now
+              </a>
+           </div>
+         </div>
       </div>
-      <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-        <h2 class="text-3xl mt-0 sm:text-4xl md:text-5xl font-semibold mb-4">How Much Does It Cost to Ship a Car Across the Country?</h2>
-        <p class="mb-2">
-          Your final <strong>car shipping cost</strong> depends on several factors: the distance, your vehicle type, transport method (<a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">open</a> or <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a>), and the pickup date. At <strong>Cayad</strong>, we provide real-time quotes with full transparency, no hidden fees.
-        </p>
-        
-        <p class="text-base mt-4 text-black">
-          💡 Want the best <strong>cross country car transport cost</strong>? Book early and stay flexible with your pickup date. We’ll show you exactly <strong>how much to transport a car cross country</strong> in seconds using our quote tool.
-        </p>
-        <br>
-        <div class="mt-0 text-center">
-          <p class="mb-2">
-            Ready to ship your car across the country?
+
+       <!-- Section 3: Open vs Enclosed -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+        <div class="space-y-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+            <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">Open</a> vs. <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">Enclosed</a> Auto Transport
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed">
+              Choosing between <strong>open</strong> and <strong>enclosed auto transport</strong> depends on your car and budget. Open transport is the most popular and affordable option when it comes to the <strong>cost of moving a car across country</strong>.
           </p>
-          <a href="/quote" class="inline-block bg-btn-blue text-white text-base font-medium px-6 py-3 rounded-lg hover:bg-btn-hover transition duration-300">
-            Get Your Cross Country Quote Now
-          </a>
-          <p class="mb-2">No hidden fees. Just accurate pricing.</p>
+          <p class="text-lg text-slate-600 leading-relaxed">
+              For <strong>luxury, exotic, or vintage vehicles</strong>, enclosed transport offers extra protection, and it's worth the investment if you're concerned about the <strong>moving car across country cost</strong>.
+          </p>
+          <p class="text-lg text-slate-600 leading-relaxed">
+              Not sure <strong>how much to transport a car cross country</strong>? Cayad gives you instant quotes from trusted carriers with no hidden fees.
+          </p>
         </div>
-        
+        <div class="relative h-full" data-aos="fade-left">
+           <img src="/img/open-vs-enclosed.webp" width="1600" height="1200" class="rounded-2xl shadow-2xl w-full object-cover" alt="enclosed car transport"/>
+        </div>
+      </div>
+
+       <!-- Section 4: How Long -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+         <div class="order-2 md:order-1 relative h-full" data-aos="fade-right">
+           <img src="/img/cross-time.webp" width="1024" height="523" class="rounded-2xl shadow-2xl w-full object-cover" alt="car shipping vehicle condition report"/>
+         </div>
+         <div class="order-1 md:order-2 space-y-6">
+           <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+              How Long Does it Take?
+           </h2>
+           <p class="text-lg text-slate-600 leading-relaxed">
+              On average, <strong>shipping a car cross country</strong> takes 5–10 days depending on the distance, route, and weather. At <strong>Cayad</strong>, we provide real-time updates throughout the journey.
+           </p>
+           <ul class="space-y-3">
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> Real-time tracking
+              </li>
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> Estimated delivery windows
+              </li>
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> Direct communication
+              </li>
+           </ul>
+         </div>
       </div>
       
-    </div>
-
-    <div class="w-full mt-4 mb-12 flex flex-col items-center">
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-      >
-        <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-          <div class="mt-0">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4"><a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">Open</a> vs. <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">Enclosed</a> Auto Transport</h2>
-            <p class="text-base mt-4 text-black">
-              Choosing between <strong><a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">open</a></strong> and <strong><a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a> auto transport</strong> depends on your car and budget. Open transport is the most popular and affordable option when it comes to the <strong>cost of moving a car across country</strong>.
-            </p>
-            
-            <p class="text-base mt-4 text-black">
-              For <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">Open</a> vs. <a href="/for-individuals/classic-cars-auto-transport/" class="text-btn-blue hover:underline">luxury, exotic, or vintage vehicles</a>, <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline">Open</a> vs. <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed</a> transport offers extra protection, and it's worth the investment if you're concerned about the <strong>moving car across country cost</strong>.
-            </p>
-            
-            <p class="text-base mt-4 text-black">
-              Not sure <strong>how much to transport a car cross country</strong> or need the exact <strong>cost to transport a car across country</strong>? Cayad gives you instant quotes from trusted carriers with no hidden fees.
-            </p>
-            
-          </div>
-        </div>
-        <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-          <img src="/img/open-vs-enclosed.webp" width="1600" height="1200" class="rounded-xl" alt="enclosed car transport "/>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-full mt-12 mb-12 flex flex-col items-center">
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
-      >
-        <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-          <img src="/img/cross-time.webp" width="1024" height="523" class="rounded-xl" alt="car shipping vehicle condition report"/>
-        </div>
-        <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">How Long Does it Take?</h2>
-          <p class="text-base mt-4 text-black">
-            On average, <strong>shipping a car cross country</strong> takes 5–10 days depending on the distance, route, and weather. At <strong>Cayad</strong>, we provide real-time updates throughout the journey, so you always know where your vehicle is.
-          </p>
-          
-          <p class="text-base mt-4 text-black">
-            Our mission is to offer fast, secure <strong>vehicle transport cross country</strong>, with no surprises. Whether you’re planning to <strong>ship an automobile across country</strong> or <strong>shipping a vehicle across country</strong> for a move or sale, we make the process easy.
-          </p>
-          
-          <ul class="text-sm text-black list-disc ml-6 mt-4">
-            <li>🔁 Real-time tracking</li>
-            <li>🕐 Estimated delivery windows</li>
-            <li>📦 Direct communication at every step</li>
-          </ul>
-          
-        </div>
-      </div>
-
-      <div
-        class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4"
-      >
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">Waiting Could Cost You!</h2>
-
-      <p class="text-base mt-4 text-black">
-        If you're looking for the <strong>cheapest way to move cross country</strong> or need to <strong>move across the country cheap</strong>, Cayad Auto Transport makes it simple. Whether you're relocating with a full vehicle or just have a <strong>small load</strong>, we help you <strong>move stuff across the country</strong> with ease and confidence.
-      </p>
-
-      <p class="text-base mt-4 text-black">
-        Not sure <strong>how to move cross country for cheap</strong> or wondering <strong>how much to ship a car cross country</strong>? Our instant quote tool breaks it down for you, fast, free, and with no surprises. We specialize in <strong>transporting cars cross country</strong> and always offer the most competitive <strong>ship car cross country price</strong>.
-      </p>
-
-      <p class="text-base mt-4 text-black">
-        From coast to coast, we make <strong>car shipping cross country</strong> feel effortless. With Cayad, you’ll know exactly <strong>how much to ship a vehicle across the country</strong> based on your timeline, location, and preferences no guesswork, just results.
-      </p>
-
-      <p class="text-base mt-4 text-black font-semibold">
-        🚚 Planning to <strong>transport vehicles across country</strong>?  
-        <br />👉 <a href="/quote" class="text-btn-blue hover:underline">Get a Quote Now</a> and find out why thousands trust Cayad for the <strong>cheapest cross country move</strong>, backed by <a href="https://www.facebook.com/cayadservices/reviews/" class="text-btn-blue hover:underline">real reviews</a> and real results.
-      </p>
-
-
-    </div><br>
-
-      <div class="w-full mt-2 mb-12 flex flex-col items-center">
-        <div
-          class="w-[80%] xs:w-full sm:w-full xs:flex-col sm:flex-col xs:px-4 sm:px-4 flex justify-between"
+      <!-- Waiting Could Cost You -->
+       <div class="text-center mb-16 max-w-4xl mx-auto bg-slate-50 p-8 rounded-3xl border border-slate-100">
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6"
         >
-          <div class="w-[50%] xs:w-full sm:w-full xs:mb-8 sm:mb-8">
-            <div class="mt-8">
-              <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">Get Your Cross Country Car Shipping Quote Today</h2>
-              <p class="text-base mt-2 text-black">
-                Ready to <strong>transport your car across the country</strong>? Get started in just 60 seconds. With <strong>Cayad</strong>, you’ll receive the most accurate and competitive <strong>car shipping quotes</strong> instantly.
-              </p>
-              
-              <ul class="text-sm text-black list-disc ml-6 mt-3">
-                <li>✔ No upfront payment</li>
-                <li>✔ Transparent pricing</li>
-                <li>✔ Backed by real reviews</li>
-              </ul>
-              
-              <p class="text-base mt-4 text-black">
-                👉 Start your journey and <strong>move your car across country</strong> with total peace of mind. Whether you're <strong>moving cars across the country</strong> for relocation or simply need to <strong>transport a car across country</strong>, we've got you covered.
-              </p>
-              
-            </div>
-            <GetQuote />
-          </div>
-          <div class="w-[40%] xs:w-[100%] sm:w-[100%]">
-            <img src="/img/vd.webp" width="1200" height="788" class="rounded-xl" alt="auto shipping hauler"/>
-          </div>
+          Waiting Could Cost You!
+        </h2>
+         <p class="text-lg text-slate-600 leading-relaxed mb-4">
+           If you're looking for the <strong>cheapest way to move cross country</strong>, Cayad Auto Transport makes it simple. Whether you're relocating with a full vehicle or just have a <strong>small load</strong>, we help you <strong>move stuff across the country</strong> with ease.
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed font-semibold text-slate-900">
+          🚚 Planning to <strong>transport vehicles across country</strong>?  
+           <a href="/quote" class="text-btn-blue hover:underline">Get a Quote Now</a> and find out why thousands trust Cayad.
+        </p>
+      </div>
+
+       <!-- Section 5: Get Quote Today -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+        <div class="space-y-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 leading-tight">
+            Get Your Cross Country Car Shipping Quote Today
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed">
+             Ready to <strong>transport your car across the country</strong>? Get started in just 60 seconds. With <strong>Cayad</strong>, you’ll receive the most accurate and competitive <strong>car shipping quotes</strong> instantly.
+          </p>
+          <ul class="space-y-3">
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> No upfront payment
+              </li>
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> Transparent pricing
+              </li>
+              <li class="flex items-center text-lg text-slate-700">
+                <span class="mr-3 text-green-500 font-bold">✓</span> Backed by real reviews
+              </li>
+           </ul>
+        </div>
+        <div class="relative h-full" data-aos="fade-left">
+           <img src="/img/vd.webp" width="1200" height="788" class="rounded-2xl shadow-2xl w-full object-cover" alt="auto shipping hauler"/>
         </div>
       </div>
-    </div>
+      
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-900 mb-6">
+          Cross Country Car Shipping Services
+        </h2>
+      </div>
 
-    
-
-    <section
-      class="w-[90%] xs:w-full sm:w-full xs:px-2 sm:px-2 mx-auto mb-2 flex flex-col justify-between xs:flex-col sm:flex-col"
-    >
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-      Cross country car shipping services
-    </h2>
-    <container
-      class="mt-2 xs:w-full sm:w-full mx-auto mb-12 flex xs:flex-col sm:flex-col"
-    >
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8"
-      >
-        <h3 class="text-xl font-medium text-[#000000] mb-2"><a href="/for-individuals/door-to-door/" class="hover:underline">Door-to-door car shipping</a>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <a href="/for-individuals/door-to-door/" class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100 group">
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4 group-hover:text-btn-blue transition-colors">
+             Door-to-door car shipping
           </h3>
-          <p class="mb-2">
-            If the pickup and drop-off locations allow it, our driver will come directly to your door. With our <strong>auto delivery services</strong>, we aim to <strong>deliver a car</strong> safely and conveniently, right from your home or office.
+          <p class="text-slate-600 leading-relaxed">
+            If possible, our driver will come directly to your door. We aim to <strong>deliver a car</strong> safely right from your home or office.
           </p>
-          
-          <p class="mb-2">
-            Just make sure the addresses are accurate and accessible when scheduling your <strong>vehicle delivery</strong>. 
+        </a>
+        <a href="/for-individuals/open-car-transport/" class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100 group">
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4 group-hover:text-btn-blue transition-colors">
+            Open car transport
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+             The most popular and <strong>affordable auto shipping</strong> method. It can save you 10% to 25% compared to enclosed options.
           </p>
-            <p class="mb-2">
-            Keep in mind that door-to-door service may not be possible in narrow streets or restricted areas, in which case we’ll coordinate a nearby meeting spot.
+        </a>
+        <a href="/for-individuals/motorcycle-shipping/" class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100 group">
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4 group-hover:text-btn-blue transition-colors">
+            Motorcycle Shipping
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+             Looking to ship your bike safely? We provide door-to-door service and expert care for every motorcycle shipment.
           </p>
-          
-        
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
-      >
-        <h3 class="text-xl font-medium text-[#000000] mb-2"><a href="/for-individuals/open-car-transport/" class="hover:underline">Open car transport</a></h3>
-        <p class="mb-2">
-          <strong>Open car transport</strong> is the most popular and <strong>affordable auto shipping</strong> method available. On average, it can save you 10% to 25% compared to enclosed options, making it ideal for standard vehicles and everyday use.
-        </p>
-        
-        <p class="mb-2">
-          Want extra protection? You can request a top-loaded position or flatbed trailer for an added fee. For luxury, vintage, or high-value vehicles, we highly recommend <strong>enclosed vehicle transport</strong> to ensure your car is shielded from road debris and weather.
-        </p>
-        
-      </div>
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#f5f7fa] p-8 group"
-      >
-      <h3 class="text-xl font-medium text-[#000000] mb-2"><a href="/for-individuals/motorcycle-shipping/" class="hover:underline">Motorcycle Shipping</a></h3>
-      <p class="mb-2">
-        Looking to ship your bike safely? Our professional <strong>motorcycle transport</strong> service connects you with trusted <strong>motorcycle freight shipping</strong> carriers for secure and reliable delivery across the country.
-      </p>
-      
-      <p class="mb-2">
-        <strong>Cayad Motorcycle Transport</strong> provides door-to-door service, full tracking, and expert care for every shipment. Call us at 
-        <strong><a href="tel:+14696190747" class=" hover:underline">(469) 619-0747</a></strong> to schedule your motorcycle delivery today.
-      </p>
-      
-      
+        </a>
+        <a href="/for-individuals/enclosed-auto-transport/" class="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100 group">
+          <h3 class="text-2xl font-bold font-heading text-slate-900 mb-4 group-hover:text-btn-blue transition-colors">
+            Enclosed Car Shipping
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+             Premium protection from weather and road debris, ideal for luxury, classic, or exotic vehicles.
+          </p>
+        </a>
       </div>
 
-      <div
-        class="h-[60vh] xs:w-full sm:w-full xs:h-max sm:h-max md:h-max lg:h-max md:w-[50%] hover:bg-btn-blue hover:text-white duration-100 shadow-sm rounded-lg w-[38%] bg-[#e2e6ec] p-8"
-      >
-      <h3 class="text-xl font-medium text-[#000000] mb-2"><a href="/for-individuals/enclosed-auto-transport/" class="hover:underline">Enclosed Car Shipping</a></h3>
-      <p class="mb-2">
-        Enclosed car shipping offers premium protection from weather and road debris, ideal for luxury, classic, or exotic vehicles. 
-      </p>
-        <p class="mb-2">
-        While the <strong>car carrier cost</strong> is slightly higher, this method ensures your vehicle arrives in pristine condition.
-      </p>
-      <p class="mb-2">
-        Wondering <strong>how much do car haulers charge per mile</strong>? Rates vary based on distance and vehicle type, but our <strong>enclosed auto transport quote</strong> tool gives you a real-time, transparent estimate tailored to your shipment.
-      </p>
-
-      </div>
-
-    </container>
-  </section>
-
-    <ButtonScrollTop client:load />
+    </div>
   </div>
+  <ButtonScrollTop client:load />
 </Layout>
