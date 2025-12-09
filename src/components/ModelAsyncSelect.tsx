@@ -41,7 +41,11 @@ const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, minLen
 
   return (
     <div className="flex flex-col">
-      <label htmlFor={name} className="block text-xs font-semibold text-slate-700 mb-1.5">{label}</label>
+      {label && (
+        <label htmlFor={name} className="block text-[11px] font-semibold text-slate-700 mb-1">
+          {label}
+        </label>
+      )}
       <Controller
         name={name}
         control={control}
@@ -63,13 +67,17 @@ const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, minLen
                 boxShadow: 'none',
                 border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
                 borderRadius: '0.375rem',
-                minHeight: '2.5rem',
+                minHeight: '2.25rem',
+                height: '2.25rem',
+                fontSize: '0.85rem',
                 '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
               }),
-              valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
-              input: (p) => ({ ...p, margin: 0 }),
-              placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
-              singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
+              valueContainer: (p) => ({ ...p, padding: '0 0.5rem', height: '2.25rem' }),
+              input: (p) => ({ ...p, margin: 0, padding: 0 }),
+              dropdownIndicator: (p) => ({ ...p, padding: '4px' }),
+              clearIndicator: (p) => ({ ...p, padding: '4px' }),
+              placeholder: (p) => ({ ...p, fontSize: '0.8rem' }),
+              singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
               indicatorSeparator: () => ({ display: 'none' }),
             }}
             className={`bg-white`}

@@ -206,16 +206,17 @@ import NumberPhone from "../components/NumberPhone.astro";
   content="Cayad Auto Transport is the top-rated car shipping company in the USA. Fast, safe, reliable and cheap. Get your premium quote now!"
 >
   <section
-    class="relative image--banner min-h-screen md:h-screen w-full"
+    class="relative min-h-screen md:h-screen w-full overflow-hidden"
   >
+    <div class="fixed inset-0 z-0 h-full w-full image--banner"></div>
     <div
-      class="inset-0 w-full min-h-screen py-6 px-4 md:px-8 flex flex-col xl:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
+      class="relative z-10 inset-0 w-full min-h-screen py-6 px-4 md:px-8 flex flex-col xl:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
     >
       <div
         class="w-full md:w-[65%] xl:w-[50%] p-4 md:p-8"
       >
-        <div class="row justify-start">
-          <div class="col-10 lg:col-8 px-2 md:px-6 lg:px-20">
+        <div class="flex justify-start w-full">
+          <div class="w-10/12 lg:w-8/12 px-2 md:px-6 lg:px-20">
             <p class="changing-text text-white text-6xl">
               WE DELIVER
               <div class="texts-container text-3xl">
@@ -253,14 +254,14 @@ import NumberPhone from "../components/NumberPhone.astro";
     <!-- <EstimatorQuote client:load embedded /> -->
   </div>
     <div
-      class="w-full min-h-[400px] md:min-h-[450px] flex items-center justify-center py-8"
+      class="relative z-20 bg-white w-full min-h-[400px] md:min-h-[450px] flex items-center justify-center py-8"
       data-aos="fade-up"
       data-wow-delay="0.1s"
     >
       <Testimonials title="Real Car Shipping Stories" client:load />
     </div>
 
-    <div>
+    <div class="relative z-20 bg-white">
       <div
         class="w-full max-w-7xl px-4 md:px-6 mx-auto py-5"
       >
@@ -331,7 +332,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                 <FaCar className="text-4xl mb-3 text-white/90" />
                 <i class="fa fa-car fa-2x text-white mb-3"></i>
                 <h5 class="text-white text-xl font-bold mb-3 font-heading">Size & Weight</h5>
-                <p class="text-blue-50 leading-relaxed text-sm">
+                <p class="text-blue-50 leading-relaxed text-base">
                   Larger, taller, or heavier vehicles often require special
                   handling or equipment, which can influence the overall <a
                     href="/how-auto-transport-works/how-much-does-it-cost-ship-car/"
@@ -347,7 +348,7 @@ import NumberPhone from "../components/NumberPhone.astro";
               >
                 <IoBoat className="text-4xl mb-3 text-white/90" />
                 <h5 class="text-white text-xl font-bold mb-3 font-heading">Vehicle Condition</h5>
-                <p class="text-white/90 leading-relaxed text-sm">
+                <p class="text-white/90 leading-relaxed text-base">
                   If your vehicle can’t roll, steer, or brake, it requires
                   special equipment, such as a <a
                     href="https://en.wikipedia.org/wiki/Forklift"
@@ -364,7 +365,7 @@ import NumberPhone from "../components/NumberPhone.astro";
               >
                 <FaStar className="text-4xl mb-3 text-white/90" />
                 <h5 class="text-white text-xl font-bold mb-3 font-heading">Type of Transport</h5>
-                <p class="text-white/90 leading-relaxed text-sm">
+                <p class="text-white/90 leading-relaxed text-base">
                   Choose the transport that fits your needs. <a
                     href="/for-individuals/open-car-transport/"
                     class="hover:text-white underline decoration-white/50 underline-offset-2"
@@ -383,7 +384,7 @@ import NumberPhone from "../components/NumberPhone.astro";
               >
                 <FaMapMarked className="text-4xl mb-3 text-white/90" />
                 <h5 class="text-white text-xl font-bold mb-3 font-heading">Shipping Distance</h5>
-                <p class="text-white/90 leading-relaxed text-sm">
+                <p class="text-white/90 leading-relaxed text-base">
                   Longer distances may raise total cost but lower price per mile. The farther your vehicle travels, the more you
                   save on <a
                     href="/how-auto-transport-works/ship-car-across-country/"
@@ -617,7 +618,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                 <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                   <a href="/for-individuals/door-to-door/" class="hover:text-btn-blue transition-colors">Door-to-Door Shipping</a>
                 </h3>
-                <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                    Our <a href="/for-individuals/door-to-door/" class="text-btn-blue hover:underline">door-to-door</a> <strong>car shipping service</strong> offers the ultimate convenience. A professional driver picks up your vehicle and delivers it as close to your door as safety allows.
                 </p>
                 <a
@@ -647,7 +648,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-individuals/enclosed-auto-transport/" class="hover:text-btn-blue transition-colors">Enclosed Transport</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                      Choose <a href="/for-individuals/enclosed-auto-transport/" class="text-btn-blue hover:underline">enclosed trailers</a> to shield your vehicle from weather and road debris. Ideal for luxury and classic cars.
                   </p>
                   <a
@@ -677,7 +678,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-individuals/door-to-door/" class="hover:text-btn-blue transition-colors">Door-to-Door</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                     <strong>Cayad Auto Transport</strong> picks up and delivers
                     your vehicle as close to your doorstep as legally and safely
                     possible.
@@ -709,7 +710,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-individuals/open-car-transport/" class="hover:text-btn-blue transition-colors">Open Auto Transport</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                     Our <a href="/for-individuals/open-car-transport/" class="text-btn-blue hover:underline font-semibold">open auto transport</a> service is the most cost-effective way to ship your vehicle. Industry standard for safety and efficiency.
                   </p>
                   <a
@@ -739,7 +740,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-individuals/motorcycle-shipping/" class="hover:text-btn-blue transition-colors">Motorcycle Shipping</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                      Experienced drivers equipped to handle your <a href="/for-individuals/motorcycle-shipping/" class="text-btn-blue hover:underline">motorcycle</a>, ATV, or UTV with care. Properly loaded and securely fastened.
                   </p>
                   <a
@@ -769,7 +770,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-individuals/classic-cars-auto-transport/" class="hover:text-btn-blue transition-colors">Classic & Luxury Transport</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                      Specializing in transporting <a href="/for-individuals/classic-cars-auto-transport/" class="text-btn-blue hover:underline">classic</a>, luxury, and exotic cars. Expert handling and specialized equipment for your valuable vehicle.
                   </p>
                   <a
@@ -799,7 +800,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h3 class="text-xl font-bold font-heading text-slate-900 mb-3">
                     <a href="/for-businesses/auto-auctions/" class="hover:text-btn-blue transition-colors">Auction & Dealership Transport</a>
                   </h3>
-                  <p class="mb-4 text-slate-600 leading-relaxed text-sm flex-grow">
+                  <p class="mb-4 text-slate-600 leading-relaxed text-base flex-grow">
                     Tailored solutions and special discounts for moving inventory from <a href="/for-businesses/auto-dealers/" class="text-btn-blue hover:underline">dealerships</a>, auctions, ports, or commercial businesses.
                   </p>
                   <a
@@ -857,7 +858,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                 </div>
                 <div class="ml-6">
                   <h5 class="font-bold text-xl text-slate-900 mb-2 font-heading">Zero Upfront Payment</h5>
-                  <p class="mb-2 text-slate-600 leading-relaxed text-sm">
+                  <p class="mb-2 text-slate-600 leading-relaxed text-base">
                     Unlike other companies, we only charge until a carrier is assigned. Book your <strong>car shipping</strong> today with total peace of mind.
                   </p>
                 </div>
@@ -878,7 +879,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                 </div>
                 <div class="ml-6">
                   <h5 class="font-bold text-xl text-slate-900 mb-2 font-heading">20,000+ Trusted Auto Carriers</h5>
-                  <p class="mb-2 text-slate-600 leading-relaxed text-sm">
+                  <p class="mb-2 text-slate-600 leading-relaxed text-base">
                     We work with a vast network of vetted experts. Meets strict safety insurance and reliability standards.
                   </p>
                 </div>
@@ -899,7 +900,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                  </div>
                  <div class="ml-6">
                    <h5 class="font-bold text-xl text-slate-900 mb-2 font-heading">Easy & Hassle-Free Process</h5>
-                   <p class="mb-2 text-slate-600 leading-relaxed text-sm">
+                   <p class="mb-2 text-slate-600 leading-relaxed text-base">
                      From quote to delivery, we handle everything. Our simplified process ensures a smooth experience.
                    </p>
                  </div>
@@ -922,7 +923,7 @@ import NumberPhone from "../components/NumberPhone.astro";
                   <h5 class="font-bold text-xl text-slate-900 mb-2 font-heading">
                     The Most Cost-Effective <a href="/why-us/reviews/" class="text-btn-blue hover:underline">5-Star</a> Auto Transport
                   </h5>
-                  <p class="text-left md:text-start mb-0 text-slate-600 leading-relaxed text-sm">
+                  <p class="text-left md:text-start mb-0 text-slate-600 leading-relaxed text-base">
                     Unbeatable value without compromising service. Direct door-to-door delivery handled by experienced specialists.
                   </p>
                 </div>

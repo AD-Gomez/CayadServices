@@ -16,7 +16,7 @@ import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
-import { FaRegPaperPlane, FaPlus, FaTrash } from "react-icons/fa";
+import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner } from "react-icons/fa";
 import { format } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
@@ -638,14 +638,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     }
   };
 
-  const padding = embedded ? "p-4" : "p-6";
+  const padding = embedded ? "p-3 sm:p-4" : "p-3 sm:p-5";
   const titleSize = embedded ? "text-xl" : "text-2xl";
 
   const content = (
     <div className="w-full">
       <>
         {/* Vehicle Type Selection */}
-        <div className={`${padding} border-b border-slate-200`}>
+        <div className={`${padding} border-b border-slate-200 transition-all duration-300 ease-in-out`}>
           <h1 className={`${titleSize} font-bold text-slate-800`}>
             {activeStep === 0 && 'Get Your Instant Estimated Price'}
             {activeStep === 1 && 'What Are You Shipping?'}
@@ -657,7 +657,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         {/* Step 1: Locations */}
         {activeStep === 0 && (
           <FormProvider {...step1}>
-            <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={step1.handleSubmit(onSubmitStep1)}>
+            <form className={`${padding} space-y-3 w-full max-w-none`} onSubmit={step1.handleSubmit(onSubmitStep1)}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
                 <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
@@ -673,27 +673,28 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         )}
 
         {/* Step 2: Vehicle details and cart */}
+        {/* Step 2: Vehicle details and cart */}
         {activeStep === 1 && (
           <FormProvider {...step2}>
-            <form className={`${padding} space-y-4 w-full max-w-none`}>
-              <fieldset className="space-y-4">
+            <form className={`${padding} space-y-3 w-full max-w-none transition-all duration-300 ease-in-out`}>
+              <fieldset className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <legend className="text-md font-semibold text-slate-800">Add your vehicle</legend>
+                  <legend className="text-sm font-semibold text-slate-800">Add your vehicle</legend>
                   <div aria-live="polite" className="inline-flex items-center gap-2">
                     <span className="text-xs text-slate-500">Added</span>
                     <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
                   </div>
                 </div>
                 {/* Selector de modo de captura */}
-                <div className="rounded-md border border-slate-200 p-3 bg-slate-50 space-y-2">
+                <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
                   <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-row gap-3">
                     <button type="button"
                       onClick={() => setVehicleMode('specific')}
-                      className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
+                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
                     <button type="button"
                       onClick={() => setVehicleMode('generic')}
-                      className={`flex-1 text-left px-3 py-2 rounded-md border text-xs font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
+                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
                   </div>
                   <p className="text-[11px] text-slate-500">
                     {vehicleMode === 'specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
@@ -740,91 +741,98 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
                   {vehicleMode === 'specific' && (
                     <>
-                      {/* Year */}
-                      <div>
-                        <Controller
-                          name="vehicle_year"
-                          control={step2.control}
-                          render={({ field }) => {
-                            const current = new Date().getFullYear() + 1;
-                            const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
-                            const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
-                            return (
-                              <div className="flex flex-col">
-                                <label htmlFor="vehicle_year" className="text-xs font-semibold text-slate-700 mb-1">Vehicle Year</label>
-                                <Select
-                                  inputId="vehicle_year"
-                                  value={field.value ? { value: field.value, label: field.value } : null}
-                                  onChange={(opt: any) => field.onChange(opt?.value ?? '')}
-                                  options={years}
-                                  isClearable
-                                  classNamePrefix="react-select"
-                                  placeholder="Select year"
-                                  styles={{
-                                    control: (provided) => ({
-                                      ...provided,
-                                      boxShadow: 'none',
-                                      border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
-                                      borderRadius: '0.375rem',
-                                      minHeight: '2.5rem',
-                                      '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
-                                    }),
-                                    valueContainer: (p) => ({ ...p, padding: '0 0.75rem' }),
-                                    input: (p) => ({ ...p, margin: 0 }),
-                                    placeholder: (p) => ({ ...p, fontSize: '0.875rem' }),
-                                    singleValue: (p) => ({ ...p, fontSize: '0.875rem' }),
-                                    indicatorSeparator: () => ({ display: 'none' }),
-                                    menu: (p) => ({ ...p, maxHeight: '12rem' }),
-                                    menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
-                                  }}
-                                  className={`bg-white`}
-                                />
+                      {/* Year & Make Row */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <Controller
+                            name="vehicle_year"
+                            control={step2.control}
+                            render={({ field }) => {
+                              const current = new Date().getFullYear() + 1;
+                              const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
+                              const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
+                              return (
+                                <div className="flex flex-col">
+                                  <label htmlFor="vehicle_year" className="text-[11px] font-semibold text-slate-700 mb-1">Year</label>
+                                  <Select
+                                    inputId="vehicle_year"
+                                    value={field.value ? { value: field.value, label: field.value } : null}
+                                    onChange={(opt: any) => field.onChange(opt?.value ?? '')}
+                                    options={years}
+                                    isClearable
+                                    classNamePrefix="react-select"
+                                    placeholder="Year"
+                                    styles={{
+                                      control: (provided) => ({
+                                        ...provided,
+                                        boxShadow: 'none',
+                                        border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
+                                        borderRadius: '0.375rem',
+                                        minHeight: '2.25rem',
+                                        height: '2.25rem',
+                                        fontSize: '0.85rem',
+                                        '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
+                                      }),
+                                      valueContainer: (p) => ({ ...p, padding: '0 0.5rem', height: '2.25rem' }),
+                                      input: (p) => ({ ...p, margin: 0, padding: 0 }),
+                                      dropdownIndicator: (p) => ({ ...p, padding: '4px' }),
+                                      clearIndicator: (p) => ({ ...p, padding: '4px' }),
+                                      placeholder: (p) => ({ ...p, fontSize: '0.8rem' }),
+                                      singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
+                                      indicatorSeparator: () => ({ display: 'none' }),
+                                      menu: (p) => ({ ...p, maxHeight: '12rem' }),
+                                      menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
+                                    }}
+                                    className={`bg-white`}
+                                  />
+                                </div>
+                              );
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <MakeAsyncSelect
+                            name="vehicle_make"
+                            label="Make"
+                            endpoint={apiUrl('/api/vehicles/makes')}
+                            onPickedMake={() => {
+                              step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: true });
+                            }}
+                          />
+                        </div>
+                      </div>
+                      {/* Model & Inop Row */}
+                      <div className="grid grid-cols-12 gap-3">
+                        <div className="col-span-7">
+                          <ModelAsyncSelect
+                            name="vehicle_model"
+                            label="Model"
+                            endpoint={apiUrl('/api/vehicles/models')}
+                            make={step2.watch('vehicle_make')}
+                            disabled={!step2.watch('vehicle_make')}
+                          />
+                        </div>
+                        <div className="col-span-5">
+                          <label className="block text-[11px] font-semibold text-slate-700 mb-1">Running?</label>
+                          <Controller
+                            name="vehicle_inop"
+                            control={step2.control}
+                            defaultValue={'0'}
+                            render={({ field }) => (
+                              <div className="flex items-center h-[2.25rem] border border-slate-200 rounded-md px-2 bg-white">
+                                <button
+                                  type="button"
+                                  aria-pressed={(field.value ?? '0') !== '1'}
+                                  onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
+                                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors flex-shrink-0 ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-green-500'}`}
+                                >
+                                  <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0.5' : 'translate-x-[1.1rem]'} inline-block h-4 w-4 transform rounded-full bg-white transition shadow-sm`}></span>
+                                </button>
+                                <span className="ml-2 text-xs font-medium text-slate-700 truncate">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
                               </div>
-                            );
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <MakeAsyncSelect
-                          name="vehicle_make"
-                          label="Vehicle Make"
-                          endpoint={apiUrl('/api/vehicles/makes')}
-                          onPickedMake={() => {
-                            step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: true });
-                          }}
-                        />
-                      </div>
-                      {/* Model */}
-                      <div>
-                        <ModelAsyncSelect
-                          name="vehicle_model"
-                          label="Vehicle Model"
-                          endpoint={apiUrl('/api/vehicles/models')}
-                          make={step2.watch('vehicle_make')}
-                          disabled={!step2.watch('vehicle_make')}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
-                        <Controller
-                          name="vehicle_inop"
-                          control={step2.control}
-                          defaultValue={'0'}
-                          render={({ field }) => (
-                            <div className="flex items-center">
-                              <button
-                                type="button"
-                                aria-pressed={(field.value ?? '0') !== '1'}
-                                onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
-                              >
-                                <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
-                              </button>
-                              <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
-                            </div>
-                          )}
-                        />
-                        <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
+                            )}
+                          />
+                        </div>
                       </div>
                     </>
                   )}
@@ -1039,8 +1047,17 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                     className={`w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     type="submit"
                   >
-                    Get My Final Quote
-                    <FaRegPaperPlane />
+                    {submitting ? (
+                      <>
+                        Processing...
+                        <FaSpinner className="animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Get My Final Quote
+                        <FaRegPaperPlane />
+                      </>
+                    )}
                   </button>
                   <p className="mt-2 text-xs text-slate-500">Get your personalized quote and delivery details</p>
                 </div>
