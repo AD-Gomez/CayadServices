@@ -96,8 +96,17 @@ import NumberPhone from "../components/NumberPhone.astro";
   }
 
   .image--banner {
-    background-image: url("../../public/img/banner.webp");
-    background-size: 100% 100%;
+    background-image: url("/img/banner_new_horizontal.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (max-width: 768px) {
+    .image--banner {
+      background-image: url("/img/banner_vertical.png");
+      background-position: center top;
+    }
   }
 
   .adjust--img {
