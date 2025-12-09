@@ -9,6 +9,7 @@ type Props = {
   label: string;
   endpoint: string;
   make: string | undefined;
+  year?: string | undefined;
   minLength?: number;
   disabled?: boolean;
 };
@@ -20,16 +21,17 @@ async function fetchModels(endpoint: string, params: Record<string, string>): Pr
   return (await r.json()) as Option[];
 }
 
-const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, minLength = 0, disabled }) => {
+const ModelAsyncSelect: React.FC<Props> = ({ name, label, endpoint, make, year, minLength = 0, disabled }) => {
   const { control, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
 
   const params = useMemo(() => {
     const p: Record<string, string> = {};
     if (make) p.make = make;
+    if (year) p.year = year;
     if (search.trim()) p.search = search.trim();
     return p;
-  }, [make, search]);
+  }, [make, year, search]);
 
   const { options, loading } = useAsyncOptions(
     (p) => fetchModels(endpoint, p),

@@ -10,7 +10,8 @@ type Props = {
   endpoint?: string;
   minLength?: number;
   onPickedMake?: (val: string) => void;
-};
+  year?: string;
+}
 
 async function fetchMakes(endpoint: string, params: Record<string, string>): Promise<Option[]> {
   const qs = new URLSearchParams(params).toString();
@@ -25,13 +26,22 @@ const MakeAsyncSelect: React.FC<Props> = ({
   endpoint = '/api/vehicles/makes',
   minLength = 0,
   onPickedMake,
+  year,
 }) => {
   const { control, setValue, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
 
+  // Include year in params
+  const params = React.useMemo(() => {
+    const p: Record<string, string> = {};
+    if (year) p.year = year;
+    if (search) p.search = search;
+    return p;
+  }, [year, search]);
+
   const { options, loading } = useAsyncOptions(
     (p) => fetchMakes(endpoint, p),
-    { search },
+    params,
     { delay: 250, minLength }
   );
 

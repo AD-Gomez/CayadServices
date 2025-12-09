@@ -31,7 +31,16 @@ type Step1Values = {
   destination_city: string;
   origin_city__isValid: boolean;
   destination_city__isValid: boolean;
+  ship_date: string;
+  shipping_timeframe: string;
 };
+
+const SHIPPING_TIMEFRAMES = [
+  { value: "asap", label: "ASAP (Earliest Pickup)" },
+  { value: "2_weeks", label: "Within 2 Weeks" },
+  { value: "30_days", label: "Within 30 Days" },
+  { value: "30_plus", label: "More than 30 Days" },
+];
 
 const step1Schema: yup.ObjectSchema<Step1Values> = yup
   .object({
@@ -55,6 +64,10 @@ const step1Schema: yup.ObjectSchema<Step1Values> = yup
     destination_city__isValid: yup.boolean().default(false),
   })
   .required()
+  .shape({
+    ship_date: yup.string().required("Date is required"),
+    shipping_timeframe: yup.string().required("Please select a timeframe"),
+  })
   .test('different-origin-destination', 'Origin and destination cannot be the same', function (val) {
     if (!val) return true;
     const o = String((val as any).origin_city || '').trim().toLowerCase();
@@ -89,7 +102,6 @@ type ContactValues = {
   first_name: string;
   phone?: string; // optional, require at least one of phone/email via schema
   email?: string; // optional, require at least one of phone/email via schema
-  ship_date: string;
   website?: string; // honeypot
 };
 
@@ -141,6 +153,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       destination_city: "",
       origin_city__isValid: false,
       destination_city__isValid: false,
+      ship_date: "",
+      shipping_timeframe: "2_weeks",
     },
   });
 
@@ -185,7 +199,6 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           try { return isValidPhoneNumber(String(val)); } catch { return false; }
         }),
       email: yup.string().optional(),
-      ship_date: yup.string().required("Date is required"),
       website: yup.string().max(0).optional(),
     })
     .test("phone-or-email", "Please provide at least a phone number or an email.", (val) => {
@@ -243,10 +256,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const origin_zip = o.postalCode || ((s1.origin_city || "").match(/(\d{5})/) || [""])[0];
       const destination_zip = d.postalCode || ((s1.destination_city || "").match(/(\d{5})/) || [""])[0];
       // Unified request payload (supports generic and specific vehicles)
+      // Unified request payload (supports generic and specific vehicles)
       const unifiedPayload: PriceEstimateRequest = {
         origin_zip,
         destination_zip,
         transport_type: transportType, // Use selected transport type
+        shipping_timeframe: s1.shipping_timeframe,
+        ship_date: s1.ship_date,
         vehicles: mixedItems.map(it => it.kind === 'generic'
           ? { type: it.type, inop: !!it.inop, count: it.count }
           : { type: it.type, year: it.year!, make: it.make!, model: it.model!, inop: !!it.inop, count: it.count }
@@ -594,6 +610,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       ...s1,
       transport_type: transportType === 'open' ? "1" : "2", // 1 Open, 2 Enclosed
       ...s4,
+      ship_date: formatShipDateLocal(s1.ship_date), // format here
       client_estimate: {
         miles,
         per_mile: perMile,
@@ -619,7 +636,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     });
     (payload as any).Vehicles = sanitizedVehicles;
     try {
-      const formatted = { ...payload, ship_date: formatShipDateLocal(s4.ship_date as any) };
+      // ship_date is already in payload from s1 spread or explicit set, but let's ensure formatted
+      const formatted = { ...payload, ship_date: formatShipDateLocal(payload.ship_date) };
       const resp = await sendLeadToLanding(formatted);
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
         saveNumberLead(String(resp.id));
@@ -663,6 +681,32 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
                 <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
               </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <DateInput name="ship_date" label="First Available Pickup Date" />
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 mb-1">Timeframe (How soon?)</label>
+                  <div className="border border-slate-200 rounded-md bg-white p-1">
+                    <Controller
+                      control={step1.control}
+                      name="shipping_timeframe"
+                      render={({ field }) => (
+                        <Select
+                          value={SHIPPING_TIMEFRAMES.find(o => o.value === field.value)}
+                          onChange={(opt: any) => field.onChange(opt?.value)}
+                          options={SHIPPING_TIMEFRAMES}
+                          classNamePrefix="react-select"
+                          styles={{
+                            control: (base) => ({ ...base, border: 'none', boxShadow: 'none', minHeight: '2rem' }),
+                            menu: (base) => ({ ...base, zIndex: 9999 })
+                          }}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="submit">
                   Show My Vehicle Options
@@ -810,6 +854,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                             name="vehicle_make"
                             label="Make"
                             endpoint={apiUrl('/api/vehicles/makes')}
+                            year={step2.watch('vehicle_year')}
                             onPickedMake={() => {
                               step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: true });
                             }}
@@ -824,6 +869,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                             label="Model"
                             endpoint={apiUrl('/api/vehicles/models')}
                             make={step2.watch('vehicle_make')}
+                            year={step2.watch('vehicle_year')}
                             disabled={!step2.watch('vehicle_make')}
                           />
                         </div>
@@ -1054,7 +1100,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                     </div>
                   )}
                 </div>
-                <DateInput name="ship_date" label="Preferred Pickup Date" />
+                {/* DateInput moved to Step 1 */}
               </div>
               {/* Honeypot field to deter bots */}
               <input type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...(step4.register as any)("website")} />
