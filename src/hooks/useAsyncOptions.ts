@@ -29,13 +29,15 @@ export function useAsyncOptions(
       return;
     }
 
-    if (globalCache.has(key)) {
-      setOptions(globalCache.get(key)!);
-      setLoading(false);
-      setError(null);
-      return;
-    }
+    // if (globalCache.has(key)) {
+    //   console.log('[useAsyncOptions] Cache hit for:', key);
+    //   setOptions(globalCache.get(key)!);
+    //   setLoading(false);
+    //   setError(null);
+    //   return;
+    // }
 
+    console.log('[useAsyncOptions] Fetching for:', key);
     const controller = new AbortController();
     const t = setTimeout(async () => {
       try {
@@ -43,11 +45,15 @@ export function useAsyncOptions(
         setError(null);
         const res = await fetcher(params);
         if (!controller.signal.aborted) {
+          console.log('[useAsyncOptions] Got results:', res.length);
           globalCache.set(key, res);
           setOptions(res);
         }
       } catch (e) {
-        if (!controller.signal.aborted) setError(e);
+        if (!controller.signal.aborted) {
+             console.error('[useAsyncOptions] Error:', e);
+             setError(e);
+        }
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }

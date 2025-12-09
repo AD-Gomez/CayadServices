@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from 'swiper';
@@ -23,6 +23,19 @@ import { FaQuoteRight } from "react-icons/fa6";
 // revalidations/re-fetch when Swiper clones slides or re-mounts nodes.
 const PRELOADED = new Map<string, HTMLImageElement>();
 const PRELOADED_BLOBS = new Map<string, string>(); // src -> objectURL
+
+// Helper to get source string safely from potentially different import types
+const getSrc = (img: any): string => {
+  if (!img) return '';
+  if (typeof img === 'string') return img;
+  if (typeof img === 'object' && 'src' in img) return img.src;
+  return '';
+};
+
+// Check if all needed images are already in blob cache
+const areAllCached = (sources: string[]) => {
+  return sources.every(s => PRELOADED_BLOBS.has(s));
+};
 
 const testimonials = [
   {
@@ -118,16 +131,31 @@ const Testimonials = ({ title, position }: testimonialsType) => {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Collect all sources for this run
+  const allSources = (() => {
+    const s: string[] = [];
+    testimonials.forEach(t => {
+      const s1 = getSrc(t.image);
+      const s2 = getSrc((t as any).userImage);
+      if (s1) s.push(s1);
+      if (s2) s.push(s2);
+    });
+    return s;
+  })();
+
+  // Initialize ready state to TRUE if we already have blobs. 
+  // This avoids the 'init' -> 'loaded' flip on re-mounts.
+  const [ready, setReady] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return areAllCached(allSources);
+  });
+
   // Preload all testimonial and badge images once on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const sources: string[] = [];
-    testimonials.forEach((t) => {
-      if (t.image?.src) sources.push(t.image.src);
-      if ((t as any).userImage?.src) sources.push((t as any).userImage.src);
-    });
-    // 1) Keep classic Image() references (helps browser memory cache)
-    sources.forEach((src) => {
+
+    // 1) Keep classic Image() references
+    allSources.forEach((src) => {
       if (!PRELOADED.has(src)) {
         const img = new Image();
         img.decoding = 'sync';
@@ -136,11 +164,15 @@ const Testimonials = ({ title, position }: testimonialsType) => {
       }
     });
 
-    // 2) Fetch blobs once and create object URLs so <img> can point to
-    // the local blob URL instead of revalidating the original resource.
+    // 2) Fetch blobs
     const fetchBlobs = async () => {
+      if (areAllCached(allSources)) {
+        setReady(true);
+        return;
+      }
+
       await Promise.all(
-        sources.map(async (src) => {
+        allSources.map(async (src) => {
           if (PRELOADED_BLOBS.has(src)) return;
           try {
             const res = await fetch(src, { cache: 'force-cache' });
@@ -149,11 +181,11 @@ const Testimonials = ({ title, position }: testimonialsType) => {
             const objectUrl = URL.createObjectURL(blob);
             PRELOADED_BLOBS.set(src, objectUrl);
           } catch (e) {
-            // ignore individual failures, keep original src as fallback
             console.warn('Failed to preload blob for', src, e);
           }
         })
       );
+      setReady(true);
     };
 
     fetchBlobs();
@@ -176,6 +208,9 @@ const Testimonials = ({ title, position }: testimonialsType) => {
         </h2>
       }
       <Swiper
+        // Key forces re-mount when blobs are ready, ensuring cloned slides use Blob URLs.
+        // If ready started as true (cached), key is 'loaded' immediately, preventing flicker/reset.
+        key={ready ? 'loaded' : 'init'}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[Pagination, A11y, Autoplay]}
         spaceBetween={20}
@@ -201,35 +236,53 @@ const Testimonials = ({ title, position }: testimonialsType) => {
         onSlideChange={handleSlideChange}
         className="min-h-[320px] md:h-[350px] w-full px-2 sm:px-4 overflow-hidden"
       >
-        {testimonials.map((testimonial, index) => (
-          <SwiperSlide key={testimonial.id}>
-            <div className={`relative w-full box-border overflow-hidden cursor-pointer p-6 my-4 bg-white rounded-2xl transition-all duration-300 ${activeIndex === index ? 'shadow-card-hover scale-[1.02] ring-1 ring-blue-50' : 'shadow-card hover:shadow-card-hover hover:scale-[1.01]'}`}>
-              <a href={testimonial.link} target="_blank" className="block h-full">
-                <FaQuoteRight className="text-blue-100/50 text-6xl absolute top-4 right-4 -z-0" />
-                <div className="w-full flex flex-row items-center gap-4 relative z-10 mb-4">
-                  <div className="shrink-0">
-                    <img loading="eager" src={PRELOADED_BLOBS.get(testimonial.image.src) ?? testimonial.image.src} width={50} height={50} className="object-cover rounded-full h-14 w-14 ring-2 ring-white shadow-md" alt="img customer" />
+        {testimonials.map((testimonial, index) => {
+          const imgSrc = getSrc(testimonial.image);
+          const badgeSrc = getSrc((testimonial as any).userImage);
+          return (
+            <SwiperSlide key={testimonial.id}>
+              <div className={`relative w-full box-border overflow-hidden cursor-pointer p-6 my-4 bg-white rounded-2xl transition-all duration-300 ${activeIndex === index ? 'shadow-card-hover scale-[1.02] ring-1 ring-blue-50' : 'shadow-card hover:shadow-card-hover hover:scale-[1.01]'}`}>
+                <a href={testimonial.link} target="_blank" className="block h-full">
+                  <FaQuoteRight className="text-blue-100/50 text-6xl absolute top-4 right-4 -z-0" />
+                  <div className="w-full flex flex-row items-center gap-4 relative z-10 mb-4">
+                    <div className="shrink-0">
+                      <img
+                        loading="eager"
+                        src={PRELOADED_BLOBS.get(imgSrc) ?? imgSrc}
+                        width={50}
+                        height={50}
+                        className="object-cover rounded-full h-14 w-14 ring-2 ring-white shadow-md"
+                        alt="img customer"
+                      />
+                    </div>
+                    <div className="text-left flex-grow">
+                      <h4 className="text-lg font-bold font-heading text-slate-900">
+                        {testimonial.name}
+                      </h4>
+                      {renderStars(testimonial.rating)}
+                    </div>
+                    <div className="shrink-0">
+                      <img
+                        loading="eager"
+                        src={PRELOADED_BLOBS.get(badgeSrc) ?? badgeSrc}
+                        width={50}
+                        height={50}
+                        className="object-contain w-8 h-8 opacity-80"
+                        alt="image google"
+                      />
+                    </div>
                   </div>
-                  <div className="text-left flex-grow">
-                    <h4 className="text-lg font-bold font-heading text-slate-900">
-                      {testimonial.name}
-                    </h4>
-                    {renderStars(testimonial.rating)}
+                  <div className="relative z-10 text-slate-600 font-sans leading-relaxed text-base italic">
+                    "{testimonial.comment}"
                   </div>
-                  <div className="shrink-0">
-                    <img loading="eager" src={PRELOADED_BLOBS.get((testimonial as any).userImage.src) ?? (testimonial as any).userImage.src} width={50} height={50} className="object-contain w-8 h-8 opacity-80" alt="image google" />
-                  </div>
-                </div>
-                <div className="relative z-10 text-slate-600 font-sans leading-relaxed text-base italic">
-                  "{testimonial.comment}"
-                </div>
-              </a>
-            </div>
-          </SwiperSlide>
-        ))}
+                </a>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
 };
 
-export default Testimonials;
+export default memo(Testimonials);

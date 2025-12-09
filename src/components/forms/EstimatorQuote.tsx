@@ -17,7 +17,7 @@ import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
 import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner } from "react-icons/fa";
-import { format } from "date-fns";
+import { format, differenceInCalendarDays } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
 import { showNotification } from "../../utils/notificaction";
@@ -87,16 +87,23 @@ type Step2Values = {
   vehicle_inop?: '0' | '1';
 };
 
-const step2Schema = yup
-  .object({
-    vehicle_type: yup.string().required(),
-    vehicle_year: yup.string().optional().matches(/^(19|20)\d{2}$/, 'Year must be YYYY').test('year-range', 'Year out of range', function (val) {
-      if (!val) return true; const y = Number(val); const max = new Date().getFullYear() + 1; const min = 1970; return y >= min && y <= max;
-    }),
-    vehicle_make: yup.string().optional().max(40),
-    vehicle_model: yup.string().optional().max(60),
-    vehicle_inop: yup.mixed<'0' | '1'>().oneOf(['0', '1']).optional(),
-  }) as yup.ObjectSchema<Step2Values>;
+const step2GenericSchema = yup.object({
+  vehicle_type: yup.string().required("Vehicle type is required"),
+  vehicle_year: yup.string().optional(),
+  vehicle_make: yup.string().optional(),
+  vehicle_model: yup.string().optional(),
+  vehicle_inop: yup.mixed<'0' | '1'>().oneOf(['0', '1']).optional(),
+});
+
+const step2SpecificSchema = yup.object({
+  vehicle_type: yup.string().optional(),
+  vehicle_year: yup.string().required("Year is required").matches(/^(19|20)\d{2}$/, 'Year must be YYYY').test('year-range', 'Year out of range', function (val) {
+    if (!val) return true; const y = Number(val); const max = new Date().getFullYear() + 1; const min = 1970; return y >= min && y <= max;
+  }),
+  vehicle_make: yup.string().required("Make is required").max(40),
+  vehicle_model: yup.string().required("Model is required").max(60),
+  vehicle_inop: yup.mixed<'0' | '1'>().oneOf(['0', '1']).optional(),
+});
 
 type ContactValues = {
   first_name: string;
@@ -154,19 +161,38 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       origin_city__isValid: false,
       destination_city__isValid: false,
       ship_date: "",
-      shipping_timeframe: "2_weeks",
+      shipping_timeframe: "asap", // default to ASAP/2_weeks logic
     },
   });
 
+  // Auto-calculate timeframe based on ship_date
+  const shipDateVal = step1.watch('ship_date');
+  useEffect(() => {
+    if (!shipDateVal) return;
+    const date = new Date(shipDateVal);
+    if (isNaN(date.getTime())) return;
+    const diff = differenceInCalendarDays(date, new Date());
+    let tf = 'asap';
+    if (diff <= 7) tf = 'asap';
+    else if (diff <= 14) tf = '2_weeks';
+    else if (diff <= 30) tf = '30_days';
+    else tf = '30_plus';
+
+    // Only update if changed to avoid loop (though setValue is stable, good practice)
+    if (step1.getValues('shipping_timeframe') !== tf) {
+      step1.setValue('shipping_timeframe', tf);
+    }
+  }, [shipDateVal, step1.setValue]);
+
+  // Modo de selección: 'specific' (año/marca/modelo) o 'generic' (solo tipo cuando no sabe detalles)
+  const [vehicleMode, setVehicleMode] = useState<'specific' | 'generic'>('specific');
+
   const step2 = useForm<Step2Values>({
-    resolver: yupResolver(step2Schema),
+    resolver: yupResolver((vehicleMode === 'generic' ? step2GenericSchema : step2SpecificSchema) as any),
     mode: "onChange",
     // Start with no preselected vehicle type so the user must choose explicitly
     defaultValues: { vehicle_type: "", vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: '0' },
   });
-
-  // Modo de selección: 'specific' (año/marca/modelo) o 'generic' (solo tipo cuando no sabe detalles)
-  const [vehicleMode, setVehicleMode] = useState<'specific' | 'generic'>('specific');
   // Reset fields not used when switching modes to avoid confusion
   useEffect(() => {
     if (vehicleMode === 'generic') {
@@ -198,19 +224,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           if (!val) return true;
           try { return isValidPhoneNumber(String(val)); } catch { return false; }
         }),
-      email: yup.string().optional(),
+      email: yup.string().required("Email is required").email("Please enter a valid email address."),
       website: yup.string().max(0).optional(),
-    })
-    .test("phone-or-email", "Please provide at least a phone number or an email.", (val) => {
-      if (!val) return false;
-      const hasPhone = !!val.phone && String(val.phone).trim() !== "";
-      const hasEmail = !!val.email && String(val.email).trim() !== "";
-      return hasPhone || hasEmail;
     });
   const step4 = useForm<ContactValues>({ resolver: yupResolver(contactSchema), mode: "onChange" });
 
-  const computeEstimate = useCallback(async () => {
+  const computeEstimate = useCallback(async (vehiclesOverride?: VehicleRow[]) => {
     const s1 = step1.getValues();
+    const listToUse = vehiclesOverride || vehicles;
     // Build mixed vehicles list (generic types and specific vehicles)
     type MixedItem = (
       { kind: 'generic'; type: string; inop?: boolean; count: number } |
@@ -218,7 +239,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     );
     const genericsMap = new Map<string, MixedItem>();
     const specificsMap = new Map<string, MixedItem>();
-    for (const v of vehicles) {
+    for (const v of listToUse) {
       const inop = (v.vehicle_inop === '1');
       const hasSpecific = !!(v.vehicle_year || v.vehicle_make || v.vehicle_model);
       if (hasSpecific) {
@@ -281,7 +302,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             results.push({ type: String(label), count, data: it });
           }
         } else {
-          results.push({ type: 'vehicles', count: vehicles.length, data: unifiedResp });
+          results.push({ type: 'vehicles', count: listToUse.length, data: unifiedResp });
         }
         setEstResponses(results);
         const discountedSum = (typeof unifiedResp.discounted_estimate_total === 'number')
@@ -325,9 +346,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         }
       } else {
         // Backward compatibility: per-type loop
-        const distinct = Array.from(new Set(vehicles.map(v => v.vehicle_type)));
+        const distinct = Array.from(new Set(listToUse.map(v => v.vehicle_type)));
         for (const vt of distinct) {
-          const count = vehicles.filter(v => v.vehicle_type === vt).length;
+          const count = listToUse.filter(v => v.vehicle_type === vt).length;
           const legacyPayload: PriceEstimateRequest = {
             origin_zip,
             destination_zip,
@@ -407,6 +428,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     } else {
       step2.reset({ vehicle_type: vals.vehicle_type, vehicle_year: '', vehicle_make: '', vehicle_model: '', vehicle_inop: vals.vehicle_inop || '0' });
     }
+    setTimeout(() => step2.clearErrors(), 0);
   };
 
   // Firma única para evitar duplicaciones accidentales
@@ -427,6 +449,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     showNotification({ text: 'Vehicle type added', icon: 'success' });
     // limpiar para permitir añadir otro tipo
     step2.setValue('vehicle_type', '');
+    setTimeout(() => step2.clearErrors(), 0);
   }, [step2.watch('vehicle_type'), vehicleMode]);
 
   // Auto-agregar en modo específico cuando año+make+model completos
@@ -448,11 +471,37 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     step2.setValue('vehicle_year', '');
     step2.setValue('vehicle_make', '');
     step2.setValue('vehicle_model', '');
+    setTimeout(() => step2.clearErrors(), 0);
   }, [step2.watch('vehicle_year'), step2.watch('vehicle_make'), step2.watch('vehicle_model'), vehicleMode]);
 
   const proceedToEstimate = async () => {
-    if (vehicles.length === 0) return;
-    await computeEstimate();
+    let listToUse = [...vehicles];
+
+    // If cart is empty, try to validate and add current form inputs
+    if (listToUse.length === 0) {
+      const fieldsToValidate = vehicleMode === 'generic'
+        ? ["vehicle_type", "vehicle_inop"]
+        : ["vehicle_year", "vehicle_make", "vehicle_model", "vehicle_inop"];
+
+      const ok = await step2.trigger(fieldsToValidate as any);
+      if (!ok) return;
+
+      const vals = step2.getValues();
+      const row: VehicleRow = {
+        vehicle_type: vals.vehicle_type || 'car',
+        vehicle_year: vehicleMode === 'specific' ? (vals.vehicle_year || '') : '',
+        vehicle_make: vehicleMode === 'specific' ? (vals.vehicle_make || '') : '',
+        vehicle_model: vehicleMode === 'specific' ? (vals.vehicle_model || '') : '',
+        vehicle_inop: vals.vehicle_inop || '0',
+      };
+      listToUse = [row];
+      // Update UI state for consistency, though we use local var for immediate calc
+      setVehicles(prev => [...prev, row]);
+    }
+
+    if (listToUse.length === 0) return;
+
+    await computeEstimate(listToUse);
     setActiveStep(2);
   };
 
@@ -684,26 +733,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <DateInput name="ship_date" label="First Available Pickup Date" />
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-700 mb-1">Timeframe (How soon?)</label>
-                  <div className="border border-slate-200 rounded-md bg-white p-1">
-                    <Controller
-                      control={step1.control}
-                      name="shipping_timeframe"
-                      render={({ field }) => (
-                        <Select
-                          value={SHIPPING_TIMEFRAMES.find(o => o.value === field.value)}
-                          onChange={(opt: any) => field.onChange(opt?.value)}
-                          options={SHIPPING_TIMEFRAMES}
-                          classNamePrefix="react-select"
-                          styles={{
-                            control: (base) => ({ ...base, border: 'none', boxShadow: 'none', minHeight: '2rem' }),
-                            menu: (base) => ({ ...base, zIndex: 9999 })
-                          }}
-                        />
-                      )}
-                    />
-                  </div>
+                <div className="hidden">
+                  <Controller
+                    control={step1.control}
+                    name="shipping_timeframe"
+                    render={({ field }) => (
+                      <input type="hidden" {...field} />
+                    )}
+                  />
                 </div>
               </div>
 
@@ -928,7 +965,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 <button type="button" onClick={() => setActiveStep(0)} className="inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2.5 px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50">
                   Back
                 </button>
-                <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button" disabled={busy || vehicles.length === 0} onClick={proceedToEstimate}>
+                <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button" disabled={busy} onClick={proceedToEstimate}>
                   {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` · ${numberToWord(vehicles.length)} vehicle${vehicles.length > 1 ? 's' : ''}` : ''}`}
                 </button>
               </div>
@@ -962,7 +999,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                         <span className="text-sm font-semibold text-emerald-700">
                           You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)}
                         </span>
-                        <span className="text-xs text-emerald-600">({normalTotal > 0 ? Math.round((1 - discountedTotal / normalTotal) * 100) : 0}% off)</span>
+                        <span className="text-xs text-emerald-600"></span>
                       </div>
                     </div>
                   )}

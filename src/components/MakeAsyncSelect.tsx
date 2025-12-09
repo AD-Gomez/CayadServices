@@ -15,7 +15,9 @@ type Props = {
 
 async function fetchMakes(endpoint: string, params: Record<string, string>): Promise<Option[]> {
   const qs = new URLSearchParams(params).toString();
-  const r = await fetch(`${endpoint}?${qs}`);
+  const url = `${endpoint}?${qs}`;
+  console.log('[MakeAsyncSelect] Fetching:', url);
+  const r = await fetch(url);
   if (!r.ok) throw new Error('Failed to fetch makes');
   return (await r.json()) as Option[];
 }
@@ -30,6 +32,7 @@ const MakeAsyncSelect: React.FC<Props> = ({
 }) => {
   const { control, setValue, formState: { errors } } = useFormContext();
   const [search, setSearch] = useState('');
+  console.log('[MakeAsyncSelect] Rendered with year:', year);
 
   // Include year in params
   const params = React.useMemo(() => {
