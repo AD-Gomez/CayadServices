@@ -8,8 +8,10 @@ import { distanceForLocations, estimateTransitDays, formatMiles } from "../../se
 import { parseCityStateZip } from "../../utils/leadFormat";
 import { apiUrl } from "../../services/config";
 import { postPriceEstimate, type PriceEstimateRequest, type PriceEstimateResponse, type TransportType } from "../../services/priceEstimate";
-import MakeAsyncSelect from "../MakeAsyncSelect";
-import ModelAsyncSelect from "../ModelAsyncSelect";
+// New unified vehicle selectors using /api/public/vehicle-options/
+import VehicleYearSelect from "../VehicleYearSelect";
+import VehicleMakeSelect from "../VehicleMakeSelect";
+import VehicleModelSelect from "../VehicleModelSelect";
 import VehicleTypeAsyncSelect from "../VehicleTypeAsyncSelect";
 import AutoSuggestInput from "../inputs/AutoSuggestInput";
 import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
@@ -837,77 +839,44 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
                   {vehicleMode === 'specific' && (
                     <>
-                      {/* Year & Make Row */}
+                      {/* Year & Make Row - Using new unified /api/public/vehicle-options/ endpoint */}
                       <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <Controller
-                            name="vehicle_year"
-                            control={step2.control}
-                            render={({ field }) => {
-                              const current = new Date().getFullYear() + 1;
-                              const years = Array.from({ length: 50 }, (_, i) => ({ value: String(current - i), label: String(current - i) }));
-                              const hasError = !!(step2.formState?.errors as any)?.vehicle_year;
-                              return (
-                                <div className="flex flex-col">
-                                  <label htmlFor="vehicle_year" className="text-[11px] font-semibold text-slate-700 mb-1">Year</label>
-                                  <Select
-                                    inputId="vehicle_year"
-                                    value={field.value ? { value: field.value, label: field.value } : null}
-                                    onChange={(opt: any) => field.onChange(opt?.value ?? '')}
-                                    options={years}
-                                    isClearable
-                                    classNamePrefix="react-select"
-                                    placeholder="Year"
-                                    styles={{
-                                      control: (provided) => ({
-                                        ...provided,
-                                        boxShadow: 'none',
-                                        border: `1px solid ${hasError ? 'red' : '#e2e8f0'}`,
-                                        borderRadius: '0.375rem',
-                                        minHeight: '2.25rem',
-                                        height: '2.25rem',
-                                        fontSize: '0.85rem',
-                                        '&:hover': { border: `1px solid ${hasError ? 'red' : '#00a1e1'}` },
-                                      }),
-                                      valueContainer: (p) => ({ ...p, padding: '0 0.5rem', height: '2.25rem' }),
-                                      input: (p) => ({ ...p, margin: 0, padding: 0 }),
-                                      dropdownIndicator: (p) => ({ ...p, padding: '4px' }),
-                                      clearIndicator: (p) => ({ ...p, padding: '4px' }),
-                                      placeholder: (p) => ({ ...p, fontSize: '0.8rem' }),
-                                      singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
-                                      indicatorSeparator: () => ({ display: 'none' }),
-                                      menu: (p) => ({ ...p, maxHeight: '12rem' }),
-                                      menuList: (p) => ({ ...p, maxHeight: '12rem', overflowY: 'auto' }),
-                                    }}
-                                    className={`bg-white`}
-                                  />
-                                </div>
-                              );
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <MakeAsyncSelect
-                            name="vehicle_make"
-                            label="Make"
-                            endpoint={apiUrl('/api/vehicles/makes')}
-                            year={step2.watch('vehicle_year')}
-                            onPickedMake={() => {
-                              step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: true });
-                            }}
-                          />
-                        </div>
+                        <VehicleYearSelect
+                          name="vehicle_year"
+                          label="Year"
+                          onYearChange={() => {
+                            // Clear make and model when year changes
+                            step2.setValue('vehicle_make', '', { shouldDirty: true, shouldValidate: false });
+                            step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: false });
+                            step2.setValue('vehicle_type', '', { shouldDirty: true, shouldValidate: false });
+                          }}
+                        />
+                        <VehicleMakeSelect
+                          name="vehicle_make"
+                          label="Make"
+                          year={step2.watch('vehicle_year')}
+                          onMakeChange={() => {
+                            // Clear model when make changes
+                            step2.setValue('vehicle_model', '', { shouldDirty: true, shouldValidate: false });
+                            step2.setValue('vehicle_type', '', { shouldDirty: true, shouldValidate: false });
+                          }}
+                        />
                       </div>
                       {/* Model & Inop Row */}
                       <div className="grid grid-cols-12 gap-3">
                         <div className="col-span-7">
-                          <ModelAsyncSelect
+                          <VehicleModelSelect
                             name="vehicle_model"
                             label="Model"
-                            endpoint={apiUrl('/api/vehicles/models')}
-                            make={step2.watch('vehicle_make')}
                             year={step2.watch('vehicle_year')}
-                            disabled={!step2.watch('vehicle_make')}
+                            make={step2.watch('vehicle_make')}
+                            onModelSelect={(model, category) => {
+                              // Automatically set vehicle_type from the model's category
+                              console.log('[EstimatorQuote] Model selected:', model, 'Category:', category);
+                              if (category) {
+                                step2.setValue('vehicle_type', category, { shouldDirty: true, shouldValidate: false });
+                              }
+                            }}
                           />
                         </div>
                         <div className="col-span-5">

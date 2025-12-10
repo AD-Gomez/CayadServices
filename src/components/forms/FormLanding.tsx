@@ -14,8 +14,6 @@ import { showNotification } from '../../utils/notificaction';
 import ZipcodeAutocompleteRHF from '../inputs/ZipcodeAutocompleteRHF';
 import { type LandingFormInput } from '../../utils/buildLandingPayload';
 import { sendLeadToLanding } from '../../services/lead';
-import MakeAsyncSelect from '../MakeAsyncSelect';
-import ModelAsyncSelect from '../ModelAsyncSelect';
 import { isValidPhoneNumber } from 'libphonenumber-js/max';
 import { apiUrl } from '../../services/config';
 
@@ -121,13 +119,13 @@ const Step1 = ({ setActiveStep, setDataSubmit, dataSubmit }: any) => {
                   <input {...field} type="radio" id="transport_open_small" value="1" checked={field.value === '1'} className="sr-only peer" />
                   <label htmlFor="transport_open_small" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Open</label>
                 </div>
-              )}/>
+              )} />
               <Controller name={'transport_type'} control={control} render={({ field }) => (
                 <div>
                   <input {...field} type="radio" id="transport_enclosed_small" value="2" checked={field.value === '2'} className="sr-only peer" />
                   <label htmlFor="transport_enclosed_small" className="block text-center w-full py-2.5 px-3 rounded-lg border border-slate-300 cursor-pointer peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 font-semibold transition-colors text-sm">Enclosed</label>
                 </div>
-              )}/>
+              )} />
             </div>
             {errors.transport_type && <p className="text-red-500 text-xs italic mt-1">{errors.transport_type.message}</p>}
           </div>
