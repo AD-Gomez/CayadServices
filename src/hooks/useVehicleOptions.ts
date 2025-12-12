@@ -183,6 +183,59 @@ export function useVehicleModels(year: number | string | undefined, make: string
 }
 
 /**
+ * Category option with value, label, and description
+ */
+export type CategoryOption = {
+  value: string;
+  label: string;
+  description: string;
+};
+
+/**
+ * Hook to fetch available vehicle categories (19 SuperDispatch types)
+ */
+export function useVehicleCategories() {
+  const [categories, setCategories] = useState<CategoryOption[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    const url = apiUrl('/api/public/vehicle-categories/');
+    console.log('[useVehicleCategories] Fetching:', url);
+
+    fetch(url)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch vehicle categories: ${res.status}`);
+        }
+        const data = await res.json() as CategoryOption[];
+        if (!cancelled) {
+          setCategories(data);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          console.error('[useVehicleCategories] Error:', err);
+          setError(err);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return { categories, loading, error };
+}
+
+/**
  * Clear the vehicle options cache (useful for testing or forced refresh)
  */
 export function clearVehicleOptionsCache() {

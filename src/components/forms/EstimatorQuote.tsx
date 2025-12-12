@@ -806,9 +806,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       <div>
                         <VehicleTypeAsyncSelect
                           name="vehicle_type"
-                          label={'Vehicle Type'}
-                          endpoint={apiUrl('/api/vehicles/types/?for_landing=1')}
-                          hidePresets={false}
+                          label="Vehicle Type"
                         />
                         <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
                       </div>
