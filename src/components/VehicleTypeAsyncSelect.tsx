@@ -51,7 +51,19 @@ const VehicleTypeAsyncSelect: React.FC<Props> = ({
   // Convert categories to react-select format
   const options = useMemo(() => {
     if (!Array.isArray(categories)) return [];
-    return categories;
+
+    // Filter out standard vehicle types as requested by the user
+    // We only want to show heavy/specialty vehicles
+    const excludedTypes = new Set([
+      'sedan',
+      '2_door_coupe',
+      'suv',
+      'pickup',
+      '4_door_pickup',
+      'van'
+    ]);
+
+    return categories.filter(cat => !excludedTypes.has(cat.value));
   }, [categories]);
 
   const hasError = !!(errors as any)[name];
