@@ -4,7 +4,7 @@
 // you explicitly need Speed Insights and after configuring its polling.
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
-import ButtonChat from "../components/ButtonChat";
+
 import "aos/dist/aos.css";
 import SocialProof from "../components/SocialProof";
 import SocialRequest from "../components/SocialRequest";
@@ -95,7 +95,7 @@ const { title, content, isLanding = false } = Astro.props;
     <main class={isLanding ? "" : "pt-[72px] sm:pt-[80px]"}>
       <slot />
     </main>
-    <ButtonChat client:load />
+
     <Footer />
     <SocialProof client:load />
     <SocialRequest client:load />

@@ -31,7 +31,10 @@ import {
   FaUsers,
   FaQuestionCircle,
   FaDollarSign,
-  FaMap
+  FaMap,
+  FaHeadset,
+  FaFacebookMessenger,
+  FaWhatsapp
 } from 'react-icons/fa'
 import logoweb from '../../public/img/logo-cayad.webp'
 import MarqueeText from './Marquee'
@@ -112,24 +115,53 @@ export default function Navbar() {
           scrolled ? "bg-white/95 backdrop-blur-md shadow-md py-2" : "bg-white py-4"
         )}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" aria-label="Global">
-          <div className="flex">
+        <nav className="mx-auto flex w-full items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Global">
+          <div className="flex items-center gap-4">
+            {/* Mobile menu button - controlled by CSS (visible lg:hidden) */}
+            <div className="navbar-mobile-btn">
+              <button
+                type="button"
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700 hover:text-[#00a1e1] transition-colors"
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className="h-8 w-8" aria-hidden="true" />
+              </button>
+            </div>
+
             <a href="/" className="-m-1.5 p-1.5 transition-transform hover:scale-105 duration-200">
               <span className="sr-only">Cayad Auto Transport</span>
               <img className="h-10 w-auto sm:h-12" src={logoweb.src} alt="Cayad Logo" width={60} height={60} />
             </a>
           </div>
 
-          {/* Mobile menu button - controlled by CSS */}
-          <div className="navbar-mobile-btn">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700 hover:text-[#00a1e1] transition-colors"
-              onClick={() => setMobileMenuOpen(true)}
+          {/* Mobile Communication Icons (Visible lg:hidden) */}
+          <div className="flex lg:hidden items-center gap-2">
+            <a
+              href="tel:+14696190747"
+              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#005c85] text-white shadow-sm hover:bg-[#004a6b] transition-all active:scale-95"
+              aria-label="Call Us"
             >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-8 w-8" aria-hidden="true" />
-            </button>
+              <FaHeadset className="h-5 w-5" />
+            </a>
+            <a
+              href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp className="h-5 w-5" />
+            </a>
+            <a
+              href="https://m.me/116222094837969"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
+              aria-label="Messenger"
+            >
+              <FaFacebookMessenger className="h-5 w-5" />
+            </a>
           </div>
 
           {/* Desktop menu - controlled by CSS */}
@@ -137,7 +169,7 @@ export default function Navbar() {
             <Popover className="relative" onMouseEnter={() => setOpenPopover('how-it-work')} onMouseLeave={() => setOpenPopover(null)}>
               <Popover.Button className={classNames(
                 isPopoverHowItWorkActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none"
+                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
               )}>
                 HOW IT WORKS
                 <ChevronDownIcon className={classNames(openPopover === 'how-it-work' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
@@ -175,7 +207,7 @@ export default function Navbar() {
             <Popover className="relative" onMouseEnter={() => setOpenPopover('individuals')} onMouseLeave={() => setOpenPopover(null)}>
               <Popover.Button className={classNames(
                 isPopoverIndividualsActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none"
+                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
               )}>
                 FOR INDIVIDUALS
                 <ChevronDownIcon className={classNames(openPopover === 'individuals' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
@@ -224,7 +256,7 @@ export default function Navbar() {
             <Popover className="relative" onMouseEnter={() => setOpenPopover('businesses')} onMouseLeave={() => setOpenPopover(null)}>
               <Popover.Button className={classNames(
                 isPopoverBusinessesActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none"
+                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
               )}>
                 FOR BUSINESSES
                 <ChevronDownIcon className={classNames(openPopover === 'businesses' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
@@ -262,7 +294,7 @@ export default function Navbar() {
             <Popover className="relative" onMouseEnter={() => setOpenPopover('whyUs')} onMouseLeave={() => setOpenPopover(null)}>
               <Popover.Button className={classNames(
                 isPopoverWhyUsActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none"
+                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
               )}>
                 COMPANY
                 <ChevronDownIcon className={classNames(openPopover === 'whyUs' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
@@ -304,7 +336,38 @@ export default function Navbar() {
               CONTACT
             </a>
 
-            <div className="flex items-center pl-4 border-l border-slate-200 ml-4">
+            <div className="flex items-center pl-4 border-l border-slate-200 ml-4 gap-2">
+              <div className="flex items-center gap-2 mr-2">
+                <a
+                  href="tel:+14696190747"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#005c85] text-white shadow-md hover:bg-[#004a6b] hover:scale-105 transition-all duration-200"
+                  aria-label="Call Support"
+                  title="Call Support"
+                >
+                  <FaHeadset className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-md hover:bg-[#20b858] hover:scale-105 transition-all duration-200"
+                  aria-label="WhatsApp"
+                  title="WhatsApp"
+                >
+                  <FaWhatsapp className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://m.me/116222094837969"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#0084FF] text-white shadow-md hover:bg-[#0074e0] hover:scale-105 transition-all duration-200"
+                  aria-label="Messenger"
+                  title="Messenger"
+                >
+                  <FaFacebookMessenger className="h-5 w-5" />
+                </a>
+              </div>
+
               <a
                 href="tel:+14696190747"
                 className="group flex items-center gap-2 rounded-full bg-[#00a1e1] px-5 py-2.5 text-white shadow-md transition-all duration-300 hover:bg-[#008cc3] hover:shadow-lg hover:-translate-y-0.5"

@@ -2,59 +2,51 @@ import { useState, useEffect } from 'react';
 
 const ButtonScrollTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.scrollY > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = document.documentElement.scrollTop || document.body.scrollTop;
-      const isBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
-
-      setIsVisible(scrolled > 100);  // Show button when scrolled down 100px
-      setIsAtBottom(isBottom);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-20 flex flex-col items-end z-50">
-
-      <div
-        className={`fixed right-[70px] ${isAtBottom ? 'bottom-[100px]' : 'bottom-[1.2rem]'} transition-all duration-300`}
-        style={{ display: isVisible ? 'block' : 'none' }}  // Show/hide based on scroll position
+    <div
+      className={`fixed bottom-6 right-6 z-40 transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
+    >
+      <button
+        type="button"
+        onClick={scrollToTop}
+        className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-white/90 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 text-[#00a1e1] hover:bg-[#00a1e1] hover:text-white transition-all duration-300 active:scale-95"
+        aria-label="Scroll to top"
       >
-        <button
-          onClick={scrollToTop}
-          className="w-9 h-9 bg-btn-blue text-white flex justify-center items-center rounded-full shadow-lg"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2.5"
+          stroke="currentColor"
+          className="w-5 h-5 transform group-hover:-translate-y-1 transition-transform duration-300"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-6 stroke-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18"
-            />
-          </svg>
-        </button>
-      </div>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+      </button>
     </div>
-
   );
 };
 
 export default ButtonScrollTop;
-
