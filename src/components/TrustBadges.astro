@@ -1,0 +1,44 @@
+---
+import { FaAward, FaTrophy, FaMedal } from "react-icons/fa6";
+---
+
+<div class="flex flex-row justify-between items-start sm:justify-center gap-1 sm:gap-4 mb-4 sm:mb-6 w-full max-w-[500px] mx-auto px-1 sm:px-0">
+  <!-- Badge 1: Best Price -->
+  <div class="flex flex-col items-center group relative z-10 w-1/3">
+    <div class="w-16 h-20 sm:w-20 sm:h-24 bg-gradient-to-br from-gray-100 via-gray-300 to-gray-400 rounded-b-full rounded-t-lg shadow-lg flex items-center justify-center border-2 border-gray-100 relative overflow-hidden transform transition-transform hover:scale-105 duration-300">
+      <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-40"></div>
+      <div class="flex flex-col items-center justify-center text-center p-0.5 sm:p-1">
+        <FaMedal className="text-gray-700 text-xl sm:text-2xl mb-0.5 sm:mb-1 drop-shadow-sm" />
+        <span class="text-[10px] sm:text-xs font-bold text-gray-800 leading-tight">
+          Best Price<br/>Match<br/>Guarantee
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Badge 2: Best Movers (Center, slightly larger/higher?) -->
+  <div class="flex flex-col items-center group relative z-10 w-1/3 sm:-mt-2">
+    <div class="w-16 h-20 sm:w-20 sm:h-24 bg-gradient-to-br from-gray-100 via-gray-300 to-gray-400 rounded-b-full rounded-t-lg shadow-lg flex items-center justify-center border-2 border-gray-100 relative overflow-hidden transform transition-transform hover:scale-105 duration-300">
+      <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-40"></div>
+      <div class="flex flex-col items-center justify-center text-center p-0.5 sm:p-1">
+        <FaTrophy className="text-gray-700 text-xl sm:text-2xl mb-0.5 sm:mb-1 drop-shadow-sm" />
+        <span class="text-[10px] sm:text-xs font-bold text-gray-800 leading-tight">
+          Best<br/>Movers<br/>Award
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Badge 3: Best Auto Shipping -->
+  <div class="flex flex-col items-center group relative z-10 w-1/3">
+    <div class="w-16 h-20 sm:w-20 sm:h-24 bg-gradient-to-br from-gray-100 via-gray-300 to-gray-400 rounded-b-full rounded-t-lg shadow-lg flex items-center justify-center border-2 border-gray-100 relative overflow-hidden transform transition-transform hover:scale-105 duration-300">
+      <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-transparent opacity-40"></div>
+      <div class="flex flex-col items-center justify-center text-center p-0.5 sm:p-1">
+        <FaAward className="text-gray-700 text-xl sm:text-2xl mb-0.5 sm:mb-1 drop-shadow-sm" />
+        <span class="text-[10px] sm:text-xs font-bold text-gray-800 leading-tight">
+          Best Auto<br/>Shipping
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
