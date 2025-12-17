@@ -204,13 +204,14 @@ import NumberPhone from "../components/NumberPhone.astro";
 <Layout
   title="Premier Nationwide Auto Transport | Cayad Auto Transport"
   content="Cayad Auto Transport is the top-rated car shipping company in the USA. Fast, safe, reliable and cheap. Get your premium quote now!"
+  isLanding={true}
 >
   <section
-    class="relative min-h-screen md:h-screen w-full overflow-hidden -mt-[72px] sm:-mt-[80px] pt-[72px] sm:pt-[80px]"
+    class="relative min-h-screen md:h-screen w-full overflow-hidden"
   >
     <div class="fixed inset-0 z-0 h-full w-full image--banner"></div>
     <div
-      class="relative z-10 inset-0 w-full min-h-screen py-6 px-4 md:px-8 flex flex-col xl:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
+      class="relative z-10 inset-0 w-full min-h-screen pt-[72px] sm:pt-[80px] pb-6 px-4 md:px-8 flex flex-col xl:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
     >
       <div
         class="w-full md:w-[65%] xl:w-[50%] p-4 md:p-8"
@@ -247,6 +248,7 @@ import NumberPhone from "../components/NumberPhone.astro";
       </div>
     </div>
   </section>
+  <div class="main-content-wrapper relative z-20 bg-white">
   <br />
   <!-- Fixed stray '>' and malformed div wrapper previously rendering incorrectly -->
   <div>
@@ -948,5 +950,6 @@ import NumberPhone from "../components/NumberPhone.astro";
     </div>
 
     <ButtonScrollTop client:load />
+  </div>
   </div>
 </Layout>

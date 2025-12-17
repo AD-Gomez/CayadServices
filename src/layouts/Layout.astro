@@ -13,9 +13,10 @@ import "../styles/animate.css";
 interface Props {
   content: string;
   title: string;
+  isLanding?: boolean;
 }
 
-const { title, content } = Astro.props;
+const { title, content, isLanding = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -91,7 +92,7 @@ const { title, content } = Astro.props;
     </noscript>
     <!--google tag body -->
     <Navbar client:load />
-    <main class="pt-[72px] sm:pt-[80px]">
+    <main class={isLanding ? "" : "pt-[72px] sm:pt-[80px]"}>
       <slot />
     </main>
     <ButtonChat client:load />
