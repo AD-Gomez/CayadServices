@@ -8,55 +8,69 @@ import {
 import {
   Bars3Icon,
   XMarkIcon,
-  TruckIcon,
-  CurrencyDollarIcon,
-  MapIcon,
-  UserGroupIcon,
-  BuildingOfficeIcon,
-  ChatBubbleLeftRightIcon,
-  QuestionMarkCircleIcon,
-  ShieldCheckIcon,
-  SparklesIcon
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid'
+import {
+  FaTruck,
+  FaShieldAlt,
+  FaMotorcycle,
+  FaDoorOpen,
+  FaLaptop,
+  FaGraduationCap,
+  FaSnowflake,
+  FaCar,
+  FaHandshake,
+  FaUserShield,
+  FaMapMarkedAlt,
+  FaStore,
+  FaGavel,
+  FaWeightHanging,
+  FaInfoCircle,
+  FaStar,
+  FaChartLine,
+  FaUsers,
+  FaQuestionCircle,
+  FaDollarSign,
+  FaMap
+} from 'react-icons/fa'
 import logoweb from '../../public/img/logo-cayad.webp'
 import MarqueeText from './Marquee'
 import '../styles/navbar.css'
 
 const howItWork = [
-  { description: 'How To Ship a Car', href: '/how-auto-transport-works/', icon: TruckIcon },
-  { description: 'Car Shipping Cost', href: '/how-auto-transport-works/how-much-does-it-cost-ship-car/', icon: CurrencyDollarIcon },
-  { description: 'Cross country car shipping', href: '/how-auto-transport-works/ship-car-across-country/', icon: MapIcon },
+  { description: 'How To Ship a Car', href: '/how-auto-transport-works/', icon: FaQuestionCircle },
+  { description: 'Car Shipping Cost', href: '/how-auto-transport-works/how-much-does-it-cost-ship-car/', icon: FaDollarSign },
+  { description: 'Cross country car shipping', href: '/how-auto-transport-works/ship-car-across-country/', icon: FaMapMarkedAlt },
 ]
 
 const weOffer = [
-  { description: 'Door to door transport', href: '/for-individuals/door-to-door/', icon: TruckIcon },
-  { description: 'Open car transport', href: '/for-individuals/open-car-transport/', icon: TruckIcon },
-  { description: 'Enclosed auto transport', href: '/for-individuals/enclosed-auto-transport/', icon: ShieldCheckIcon },
-  { description: 'Motorcycle shipping', href: '/for-individuals/motorcycle-shipping/', icon: TruckIcon }
+  { description: 'Door to door transport', href: '/for-individuals/door-to-door/', icon: FaDoorOpen },
+  { description: 'Open car transport', href: '/for-individuals/open-car-transport/', icon: FaTruck },
+  { description: 'Enclosed auto transport', href: '/for-individuals/enclosed-auto-transport/', icon: FaShieldAlt },
+  { description: 'Motorcycle shipping', href: '/for-individuals/motorcycle-shipping/', icon: FaMotorcycle }
 ]
 
 const weServe = [
-  { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport/', icon: UserGroupIcon },
-  { description: 'College students', href: '/for-individuals/students-auto-transport/', icon: UserGroupIcon },
-  { description: 'Snowbirds', href: '/for-individuals/snowbirds-auto-transport/', icon: UserGroupIcon },
-  { description: 'Classic car shipping', href: '/for-individuals/classic-cars-auto-transport/', icon: SparklesIcon },
-  { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: TruckIcon },
-  { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: ShieldCheckIcon },
-  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state/', icon: MapIcon },
+  { description: 'Online car buyers', href: '/for-individuals/car-buyers-auto-transport/', icon: FaLaptop },
+  { description: 'College students', href: '/for-individuals/students-auto-transport/', icon: FaGraduationCap },
+  { description: 'Snowbirds', href: '/for-individuals/snowbirds-auto-transport/', icon: FaSnowflake },
+  { description: 'Classic car shipping', href: '/for-individuals/classic-cars-auto-transport/', icon: FaCar },
+  { description: 'Car resellers shipping', href: '/for-individuals/car-resellers-auto-transport/', icon: FaHandshake },
+  { description: 'Military', href: '/for-individuals/military-auto-transport/', icon: FaUserShield },
+  { description: 'Ship cars to another state', href: '/for-individuals/ship-car-to-another-state/', icon: FaMap },
 ]
 
 const forBusinesses = [
-  { description: 'Auto dealerships', href: '/for-businesses/auto-dealers/', icon: BuildingOfficeIcon },
-  { description: 'Auto auctions', href: '/for-businesses/auto-auctions/', icon: BuildingOfficeIcon },
-  { description: 'Heavy haul', href: '/for-businesses/heavy-haul/', icon: TruckIcon }
+  { description: 'Auto dealerships', href: '/for-businesses/auto-dealers/', icon: FaStore },
+  { description: 'Auto auctions', href: '/for-businesses/auto-auctions/', icon: FaGavel },
+  { description: 'Heavy haul', href: '/for-businesses/heavy-haul/', icon: FaWeightHanging }
 ]
 
 const whyUs = [
-  { description: 'About Us', href: '/why-us/about-us/', icon: BuildingOfficeIcon },
-  { description: 'Reviews', href: '/why-us/reviews/', icon: ChatBubbleLeftRightIcon },
-  { description: 'Growth', href: '/why-us/growth/', icon: SparklesIcon },
-  { description: 'Our team', href: '/why-us/our-team/', icon: UserGroupIcon },
+  { description: 'About Us', href: '/why-us/about-us/', icon: FaInfoCircle },
+  { description: 'Reviews', href: '/why-us/reviews/', icon: FaStar },
+  { description: 'Growth', href: '/why-us/growth/', icon: FaChartLine },
+  { description: 'Our team', href: '/why-us/our-team/', icon: FaUsers },
   //{ description: 'Vision and Mission', href: '/why-us/vision-mission/', icon: FingerPrintIcon },
 ]
 
@@ -142,7 +156,7 @@ export default function Navbar() {
                   <div className="p-2">
                     {howItWork.map((item) => (
                       <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-blue-50 group-hover:bg-white group-hover:shadow-sm transition-all text-[#00a1e1]">
+                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
                           <item.icon className="h-5 w-5" aria-hidden="true" />
                         </div>
                         <div className="flex-auto">
@@ -229,7 +243,7 @@ export default function Navbar() {
                   <div className="p-2">
                     {forBusinesses.map((item) => (
                       <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-blue-50 group-hover:bg-white group-hover:shadow-sm transition-all text-[#00a1e1]">
+                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
                           <item.icon className="h-5 w-5" aria-hidden="true" />
                         </div>
                         <div className="flex-auto">
@@ -267,7 +281,7 @@ export default function Navbar() {
                   <div className="p-2">
                     {whyUs.map((item) => (
                       <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-blue-50 group-hover:bg-white group-hover:shadow-sm transition-all text-[#00a1e1]">
+                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
                           <item.icon className="h-5 w-5" aria-hidden="true" />
                         </div>
                         <div className="flex-auto">
