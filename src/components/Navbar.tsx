@@ -304,12 +304,13 @@ export default function Navbar() {
               CONTACT
             </a>
 
-            <div className="flex items-center gap-2 pl-4 border-l border-slate-200">
-              <div className="p-2 rounded-full bg-blue-50 text-[#00a1e1]">
-                <PhoneIcon className="h-4 w-4" />
-              </div>
-              <a href="tel:+14696190747" className="text-sm font-bold text-slate-900 hover:text-[#00a1e1] transition-colors">
-                (469) 619-0747
+            <div className="flex items-center pl-4 border-l border-slate-200 ml-4">
+              <a
+                href="tel:+14696190747"
+                className="group flex items-center gap-2 rounded-full bg-[#00a1e1] px-5 py-2.5 text-white shadow-md transition-all duration-300 hover:bg-[#008cc3] hover:shadow-lg hover:-translate-y-0.5"
+              >
+                <PhoneIcon className="h-4 w-4 text-white group-hover:animate-pulse" />
+                <span className="text-sm font-bold tracking-wide">(469) 619-0747</span>
               </a>
             </div>
           </div>
