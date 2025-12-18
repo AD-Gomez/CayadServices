@@ -732,7 +732,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               {activeStep === 3 && 'Almost Done!'}
             </h1>
             {activeStep === 3 && (
-              <div className="hidden xs:flex items-center gap-2 bg-gradient-to-r from-sky-50 to-white px-3 py-1.5 rounded-lg border border-sky-100 shadow-sm">
+              <div className="flex flex-shrink-0 items-center gap-2 bg-gradient-to-r from-sky-50 to-white px-3 py-1.5 rounded-lg border border-sky-100 shadow-sm">
                 <div className="relative flex items-center justify-center">
                   <FaShieldAlt className="text-sky-500 text-2xl drop-shadow-sm" />
                   <div className="absolute inset-0 flex items-center justify-center pt-0.5">
@@ -746,23 +746,6 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               </div>
             )}
           </div>
-          {/* Mobile Badge for Step 3 - Visible only on very small screens if header is hidden */}
-          {activeStep === 3 && (
-            <div className="flex xs:hidden pt-2 justify-end">
-              <div className="flex items-center gap-2 bg-gradient-to-r from-sky-50 to-white px-2 py-1 rounded-md border border-sky-100">
-                <div className="relative flex items-center justify-center">
-                  <FaShieldAlt className="text-sky-500 text-lg" />
-                  <div className="absolute inset-0 flex items-center justify-center pt-0.5">
-                    <FaCheck className="text-white text-[8px]" />
-                  </div>
-                </div>
-                <div className="flex flex-col leading-none">
-                  <span className="text-[8px] text-slate-500 font-semibold uppercase">Your data is</span>
-                  <span className="text-[10px] text-sky-700 font-black uppercase">Protected</span>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Step 1: Locations */}
