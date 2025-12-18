@@ -202,7 +202,30 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
     animation-duration: 1s;
     animation-fill-mode: both;
   }
+
+  @media (max-width: 768px) {
+    #hero-text-content.mobile-hidden-step {
+      display: none !important;
+    }
+  }
 </style>
+
+<script>
+  // Listen for form step changes from the React component
+  window.addEventListener('form-step-changed', (e: any) => {
+    const step = e.detail?.step;
+    const heroText = document.getElementById('hero-text-content');
+    
+    if (heroText) {
+      if (typeof step === 'number' && step >= 1) {
+        // Hide on mobile (using the CSS class defined above)
+        heroText.classList.add('mobile-hidden-step');
+      } else {
+        heroText.classList.remove('mobile-hidden-step');
+      }
+    }
+  });
+</script>
 
 <Layout
   title="Premier Nationwide Auto Transport | Cayad Auto Transport"
@@ -225,7 +248,7 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
         class="w-full md:w-[65%] xl:w-[50%] p-4 md:p-8 relative z-20"
       >
         <div class="flex justify-start w-full">
-          <div class="w-10/12 lg:w-8/12 px-2 md:px-6 lg:px-20">
+          <div class="w-10/12 lg:w-8/12 px-2 md:px-6 lg:px-20 transition-opacity duration-300">
             <p class="changing-text text-white text-6xl">
               WE DELIVER
               <div class="texts-container text-3xl">
@@ -237,7 +260,7 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
                 </span>
               </div>
             </p>
-            <h1 class="text-xl md:text-2xl font-medium text-white mb-6 mt-4 leading-relaxed bg-black/30 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block font-sans">
+            <h1 id="hero-text-content" class="text-xl md:text-2xl font-medium text-white mb-6 mt-4 leading-relaxed bg-black/30 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block font-sans transition-all duration-300">
               <strong>Premier Nationwide Auto Transport</strong>
             </h1>
 
@@ -967,3 +990,32 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
   </div>
   </div>
 </Layout>
+
+<script is:inline>
+  window.addEventListener('form-step-change', (e) => {
+    const step = e.detail && e.detail.step;
+    const heroContent = document.getElementById('hero-text-content');
+    
+    if (heroContent) {
+      // Logic: If step > 0 (meaning user has moved past the first step),
+      // we want to hide this content ONLY on mobile.
+      // We can toggle a class that has media query protection.
+      if (step > 0) {
+        heroContent.classList.add('mobile-hidden-active');
+      } else {
+        heroContent.classList.remove('mobile-hidden-active');
+      }
+    }
+  });
+</script>
+
+<style>
+  /* Existing styles... */
+
+  /* New rule for dynamic hiding on mobile */
+  @media (max-width: 640px) {
+    .mobile-hidden-active {
+      display: none !important;
+    }
+  }
+</style>

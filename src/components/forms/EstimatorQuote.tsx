@@ -18,7 +18,7 @@ import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
-import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner } from "react-icons/fa";
+import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner, FaUserShield, FaShieldAlt, FaCheck } from "react-icons/fa";
 import { format, differenceInCalendarDays } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
@@ -138,6 +138,14 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [vehicles, setVehicles] = useState<VehicleRow[]>([]); // cart of full vehicle rows
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
   const [confidencePct, setConfidencePct] = useState<number | null>(null);
+
+  // Dispatch custom event when step changes so parent (Astro) can react
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const event = new CustomEvent('form-step-changed', { detail: { step: activeStep } });
+      window.dispatchEvent(event);
+    }
+  }, [activeStep]);
 
   // Aggregate meta derived from backend responses
   const { overallConfidence, sampleSizeTotal } = useMemo(() => {
@@ -716,12 +724,45 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       <>
         {/* Header with title */}
         <div className={`${padding} pb-4 mb-2 border-b border-slate-200 transition-all duration-300 ease-in-out`}>
-          <h1 className={`${titleSize} font-bold text-slate-800`}>
-            {activeStep === 0 && 'Get Your Instant Estimated Price'}
-            {activeStep === 1 && 'What Are You Shipping?'}
-            {activeStep === 2 && 'Your Estimated Price is Ready!'}
-            {activeStep === 3 && 'Almost Done!'}
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className={`${titleSize} font-bold text-slate-800`}>
+              {activeStep === 0 && 'Get Your Instant Estimated Price'}
+              {activeStep === 1 && 'What Are You Shipping?'}
+              {activeStep === 2 && 'Your Estimated Price is Ready!'}
+              {activeStep === 3 && 'Almost Done!'}
+            </h1>
+            {activeStep === 3 && (
+              <div className="hidden xs:flex items-center gap-2 bg-gradient-to-r from-sky-50 to-white px-3 py-1.5 rounded-lg border border-sky-100 shadow-sm">
+                <div className="relative flex items-center justify-center">
+                  <FaShieldAlt className="text-sky-500 text-2xl drop-shadow-sm" />
+                  <div className="absolute inset-0 flex items-center justify-center pt-0.5">
+                    <FaCheck className="text-white text-[10px]" />
+                  </div>
+                </div>
+                <div className="flex flex-col leading-none">
+                  <span className="text-[9px] text-slate-500 font-semibold uppercase tracking-tight">Your data is</span>
+                  <span className="text-[12px] text-sky-700 font-black uppercase tracking-wide">Protected</span>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Mobile Badge for Step 3 - Visible only on very small screens if header is hidden */}
+          {activeStep === 3 && (
+            <div className="flex xs:hidden pt-2 justify-end">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-sky-50 to-white px-2 py-1 rounded-md border border-sky-100">
+                <div className="relative flex items-center justify-center">
+                  <FaShieldAlt className="text-sky-500 text-lg" />
+                  <div className="absolute inset-0 flex items-center justify-center pt-0.5">
+                    <FaCheck className="text-white text-[8px]" />
+                  </div>
+                </div>
+                <div className="flex flex-col leading-none">
+                  <span className="text-[8px] text-slate-500 font-semibold uppercase">Your data is</span>
+                  <span className="text-[10px] text-sky-700 font-black uppercase">Protected</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Step 1: Locations */}
@@ -1009,6 +1050,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 </div>
               )}
             </div>
+            {/* Security Badge - Added for Step 2 */}
+
             <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 sm:p-4 space-y-2 text-amber-900">
               <p className="text-sm font-semibold">Important</p>
               <ul className="list-disc list-inside text-xs sm:text-sm space-y-1">
@@ -1032,6 +1075,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         {activeStep === 3 && (
           <FormProvider {...step4}>
             <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
+
               {/* Row 1: Full Name & Phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
