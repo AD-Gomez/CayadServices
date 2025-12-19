@@ -143,6 +143,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [showCartModal, setShowCartModal] = useState(false);
   const [cartBounce, setCartBounce] = useState(false);
   const [flyingVehicle, setFlyingVehicle] = useState<string | null>(null);
+  const [showAddedTooltip, setShowAddedTooltip] = useState(false);
   const cartIconRef = useRef<HTMLButtonElement>(null);
 
   // Dispatch custom event when step changes so parent (Astro) can react
@@ -503,7 +504,10 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setTimeout(() => {
       setFlyingVehicle(null);
       setCartBounce(true);
+      setShowAddedTooltip(true);
       setTimeout(() => setCartBounce(false), 400);
+      // Auto-hide tooltip after 3 seconds
+      setTimeout(() => setShowAddedTooltip(false), 3000);
     }, 500);
   }, []);
 
@@ -803,8 +807,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                           type="button"
                           onClick={() => field.onChange(formatDate(today))}
                           className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(today)
-                              ? 'bg-sky-600 text-white border-sky-600'
-                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            ? 'bg-sky-600 text-white border-sky-600'
+                            : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
                             }`}
                         >
                           Today
@@ -813,8 +817,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                           type="button"
                           onClick={() => field.onChange(formatDate(tomorrow))}
                           className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(tomorrow)
-                              ? 'bg-sky-600 text-white border-sky-600'
-                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            ? 'bg-sky-600 text-white border-sky-600'
+                            : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
                             }`}
                         >
                           Tomorrow
@@ -823,8 +827,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                           type="button"
                           onClick={() => field.onChange(formatDate(thisWeek))}
                           className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(thisWeek)
-                              ? 'bg-sky-600 text-white border-sky-600'
-                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            ? 'bg-sky-600 text-white border-sky-600'
+                            : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
                             }`}
                         >
                           In a Week
@@ -836,8 +840,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                             onChange={(e) => field.onChange(e.target.value)}
                             min={formatDate(today)}
                             className={`w-full px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${field.value && !isSelected(today) && !isSelected(tomorrow) && !isSelected(thisWeek)
-                                ? 'bg-sky-600 text-white border-sky-600'
-                                : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                              ? 'bg-sky-600 text-white border-sky-600'
+                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
                               }`}
                           />
                         </div>
@@ -909,8 +913,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       )}
                     </button>
 
-                    {/* Tooltip hint for first vehicle */}
-                    {vehicles.length === 1 && !showCartModal && (
+                    {/* Tooltip hint - auto-hides after 3 seconds */}
+                    {showAddedTooltip && !showCartModal && (
                       <div className="absolute top-full right-0 mt-2 z-20 animate-bounce">
                         <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded-lg shadow-lg whitespace-nowrap">
                           <span className="mr-1">✓</span> Vehicle added! Click to review
@@ -939,35 +943,127 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   </div>
                 )}
 
-                {/* Transport Type Selector */}
-                <div className="rounded-md border border-slate-200 p-2 bg-slate-50 space-y-1">
-                  <p className="text-[10px] text-slate-600 font-medium">Transport Type</p>
-                  <div className="flex flex-row gap-2">
-                    <button type="button"
-                      onClick={() => setTransportType('open')}
-                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${transportType === 'open' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Open</button>
-                    <button type="button"
-                      onClick={() => setTransportType('enclosed')}
-                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${transportType === 'enclosed' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Enclosed</button>
+                {/* Transport Type - Minimalist Cards */}
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setTransportType('open')}
+                    className={`relative p-2.5 rounded-xl border-2 transition-all duration-200 ${transportType === 'open'
+                      ? 'border-sky-500 bg-gradient-to-br from-sky-50 to-sky-100 shadow-md'
+                      : 'border-slate-200 bg-white hover:border-sky-300 hover:shadow-sm'
+                      }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${transportType === 'open' ? 'bg-sky-500' : 'bg-slate-100'}`}>
+                        <svg className={`w-5 h-5 ${transportType === 'open' ? 'text-white' : 'text-slate-500'}`} fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className={`text-xs font-bold ${transportType === 'open' ? 'text-sky-700' : 'text-slate-700'}`}>Open</p>
+                        <p className="text-[9px] text-slate-500">Most popular</p>
+                      </div>
+                    </div>
+                    {transportType === 'open' && <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-sky-500"></div>}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setTransportType('enclosed')}
+                    className={`relative p-2.5 rounded-xl border-2 transition-all duration-200 ${transportType === 'enclosed'
+                      ? 'border-sky-500 bg-gradient-to-br from-sky-50 to-sky-100 shadow-md'
+                      : 'border-slate-200 bg-white hover:border-sky-300 hover:shadow-sm'
+                      }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${transportType === 'enclosed' ? 'bg-sky-500' : 'bg-slate-100'}`}>
+                        <svg className={`w-5 h-5 ${transportType === 'enclosed' ? 'text-white' : 'text-slate-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className={`text-xs font-bold ${transportType === 'enclosed' ? 'text-sky-700' : 'text-slate-700'}`}>Enclosed</p>
+                        <p className="text-[9px] text-slate-500">Premium</p>
+                      </div>
+                    </div>
+                    {transportType === 'enclosed' && <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-sky-500"></div>}
+                  </button>
+                </div>
+
+                {/* Vehicle Mode - Segmented Control Style */}
+                <div className="bg-slate-100 p-1 rounded-xl">
+                  <div className="grid grid-cols-2 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => setVehicleMode('specific')}
+                      className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-200 ${vehicleMode === 'specific'
+                        ? 'bg-white text-slate-800 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                        }`}
+                    >
+                      I know my car
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setVehicleMode('generic')}
+                      className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-200 ${vehicleMode === 'generic'
+                        ? 'bg-white text-slate-800 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                        }`}
+                    >
+                      Just the type
+                    </button>
                   </div>
                 </div>
 
-                {/* Selector de modo de captura */}
-                <div className="rounded-md border border-slate-200 p-2 bg-slate-50 space-y-1">
-                  <p className="text-[10px] text-slate-600 font-medium">How to describe your vehicle?</p>
-                  <div className="flex flex-row gap-2">
-                    <button type="button"
-                      onClick={() => setVehicleMode('specific')}
-                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
-                    <button type="button"
-                      onClick={() => setVehicleMode('generic')}
-                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
-                  </div>
-                  <p className="text-[9px] text-slate-500">
-                    {vehicleMode === 'specific' && 'Enter exact details. Vehicle auto-classified internally.'}
-                    {vehicleMode === 'generic' && 'Select generic type if details unknown.'}
-                  </p>
+                {/* Running Status - FIRST QUESTION - Minimalist Cards */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-semibold text-slate-700">Vehicle condition</label>
+                  <Controller
+                    name="vehicle_inop"
+                    control={step2.control}
+                    defaultValue={'0'}
+                    render={({ field }) => (
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => field.onChange('0')}
+                          className={`p-2.5 rounded-xl border-2 transition-all ${(field.value ?? '0') === '0'
+                            ? 'border-green-500 bg-green-50 shadow-sm'
+                            : 'border-slate-200 bg-white hover:border-green-300'
+                            }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${(field.value ?? '0') === '0' ? 'bg-green-500' : 'bg-slate-100'}`}>
+                              <svg className={`w-4 h-4 ${(field.value ?? '0') === '0' ? 'text-white' : 'text-slate-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                            <p className={`text-xs font-bold ${(field.value ?? '0') === '0' ? 'text-green-700' : 'text-slate-600'}`}>Runs & Drives</p>
+                          </div>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => field.onChange('1')}
+                          className={`p-2.5 rounded-xl border-2 transition-all ${(field.value ?? '0') === '1'
+                            ? 'border-amber-500 bg-amber-50 shadow-sm'
+                            : 'border-slate-200 bg-white hover:border-amber-300'
+                            }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${(field.value ?? '0') === '1' ? 'bg-amber-500' : 'bg-slate-100'}`}>
+                              <svg className={`w-4 h-4 ${(field.value ?? '0') === '1' ? 'text-white' : 'text-slate-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                              </svg>
+                            </div>
+                            <p className={`text-xs font-bold ${(field.value ?? '0') === '1' ? 'text-amber-700' : 'text-slate-600'}`}>Non-Running</p>
+                          </div>
+                        </button>
+                      </div>
+                    )}
+                  />
                 </div>
+
                 {/* Fields in responsive layout */}
                 <div className="grid grid-cols-1 gap-2">
                   {vehicleMode === 'generic' && (
@@ -978,28 +1074,6 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                           label="Vehicle Type"
                         />
                         <p className="text-[10px] mt-1 text-slate-500">Added automatically when selected.</p>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1">Is it running?</label>
-                        <Controller
-                          name="vehicle_inop"
-                          control={step2.control}
-                          defaultValue={'0'}
-                          render={({ field }) => (
-                            <div className="flex items-center">
-                              <button
-                                type="button"
-                                aria-pressed={(field.value ?? '0') !== '1'}
-                                onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-sky-600'}`}
-                              >
-                                <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0' : 'translate-x-5'} inline-block h-4 w-4 transform rounded-full bg-white transition`}></span>
-                              </button>
-                              <span className="ml-2 text-sm text-slate-700">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
-                            </div>
-                          )}
-                        />
-                        <p className="text-[11px] text-slate-500 mt-1">Non-running vehicles may require winch/forklift assistance and may cost more.</p>
                       </div>
                     </>
                   )}
@@ -1029,45 +1103,20 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                           }}
                         />
                       </div>
-                      {/* Model & Inop Row */}
-                      <div className="grid grid-cols-12 gap-3">
-                        <div className="col-span-7">
-                          <VehicleModelSelect
-                            name="vehicle_model"
-                            label="Model"
-                            year={step2.watch('vehicle_year')}
-                            make={step2.watch('vehicle_make')}
-                            onModelSelect={(model, category) => {
-                              // Automatically set vehicle_type from the model's category
-                              console.log('[EstimatorQuote] Model selected:', model, 'Category:', category);
-                              if (category) {
-                                step2.setValue('vehicle_type', category, { shouldDirty: true, shouldValidate: false });
-                              }
-                            }}
-                          />
-                        </div>
-                        <div className="col-span-5">
-                          <label className="block text-[11px] font-semibold text-slate-700 mb-1">Running?</label>
-                          <Controller
-                            name="vehicle_inop"
-                            control={step2.control}
-                            defaultValue={'0'}
-                            render={({ field }) => (
-                              <div className="flex items-center h-[2.25rem] border border-slate-200 rounded-md px-2 bg-white">
-                                <button
-                                  type="button"
-                                  aria-pressed={(field.value ?? '0') !== '1'}
-                                  onClick={() => field.onChange((field.value ?? '0') === '1' ? '0' : '1')}
-                                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors flex-shrink-0 ${((field.value ?? '0') === '1') ? 'bg-slate-300' : 'bg-green-500'}`}
-                                >
-                                  <span className={`${((field.value ?? '0') === '1') ? 'translate-x-0.5' : 'translate-x-[1.1rem]'} inline-block h-4 w-4 transform rounded-full bg-white transition shadow-sm`}></span>
-                                </button>
-                                <span className="ml-2 text-xs font-medium text-slate-700 truncate">{((field.value ?? '0') === '1') ? 'No' : 'Yes'}</span>
-                              </div>
-                            )}
-                          />
-                        </div>
-                      </div>
+                      {/* Model Row - full width */}
+                      <VehicleModelSelect
+                        name="vehicle_model"
+                        label="Model"
+                        year={step2.watch('vehicle_year')}
+                        make={step2.watch('vehicle_make')}
+                        onModelSelect={(model, category) => {
+                          // Automatically set vehicle_type from the model's category
+                          console.log('[EstimatorQuote] Model selected:', model, 'Category:', category);
+                          if (category) {
+                            step2.setValue('vehicle_type', category, { shouldDirty: true, shouldValidate: false });
+                          }
+                        }}
+                      />
                     </>
                   )}
                 </div>
