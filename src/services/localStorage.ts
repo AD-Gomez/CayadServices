@@ -103,6 +103,49 @@ const getSectionNavbar = (): any | null => {
   return null
 }
 
+// Quote2 flow: signature_code and quote_url
+const saveSignatureCode = (code: string) => {
+  if (isBrowser) localStorage.setItem("signatureCode", JSON.stringify(code));
+};
+
+const getSignatureCode = (): string | null => {
+  if (!isBrowser) return null;
+  const data = localStorage.getItem("signatureCode");
+  return data ? JSON.parse(data) : null;
+};
+
+const saveQuoteUrl = (url: string) => {
+  if (isBrowser) localStorage.setItem("quoteUrl", JSON.stringify(url));
+};
+
+const getQuoteUrl = (): string | null => {
+  if (!isBrowser) return null;
+  const data = localStorage.getItem("quoteUrl");
+  return data ? JSON.parse(data) : null;
+};
+
+// Generate and persist a random discount percentage (5-20%) per session
+const getOrCreateDiscountPercentage = (): number => {
+  if (!isBrowser) return 0.10; // default fallback
+  const stored = localStorage.getItem("discountPct");
+  if (stored) {
+    return JSON.parse(stored);
+  }
+  // Generate random between 5% and 20%
+  const pct = Math.random() * 0.15 + 0.05; // 0.05 to 0.20
+  const rounded = Math.round(pct * 100) / 100; // round to 2 decimals
+  localStorage.setItem("discountPct", JSON.stringify(rounded));
+  return rounded;
+};
+
+const clearQuote2Data = () => {
+  if (isBrowser) {
+    localStorage.removeItem("signatureCode");
+    localStorage.removeItem("quoteUrl");
+    localStorage.removeItem("discountPct");
+  }
+};
+
 export {
   saveEmail,
   getEmail,
@@ -115,5 +158,11 @@ export {
   saveNumberLead,
   getNumberLead,
   saveSectionNavbar,
-  getSectionNavbar
+  getSectionNavbar,
+  saveSignatureCode,
+  getSignatureCode,
+  saveQuoteUrl,
+  getQuoteUrl,
+  getOrCreateDiscountPercentage,
+  clearQuote2Data
 }

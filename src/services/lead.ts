@@ -4,7 +4,18 @@ import { getPublicIP } from "./ip";
 const BASE = import.meta.env.PUBLIC_API_URL;
 const PUBLIC_API_KEY = import.meta.env.PUBLIC_API_KEY;
 
-export async function sendLeadToLanding(input: LandingFormInput) {
+/** Response from the landing-create endpoint */
+export type LandingCreateResponse = {
+  status: 'success' | 'error';
+  id?: number;
+  /** Unique code for the lead, used for public quote completion */
+  signature_code?: string;
+  /** URL to redirect user to CRM for quote completion */
+  quote_url?: string;
+  error?: string;
+};
+
+export async function sendLeadToLanding(input: LandingFormInput): Promise<LandingCreateResponse> {
   // Try to capture client public IP but don't block lead submission if it fails
   const ip = await getPublicIP().catch(() => null);
   const payload = {

@@ -86,11 +86,18 @@ export async function postPriceEstimate(payload: PriceEstimateRequest, signal?: 
   try {
     let res = await fetch(canonical, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
     if (!res.ok) {
+      const errorText = await res.text().catch(() => '');
+      console.warn(`[priceEstimate] Primary endpoint failed (${res.status}):`, errorText);
       res = await fetch(alias, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
     }
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => '');
+      console.warn(`[priceEstimate] Fallback endpoint also failed (${res.status}):`, errorText);
+      return null;
+    }
     return (await res.json()) as PriceEstimateResponse;
-  } catch {
+  } catch (err) {
+    console.error('[priceEstimate] Exception:', err);
     return null;
   }
 }

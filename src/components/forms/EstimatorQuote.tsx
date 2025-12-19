@@ -21,7 +21,7 @@ import DateInput from "../inputs/CustomInputDate";
 import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner, FaUserShield, FaShieldAlt, FaCheck, FaShoppingCart, FaTimes, FaCar } from "react-icons/fa";
 import { format, differenceInCalendarDays } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
-import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
+import { saveEmail, saveLead, saveNumberLead, saveSignatureCode, saveQuoteUrl } from "../../services/localStorage";
 import { showNotification } from "../../utils/notificaction";
 import { isValidPhoneNumber } from "libphonenumber-js/max";
 import Swal from "sweetalert2";
@@ -701,6 +701,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         miles,
         per_mile: perMile,
         total: estimate,
+        discounted_total: discountedTotal,
+        normal_total: normalTotal,
         transit,
         vehicle_type: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
         vehicle_class: primaryVehicle?.vehicle_type ?? s2.vehicle_type,
@@ -727,6 +729,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const resp = await sendLeadToLanding(formatted);
       if (resp?.status === "success" && typeof resp.id !== "undefined") {
         saveNumberLead(String(resp.id));
+        // Save Quote2 data if available from backend
+        if (resp.signature_code) {
+          saveSignatureCode(resp.signature_code);
+        }
+        if (resp.quote_url) {
+          saveQuoteUrl(resp.quote_url);
+        }
         showNotification({ text: "Success!", icon: "success" });
         saveLead?.(formatted as any);
         saveEmail?.({ ...(formatted as any), crm_lead_id: resp.id });
