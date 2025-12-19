@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import Select from 'react-select';
 import * as yup from "yup";
@@ -18,7 +18,7 @@ import CustomInputOnlyText from "../inputs/CustomInputOnlyText";
 import CustomInputPhone from "../inputs/CustomInputPhone";
 import CustomInput from "../inputs/CustomInput";
 import DateInput from "../inputs/CustomInputDate";
-import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner, FaUserShield, FaShieldAlt, FaCheck } from "react-icons/fa";
+import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner, FaUserShield, FaShieldAlt, FaCheck, FaShoppingCart, FaTimes, FaCar } from "react-icons/fa";
 import { format, differenceInCalendarDays } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
 import { saveEmail, saveLead, saveNumberLead } from "../../services/localStorage";
@@ -139,11 +139,19 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
   const [confidencePct, setConfidencePct] = useState<number | null>(null);
 
+  // Cart modal and animation states
+  const [showCartModal, setShowCartModal] = useState(false);
+  const [cartBounce, setCartBounce] = useState(false);
+  const [flyingVehicle, setFlyingVehicle] = useState<string | null>(null);
+  const cartIconRef = useRef<HTMLButtonElement>(null);
+
   // Dispatch custom event when step changes so parent (Astro) can react
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const event = new CustomEvent('form-step-changed', { detail: { step: activeStep } });
-      window.dispatchEvent(event);
+      requestAnimationFrame(() => {
+        const event = new CustomEvent('form-step-changed', { detail: { step: activeStep } });
+        window.dispatchEvent(event);
+      });
     }
   }, [activeStep]);
 
@@ -460,6 +468,8 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     // limpiar para permitir añadir otro tipo
     step2.setValue('vehicle_type', '');
     setTimeout(() => step2.clearErrors(), 0);
+    // Trigger cart animation
+    triggerCartAnimation(vt || 'Vehicle');
   }, [step2.watch('vehicle_type'), vehicleMode]);
 
   // Auto-agregar en modo específico cuando año+make+model completos
@@ -482,7 +492,20 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     step2.setValue('vehicle_make', '');
     step2.setValue('vehicle_model', '');
     setTimeout(() => step2.clearErrors(), 0);
+    // Trigger cart animation
+    const label = `${year} ${make} ${model}`.trim();
+    triggerCartAnimation(label);
   }, [step2.watch('vehicle_year'), step2.watch('vehicle_make'), step2.watch('vehicle_model'), vehicleMode]);
+
+  // Function to trigger the fly-to-cart animation
+  const triggerCartAnimation = useCallback((vehicleLabel: string) => {
+    setFlyingVehicle(vehicleLabel);
+    setTimeout(() => {
+      setFlyingVehicle(null);
+      setCartBounce(true);
+      setTimeout(() => setCartBounce(false), 400);
+    }, 500);
+  }, []);
 
   const proceedToEstimate = async () => {
     let listToUse = [...vehicles];
@@ -788,11 +811,42 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               <fieldset className="space-y-3">
                 <div className="flex items-center justify-between">
                   <legend className="text-sm font-semibold text-slate-800">Add your vehicle</legend>
-                  <div aria-live="polite" className="inline-flex items-center gap-2">
-                    <span className="text-xs text-slate-500">Added</span>
-                    <span className="inline-flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-sm font-semibold">{vehicles.length}</span>
-                  </div>
+                  {/* Cart Icon with count */}
+                  <button
+                    ref={cartIconRef}
+                    type="button"
+                    onClick={() => vehicles.length > 0 && setShowCartModal(true)}
+                    className={`relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 ${vehicles.length > 0
+                      ? 'bg-amber-50 border-amber-300 text-amber-700 hover:bg-amber-100 cursor-pointer'
+                      : 'bg-slate-50 border-slate-200 text-slate-400 cursor-default'
+                      } ${cartBounce ? 'animate-bounce scale-110' : ''}`}
+                    aria-label={`Cart: ${vehicles.length} vehicles`}
+                    disabled={vehicles.length === 0}
+                  >
+                    <FaShoppingCart className={`text-sm ${vehicles.length > 0 ? 'text-amber-600' : 'text-slate-400'}`} />
+                    <span className="text-sm font-bold">{vehicles.length}</span>
+                    {vehicles.length > 0 && (
+                      <span className="text-[10px] text-amber-600">View</span>
+                    )}
+                  </button>
                 </div>
+
+                {/* Flying vehicle animation */}
+                {flyingVehicle && (
+                  <div
+                    className="fixed z-50 pointer-events-none"
+                    style={{
+                      animation: 'flyToCart 0.5s ease-out forwards',
+                      left: '50%',
+                      top: '60%',
+                    }}
+                  >
+                    <div className="inline-flex items-center gap-1.5 bg-sky-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+                      <FaCar className="text-xs" />
+                      {flyingVehicle}
+                    </div>
+                  </div>
+                )}
 
                 {/* Transport Type Selector */}
                 <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
@@ -927,26 +981,76 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   )}
                 </div>
                 {/* Botón manual removido: ahora se agregan automáticamente según modo */}
-                {vehicles.length > 0 && (
-                  <div className="pt-2">
-                    <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
-                      <p className="text-sm font-semibold text-amber-900">Vehicles added</p>
-                      <div className="pt-2 flex flex-wrap gap-2">
-                        {vehicles.map((v, idx) => (
-                          <span key={idx} className="inline-flex items-center gap-2 rounded-full bg-white text-slate-700 px-3 py-1 text-[12px] font-medium border border-slate-200">
-                            {v.vehicle_year || v.vehicle_make || v.vehicle_model ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim() : v.vehicle_type || 'Tipo'} · {v.vehicle_inop === '1' ? 'Non-running' : 'Running'}
-                            <button
-                              type="button"
-                              onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))}
-                              aria-label={`Remove vehicle ${idx + 1}`}
-                              title="Remove vehicle"
-                              className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
+
+                {/* Cart Modal */}
+                {showCartModal && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowCartModal(false)}>
+                    <div
+                      className="bg-white rounded-2xl shadow-2xl w-[90%] max-w-md max-h-[70vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* Modal Header */}
+                      <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-gradient-to-r from-amber-50 to-white">
+                        <div className="flex items-center gap-2">
+                          <FaShoppingCart className="text-amber-600" />
+                          <h3 className="font-bold text-slate-800">Your Vehicles ({vehicles.length})</h3>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setShowCartModal(false)}
+                          className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors"
+                        >
+                          <FaTimes />
+                        </button>
+                      </div>
+
+                      {/* Modal Body */}
+                      <div className="p-4 overflow-y-auto max-h-[50vh] space-y-2">
+                        {vehicles.length === 0 ? (
+                          <p className="text-center text-slate-500 py-8">No vehicles added yet</p>
+                        ) : (
+                          vehicles.map((v, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors"
                             >
-                              <FaTrash className="h-3 w-3" />
-                              <span className="sr-only">Remove vehicle</span>
-                            </button>
-                          </span>
-                        ))}
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
+                                  <FaCar className="text-sky-600" />
+                                </div>
+                                <div>
+                                  <p className="font-semibold text-slate-800 text-sm">
+                                    {v.vehicle_year || v.vehicle_make || v.vehicle_model
+                                      ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()
+                                      : v.vehicle_type || 'Vehicle'}
+                                  </p>
+                                  <p className="text-xs text-slate-500">
+                                    {v.vehicle_inop === '1' ? '⚠️ Non-running' : '✓ Running'}
+                                  </p>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setVehicles(list => list.filter((_, i) => i !== idx))}
+                                className="p-2 rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200"
+                                title="Remove vehicle"
+                              >
+                                <FaTrash className="text-xs" />
+                              </button>
+                            </div>
+                          ))
+                        )}
+                      </div>
+
+                      {/* Modal Footer */}
+                      <div className="p-4 border-t border-slate-200 bg-slate-50">
+                        <button
+                          type="button"
+                          onClick={() => setShowCartModal(false)}
+                          className="w-full py-2.5 bg-sky-600 text-white font-semibold rounded-lg hover:bg-sky-700 transition-colors"
+                        >
+                          Done
+                        </button>
                       </div>
                     </div>
                   </div>

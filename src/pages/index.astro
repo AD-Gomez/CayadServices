@@ -208,6 +208,86 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
       display: none !important;
     }
   }
+
+  /* Form section transitions and mobile constraints */
+  #form-section-wrapper {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Keyframe animation for form step changes */
+  @keyframes formStepFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Fly to cart animation */
+  @keyframes flyToCart {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -200px) scale(0.5);
+    }
+  }
+
+  .form-step-animate {
+    animation: formStepFadeIn 0.35s ease-out forwards;
+  }
+
+  /* On mobile, constrain the form and make it scrollable if needed */
+  @media (max-width: 768px) {
+    #form-section-wrapper {
+      max-height: calc(100vh - 90px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      justify-content: flex-end;
+    }
+  }
+
+  #trust-badges-wrapper {
+    transition: all 0.3s ease-in-out;
+    flex-shrink: 0;
+    min-height: 80px;
+  }
+
+  #trust-badges-wrapper.badges-compact {
+    transform: scale(0.85);
+    margin-bottom: 0.25rem;
+    min-height: 60px;
+  }
+
+  @media (max-width: 768px) {
+    #trust-badges-wrapper {
+      min-height: 60px;
+    }
+    
+    #trust-badges-wrapper.badges-compact {
+      transform: scale(0.7);
+      margin-bottom: 0.15rem;
+      min-height: 50px;
+    }
+  }
+
+  .form-inner-container {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  @media (max-width: 768px) {
+    .form-inner-container {
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
 </style>
 
 <script>
@@ -215,14 +295,38 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
   window.addEventListener('form-step-changed', (e: any) => {
     const step = e.detail?.step;
     const heroText = document.getElementById('hero-text-content');
+    const formWrapper = document.getElementById('form-section-wrapper');
+    const trustBadges = document.getElementById('trust-badges-wrapper');
     
     if (heroText) {
       if (typeof step === 'number' && step >= 1) {
-        // Hide on mobile (using the CSS class defined above)
         heroText.classList.add('mobile-hidden-step');
       } else {
         heroText.classList.remove('mobile-hidden-step');
       }
+    }
+
+    if (formWrapper) {
+      if (typeof step === 'number' && step >= 1) {
+        formWrapper.classList.add('form-step-active');
+      } else {
+        formWrapper.classList.remove('form-step-active');
+      }
+    }
+
+    if (trustBadges) {
+      if (typeof step === 'number' && step >= 1) {
+        trustBadges.classList.add('badges-compact');
+      } else {
+        trustBadges.classList.remove('badges-compact');
+      }
+    }
+
+    const formContent = document.querySelector('.form-inner-container');
+    if (formContent) {
+      formContent.classList.remove('form-step-animate');
+      void (formContent as HTMLElement).offsetWidth;
+      formContent.classList.add('form-step-animate');
     }
   });
 </script>
@@ -272,13 +376,17 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
         </div>
       </div>
       <div
-        class="mx-auto mb-8 flex flex-col items-center justify-start overflow-visible 
-               w-full max-w-[500px] sm:w-[90%] md:w-[60%] lg:w-[500px] relative z-20"
+        id="form-section-wrapper"
+        class="mx-auto mb-4 flex flex-col items-center justify-end
+               w-full max-w-[500px] sm:w-[90%] md:w-[60%] lg:w-[500px] relative z-20
+               transition-all duration-300 ease-in-out"
       >
         <!-- Trust Badges above the form -->
-        <TrustBadges />
+        <div id="trust-badges-wrapper" class="w-full transition-all duration-300 ease-in-out flex-shrink-0">
+          <TrustBadges />
+        </div>
 
-        <div class="bg-white rounded-2xl shadow-2xl w-full border border-slate-200 py-4 h-auto">
+        <div class="form-inner-container form-step-animate bg-white rounded-2xl shadow-2xl w-full border border-slate-200 py-4 h-auto transition-all duration-300 ease-in-out">
             <EstimatorQuote client:load embedded />
         </div>
       </div>
