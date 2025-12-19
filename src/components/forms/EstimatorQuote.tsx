@@ -21,10 +21,11 @@ import DateInput from "../inputs/CustomInputDate";
 import { FaRegPaperPlane, FaPlus, FaTrash, FaSpinner, FaUserShield, FaShieldAlt, FaCheck, FaShoppingCart, FaTimes, FaCar } from "react-icons/fa";
 import { format, differenceInCalendarDays } from "date-fns";
 import { sendLeadToLanding } from "../../services/lead";
-import { saveEmail, saveLead, saveNumberLead, saveSignatureCode, saveQuoteUrl } from "../../services/localStorage";
+import { saveEmail, saveLead, saveNumberLead, saveSignatureCode, saveQuoteUrl, saveSelectedPlan } from "../../services/localStorage";
 import { showNotification } from "../../utils/notificaction";
 import { isValidPhoneNumber } from "libphonenumber-js/max";
 import Swal from "sweetalert2";
+import RatePlanSelector from "./RatePlanSelector";
 
 type TransportTypeVal = "1" | "2"; // 1 Open, 2 Enclosed
 
@@ -138,6 +139,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [vehicles, setVehicles] = useState<VehicleRow[]>([]); // cart of full vehicle rows
   const [estResponses, setEstResponses] = useState<any[]>([]); // raw backend responses per distinct type
   const [confidencePct, setConfidencePct] = useState<number | null>(null);
+
+  // Rate plan selection: true = Premium (normal price), false = Economy (discounted)
+  const [isPremium, setIsPremium] = useState(true);
 
   // Cart modal and animation states
   const [showCartModal, setShowCartModal] = useState(false);
@@ -697,10 +701,11 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       transport_type: transportType === 'open' ? "1" : "2", // 1 Open, 2 Enclosed
       ...s4,
       ship_date: formatShipDateLocal(s1.ship_date), // format here
+      is_premium: isPremium, // true = Priority, false = Economy
       client_estimate: {
         miles,
         per_mile: perMile,
-        total: estimate,
+        total: isPremium ? normalTotal : discountedTotal, // send the selected price as total
         discounted_total: discountedTotal,
         normal_total: normalTotal,
         transit,
@@ -739,6 +744,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         showNotification({ text: "Success!", icon: "success" });
         saveLead?.(formatted as any);
         saveEmail?.({ ...(formatted as any), crm_lead_id: resp.id });
+        saveSelectedPlan(isPremium); // Save selected plan for quote2 display
         setTimeout(() => {
           window.location.href = "/quote2";
         }, 1200);
@@ -1215,68 +1221,30 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           </FormProvider>
         )}
 
-        {/* Step 3: Estimate & insights - Compact */}
+        {/* Step 3: Estimate & Rate Plan Selection - Consolidated */}
         {activeStep === 2 && (
           <div className={`${padding} space-y-3 w-full max-w-none`}>
-            {/* Main estimate card */}
-            <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4 space-y-2 shadow-sm">
-              <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
-                <div className="flex-1">
-                  <p className="text-[10px] tracking-wider uppercase text-slate-500">Special discount for you</p>
-                  <div className="flex items-baseline gap-2 flex-wrap">
-                    <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
-                    {perMile != null && miles != null && (
-                      <p className="text-[10px] text-slate-500">~${perMile}/mi · {formatMiles(miles)} {transit && `· ${transit}`}</p>
-                    )}
-                  </div>
-                  {normalTotal != null && discountedTotal != null && (
-                    <div className="mt-1 flex flex-wrap items-center gap-2">
-                      <span className="text-[10px] text-slate-400 line-through">${normalTotal.toLocaleString()}</span>
-                      <span className="inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200 rounded px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
-                        ✓ Save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                {/* Confidence bar - more compact */}
-                <div className="w-full sm:w-32">
-                  <div className="flex items-center justify-between text-[10px] text-slate-500 mb-0.5">
-                    <span>Confidence</span>
-                    <span className="font-semibold">{confidencePct != null ? `${confidencePct}%` : "--"}</span>
-                  </div>
-                  <div className="h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: `${(confidencePct ?? 0)}%`,
-                        backgroundColor: `hsl(${Math.round(((confidencePct ?? 0) / 100) * 120)}, 85%, 45%)`,
-                        transition: 'width 300ms ease-out'
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Breakdown - inline if multiple vehicles, or just count */}
-              <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500 pt-1 border-t border-slate-100">
-                <span className="font-medium text-slate-600">{vehicles.length} vehicle{vehicles.length !== 1 ? 's' : ''}</span>
-                {estResponses.length > 1 && estResponses.map(r => (
-                  <span key={r.type}>• {r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</span>
-                ))}
-              </div>
-
-              <p className="text-[10px] text-slate-400">Based on similar orders. Final price may vary.</p>
-            </div>
-
-            {/* Important notice */}
+            {/* Important notice - moved to top, more compact */}
             <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
               <p className="text-[10px] leading-relaxed">
-                <span className="font-semibold">Important:</span> This is an estimated price. Our specialists will confirm the final quote. Vehicle size and condition may affect the total cost.
+                <span className="font-semibold">Note:</span> Estimated price based on similar orders. Vehicle size and condition may affect final cost.
               </p>
             </div>
 
+            {/* Rate Plan Selector with integrated shared info */}
+            <RatePlanSelector
+              prices={discountedTotal !== null && normalTotal !== null ? { discounted: discountedTotal, normal: normalTotal } : null}
+              isPremium={isPremium}
+              onPlanChange={setIsPremium}
+              miles={miles}
+              perMile={perMile}
+              transit={transit}
+              confidencePct={confidencePct}
+              vehicleCount={vehicles.length || 1}
+            />
+
             {/* CTA buttons - always inline */}
-            <div className="flex gap-2 items-stretch">
+            <div className="flex gap-2 items-stretch pt-1">
               <button type="button" onClick={() => setActiveStep(1)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
               <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
             </div>

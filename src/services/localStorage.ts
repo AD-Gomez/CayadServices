@@ -138,11 +138,23 @@ const getOrCreateDiscountPercentage = (): number => {
   return rounded;
 };
 
+// Save/get selected rate plan (isPremium)
+const saveSelectedPlan = (isPremium: boolean) => {
+  if (isBrowser) localStorage.setItem("selectedPlan", JSON.stringify(isPremium));
+};
+
+const getSelectedPlan = (): boolean => {
+  if (!isBrowser) return true; // default to premium
+  const data = localStorage.getItem("selectedPlan");
+  return data ? JSON.parse(data) : true;
+};
+
 const clearQuote2Data = () => {
   if (isBrowser) {
     localStorage.removeItem("signatureCode");
     localStorage.removeItem("quoteUrl");
     localStorage.removeItem("discountPct");
+    localStorage.removeItem("selectedPlan");
   }
 };
 
@@ -164,5 +176,7 @@ export {
   saveQuoteUrl,
   getQuoteUrl,
   getOrCreateDiscountPercentage,
-  clearQuote2Data
+  clearQuote2Data,
+  saveSelectedPlan,
+  getSelectedPlan
 }

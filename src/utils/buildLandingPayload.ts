@@ -54,6 +54,8 @@ export type LandingFormInput = {
     inop?: '0' | '1';
     vehicle_type?: string;
   };
+  /** Whether user selected premium/priority pricing (true) or economy/discounted (false) */
+  is_premium?: boolean;
 };
 
 export type LandingPayloadWithRoute = {
@@ -82,6 +84,8 @@ export type LandingPayloadWithRoute = {
     inop?: '0' | '1';
     vehicle_type?: string;
   };
+  /** Whether user selected premium/priority pricing (true) or economy/discounted (false) */
+  is_premium?: boolean;
   route: {
     origin: {
       city: string;
@@ -133,6 +137,7 @@ export function buildLandingPayloadWithRoute(input: LandingFormInput): LandingPa
     Vehicles: input.Vehicles,
     // Accept primary vehicle either as top-level `primary_vehicle` or nested inside `client_estimate.primary_vehicle`
     primary_vehicle: input.primary_vehicle ?? (input.client_estimate as any)?.primary_vehicle,
+    is_premium: input.is_premium,
     route: {
       origin: {
         city: o.city,

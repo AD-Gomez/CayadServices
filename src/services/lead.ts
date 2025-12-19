@@ -4,7 +4,7 @@ import { getPublicIP } from "./ip";
 const BASE = import.meta.env.PUBLIC_API_URL;
 const PUBLIC_API_KEY = import.meta.env.PUBLIC_API_KEY;
 
-/** Response from the landing-create endpoint */
+/** Response from the landing-leads endpoint */
 export type LandingCreateResponse = {
   status: 'success' | 'error';
   id?: number;
@@ -25,14 +25,14 @@ export async function sendLeadToLanding(input: LandingFormInput): Promise<Landin
 
   // Build the endpoint URL robustly. If BASE is provided use it as base,
   // otherwise fall back to a relative path so the client can call the
-  // local `/api/leads/public-create/` route during development.
+  // local `/api/landing-leads/` route during development.
   let url: string;
   if (BASE) {
     // Using the URL constructor avoids accidental double slashes when BASE
     // ends with a trailing slash.
-    url = new URL('/api/leads/public-create/', BASE).toString();
+    url = new URL('/api/landing-leads/', BASE).toString();
   } else {
-    url = '/api/leads/public-create/';
+    url = '/api/landing-leads/';
   }
 
   const res = await fetch(url, {
