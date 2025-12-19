@@ -3,91 +3,93 @@ import { FaStar, FaFacebook, FaStarHalfAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { SiTrustpilot } from "react-icons/si";
 
-// Common card style to ensure consistency
-const cardStyle = "bg-white p-5 rounded-2xl border border-slate-100 shadow-[0_2px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between items-start min-w-[210px] h-32 group cursor-default";
+// Common card style
+// Removed fixed widths, letting Grid handle sizing. 
+// Added w-full h-full to fill grid cells.
+const cardStyle = "bg-white p-3 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between items-start w-full h-full min-h-[110px] sm:min-h-[140px] group cursor-default relative overflow-hidden";
 ---
 
-<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-12 mt-8">
-  <div class="flex flex-wrap justify-center gap-5 sm:gap-6 lg:gap-8">
+<div class="w-full max-w-[1400px] mx-auto px-2 sm:px-6 mb-12 sm:mb-16 mt-6 sm:mt-10">
+  <!-- Grid Layout: 2 columns on mobile, 4 columns on large screens -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
     
     <!-- Google Badge -->
     <div class={cardStyle}>
       <div class="flex items-start justify-between w-full">
-        <div class="flex flex-col">
-            <span class="text-slate-500 font-medium text-sm">Google</span>
-            <span class="text-slate-800 font-bold text-2xl leading-none mt-1">4.7</span>
+        <div class="flex flex-col z-10">
+            <span class="text-slate-500 font-semibold text-[10px] sm:text-xs lg:text-sm">Google</span>
+            <span class="text-slate-800 font-bold text-xl sm:text-2xl lg:text-4xl leading-none mt-1">4.7</span>
         </div>
-        <div class="w-8 h-8 rounded-full bg-white border border-slate-100 shadow-sm flex items-center justify-center">
-            <FcGoogle className="text-xl" />
+        <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-white border border-slate-100 shadow-sm flex items-center justify-center z-10 shrink-0">
+            <FcGoogle className="text-lg sm:text-2xl" />
         </div>
       </div>
-      <div class="w-full">
-        <div class="flex text-yellow-400 text-sm mb-1.5 gap-0.5">
+      <div class="w-full z-10 mt-2">
+        <div class="flex text-yellow-400 text-[10px] sm:text-sm lg:text-base mb-1 gap-0.5">
             <FaStar />
             <FaStar />
             <FaStar />
             <FaStar />
             <FaStarHalfAlt />
         </div>
-        <span class="text-[11px] text-slate-400 font-medium">(5,004 Reviews)</span>
+        <span class="text-[9px] sm:text-xs text-slate-400 font-medium block whitespace-nowrap">(5,004 Reviews)</span>
       </div>
     </div>
 
-    <!-- BBB Badge -->
+    <!-- BBB Badge with Official Logo -->
     <div class={cardStyle}>
-      <div class="flex items-start justify-between w-full">
-        <div class="flex flex-col">
-            <span class="text-slate-500 font-medium text-sm tracking-tight">BBB Rating</span>
-            <span class="text-slate-800 font-bold text-2xl leading-none mt-1">4.5</span>
+      <div class="flex items-start justify-between w-full gap-1 sm:gap-2">
+        <div class="flex flex-col shrink-0 z-10">
+            <span class="text-slate-500 font-semibold text-[10px] sm:text-xs lg:text-sm tracking-tight">BBB Rating</span>
+            <span class="text-slate-800 font-bold text-xl sm:text-2xl lg:text-4xl leading-none mt-1">4.5</span>
         </div>
-         <span class="text-slate-800 font-bold font-serif text-xl opacity-80">BBB</span>
+        <!-- Logo container with better constraints -->
+        <div class="relative flex items-start justify-end flex-grow min-w-0">
+            <img src="/img/BBB_ABSeal_H_7469_US-4231x1509-8f45864 (1).png" alt="BBB Accredited Business" class="h-6 sm:h-8 lg:h-10 w-auto object-contain max-w-full" />
+        </div>
       </div>
-      <div class="w-full flex items-end justify-between">
+      <div class="w-full flex items-end justify-between z-10 mt-2">
         <div class="flex flex-col">
-            <div class="flex text-yellow-400 text-sm mb-1.5 gap-0.5">
+            <div class="flex text-yellow-400 text-[10px] sm:text-sm lg:text-base mb-1 gap-0.5">
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaStarHalfAlt />
             </div>
-            <span class="text-[11px] text-slate-400 font-medium">(500+ Reviews)</span>
-        </div>
-        <div class="border-[1px] border-slate-200 rounded px-1.5 py-0.5 flex flex-col items-center bg-slate-50">
-            <span class="text-[6px] font-bold text-slate-600 leading-none">ACCREDITED</span>
-            <span class="text-[6px] font-bold text-slate-600 leading-none">BUSINESS</span>
+            <span class="text-[9px] sm:text-xs text-slate-400 font-medium block whitespace-nowrap">(500+ Reviews)</span>
         </div>
       </div>
     </div>
 
     <!-- Trustpilot Badge -->
     <div class={cardStyle}>
-       <div class="flex items-center gap-2 mb-1">
-        <SiTrustpilot className="text-[#00b67a] text-2xl" />
-        <span class="font-bold text-slate-900 text-lg">Trustpilot</span>
+       <div class="flex items-center gap-1.5 sm:gap-2 mb-1 z-10">
+        <SiTrustpilot className="text-[#00b67a] text-lg sm:text-2xl lg:text-3xl shrink-0" />
+        <span class="font-bold text-slate-900 text-sm sm:text-lg lg:text-xl truncate">Trustpilot</span>
       </div>
-      <div class="w-full">
-        <div class="flex bg-[#00b67a] w-fit text-white px-2 py-0.5 gap-1 text-xs mb-2 rounded-sm items-center">
+      <div class="w-full z-10 mt-auto">
+        <div class="flex bg-[#00b67a] w-fit text-white px-1.5 sm:px-2 py-0.5 gap-0.5 sm:gap-1 text-[8px] sm:text-xs lg:text-sm mb-1.5 rounded items-center">
             <FaStar />
             <FaStar />
             <FaStar />
             <FaStar />
             <FaStar />
         </div>
-        <span class="text-[11px] text-slate-400 font-medium block">(500+ Reviews)</span>
+        <span class="text-[9px] sm:text-xs text-slate-400 font-medium block whitespace-nowrap">(500+ Reviews)</span>
       </div>
     </div>
 
     <!-- Facebook Badge -->
     <div class={cardStyle}>
-      <div class="flex items-center gap-2 mb-1">
-        <FaFacebook className="text-[#1877F2] text-2xl" />
-        <span class="font-bold text-[#1877F2] text-lg">facebook</span>
+      <div class="flex items-center gap-1.5 sm:gap-2 mb-1 z-10">
+        <FaFacebook className="text-[#1877F2] text-lg sm:text-2xl lg:text-3xl shrink-0" />
+        <span class="font-bold text-[#1877F2] text-sm sm:text-lg lg:text-xl truncate">facebook</span>
       </div>
-      <div class="w-full">
-         <div class="flex items-center gap-2 mb-1.5">
-            <span class="font-bold text-slate-800 text-xl">5.0</span>
-             <div class="flex text-yellow-400 text-xs gap-0.5">
+      <div class="w-full z-10 mt-auto">
+         <div class="flex items-center gap-1.5 sm:gap-2 mb-0.5">
+            <span class="font-bold text-slate-800 text-lg sm:text-xl lg:text-2xl">5.0</span>
+             <div class="flex text-yellow-400 text-[9px] sm:text-xs lg:text-sm gap-0.5">
                 <FaStar />
                 <FaStar />
                 <FaStar />
@@ -95,7 +97,7 @@ const cardStyle = "bg-white p-5 rounded-2xl border border-slate-100 shadow-[0_2p
                 <FaStar />
             </div>
          </div>
-        <span class="text-[11px] text-slate-400 font-medium block">(500+ Reviews)</span>
+        <span class="text-[9px] sm:text-xs text-slate-400 font-medium block whitespace-nowrap">(500+ Reviews)</span>
       </div>
     </div>
 
