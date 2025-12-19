@@ -775,29 +775,90 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         {activeStep === 0 && (
           <FormProvider {...step1}>
             <form className={`${padding} space-y-3 w-full max-w-none`} onSubmit={step1.handleSubmit(onSubmitStep1)}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="Shipping FROM" placeholder="City or Zip Code" />
-                <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="Shipping TO" placeholder="City or Zip Code" />
+              {/* FROM / TO - always inline */}
+              <div className="grid grid-cols-2 gap-2">
+                <ZipcodeAutocompleteRHF fieldNames={{ value: "origin_city" }} label="From" placeholder="City/Zip" />
+                <ZipcodeAutocompleteRHF fieldNames={{ value: "destination_city" }} label="To" placeholder="City/Zip" />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <DateInput name="ship_date" label="First Available Pickup Date" />
-                <div className="hidden">
-                  <Controller
-                    control={step1.control}
-                    name="shipping_timeframe"
-                    render={({ field }) => (
-                      <input type="hidden" {...field} />
-                    )}
-                  />
-                </div>
+              {/* Modern Date Picker */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-slate-700">When do you need pickup?</label>
+                <Controller
+                  control={step1.control}
+                  name="ship_date"
+                  render={({ field }) => {
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    const thisWeek = new Date(today);
+                    thisWeek.setDate(thisWeek.getDate() + 7);
+
+                    const formatDate = (d: Date) => format(d, 'yyyy-MM-dd');
+                    const isSelected = (d: Date) => field.value === formatDate(d);
+
+                    return (
+                      <div className="flex flex-wrap gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(formatDate(today))}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(today)
+                              ? 'bg-sky-600 text-white border-sky-600'
+                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            }`}
+                        >
+                          Today
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(formatDate(tomorrow))}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(tomorrow)
+                              ? 'bg-sky-600 text-white border-sky-600'
+                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            }`}
+                        >
+                          Tomorrow
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(formatDate(thisWeek))}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${isSelected(thisWeek)
+                              ? 'bg-sky-600 text-white border-sky-600'
+                              : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                            }`}
+                        >
+                          In a Week
+                        </button>
+                        <div className="relative flex-1 min-w-[100px]">
+                          <input
+                            type="date"
+                            value={field.value || ''}
+                            onChange={(e) => field.onChange(e.target.value)}
+                            min={formatDate(today)}
+                            className={`w-full px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${field.value && !isSelected(today) && !isSelected(tomorrow) && !isSelected(thisWeek)
+                                ? 'bg-sky-600 text-white border-sky-600'
+                                : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400'
+                              }`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }}
+                />
+                <Controller
+                  control={step1.control}
+                  name="shipping_timeframe"
+                  render={({ field }) => (
+                    <input type="hidden" {...field} />
+                  )}
+                />
               </div>
 
               <div>
-                <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="submit">
+                <button className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="submit">
                   Show My Vehicle Options
                 </button>
-                <p className="mt-2 text-xs text-slate-500">Takes less than a minute</p>
+                <p className="mt-1.5 text-[10px] text-slate-500 text-center">Takes less than a minute</p>
               </div>
             </form>
           </FormProvider>
