@@ -226,7 +226,7 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
     }
   }
 
-  /* Fly to cart animation */
+  /* Fly to cart animation - enhanced version */
   @keyframes flyToCart {
     0% {
       opacity: 1;
@@ -235,6 +235,25 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
     100% {
       opacity: 0;
       transform: translate(-50%, -200px) scale(0.5);
+    }
+  }
+
+  @keyframes flyToCartEnhanced {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1) rotate(0deg);
+    }
+    30% {
+      opacity: 1;
+      transform: translate(-30%, -80px) scale(0.9) rotate(-5deg);
+    }
+    70% {
+      opacity: 0.8;
+      transform: translate(30%, -180px) scale(0.6) rotate(5deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(80%, -220px) scale(0.3) rotate(0deg);
     }
   }
 

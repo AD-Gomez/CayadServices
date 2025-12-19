@@ -743,7 +743,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const titleSize = embedded ? "text-xl" : "text-2xl";
 
   const content = (
-    <div className="w-full">
+    <div className="w-full transition-all duration-300 ease-in-out overflow-hidden">
       <>
         {/* Header with title */}
         <div className={`${padding} pb-4 mb-2 border-b border-slate-200 transition-all duration-300 ease-in-out`}>
@@ -807,78 +807,108 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         {/* Step 2: Vehicle details and cart */}
         {activeStep === 1 && (
           <FormProvider {...step2}>
-            <form className={`${padding} space-y-3 w-full max-w-none transition-all duration-300 ease-in-out`}>
-              <fieldset className="space-y-3">
+            <form className={`${padding} space-y-2 w-full max-w-none transition-all duration-300 ease-in-out`}>
+              <fieldset className="space-y-2">
                 <div className="flex items-center justify-between">
                   <legend className="text-sm font-semibold text-slate-800">Add your vehicle</legend>
-                  {/* Cart Icon with count */}
-                  <button
-                    ref={cartIconRef}
-                    type="button"
-                    onClick={() => vehicles.length > 0 && setShowCartModal(true)}
-                    className={`relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 ${vehicles.length > 0
-                      ? 'bg-amber-50 border-amber-300 text-amber-700 hover:bg-amber-100 cursor-pointer'
-                      : 'bg-slate-50 border-slate-200 text-slate-400 cursor-default'
-                      } ${cartBounce ? 'animate-bounce scale-110' : ''}`}
-                    aria-label={`Cart: ${vehicles.length} vehicles`}
-                    disabled={vehicles.length === 0}
-                  >
-                    <FaShoppingCart className={`text-sm ${vehicles.length > 0 ? 'text-amber-600' : 'text-slate-400'}`} />
-                    <span className="text-sm font-bold">{vehicles.length}</span>
-                    {vehicles.length > 0 && (
-                      <span className="text-[10px] text-amber-600">View</span>
+                  {/* Vehicle Cart Button */}
+                  <div className="relative">
+                    <button
+                      ref={cartIconRef}
+                      type="button"
+                      onClick={() => vehicles.length > 0 && setShowCartModal(true)}
+                      className={`group relative inline-flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-all duration-300 ${vehicles.length > 0
+                        ? 'bg-gradient-to-r from-sky-50 to-sky-100 border-sky-300 text-sky-700 hover:border-sky-400 hover:shadow-md cursor-pointer'
+                        : 'bg-slate-50 border-slate-200 text-slate-400 cursor-default'
+                        } ${cartBounce ? 'scale-110 ring-4 ring-sky-200' : ''}`}
+                      aria-label={`View ${vehicles.length} added vehicles`}
+                      disabled={vehicles.length === 0}
+                    >
+                      {/* Car icon */}
+                      <div className={`relative ${cartBounce ? 'animate-pulse' : ''}`}>
+                        <FaCar className={`text-lg ${vehicles.length > 0 ? 'text-sky-600' : 'text-slate-400'}`} />
+                        {/* Count badge */}
+                        {vehicles.length > 0 && (
+                          <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white shadow-sm">
+                            {vehicles.length}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Text and arrow */}
+                      {vehicles.length > 0 ? (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-semibold">View Added</span>
+                          <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      ) : (
+                        <span className="text-[10px] text-slate-400">No vehicles yet</span>
+                      )}
+                    </button>
+
+                    {/* Tooltip hint for first vehicle */}
+                    {vehicles.length === 1 && !showCartModal && (
+                      <div className="absolute top-full right-0 mt-2 z-20 animate-bounce">
+                        <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded-lg shadow-lg whitespace-nowrap">
+                          <span className="mr-1">✓</span> Vehicle added! Click to review
+                          <div className="absolute -top-1 right-4 w-2 h-2 bg-slate-800 transform rotate-45"></div>
+                        </div>
+                      </div>
                     )}
-                  </button>
+                  </div>
                 </div>
 
-                {/* Flying vehicle animation */}
+                {/* Flying vehicle animation - enhanced */}
                 {flyingVehicle && (
                   <div
                     className="fixed z-50 pointer-events-none"
                     style={{
-                      animation: 'flyToCart 0.5s ease-out forwards',
+                      animation: 'flyToCartEnhanced 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards',
                       left: '50%',
-                      top: '60%',
+                      top: '55%',
                     }}
                   >
-                    <div className="inline-flex items-center gap-1.5 bg-sky-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+                    <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-sky-500 to-sky-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-xl border border-sky-400">
                       <FaCar className="text-xs" />
-                      {flyingVehicle}
+                      <span className="max-w-[120px] truncate">{flyingVehicle}</span>
+                      <span className="text-sky-200">→</span>
                     </div>
                   </div>
                 )}
 
                 {/* Transport Type Selector */}
-                <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
-                  <p className="text-xs text-slate-600 font-medium">Transport Type</p>
-                  <div className="flex flex-row gap-3">
+                <div className="rounded-md border border-slate-200 p-2 bg-slate-50 space-y-1">
+                  <p className="text-[10px] text-slate-600 font-medium">Transport Type</p>
+                  <div className="flex flex-row gap-2">
                     <button type="button"
                       onClick={() => setTransportType('open')}
-                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${transportType === 'open' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Open Transport</button>
+                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${transportType === 'open' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Open</button>
                     <button type="button"
                       onClick={() => setTransportType('enclosed')}
-                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${transportType === 'enclosed' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Enclosed Transport</button>
+                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${transportType === 'enclosed' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Enclosed</button>
                   </div>
                 </div>
 
                 {/* Selector de modo de captura */}
-                <div className="rounded-md border border-slate-200 p-2.5 bg-slate-50 space-y-2">
-                  <p className="text-xs text-slate-600 font-medium">How would you like to describe your vehicle?</p>
-                  <div className="flex flex-row gap-3">
+                <div className="rounded-md border border-slate-200 p-2 bg-slate-50 space-y-1">
+                  <p className="text-[10px] text-slate-600 font-medium">How to describe your vehicle?</p>
+                  <div className="flex flex-row gap-2">
                     <button type="button"
                       onClick={() => setVehicleMode('specific')}
-                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
+                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${vehicleMode === 'specific' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Full Details</button>
                     <button type="button"
                       onClick={() => setVehicleMode('generic')}
-                      className={`flex-1 text-center justify-center px-2 py-1.5 rounded-md border text-[11px] font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
+                      className={`flex-1 text-center justify-center px-2 py-1 rounded-md border text-[10px] font-semibold transition-colors ${vehicleMode === 'generic' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 hover:border-sky-400'}`}>Other</button>
                   </div>
-                  <p className="text-[11px] text-slate-500">
-                    {vehicleMode === 'specific' && 'Enter exact details. If your exact vehicle is not recognized, we still classify it internally.'}
-                    {vehicleMode === 'generic' && 'Select only a generic type if you do not know the details OR your exact vehicle does not appear. It will be added automatically.'}
+                  <p className="text-[9px] text-slate-500">
+                    {vehicleMode === 'specific' && 'Enter exact details. Vehicle auto-classified internally.'}
+                    {vehicleMode === 'generic' && 'Select generic type if details unknown.'}
                   </p>
                 </div>
                 {/* Fields in responsive layout */}
-                <div className="grid grid-cols-1 gap-4 pt-1">
+                <div className="grid grid-cols-1 gap-2">
                   {vehicleMode === 'generic' && (
                     <>
                       <div>
@@ -1056,55 +1086,46 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   </div>
                 )}
               </fieldset>
-              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
-                <button type="button" onClick={() => setActiveStep(0)} className="inline-flex items-center justify-center gap-2 border border-slate-300 rounded-lg py-2.5 px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-                  Back
-                </button>
-                <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button" disabled={busy} onClick={proceedToEstimate}>
-                  {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` · ${numberToWord(vehicles.length)} vehicle${vehicles.length > 1 ? 's' : ''}` : ''}`}
+              <div className="flex gap-2 items-stretch">
+                <button type="button" onClick={() => setActiveStep(0)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+                <button className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-xs hover:bg-sky-700 transition-colors" type="button" disabled={busy} onClick={proceedToEstimate}>
+                  {busy ? "Calculating..." : `Get My Estimated Price${vehicles.length > 0 ? ` · ${numberToWord(vehicles.length)}` : ''}`}
                 </button>
               </div>
             </form>
           </FormProvider>
         )}
 
-        {/* Step 3: Estimate & insights */}
+        {/* Step 3: Estimate & insights - Compact */}
         {activeStep === 2 && (
-          <div className={`${padding} space-y-6 w-full max-w-none`}>
-            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 space-y-4 shadow-sm">
-              <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs tracking-wider uppercase text-slate-500">Special discount for you</p>
+          <div className={`${padding} space-y-3 w-full max-w-none`}>
+            {/* Main estimate card */}
+            <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4 space-y-2 shadow-sm">
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
+                <div className="flex-1">
+                  <p className="text-[10px] tracking-wider uppercase text-slate-500">Special discount for you</p>
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <p className="text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
+                    <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{discountedTotal != null ? `$${discountedTotal.toLocaleString()}` : "--"}</p>
                     {perMile != null && miles != null && (
-                      <p className="text-xs text-slate-500">~${perMile}/mi · {formatMiles(miles)}</p>
+                      <p className="text-[10px] text-slate-500">~${perMile}/mi · {formatMiles(miles)} {transit && `· ${transit}`}</p>
                     )}
                   </div>
                   {normalTotal != null && discountedTotal != null && (
-                    <div className="mt-2 flex flex-wrap items-center gap-3">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs text-slate-400">Regular:</span>
-                        <span className="text-sm line-through text-slate-400">${normalTotal.toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5">
-                        <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-sm font-semibold text-emerald-700">
-                          You save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)}
-                        </span>
-                        <span className="text-xs text-emerald-600"></span>
-                      </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-2">
+                      <span className="text-[10px] text-slate-400 line-through">${normalTotal.toLocaleString()}</span>
+                      <span className="inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200 rounded px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                        ✓ Save ${(Math.max(0, (normalTotal - discountedTotal))).toFixed(0)}
+                      </span>
                     </div>
                   )}
                 </div>
-                <div className="w-full sm:min-w-[180px] sm:flex-1 sm:flex-initial">
-                  <div className="flex items-center justify-between text-[11px] text-slate-500">
+                {/* Confidence bar - more compact */}
+                <div className="w-full sm:w-32">
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 mb-0.5">
                     <span>Confidence</span>
-                    <span>{confidencePct != null ? `${confidencePct}%` : (overallConfidence ? overallConfidence : "--")}</span>
+                    <span className="font-semibold">{confidencePct != null ? `${confidencePct}%` : "--"}</span>
                   </div>
-                  <div className="mt-1 h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+                  <div className="h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
                     <div
                       className="h-full rounded-full"
                       style={{
@@ -1114,46 +1135,32 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       }}
                     />
                   </div>
-                  <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                    <span>Low</span>
-                    <span>High</span>
-                  </div>
                 </div>
               </div>
-              {miles != null && (
-                <p className="text-xs text-slate-500">Estimated transit time: {transit ?? "--"}</p>
-              )}
-              <p className="text-[11px] text-slate-500">
-                Based on similar real orders. Final price may vary.
-              </p>
-              {estResponses.length > 1 && (
-                <div className="pt-1">
-                  <p className="text-[11px] font-medium text-slate-600">Breakdown:</p>
-                  <ul className="text-[11px] text-slate-500 list-disc list-inside space-y-0.5">
-                    {estResponses.map(r => (
-                      <li key={r.type}>{r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            {/* Security Badge - Added for Step 2 */}
 
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 sm:p-4 space-y-2 text-amber-900">
-              <p className="text-sm font-semibold">Important</p>
-              <ul className="list-disc list-inside text-xs sm:text-sm space-y-1">
-                <li>This is an estimated price based on past orders. Our specialists will confirm the final price.</li>
-                <li>Vehicle size and condition directly impact the total transport cost.</li>
-              </ul>
-            </div>
-            <div>
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
-                <button type="button" onClick={() => setActiveStep(1)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-                <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-3 text-base hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
+              {/* Breakdown - inline if multiple vehicles, or just count */}
+              <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500 pt-1 border-t border-slate-100">
+                <span className="font-medium text-slate-600">{vehicles.length} vehicle{vehicles.length !== 1 ? 's' : ''}</span>
+                {estResponses.length > 1 && estResponses.map(r => (
+                  <span key={r.type}>• {r.count}× {r.type}: ${r.data?.discounted_estimate_total ?? r.data?.low_estimate_total ?? '--'}</span>
+                ))}
               </div>
+
+              <p className="text-[10px] text-slate-400">Based on similar orders. Final price may vary.</p>
             </div>
-            {/* transit time moved up into the estimate card for a cleaner layout */}
+
+            {/* Important notice */}
+            <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
+              <p className="text-[10px] leading-relaxed">
+                <span className="font-semibold">Important:</span> This is an estimated price. Our specialists will confirm the final quote. Vehicle size and condition may affect the total cost.
+              </p>
+            </div>
+
+            {/* CTA buttons - always inline */}
+            <div className="flex gap-2 items-stretch">
+              <button type="button" onClick={() => setActiveStep(1)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+              <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
+            </div>
           </div>
         )}
 
@@ -1246,28 +1253,25 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                   and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a>, and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails. Message & data rates may apply.
                 </small>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start pt-1">
-                <button type="button" onClick={() => setActiveStep(2)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-                <div className="flex-1">
-                  <button id="submit_button"
-                    disabled={submitting}
-                    className={`w-full inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-3 px-6 hover:bg-orange-700 transition-all duration-300 text-base ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                    type="submit"
-                  >
-                    {submitting ? (
-                      <>
-                        Processing...
-                        <FaSpinner className="animate-spin" />
-                      </>
-                    ) : (
-                      <>
-                        Get My Final Quote
-                        <FaRegPaperPlane />
-                      </>
-                    )}
-                  </button>
-                  <p className="mt-2 text-xs text-slate-500">Get your personalized quote and delivery details</p>
-                </div>
+              <div className="flex gap-2 items-stretch pt-1">
+                <button type="button" onClick={() => setActiveStep(2)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
+                <button id="submit_button"
+                  disabled={submitting}
+                  className={`flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 text-white font-bold py-2.5 text-sm hover:bg-orange-700 transition-colors ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  type="submit"
+                >
+                  {submitting ? (
+                    <>
+                      Processing...
+                      <FaSpinner className="animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Get My Final Quote
+                      <FaRegPaperPlane />
+                    </>
+                  )}
+                </button>
               </div>
             </form>
           </FormProvider>
