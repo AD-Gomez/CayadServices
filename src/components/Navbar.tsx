@@ -340,7 +340,7 @@ export default function Navbar() {
               <div className="flex items-center gap-2 mr-2">
                 <a
                   href="tel:+14696190747"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#005c85] text-white shadow-md hover:bg-[#004a6b] hover:scale-105 transition-all duration-200"
+                  className="hidden h-10 w-10 flex items-center justify-center rounded-full bg-[#005c85] text-white shadow-md hover:bg-[#004a6b] hover:scale-105 transition-all duration-200"
                   aria-label="Call Support"
                   title="Call Support"
                 >
