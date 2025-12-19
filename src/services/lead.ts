@@ -25,14 +25,14 @@ export async function sendLeadToLanding(input: LandingFormInput): Promise<Landin
 
   // Build the endpoint URL robustly. If BASE is provided use it as base,
   // otherwise fall back to a relative path so the client can call the
-  // local `/api/landing-leads/` route during development.
+  // local `/api/leads/public-create/` route during development.
   let url: string;
   if (BASE) {
     // Using the URL constructor avoids accidental double slashes when BASE
     // ends with a trailing slash.
-    url = new URL('/api/landing-leads/', BASE).toString();
+    url = new URL('/api/leads/public-create/', BASE).toString();
   } else {
-    url = '/api/landing-leads/';
+    url = '/api/leads/public-create/';
   }
 
   const res = await fetch(url, {
