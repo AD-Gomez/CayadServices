@@ -293,9 +293,9 @@ export default function Quote2ServiceSelector() {
                         <button
                             onClick={handleVerifyCard}
                             disabled={!quoteUrl}
-                            className="w-full h-14 rounded-full bg-sky-600 hover:bg-sky-700 text-white font-bold text-lg shadow-xl shadow-sky-600/20 hover:shadow-2xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="w-full h-14 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-lg shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
                         >
-                            <FaCreditCard className="text-sky-200 group-hover:text-white transition-colors" />
+                            <FaCreditCard className="text-amber-200 group-hover:text-white transition-colors" />
                             <span>Verify Your Card Info</span>
                         </button>
 
@@ -342,9 +342,9 @@ export default function Quote2ServiceSelector() {
                     <button
                         onClick={handleVerifyCard}
                         disabled={!quoteUrl}
-                        className="flex-1 h-12 rounded-full bg-sky-600 text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2"
+                        className="flex-1 h-12 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2"
                     >
-                        Verify Card <FaArrowRight size={12} className="opacity-50" />
+                        Verify Card <FaArrowRight size={12} className="opacity-70" />
                     </button>
                 </div>
             </div>
