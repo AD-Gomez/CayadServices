@@ -13,6 +13,8 @@ interface Props {
 }
 
 const { minimal = false } = Astro.props;
+
+// For dynamic mode, we'll use CSS classes that can be toggled via JavaScript
 ---
 
 <style>
@@ -40,9 +42,81 @@ const { minimal = false } = Astro.props;
     .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+
+  /* Dynamic minimal mode (toggled via JavaScript) */
+  footer.footer-minimal-mode [data-footer-section="services"],
+  footer.footer-minimal-mode [data-footer-section="quick-links"],
+  footer.footer-minimal-mode [data-footer-section="contact-cta"],
+  footer.footer-minimal-mode [data-footer-section="social-icons"],
+  footer.footer-minimal-mode [data-footer-section="bottom-links"],
+  footer.footer-minimal-mode [data-footer-section="address"] h4 {
+    display: none !important;
+  }
+
+  /* In minimal mode, make footer very compact - single row */
+  footer.footer-minimal-mode {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  footer.footer-minimal-mode > div:first-child {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  footer.footer-minimal-mode .footer-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 2rem;
+    max-width: none;
+  }
+
+  footer.footer-minimal-mode [data-footer-section="address"] {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  footer.footer-minimal-mode [data-footer-section="address"] > div {
+    margin-top: 0 !important;
+  }
+
+  footer.footer-minimal-mode [data-footer-section="badges"] {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0 !important;
+  }
+
+  footer.footer-minimal-mode [data-footer-section="badges"] .AuthorizeNetSeal {
+    transform: scale(0.85);
+  }
+
+  /* Hide the bottom bar border in minimal mode */
+  footer.footer-minimal-mode .border-t {
+    border-top: none !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  footer.footer-minimal-mode .footer-bottom,
+  footer.footer-minimal-mode .border-t > div {
+    flex-direction: row !important;
+    gap: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  /* Smooth transition for footer sections */
+  [data-footer-section] {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
 </style>
 
-<footer class="relative bg-bg-footer text-light">
+<footer class:list={["relative bg-bg-footer text-light", minimal && "footer-minimal-mode"]}>
   <!-- Decorative gradient glow -->
   <div class="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true"></div>
 
@@ -52,7 +126,7 @@ const { minimal = false } = Astro.props;
     minimal ? "grid-cols-1 max-w-md mx-auto" : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4"
   ]}>
       <!-- Address + Social -->
-  <div class="flex flex-col gap-4 min-w-0">
+  <div class="flex flex-col gap-4 min-w-0" data-footer-section="address">
         <h4 class="text-lg font-bold font-heading track-wide">Address</h4>
 
         <div class="flex items-start gap-3">
@@ -66,10 +140,11 @@ const { minimal = false } = Astro.props;
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 flex-none mt-0.5">
             <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd"></path>
           </svg>
-          <a href="tel:+14696190747" class="text-white hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-btn-blue focus-visible:ring-offset-transparent rounded">(469) 619-0747</a>
+          <span class="text-white">(469) 619-0747</span>
         </div>
 
-        <div class="mt-4 flex flex-wrap items-center gap-3">
+        {!minimal && (
+        <div class="mt-4 flex flex-wrap items-center gap-3" data-footer-section="social-icons">
           <a
             class="group inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all duration-300 ease-out hover:bg-white hover:text-btn-blue hover:scale-110 shadow-sm"
             href="https://www.facebook.com/cayadservices" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -107,11 +182,12 @@ const { minimal = false } = Astro.props;
             <span class="sr-only">Reddit</span>
           </a>
         </div>
+        )}
       </div>
 
       {/* Services - hidden in minimal mode */}
       {!minimal && (
-  <div class="flex flex-col gap-4 min-w-0">
+  <div class="flex flex-col gap-4 min-w-0" data-footer-section="services">
         <h4 class="text-lg font-bold font-heading track-wide">Services</h4>
         <ul class="space-y-3">
           <li class="group flex items-center gap-3">
@@ -144,7 +220,7 @@ const { minimal = false } = Astro.props;
 
       {/* Quick Links - hidden in minimal mode */}
       {!minimal && (
-  <div class="flex flex-col gap-4 min-w-0">
+  <div class="flex flex-col gap-4 min-w-0" data-footer-section="quick-links">
   <h4 class="text-lg font-bold font-heading track-wide">Quick Links</h4>
         <ul class="space-y-3">
           <!-- About us intentionally commented in original -->
@@ -167,34 +243,33 @@ const { minimal = false } = Astro.props;
       {/* CTA / Compliance - show only USDOT in minimal mode */}
       {!minimal ? (
   <div class="flex flex-col min-w-0">
-        <h4 class="text-lg font-bold font-heading track-wide">Contact us</h4>
-  <div class="cta-grid mt-2 grid w-full gap-2 xs:grid-cols-2 sm:grid-cols-2">
-          <a
-            href="/quote/index.html"
-            class="inline-flex items-center justify-center rounded-lg bg-btn-blue px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-btn-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-btn-blue"
-          >
-            Get a Quote
-          </a>
-          <a
-            href="tel:+14696190747"
-            class="inline-flex items-center justify-center rounded-lg border border-white/60 bg-transparent px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-btn-blue"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd"></path></svg>
-            Call Now
-          </a>
+        <div data-footer-section="contact-cta">
+          <h4 class="text-lg font-bold font-heading track-wide">Contact us</h4>
+          <div class="cta-grid mt-2 grid w-full gap-2 xs:grid-cols-2 sm:grid-cols-2">
+            <a
+              href="/quote/index.html"
+              class="inline-flex items-center justify-center rounded-lg bg-btn-blue px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-btn-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-btn-blue"
+            >
+              Get a Quote
+            </a>
+            <a
+              href="tel:+14696190747"
+              class="inline-flex items-center justify-center rounded-lg border border-white/60 bg-transparent px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-btn-blue"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd"></path></svg>
+              Call Now
+            </a>
+          </div>
+        </div>
 
-          <a
-            href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&original_query_param=NAME&query_string=4091368&original_query_string=CAYAD%20SERVICES%20LLC"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-2 flex items-center gap-3 text-sm hover:underline hover:text-blue-300 transition-colors"
-          >
+        <div class="flex flex-wrap items-center gap-4 mt-3" data-footer-section="badges">
+          <div class="flex items-center gap-3 text-sm">
             <img src="/img/part6.webp" width="36" height="36" alt="car shipping fmcsa logo" class="h-7 w-7" />
             <p class="text-sm">USDOT: 4091368 <br />MC: 1558686</p>
-          </a>
+          </div>
 
           <!-- (c) 2005, 2025. Authorize.Net is a registered trademark of CyberSource Corporation -->
-          <div class="AuthorizeNetSeal mt-2 place-self-center sm:place-self-end">
+          <div class="AuthorizeNetSeal">
             <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
             <script type="text/javascript" src="https://verify.authorize.net:443/anetseal/seal.js"></script>
           </div>
@@ -202,16 +277,11 @@ const { minimal = false } = Astro.props;
       </div>
       ) : (
         <!-- In minimal mode, show only USDOT badge -->
-        <div class="flex flex-col items-center gap-4">
-          <a
-            href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&original_query_param=NAME&query_string=4091368&original_query_string=CAYAD%20SERVICES%20LLC"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center gap-3 text-sm hover:underline hover:text-blue-300 transition-colors"
-          >
+        <div class="flex flex-col items-center gap-4" data-footer-section="badges">
+          <div class="flex items-center gap-3 text-sm">
             <img src="/img/part6.webp" width="36" height="36" alt="car shipping fmcsa logo" class="h-7 w-7" />
             <p class="text-sm">USDOT: 4091368 <br />MC: 1558686</p>
-          </a>
+          </div>
           <div class="AuthorizeNetSeal">
             <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
             <script type="text/javascript" src="https://verify.authorize.net:443/anetseal/seal.js"></script>
@@ -231,7 +301,7 @@ const { minimal = false } = Astro.props;
           <span class="mx-2">|</span>
           <p class="text-sm mb-0">All Rights Reserve</p>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm md:text-sm">
+        <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm md:text-sm" data-footer-section="bottom-links">
           <a href="/privacy-policy/" class="text-light hover:text-white transition-colors">Privacy Policy</a>
           <span class="opacity-60">|</span>
           <a href="/copyright-trademark/" class="text-light hover:text-white transition-colors">Copyright & Trademark</a>

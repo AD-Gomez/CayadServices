@@ -316,6 +316,7 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
     const heroText = document.getElementById('hero-text-content');
     const formWrapper = document.getElementById('form-section-wrapper');
     const trustBadges = document.getElementById('trust-badges-wrapper');
+    const footer = document.querySelector('footer');
     
     if (heroText) {
       if (typeof step === 'number' && step >= 1) {
@@ -338,6 +339,15 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
         trustBadges.classList.add('badges-compact');
       } else {
         trustBadges.classList.remove('badges-compact');
+      }
+    }
+
+    // Toggle minimal footer mode when user is actively filling the form (step >= 1)
+    if (footer) {
+      if (typeof step === 'number' && step >= 1) {
+        footer.classList.add('footer-minimal-mode');
+      } else {
+        footer.classList.remove('footer-minimal-mode');
       }
     }
 
