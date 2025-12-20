@@ -19,6 +19,7 @@ import {
     FaArrowRight
 } from "react-icons/fa";
 import { parse, format } from "date-fns";
+import RotatingTrustBadge from "./RotatingTrustBadge";
 
 // Helper: Format date for display
 function formatDateForDisplay(dateStr?: string): string {
@@ -258,7 +259,7 @@ export default function Quote2ServiceSelector() {
                 <div className="lg:col-span-4 space-y-6">
 
                     {/* CTA Box (Brand Blue Button) */}
-                    <div className="bg-white rounded-3xl shadow-lg shadow-sky-900/5 border border-slate-100 p-6 md:p-8 sticky top-24">
+                    <div className="bg-white rounded-3xl shadow-lg shadow-sky-900/5 border border-slate-100 p-6 md:p-8">
                         <div className="text-center mb-6">
                             <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Total Estimated</p>
                             <p className="text-5xl font-black text-slate-900 tracking-tight">
@@ -316,18 +317,10 @@ export default function Quote2ServiceSelector() {
                                 </a>.
                             </p>
                         </div>
-
-                        <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-2 gap-4">
-                            <div className="flex flex-col items-center text-center gap-1">
-                                <div className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center mb-1"><FaShieldAlt size={14} /></div>
-                                <span className="text-[10px] font-bold text-slate-600 uppercase">Insured</span>
-                            </div>
-                            <div className="flex flex-col items-center text-center gap-1">
-                                <div className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center mb-1"><FaCheck size={14} /></div>
-                                <span className="text-[10px] font-bold text-slate-600 uppercase">Guaranteed</span>
-                            </div>
-                        </div>
                     </div>
+
+                    {/* Rotating Trust Badge */}
+                    <RotatingTrustBadge />
                 </div>
 
             </div>
