@@ -127,7 +127,7 @@ export default function Quote2ServiceSelector() {
                                     <FaQuoteRight className="text-sky-300" />
                                     Your Quote is Ready!
                                 </h1>
-                                <p className="text-sky-100 text-sm mt-1 ml-9">Price guaranteed for 7 days</p>
+                                <p className="text-sky-100 text-sm mt-1 ml-9">The price is guaranteed for 7 days after booking.</p>
                             </div>
                             <div>
                                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-semibold border border-white/20 backdrop-blur-sm">
@@ -203,8 +203,8 @@ export default function Quote2ServiceSelector() {
                         </h2>
 
                         <div className={`rounded-2xl border-2 overflow-hidden ${isPremium
-                                ? 'border-sky-600 bg-white shadow-lg'
-                                : 'border-emerald-500 bg-white shadow-lg'
+                            ? 'border-sky-600 bg-white shadow-lg'
+                            : 'border-emerald-500 bg-white shadow-lg'
                             }`}>
                             {isPremium ? (
                                 // Priority Service Display
@@ -296,7 +296,7 @@ export default function Quote2ServiceSelector() {
                             className="w-full h-14 rounded-full bg-sky-600 hover:bg-sky-700 text-white font-bold text-lg shadow-xl shadow-sky-600/20 hover:shadow-2xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
                         >
                             <FaCreditCard className="text-sky-200 group-hover:text-white transition-colors" />
-                            <span>Verify Card Info</span>
+                            <span>Verify Your Card Info</span>
                         </button>
 
                         <p className="text-xs text-center text-slate-400 mt-4 leading-relaxed">

@@ -23,3 +23,22 @@
     gap: 1.5rem;
   }
 }
+
+/* Quote page navbar responsive styles */
+.quote-navbar-mobile {
+  display: flex;
+}
+
+.quote-navbar-desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .quote-navbar-mobile {
+    display: none !important;
+  }
+  
+  .quote-navbar-desktop {
+    display: flex !important;
+  }
+}
