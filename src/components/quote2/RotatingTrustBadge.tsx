@@ -19,7 +19,7 @@ const badges = [
         name: "BBB Rating",
         rating: "4.5",
         reviews: "500+ Reviews",
-        icon: <img src="/img/BBB_ABSeal_H_7469_US-4231x1509-8f45864 (1).png" alt="BBB" className="h-5 w-auto" />,
+        icon: <img src="/img/BBB_ABSeal_V_7469_US-1675x2488-a905d76 (1).png" alt="BBB" className="h-6 w-auto object-contain" />,
         stars: 4.5,
         color: "text-slate-800",
         bgColor: "bg-white",
@@ -115,8 +115,8 @@ export default function RotatingTrustBadge() {
                             }, 150);
                         }}
                         className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex
-                                ? "bg-sky-500 w-4"
-                                : "bg-slate-300 hover:bg-slate-400"
+                            ? "bg-sky-500 w-4"
+                            : "bg-slate-300 hover:bg-slate-400"
                             }`}
                         aria-label={`Show ${badges[idx].name} rating`}
                     />
