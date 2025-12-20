@@ -28,6 +28,21 @@ import Swal from "sweetalert2";
 import RatePlanSelector from "./RatePlanSelector";
 import InlineReviews from "../InlineReviews";
 
+// Utility to format vehicle types from snake_case to readable labels
+// e.g., 'truck_sleeper' -> 'Truck Sleeper', 'suv' -> 'SUV'
+const formatVehicleType = (type: string | undefined | null): string => {
+  if (!type) return 'Vehicle';
+  // Handle common abbreviations
+  const upperCaseWords = ['suv', 'atv', 'rv', 'utv'];
+  return type
+    .split('_')
+    .map(word => upperCaseWords.includes(word.toLowerCase())
+      ? word.toUpperCase()
+      : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join(' ');
+};
+
 type TransportTypeVal = "1" | "2"; // 1 Open, 2 Enclosed
 
 type Step1Values = {
@@ -1240,7 +1255,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                                   <p className="font-semibold text-slate-800 text-sm">
                                     {v.vehicle_year || v.vehicle_make || v.vehicle_model
                                       ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()
-                                      : v.vehicle_type || 'Vehicle'}
+                                      : formatVehicleType(v.vehicle_type)}
                                   </p>
                                   <p className="text-xs text-slate-500">
                                     {v.vehicle_inop === '1' ? '⚠️ Non-running' : '✓ Running'}
@@ -1430,7 +1445,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                                   <span key={i}>
                                     {v.vehicle_year || v.vehicle_make || v.vehicle_model
                                       ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()
-                                      : v.vehicle_type || 'Vehicle'}
+                                      : formatVehicleType(v.vehicle_type)}
                                     {i < vehicles.length - 1 ? ', ' : ''}
                                   </span>
                                 ))}
