@@ -303,6 +303,20 @@ export default function Quote2ServiceSelector() {
                             No payment is required today. We only verify your card to secure your spot.
                         </p>
 
+                        {/* Terms & Conditions */}
+                        <div className="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                            <p className="text-[10px] text-slate-500 leading-relaxed text-center">
+                                By clicking "Verify Your Card Info", you agree to our{' '}
+                                <a href="/pdfs/Terms-and-Conditions.pdf" target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:underline font-medium">
+                                    Terms and Conditions
+                                </a>
+                                {' '}and{' '}
+                                <a href="/pdfs/Terms-of-use.pdf" target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:underline font-medium">
+                                    Terms of Use
+                                </a>.
+                            </p>
+                        </div>
+
                         <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-2 gap-4">
                             <div className="flex flex-col items-center text-center gap-1">
                                 <div className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center mb-1"><FaShieldAlt size={14} /></div>

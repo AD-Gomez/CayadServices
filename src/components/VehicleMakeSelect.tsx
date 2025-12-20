@@ -58,6 +58,9 @@ const VehicleMakeSelect: React.FC<Props> = ({
                         classNamePrefix="react-select"
                         placeholder={isDisabled ? 'Select year first' : 'Select Make'}
                         noOptionsMessage={() => error ? 'Error loading makes' : 'No makes available'}
+                        maxMenuHeight={160}
+                        menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
+                        menuPosition="fixed"
                         styles={{
                             control: (provided) => ({
                                 ...provided,
@@ -77,6 +80,7 @@ const VehicleMakeSelect: React.FC<Props> = ({
                             placeholder: (p) => ({ ...p, fontSize: '0.8rem', color: isDisabled ? '#94a3b8' : '#64748b' }),
                             singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
                             indicatorSeparator: () => ({ display: 'none' }),
+                            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                         }}
                         className="bg-white"
                     />

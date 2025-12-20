@@ -87,7 +87,7 @@ const CustomInputPhone: React.FC<CustomInputProps> = ({ name, label, defaultValu
   };
 
   return (
-    <div className="relative mb-4"> {/* slightly larger bottom margin to separate label/helper from next element */}
+    <div className="relative pt-5 mb-1"> {/* pt-5 gives space for floating label above */}
       <Controller
         name={name}
         control={control}

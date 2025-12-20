@@ -26,11 +26,21 @@ import Footer from "../../components/Footer.astro";
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3DG6F8M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 
-  {/* ================================================================== */}
-  {/* CAMBIO FINAL: Se reemplaza 'items-center' por 'items-start' para    */}
-  {/* alinear el contenido arriba en vez de al centro. Se ajusta el      */}
-  {/* padding para darle un margen superior natural.                     */}
-  {/* ================================================================== */}
+  {/* Minimal Header - Logo in top-left corner */}
+  <header class="w-full bg-white border-t-[4px] border-[#00a1e1] border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <a href="/" class="shrink-0" title="Go to Homepage">
+        <img src="/img/logo-cayad.webp" alt="Cayad Auto Transport" class="h-9 w-auto" width="2688" height="609" />
+      </a>
+      <a href="tel:+14696190747" class="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-sky-600 transition-colors">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+        </svg>
+        <span class="hidden sm:inline">(469) 619-0747</span>
+      </a>
+    </div>
+  </header>
+
   <div class="relative min-h-screen w-full flex items-start justify-center p-4 sm:p-6 lg:p-8">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-t from-slate-100 via-slate-100/80 to-transparent"></div>
@@ -44,11 +54,8 @@ import Footer from "../../components/Footer.astro";
         </div>
 
         <aside class="lg:col-span-5 xl:col-span-4 lg:col-start-8 xl:col-start-9">
-          <div class="sticky top-6 space-y-6">
+          <div class="sticky top-24 space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-              <a href="/" class="block mb-6">
-                <img src="/img/logo-cayad.webp" alt="Cayad Auto Transport Logo" class="h-12 w-auto mx-auto" />
-              </a>
               <h3 class="font-bold text-slate-800 text-lg text-center mb-4">The Reliable Way to Ship Your Car</h3>
               <ul class="space-y-3 text-sm">
                 <li class="flex items-start gap-3">
@@ -81,6 +88,6 @@ import Footer from "../../components/Footer.astro";
       </div>
     </main>
   </div>
-  <Footer />
+  <Footer minimal={true} />
 </body>
 </html>

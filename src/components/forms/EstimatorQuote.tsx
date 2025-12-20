@@ -26,6 +26,7 @@ import { showNotification } from "../../utils/notificaction";
 import { isValidPhoneNumber } from "libphonenumber-js/max";
 import Swal from "sweetalert2";
 import RatePlanSelector from "./RatePlanSelector";
+import InlineReviews from "../InlineReviews";
 
 type TransportTypeVal = "1" | "2"; // 1 Open, 2 Enclosed
 
@@ -210,6 +211,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   // Modo de selección: 'specific' (año/marca/modelo) o 'generic' (solo tipo cuando no sabe detalles)
   const [vehicleMode, setVehicleMode] = useState<'specific' | 'generic'>('specific');
 
+  // Modal state for editing quote details in Step 2
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
   const step2 = useForm<Step2Values>({
     resolver: yupResolver((vehicleMode === 'generic' ? step2GenericSchema : step2SpecificSchema) as any),
     mode: "onChange",
@@ -252,8 +256,19 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     });
   const step4 = useForm<ContactValues>({ resolver: yupResolver(contactSchema), mode: "onChange" });
 
+  // Track last computed values to prevent redundant API calls
+  const lastComputedRef = useRef<{ origin: string; dest: string; date: string } | null>(null);
+
   const computeEstimate = useCallback(async (vehiclesOverride?: VehicleRow[]) => {
     const s1 = step1.getValues();
+
+    // Update lastComputedRef to prevent double computation when entering Step 2
+    lastComputedRef.current = {
+      origin: s1.origin_city || '',
+      dest: s1.destination_city || '',
+      date: s1.ship_date || '',
+    };
+
     const listToUse = vehiclesOverride || vehicles;
     // Build mixed vehicles list (generic types and specific vehicles)
     type MixedItem = (
@@ -550,6 +565,54 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     setActiveStep(3);
   };
 
+  // Auto-recompute prices in Step 2 when route changes
+  const watchedOriginValid = step1.watch('origin_city__isValid');
+  const watchedDestValid = step1.watch('destination_city__isValid');
+  const watchedShipDate = step1.watch('ship_date');
+  const watchedOrigin = step1.watch('origin_city');
+  const watchedDest = step1.watch('destination_city');
+  const recomputeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Only trigger recompute if we're on Step 2 (price display step)
+    if (activeStep !== 2) return;
+    if (!watchedOriginValid || !watchedDestValid) return;
+
+    // Check if values actually changed from last computation
+    const currentValues = {
+      origin: watchedOrigin || '',
+      dest: watchedDest || '',
+      date: watchedShipDate || '',
+    };
+
+    const lastComputed = lastComputedRef.current;
+
+    // If we already computed with these exact values, skip
+    if (lastComputed &&
+      lastComputed.origin === currentValues.origin &&
+      lastComputed.dest === currentValues.dest &&
+      lastComputed.date === currentValues.date) {
+      return;
+    }
+
+    // Debounce recompute
+    if (recomputeTimerRef.current) {
+      clearTimeout(recomputeTimerRef.current);
+    }
+    recomputeTimerRef.current = setTimeout(() => {
+      // Update last computed values before calling
+      lastComputedRef.current = currentValues;
+      computeEstimate();
+    }, 800);
+
+    return () => {
+      if (recomputeTimerRef.current) {
+        clearTimeout(recomputeTimerRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedOrigin, watchedDest, watchedShipDate, watchedOriginValid, watchedDestValid, activeStep]);
+
   // Track when Step 4 becomes visible for a simple min-time anti-spam gate
   const [step4ShownAt, setStep4ShownAt] = useState<number | null>(null);
   useEffect(() => {
@@ -762,7 +825,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const titleSize = embedded ? "text-xl" : "text-2xl";
 
   const content = (
-    <div className="w-full transition-all duration-300 ease-in-out overflow-hidden">
+    <div className="w-full transition-all duration-300 ease-in-out overflow-visible">
       <>
         {/* Header with title */}
         <div className={`${padding} pb-4 mb-2 border-b border-slate-200 transition-all duration-300 ease-in-out`}>
@@ -1223,32 +1286,190 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
         {/* Step 3: Estimate & Rate Plan Selection - Consolidated */}
         {activeStep === 2 && (
-          <div className={`${padding} space-y-3 w-full max-w-none`}>
-            {/* Important notice - moved to top, more compact */}
-            <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
-              <p className="text-[10px] leading-relaxed">
-                <span className="font-semibold">Note:</span> Estimated price based on similar orders. Vehicle size and condition may affect final cost.
-              </p>
-            </div>
+          <FormProvider {...step1}>
+            <div className={`${padding} space-y-3 w-full max-w-none`}>
+              {/* Important notice - moved to top, more compact */}
+              <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
+                <p className="text-[10px] leading-relaxed">
+                  <span className="font-semibold">Note:</span> Estimated price based on similar orders. Vehicle size and condition may affect final cost.
+                </p>
+              </div>
 
-            {/* Rate Plan Selector with integrated shared info */}
-            <RatePlanSelector
-              prices={discountedTotal !== null && normalTotal !== null ? { discounted: discountedTotal, normal: normalTotal } : null}
-              isPremium={isPremium}
-              onPlanChange={setIsPremium}
-              miles={miles}
-              perMile={perMile}
-              transit={transit}
-              confidencePct={confidencePct}
-              vehicleCount={vehicles.length || 1}
-            />
+              {/* Rate Plan Selector with integrated shared info */}
+              <RatePlanSelector
+                prices={discountedTotal !== null && normalTotal !== null ? { discounted: discountedTotal, normal: normalTotal } : null}
+                isPremium={isPremium}
+                onPlanChange={setIsPremium}
+                miles={miles}
+                perMile={perMile}
+                transit={transit}
+                confidencePct={confidencePct}
+                vehicleCount={vehicles.length || 1}
+                loading={busy}
+              />
 
-            {/* CTA buttons - always inline */}
-            <div className="flex gap-2 items-stretch pt-1">
-              <button type="button" onClick={() => setActiveStep(1)} className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Back</button>
-              <button onClick={goToContact} className="flex-1 inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button">Lock In My Quote</button>
+
+              {/* Eye-Catching Edit Trigger Button */}
+              <button
+                type="button"
+                onClick={() => setEditModalOpen(true)}
+                className="relative mt-4 w-full flex items-center justify-center gap-3 px-5 py-3 bg-gradient-to-r from-sky-50 via-sky-100 to-sky-50 rounded-xl border-2 border-sky-200 hover:border-sky-400 hover:from-sky-100 hover:via-sky-200 hover:to-sky-100 transition-all duration-300 group shadow-sm hover:shadow-md"
+              >
+                {/* Animated glow ring */}
+                <span className="absolute inset-0 rounded-xl bg-sky-400/20 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                {/* Icon container with badge */}
+                <span className="relative flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-sm border border-sky-200 group-hover:border-sky-300 group-hover:scale-110 transition-all">
+                  <svg className="w-4 h-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </span>
+
+                {/* Text */}
+                <span className="relative flex flex-col items-start">
+                  <span className="text-sm font-bold text-sky-800 group-hover:text-sky-900">Need to make changes?</span>
+                  <span className="text-[11px] text-sky-600 group-hover:text-sky-700">Tap here to edit route, date, or vehicle</span>
+                </span>
+
+                {/* Arrow indicator */}
+                <svg className="relative w-5 h-5 text-sky-400 group-hover:text-sky-600 group-hover:translate-x-1 transition-all ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Edit Modal */}
+              {editModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setEditModalOpen(false)}>
+                  {/* Backdrop */}
+                  <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" />
+
+                  {/* Modal */}
+                  <div
+                    className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto overflow-hidden animate-in fade-in zoom-in duration-200"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-sky-50 to-white">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-slate-800">Edit Your Quote</h3>
+                          <p className="text-xs text-slate-500">Prices update automatically</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setEditModalOpen(false)}
+                        className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
+                      >
+                        <FaTimes className="w-3.5 h-3.5 text-slate-500" />
+                      </button>
+                    </div>
+
+                    {/* Body */}
+                    <div className="p-5 space-y-5">
+                      {busy && (
+                        <div className="flex items-center justify-center gap-2 py-2 px-3 bg-sky-50 rounded-lg border border-sky-100">
+                          <FaSpinner className="w-4 h-4 text-sky-500 animate-spin" />
+                          <span className="text-xs text-sky-700 font-medium">Recalculating prices...</span>
+                        </div>
+                      )}
+
+                      {/* Route */}
+                      <div>
+                        <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-2 block">Route</label>
+                        <div className="grid grid-cols-2 gap-3">
+                          <ZipcodeAutocompleteRHF
+                            fieldNames={{ value: "origin_city" }}
+                            label="From"
+                            placeholder="City or ZIP"
+                          />
+                          <ZipcodeAutocompleteRHF
+                            fieldNames={{ value: "destination_city" }}
+                            label="To"
+                            placeholder="City or ZIP"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Date */}
+                      <div>
+                        <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-2 block">Pickup Date</label>
+                        <Controller
+                          control={step1.control}
+                          name="ship_date"
+                          render={({ field }) => {
+                            const today = new Date();
+                            const formatDate = (d: Date) => format(d, 'yyyy-MM-dd');
+                            return (
+                              <input
+                                type="date"
+                                value={field.value || ''}
+                                onChange={(e) => field.onChange(e.target.value)}
+                                min={formatDate(today)}
+                                className="w-full px-3 py-2.5 rounded-lg text-sm border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none transition-all"
+                              />
+                            );
+                          }}
+                        />
+                      </div>
+
+                      {/* Vehicle */}
+                      {vehicles.length > 0 && (
+                        <div>
+                          <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-2 block">Vehicle</label>
+                          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
+                            <div className="flex items-center gap-2">
+                              <FaCar className="text-slate-400" />
+                              <span className="text-sm text-slate-700">
+                                {vehicles.map((v, i) => (
+                                  <span key={i}>
+                                    {v.vehicle_year || v.vehicle_make || v.vehicle_model
+                                      ? `${v.vehicle_year} ${v.vehicle_make} ${v.vehicle_model}`.trim()
+                                      : v.vehicle_type || 'Vehicle'}
+                                    {i < vehicles.length - 1 ? ', ' : ''}
+                                  </span>
+                                ))}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => { setEditModalOpen(false); setActiveStep(1); setShowCartModal(true); }}
+                              className="text-xs text-sky-600 hover:text-sky-700 font-medium"
+                            >
+                              Change
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="px-5 py-4 border-t border-slate-100 bg-slate-50">
+                      <button
+                        type="button"
+                        onClick={() => setEditModalOpen(false)}
+                        className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors"
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* CTA button */}
+              <div className="pt-3">
+                <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button" disabled={busy}>
+                  {busy ? 'Updating...' : 'Lock In My Quote'}
+                </button>
+              </div>
             </div>
-          </div>
+          </FormProvider>
         )}
 
         {/* Step 4 (exact path): Vehicle details */}
@@ -1257,13 +1478,18 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           <FormProvider {...step4}>
             <form className={`${padding} space-y-5 w-full max-w-none`} onSubmit={(e) => { e.preventDefault(); void step4.handleSubmit(submitLead)(); }}>
 
-              {/* Row 1: Full Name & Phone */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Inline Reviews for social proof */}
+              <InlineReviews className="mb-3" />
+
+              {/* Contact Form Card - Modern Design */}
+              <div className="bg-gradient-to-br from-white to-slate-50 rounded-xl border border-slate-200 p-4 shadow-sm space-y-4">
+                {/* Name Field */}
                 <CustomInputOnlyText name="first_name" max={20} type="text" label="Full Name" />
+
+                {/* Phone Field - Full width for flag dropdown space */}
                 <CustomInputPhone name="phone" type="text" max={14} label="Phone Number" />
-              </div>
-              {/* Row 2: Email & Pickup Date */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                {/* Email Field */}
                 <div>
                   <CustomInput
                     name="email"
@@ -1320,7 +1546,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                       </button>
                     </div>
                   )}
-                  {/* Invalid Email Confirmation UI (if not using modal, or as helper) */}
+                  {/* Invalid Email Confirmation UI */}
                   {emailStatus === 'invalid' && !emailConfirmedOverride && (
                     <div className="mt-1 flex justify-end">
                       <button type="button" onClick={handleEmailConfirmation} className="text-[10px] text-slate-400 hover:text-slate-600 underline">
@@ -1329,15 +1555,20 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                     </div>
                   )}
                 </div>
-                {/* DateInput moved to Step 1 */}
               </div>
+
               {/* Honeypot field to deter bots */}
               <input type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...(step4.register as any)("website")} />
-              <div className="flex items-start">
-                <small className="text-xs text-slate-500">
-                  By providing your phone number/email and clicking through, you agree to Cayad Auto Transport's
-                  <a href="/pdfs/Terms-and-Conditions.pdf" className="text-btn-blue underline"> Terms </a>
-                  and <a href="/privacy-policy/" className="text-btn-blue underline"> Privacy Policy </a>, and authorize us to make or initiate sales Calls, SMS, Emails, and prerecorded voicemails. Message & data rates may apply.
+
+              {/* Privacy Notice - more subtle */}
+              <div className="flex items-start gap-2 px-1">
+                <svg className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <small className="text-[10px] text-slate-400 leading-relaxed">
+                  By providing your info and clicking through, you agree to our
+                  <a href="/pdfs/Terms-and-Conditions.pdf" className="text-sky-500 hover:underline mx-0.5">Terms</a>
+                  and <a href="/privacy-policy/" className="text-sky-500 hover:underline">Privacy Policy</a>.
                 </small>
               </div>
               <div className="flex gap-2 items-stretch pt-1">
@@ -1364,7 +1595,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           </FormProvider>
         )}
       </>
-    </div >
+    </div>
   );
 
   if (embedded) return content;

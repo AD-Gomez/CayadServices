@@ -67,6 +67,9 @@ const VehicleModelSelect: React.FC<Props> = ({
                         classNamePrefix="react-select"
                         placeholder={isDisabled ? 'Select year and make first' : 'Select Model'}
                         noOptionsMessage={() => error ? 'Error loading models' : 'No models available'}
+                        maxMenuHeight={160}
+                        menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
+                        menuPosition="fixed"
                         styles={{
                             control: (provided) => ({
                                 ...provided,
@@ -86,6 +89,7 @@ const VehicleModelSelect: React.FC<Props> = ({
                             placeholder: (p) => ({ ...p, fontSize: '0.8rem', color: isDisabled ? '#94a3b8' : '#64748b' }),
                             singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
                             indicatorSeparator: () => ({ display: 'none' }),
+                            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                             // Show category as a subtle hint in options
                             option: (provided, state) => ({
                                 ...provided,

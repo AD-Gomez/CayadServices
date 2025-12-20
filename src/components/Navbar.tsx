@@ -81,7 +81,11 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+interface NavbarProps {
+  cleanMode?: boolean;
+}
+
+export default function Navbar({ cleanMode = false }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openPopover, setOpenPopover] = useState<string | null>(null)
   const [currentPath, setCurrentPath] = useState('');
@@ -108,7 +112,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full">
-      <MarqueeText />
+      {!cleanMode && <MarqueeText />}
       <header
         className={classNames(
           "transition-all duration-300 border-t-[4px] border-[#00a1e1]",
@@ -144,215 +148,14 @@ export default function Navbar() {
             >
               <FaHeadset className="h-5 w-5" />
             </a>
-            <a
-              href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
-              aria-label="WhatsApp"
-            >
-              <FaWhatsapp className="h-5 w-5" />
-            </a>
-            <a
-              href="https://m.me/116222094837969"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
-              aria-label="Messenger"
-            >
-              <FaFacebookMessenger className="h-5 w-5" />
-            </a>
-          </div>
-
-          {/* Desktop menu - controlled by CSS */}
-          <div className="navbar-desktop-menu">
-            <Popover className="relative" onMouseEnter={() => setOpenPopover('how-it-work')} onMouseLeave={() => setOpenPopover(null)}>
-              <Popover.Button className={classNames(
-                isPopoverHowItWorkActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
-              )}>
-                HOW IT WORKS
-                <ChevronDownIcon className={classNames(openPopover === 'how-it-work' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
-              </Popover.Button>
-
-              <Transition
-                show={openPopover === 'how-it-work'}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
-                  <div className="p-2">
-                    {howItWork.map((item) => (
-                      <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
-                          <item.icon className="h-5 w-5" aria-hidden="true" />
-                        </div>
-                        <div className="flex-auto">
-                          <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
-                            {item.description}
-                            <span className="absolute inset-0" />
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-
-            <Popover className="relative" onMouseEnter={() => setOpenPopover('individuals')} onMouseLeave={() => setOpenPopover(null)}>
-              <Popover.Button className={classNames(
-                isPopoverIndividualsActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
-              )}>
-                FOR INDIVIDUALS
-                <ChevronDownIcon className={classNames(openPopover === 'individuals' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
-              </Popover.Button>
-
-              <Transition
-                show={openPopover === 'individuals'}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
-                  <div className="grid grid-cols-2 divide-x divide-slate-100">
-                    <div className="p-2">
-                      <div className="px-3 py-2 text-xs font-bold text-[#00a1e1] uppercase tracking-wider">Services</div>
-                      {weOffer.map((item) => (
-                        <div key={item.description} className="group relative flex items-center gap-x-3 rounded-lg p-2 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                          <item.icon className="h-5 w-5 flex-none text-slate-400 group-hover:text-[#00a1e1]" aria-hidden="true" />
-                          <a href={item.href} className="block font-medium text-slate-900 group-hover:text-[#00a1e1]">
-                            {item.description}
-                            <span className="absolute inset-0" />
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="p-2 bg-slate-50/50">
-                      <div className="px-3 py-2 text-xs font-bold text-[#00a1e1] uppercase tracking-wider">Who We Serve</div>
-                      {weServe.map((item) => (
-                        <div key={item.description} className="group relative flex items-center gap-x-3 rounded-lg p-2 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                          <item.icon className="h-5 w-5 flex-none text-slate-400 group-hover:text-[#00a1e1]" aria-hidden="true" />
-                          <a href={item.href} className="block font-medium text-slate-900 group-hover:text-[#00a1e1]">
-                            {item.description}
-                            <span className="absolute inset-0" />
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-
-            <Popover className="relative" onMouseEnter={() => setOpenPopover('businesses')} onMouseLeave={() => setOpenPopover(null)}>
-              <Popover.Button className={classNames(
-                isPopoverBusinessesActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
-              )}>
-                FOR BUSINESSES
-                <ChevronDownIcon className={classNames(openPopover === 'businesses' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
-              </Popover.Button>
-
-              <Transition
-                show={openPopover === 'businesses'}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
-                  <div className="p-2">
-                    {forBusinesses.map((item) => (
-                      <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
-                          <item.icon className="h-5 w-5" aria-hidden="true" />
-                        </div>
-                        <div className="flex-auto">
-                          <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
-                            {item.description}
-                            <span className="absolute inset-0" />
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-
-            <Popover className="relative" onMouseEnter={() => setOpenPopover('whyUs')} onMouseLeave={() => setOpenPopover(null)}>
-              <Popover.Button className={classNames(
-                isPopoverWhyUsActive ? 'text-[#00a1e1]' : 'text-slate-800',
-                "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
-              )}>
-                COMPANY
-                <ChevronDownIcon className={classNames(openPopover === 'whyUs' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
-              </Popover.Button>
-
-              <Transition
-                show={openPopover === 'whyUs'}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
-                  <div className="p-2">
-                    {whyUs.map((item) => (
-                      <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
-                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
-                          <item.icon className="h-5 w-5" aria-hidden="true" />
-                        </div>
-                        <div className="flex-auto">
-                          <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
-                            {item.description}
-                            <span className="absolute inset-0" />
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-
-            <a href="/faqs/" className={classNames(currentPath === '/faqs/' ? 'text-[#00a1e1]' : 'text-slate-800', "text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors")}>
-              FAQS
-            </a>
-            <a href="/contact" className={classNames(currentPath === '/contact' ? 'text-btn-blue' : '', "text-sm font-semibold leading-6 text-slate-800 hover:text-[#00a1e1] transition-colors")}>
-              CONTACT
-            </a>
-
-            <div className="flex items-center pl-4 border-l border-slate-200 ml-4 gap-2">
-              <div className="flex items-center gap-2 mr-2">
-                <a
-                  href="tel:+14696190747"
-                  className="hidden h-10 w-10 flex items-center justify-center rounded-full bg-[#005c85] text-white shadow-md hover:bg-[#004a6b] hover:scale-105 transition-all duration-200"
-                  aria-label="Call Support"
-                  title="Call Support"
-                >
-                  <FaHeadset className="h-5 w-5" />
-                </a>
+            {!cleanMode && (
+              <>
                 <a
                   href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-md hover:bg-[#20b858] hover:scale-105 transition-all duration-200"
+                  className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
                   aria-label="WhatsApp"
-                  title="WhatsApp"
                 >
                   <FaWhatsapp className="h-5 w-5" />
                 </a>
@@ -360,23 +163,230 @@ export default function Navbar() {
                   href="https://m.me/116222094837969"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-[#0084FF] text-white shadow-md hover:bg-[#0074e0] hover:scale-105 transition-all duration-200"
+                  className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
                   aria-label="Messenger"
-                  title="Messenger"
                 >
                   <FaFacebookMessenger className="h-5 w-5" />
                 </a>
-              </div>
-
-              <a
-                href="tel:+14696190747"
-                className="group flex items-center gap-2 rounded-full bg-[#00a1e1] px-5 py-2.5 text-white shadow-md transition-all duration-300 hover:bg-[#008cc3] hover:shadow-lg hover:-translate-y-0.5"
-              >
-                <PhoneIcon className="h-4 w-4 text-white group-hover:animate-pulse" />
-                <span className="text-sm font-bold tracking-wide">(469) 619-0747</span>
-              </a>
-            </div>
+              </>
+            )}
           </div>
+
+          {/* Desktop menu - controlled by CSS, hidden in cleanMode */}
+          {!cleanMode && (
+            <div className="navbar-desktop-menu">
+              <Popover className="relative" onMouseEnter={() => setOpenPopover('how-it-work')} onMouseLeave={() => setOpenPopover(null)}>
+                <Popover.Button className={classNames(
+                  isPopoverHowItWorkActive ? 'text-[#00a1e1]' : 'text-slate-800',
+                  "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
+                )}>
+                  HOW IT WORKS
+                  <ChevronDownIcon className={classNames(openPopover === 'how-it-work' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
+                </Popover.Button>
+
+                <Transition
+                  show={openPopover === 'how-it-work'}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
+                    <div className="p-2">
+                      {howItWork.map((item) => (
+                        <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
+                          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
+                            <item.icon className="h-5 w-5" aria-hidden="true" />
+                          </div>
+                          <div className="flex-auto">
+                            <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
+                              {item.description}
+                              <span className="absolute inset-0" />
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
+
+              <Popover className="relative" onMouseEnter={() => setOpenPopover('individuals')} onMouseLeave={() => setOpenPopover(null)}>
+                <Popover.Button className={classNames(
+                  isPopoverIndividualsActive ? 'text-[#00a1e1]' : 'text-slate-800',
+                  "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
+                )}>
+                  FOR INDIVIDUALS
+                  <ChevronDownIcon className={classNames(openPopover === 'individuals' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
+                </Popover.Button>
+
+                <Transition
+                  show={openPopover === 'individuals'}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
+                    <div className="grid grid-cols-2 divide-x divide-slate-100">
+                      <div className="p-2">
+                        <div className="px-3 py-2 text-xs font-bold text-[#00a1e1] uppercase tracking-wider">Services</div>
+                        {weOffer.map((item) => (
+                          <div key={item.description} className="group relative flex items-center gap-x-3 rounded-lg p-2 text-sm leading-6 hover:bg-slate-50 transition-colors">
+                            <item.icon className="h-5 w-5 flex-none text-slate-400 group-hover:text-[#00a1e1]" aria-hidden="true" />
+                            <a href={item.href} className="block font-medium text-slate-900 group-hover:text-[#00a1e1]">
+                              {item.description}
+                              <span className="absolute inset-0" />
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="p-2 bg-slate-50/50">
+                        <div className="px-3 py-2 text-xs font-bold text-[#00a1e1] uppercase tracking-wider">Who We Serve</div>
+                        {weServe.map((item) => (
+                          <div key={item.description} className="group relative flex items-center gap-x-3 rounded-lg p-2 text-sm leading-6 hover:bg-slate-50 transition-colors">
+                            <item.icon className="h-5 w-5 flex-none text-slate-400 group-hover:text-[#00a1e1]" aria-hidden="true" />
+                            <a href={item.href} className="block font-medium text-slate-900 group-hover:text-[#00a1e1]">
+                              {item.description}
+                              <span className="absolute inset-0" />
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
+
+              <Popover className="relative" onMouseEnter={() => setOpenPopover('businesses')} onMouseLeave={() => setOpenPopover(null)}>
+                <Popover.Button className={classNames(
+                  isPopoverBusinessesActive ? 'text-[#00a1e1]' : 'text-slate-800',
+                  "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
+                )}>
+                  FOR BUSINESSES
+                  <ChevronDownIcon className={classNames(openPopover === 'businesses' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
+                </Popover.Button>
+
+                <Transition
+                  show={openPopover === 'businesses'}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
+                    <div className="p-2">
+                      {forBusinesses.map((item) => (
+                        <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
+                          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
+                            <item.icon className="h-5 w-5" aria-hidden="true" />
+                          </div>
+                          <div className="flex-auto">
+                            <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
+                              {item.description}
+                              <span className="absolute inset-0" />
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
+
+              <Popover className="relative" onMouseEnter={() => setOpenPopover('whyUs')} onMouseLeave={() => setOpenPopover(null)}>
+                <Popover.Button className={classNames(
+                  isPopoverWhyUsActive ? 'text-[#00a1e1]' : 'text-slate-800',
+                  "flex items-center gap-x-1 text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors focus:outline-none whitespace-nowrap"
+                )}>
+                  COMPANY
+                  <ChevronDownIcon className={classNames(openPopover === 'whyUs' ? 'rotate-180' : '', "h-5 w-5 flex-none text-slate-400 transition-transform duration-200")} aria-hidden="true" />
+                </Popover.Button>
+
+                <Transition
+                  show={openPopover === 'whyUs'}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel static className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-xs overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5">
+                    <div className="p-2">
+                      {whyUs.map((item) => (
+                        <div key={item.description} className="group relative flex items-center gap-x-4 rounded-lg p-3 text-sm leading-6 hover:bg-slate-50 transition-colors">
+                          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-blue-50 transition-all text-slate-400 group-hover:text-[#00a1e1]">
+                            <item.icon className="h-5 w-5" aria-hidden="true" />
+                          </div>
+                          <div className="flex-auto">
+                            <a href={item.href} className="block font-semibold text-slate-900 group-hover:text-[#00a1e1]">
+                              {item.description}
+                              <span className="absolute inset-0" />
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
+
+              <a href="/faqs/" className={classNames(currentPath === '/faqs/' ? 'text-[#00a1e1]' : 'text-slate-800', "text-sm font-semibold leading-6 hover:text-[#00a1e1] transition-colors")}>
+                FAQS
+              </a>
+              <a href="/contact" className={classNames(currentPath === '/contact' ? 'text-btn-blue' : '', "text-sm font-semibold leading-6 text-slate-800 hover:text-[#00a1e1] transition-colors")}>
+                CONTACT
+              </a>
+
+              <div className="flex items-center pl-4 border-l border-slate-200 ml-4 gap-2">
+                <div className="flex items-center gap-2 mr-2">
+                  <a
+                    href="tel:+14696190747"
+                    className="hidden h-10 w-10 flex items-center justify-center rounded-full bg-[#005c85] text-white shadow-md hover:bg-[#004a6b] hover:scale-105 transition-all duration-200"
+                    aria-label="Call Support"
+                    title="Call Support"
+                  >
+                    <FaHeadset className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-md hover:bg-[#20b858] hover:scale-105 transition-all duration-200"
+                    aria-label="WhatsApp"
+                    title="WhatsApp"
+                  >
+                    <FaWhatsapp className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://m.me/116222094837969"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-[#0084FF] text-white shadow-md hover:bg-[#0074e0] hover:scale-105 transition-all duration-200"
+                    aria-label="Messenger"
+                    title="Messenger"
+                  >
+                    <FaFacebookMessenger className="h-5 w-5" />
+                  </a>
+                </div>
+
+                <a
+                  href="tel:+14696190747"
+                  className="group flex items-center gap-2 rounded-full bg-[#00a1e1] px-5 py-2.5 text-white shadow-md transition-all duration-300 hover:bg-[#008cc3] hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <PhoneIcon className="h-4 w-4 text-white group-hover:animate-pulse" />
+                  <span className="text-sm font-bold tracking-wide">(469) 619-0747</span>
+                </a>
+              </div>
+            </div>
+          )}
         </nav>
 
         {/* Mobile menu */}

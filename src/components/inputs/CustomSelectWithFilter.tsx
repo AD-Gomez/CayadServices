@@ -54,7 +54,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ name, label, options, disable
         onBlur={() => setTimeout(() => setShowOptions(false), 200)} // Delay closing to handle clicks on options
       />
       {showOptions && (
-        <ul className="absolute max-h-[200px] overflow-auto flex-nowrap z-10 mt-1 w-full border border-gray-300 bg-white">
+        <ul className="absolute max-h-[160px] overflow-auto flex-nowrap z-50 mt-1 w-full border border-gray-300 bg-white shadow-lg rounded-md">
           {filteredOptions.map((option) => (
             <li
               key={option.value}

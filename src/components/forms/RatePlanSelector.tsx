@@ -38,8 +38,51 @@ export default function RatePlanSelector({
     confidencePct,
     vehicleCount = 1,
 }: RatePlanSelectorProps) {
+    // Show skeleton loader while loading - maintains layout
     if (loading || !prices) {
-        return null;
+        return (
+            <div className="space-y-3 animate-pulse">
+                {/* Skeleton for route info bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-100 rounded-lg px-3 py-2 h-8">
+                    <div className="flex gap-3">
+                        <div className="h-3 w-16 bg-slate-200 rounded"></div>
+                        <div className="h-3 w-12 bg-slate-200 rounded"></div>
+                        <div className="h-3 w-14 bg-slate-200 rounded"></div>
+                    </div>
+                    <div className="h-4 w-20 bg-slate-200 rounded"></div>
+                </div>
+
+                {/* Skeleton for price cards */}
+                <div className="grid grid-cols-2 gap-2">
+                    {/* Premium skeleton */}
+                    <div className="rounded-xl border-2 border-slate-200 bg-slate-50 p-3">
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-slate-200"></div>
+                            <div className="h-4 w-24 bg-slate-200 rounded"></div>
+                        </div>
+                        <div className="h-8 w-20 bg-slate-200 rounded mb-2"></div>
+                        <div className="space-y-2">
+                            <div className="h-3 w-full bg-slate-200 rounded"></div>
+                            <div className="h-3 w-3/4 bg-slate-200 rounded"></div>
+                        </div>
+                    </div>
+                    {/* Economy skeleton */}
+                    <div className="rounded-xl border-2 border-slate-200 bg-slate-50 p-3">
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-slate-200"></div>
+                            <div className="h-4 w-24 bg-slate-200 rounded"></div>
+                        </div>
+                        <div className="h-8 w-20 bg-slate-200 rounded mb-2"></div>
+                        <div className="space-y-2">
+                            <div className="h-3 w-full bg-slate-200 rounded"></div>
+                            <div className="h-3 w-3/4 bg-slate-200 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p className="text-center text-[10px] text-slate-400">Updating prices...</p>
+            </div>
+        );
     }
 
     const savings = prices.normal - prices.discounted;
@@ -84,8 +127,8 @@ export default function RatePlanSelector({
                 <div
                     onClick={() => onPlanChange(true)}
                     className={`relative cursor-pointer rounded-xl border-2 transition-all duration-200 overflow-hidden group ${isPremium
-                            ? 'border-sky-600 bg-gradient-to-br from-sky-50 to-white ring-2 ring-sky-100 shadow-md'
-                            : 'border-slate-200 bg-white hover:border-sky-300'
+                        ? 'border-sky-600 bg-gradient-to-br from-sky-50 to-white ring-2 ring-sky-100 shadow-md'
+                        : 'border-slate-200 bg-white hover:border-sky-300'
                         }`}
                 >
                     {/* Badge */}
@@ -99,8 +142,8 @@ export default function RatePlanSelector({
                         <div className="flex items-center justify-between mb-2">
                             <h4 className="text-sm font-bold text-slate-800">Standard Priority</h4>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${isPremium
-                                    ? 'border-sky-600 bg-sky-600'
-                                    : 'border-slate-300'
+                                ? 'border-sky-600 bg-sky-600'
+                                : 'border-slate-300'
                                 }`}>
                                 {isPremium && <FaCheck className="text-white" size={10} />}
                             </div>
@@ -139,8 +182,8 @@ export default function RatePlanSelector({
                 <div
                     onClick={() => onPlanChange(false)}
                     className={`relative cursor-pointer rounded-xl border-2 transition-all duration-200 overflow-hidden ${!isPremium
-                            ? 'border-emerald-500 bg-gradient-to-br from-emerald-50 to-white ring-2 ring-emerald-100 shadow-md'
-                            : 'border-slate-200 bg-white hover:border-emerald-200'
+                        ? 'border-emerald-500 bg-gradient-to-br from-emerald-50 to-white ring-2 ring-emerald-100 shadow-md'
+                        : 'border-slate-200 bg-white hover:border-emerald-200'
                         }`}
                 >
                     {/* Badge */}
@@ -154,8 +197,8 @@ export default function RatePlanSelector({
                         <div className="flex items-center justify-between mb-2">
                             <h4 className="text-sm font-bold text-slate-800">Economy Service</h4>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${!isPremium
-                                    ? 'border-emerald-500 bg-emerald-500'
-                                    : 'border-slate-300'
+                                ? 'border-emerald-500 bg-emerald-500'
+                                : 'border-slate-300'
                                 }`}>
                                 {!isPremium && <FaCheck className="text-white" size={10} />}
                             </div>

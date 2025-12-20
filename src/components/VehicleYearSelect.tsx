@@ -54,6 +54,9 @@ const VehicleYearSelect: React.FC<Props> = ({
                         classNamePrefix="react-select"
                         placeholder="Select Year"
                         noOptionsMessage={() => error ? 'Error loading years' : 'No years available'}
+                        maxMenuHeight={160}
+                        menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
+                        menuPosition="fixed"
                         styles={{
                             control: (provided) => ({
                                 ...provided,
@@ -72,6 +75,7 @@ const VehicleYearSelect: React.FC<Props> = ({
                             placeholder: (p) => ({ ...p, fontSize: '0.8rem' }),
                             singleValue: (p) => ({ ...p, fontSize: '0.8rem' }),
                             indicatorSeparator: () => ({ display: 'none' }),
+                            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                         }}
                         className="bg-white"
                     />

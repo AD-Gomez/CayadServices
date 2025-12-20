@@ -7,6 +7,12 @@ import {
 FaYoutube,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+
+interface Props {
+  minimal?: boolean;
+}
+
+const { minimal = false } = Astro.props;
 ---
 
 <style>
@@ -40,9 +46,11 @@ import { FaXTwitter } from "react-icons/fa6";
   <!-- Decorative gradient glow -->
   <div class="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true"></div>
 
-  <!-- Main content -->
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-  <div class="footer-grid grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+  <div class:list={[
+    "footer-grid grid gap-6",
+    minimal ? "grid-cols-1 max-w-md mx-auto" : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4"
+  ]}>
       <!-- Address + Social -->
   <div class="flex flex-col gap-4 min-w-0">
         <h4 class="text-lg font-bold font-heading track-wide">Address</h4>
@@ -101,7 +109,8 @@ import { FaXTwitter } from "react-icons/fa6";
         </div>
       </div>
 
-      <!-- Services -->
+      {/* Services - hidden in minimal mode */}
+      {!minimal && (
   <div class="flex flex-col gap-4 min-w-0">
         <h4 class="text-lg font-bold font-heading track-wide">Services</h4>
         <ul class="space-y-3">
@@ -131,8 +140,10 @@ import { FaXTwitter } from "react-icons/fa6";
           </li>
         </ul>
       </div>
+      )}
 
-      <!-- Quick Links -->
+      {/* Quick Links - hidden in minimal mode */}
+      {!minimal && (
   <div class="flex flex-col gap-4 min-w-0">
   <h4 class="text-lg font-bold font-heading track-wide">Quick Links</h4>
         <ul class="space-y-3">
@@ -151,8 +162,10 @@ import { FaXTwitter } from "react-icons/fa6";
           </li>
         </ul>
       </div>
+      )}
 
-      <!-- CTA / Compliance -->
+      {/* CTA / Compliance - show only USDOT in minimal mode */}
+      {!minimal ? (
   <div class="flex flex-col min-w-0">
         <h4 class="text-lg font-bold font-heading track-wide">Contact us</h4>
   <div class="cta-grid mt-2 grid w-full gap-2 xs:grid-cols-2 sm:grid-cols-2">
@@ -187,7 +200,24 @@ import { FaXTwitter } from "react-icons/fa6";
           </div>
         </div>
       </div>
-    </div>
+      ) : (
+        <!-- In minimal mode, show only USDOT badge -->
+        <div class="flex flex-col items-center gap-4">
+          <a
+            href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&original_query_param=NAME&query_string=4091368&original_query_string=CAYAD%20SERVICES%20LLC"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 text-sm hover:underline hover:text-blue-300 transition-colors"
+          >
+            <img src="/img/part6.webp" width="36" height="36" alt="car shipping fmcsa logo" class="h-7 w-7" />
+            <p class="text-sm">USDOT: 4091368 <br />MC: 1558686</p>
+          </a>
+          <div class="AuthorizeNetSeal">
+            <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
+            <script type="text/javascript" src="https://verify.authorize.net:443/anetseal/seal.js"></script>
+          </div>
+        </div>
+      )}
   </div>
 
   <!-- Bottom bar -->
