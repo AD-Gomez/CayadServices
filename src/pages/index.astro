@@ -317,7 +317,13 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
     const formWrapper = document.getElementById('form-section-wrapper');
     const trustBadges = document.getElementById('trust-badges-wrapper');
     const footer = document.querySelector('footer');
+    const navbar = document.querySelector('nav');
+    const mainContent = document.querySelector('.main-content-wrapper');
+    const floatingSocials = document.querySelector('.social-bottom-wrapper');
+    const socialProof = document.querySelector('[class*="SocialProof"]') || document.querySelector('[data-social-proof]');
+    const socialRequest = document.querySelector('[class*="SocialRequest"]') || document.querySelector('[data-social-request]');
     
+    // Step 1+: Basic optimizations
     if (heroText) {
       if (typeof step === 'number' && step >= 1) {
         heroText.classList.add('mobile-hidden-step');
@@ -350,6 +356,43 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
         footer.classList.remove('footer-minimal-mode');
       }
     }
+
+    // Step 1+: Hide distractions when user is actively filling form (funnel mode)
+    const isFunnelMode = typeof step === 'number' && step >= 1;
+    
+    // Tell navbar to enter funnel mode (show only logo)
+    window.dispatchEvent(new CustomEvent('navbar-funnel-mode', { detail: { enabled: isFunnelMode } }));
+    
+    // Hide main content sections (testimonials, etc.)
+    if (mainContent) {
+      (mainContent as HTMLElement).style.display = isFunnelMode ? 'none' : '';
+    }
+    
+    // Hide floating social buttons
+    if (floatingSocials) {
+      (floatingSocials as HTMLElement).style.display = isFunnelMode ? 'none' : '';
+    }
+    
+    // Hide SocialProof and SocialRequest floating widgets
+    if (socialProof) {
+      (socialProof as HTMLElement).style.display = isFunnelMode ? 'none' : '';
+    }
+    if (socialRequest) {
+      (socialRequest as HTMLElement).style.display = isFunnelMode ? 'none' : '';
+    }
+    
+    // Hide specific floating widgets that we know about (be targeted, not aggressive)
+    const knownFloatingWidgets = document.querySelectorAll(
+      '.social-bottom-wrapper, [data-social-proof], [data-social-request], .floating-cta, .chat-widget'
+    );
+    knownFloatingWidgets.forEach((el) => {
+      const element = el as HTMLElement;
+      if (isFunnelMode) {
+        element.style.display = 'none';
+      } else {
+        element.style.display = '';
+      }
+    });
 
     const formContent = document.querySelector('.form-inner-container');
     if (formContent) {

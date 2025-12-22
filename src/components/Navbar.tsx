@@ -90,13 +90,27 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
   const [openPopover, setOpenPopover] = useState<string | null>(null)
   const [currentPath, setCurrentPath] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [isFunnelMode, setIsFunnelMode] = useState(false);
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Listen for funnel mode changes (from form step changes)
+    const handleFunnelMode = (e: CustomEvent) => {
+      setIsFunnelMode(e.detail?.enabled === true);
+    };
+    window.addEventListener('navbar-funnel-mode', handleFunnelMode as EventListener);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('navbar-funnel-mode', handleFunnelMode as EventListener);
+    };
   }, []);
+
+  // Combine prop-based cleanMode with dynamic funnel mode
+  const isCleanMode = cleanMode || isFunnelMode;
 
   const isActive = (path: string) => currentPath.startsWith(path);
 
@@ -112,7 +126,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full">
-      {!cleanMode && <MarqueeText />}
+      {!isCleanMode && <MarqueeText />}
       <header
         className={classNames(
           "transition-all duration-300 border-t-[4px] border-[#00a1e1]",
@@ -121,59 +135,67 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
       >
         <nav className="mx-auto flex w-full items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Global">
           <div className="flex items-center gap-4">
-            {/* Mobile menu button - controlled by CSS (visible lg:hidden) */}
-            <div className="navbar-mobile-btn">
-              <button
-                type="button"
-                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700 hover:text-[#00a1e1] transition-colors"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <span className="sr-only">Open main menu</span>
-                <Bars3Icon className="h-8 w-8" aria-hidden="true" />
-              </button>
-            </div>
-
-            <a href="/" className="-m-1.5 p-1.5 transition-transform hover:scale-105 duration-200">
-              <span className="sr-only">Cayad Auto Transport</span>
-              <img className="h-10 w-auto sm:h-12" src={logoweb.src} alt="Cayad Logo" width={60} height={60} />
-            </a>
-          </div>
-
-          {/* Mobile Communication Icons (Visible lg:hidden) */}
-          <div className="flex lg:hidden items-center gap-2">
-            <a
-              href="tel:+14696190747"
-              className="h-9 w-9 flex items-center justify-center rounded-md bg-[#005c85] text-white shadow-sm hover:bg-[#004a6b] transition-all active:scale-95"
-              aria-label="Call Us"
-            >
-              <FaHeadset className="h-5 w-5" />
-            </a>
-            {!cleanMode && (
-              <>
-                <a
-                  href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
-                  aria-label="WhatsApp"
+            {/* Mobile menu button - hidden in funnel mode */}
+            {!isCleanMode && (
+              <div className="navbar-mobile-btn">
+                <button
+                  type="button"
+                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700 hover:text-[#00a1e1] transition-colors"
+                  onClick={() => setMobileMenuOpen(true)}
                 >
-                  <FaWhatsapp className="h-5 w-5" />
-                </a>
-                <a
-                  href="https://m.me/116222094837969"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
-                  aria-label="Messenger"
-                >
-                  <FaFacebookMessenger className="h-5 w-5" />
-                </a>
-              </>
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon className="h-8 w-8" aria-hidden="true" />
+                </button>
+              </div>
+            )}
+
+            {/* Logo - non-clickable in funnel mode */}
+            {isCleanMode ? (
+              <div className="-m-1.5 p-1.5">
+                <span className="sr-only">Cayad Auto Transport</span>
+                <img className="h-10 w-auto sm:h-12" src={logoweb.src} alt="Cayad Logo" width={60} height={60} />
+              </div>
+            ) : (
+              <a href="/" className="-m-1.5 p-1.5 transition-transform hover:scale-105 duration-200">
+                <span className="sr-only">Cayad Auto Transport</span>
+                <img className="h-10 w-auto sm:h-12" src={logoweb.src} alt="Cayad Logo" width={60} height={60} />
+              </a>
             )}
           </div>
 
+          {/* Mobile Communication Icons - hidden in funnel mode */}
+          {!isCleanMode && (
+            <div className="flex lg:hidden items-center gap-2">
+              <a
+                href="tel:+14696190747"
+                className="h-9 w-9 flex items-center justify-center rounded-md bg-[#005c85] text-white shadow-sm hover:bg-[#004a6b] transition-all active:scale-95"
+                aria-label="Call Us"
+              >
+                <FaHeadset className="h-5 w-5" />
+              </a>
+              <a
+                href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
+                aria-label="WhatsApp"
+              >
+                <FaWhatsapp className="h-5 w-5" />
+              </a>
+              <a
+                href="https://m.me/116222094837969"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
+                aria-label="Messenger"
+              >
+                <FaFacebookMessenger className="h-5 w-5" />
+              </a>
+            </div>
+          )}
+
           {/* Desktop menu - controlled by CSS, hidden in cleanMode */}
-          {!cleanMode && (
+          {!isCleanMode && (
             <div className="navbar-desktop-menu">
               <Popover className="relative" onMouseEnter={() => setOpenPopover('how-it-work')} onMouseLeave={() => setOpenPopover(null)}>
                 <Popover.Button className={classNames(
@@ -386,11 +408,12 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                 </a>
               </div>
             </div>
-          )}
-        </nav>
+          )
+          }
+        </nav >
 
         {/* Mobile menu */}
-        <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+        < Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen} >
           <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10 shadow-2xl">
             <div className="flex items-center justify-between">
@@ -512,8 +535,8 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
               </div>
             </div>
           </Dialog.Panel>
-        </Dialog>
-      </header>
-    </div>
+        </Dialog >
+      </header >
+    </div >
   )
 }
