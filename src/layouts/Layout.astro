@@ -6,8 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 
 import "aos/dist/aos.css";
-import SocialProof from "../components/SocialProof";
-import SocialRequest from "../components/SocialRequest";
+import SocialProofMini from "../components/SocialProofMini";
 import "../styles/animate.css";
 
 interface Props {
@@ -97,8 +96,7 @@ const { title, content, isLanding = false } = Astro.props;
     </main>
 
     <Footer />
-    <SocialProof client:load />
-    <SocialRequest client:load />
+    <SocialProofMini client:load />
 
     <!-- ✅ AOS Init -->
     <script>

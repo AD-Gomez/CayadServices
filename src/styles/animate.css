@@ -19,15 +19,15 @@
 
 /* mobile */
 
-/* Wrapper abajo a la izquierda */
+/* Wrapper abajo a la derecha */
 .social-bottom-wrapper {
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px;
   z-index: 9999;
   display: flex;
   flex-direction: column-reverse;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .social-toggle-btn:hover {
