@@ -1,0 +1,6 @@
+backend:
+  name: github
+  repo: AD-Gomez/CayadServices # Basado en tu usuario
+  branch: main
+  base_url: https://auth.cayadservices.com # Tu subdominio configurado
+  auth_endpoint: /auth
