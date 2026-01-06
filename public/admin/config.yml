@@ -3,7 +3,7 @@ backend:
   repo: AD-Gomez/CayadServices
   branch: main
   base_url: https://auth.cayadservices.com
-  auth_endpoint: callback
+  auth_endpoint: auth
 
 media_folder: "public/img"
 public_folder: "/img"
