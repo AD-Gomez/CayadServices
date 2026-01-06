@@ -17,9 +17,9 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "State", name: "state", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Estado (Mapa)", name: "state", widget: "string", default: "published" }
+      - { label: "Fecha", name: "date", widget: "datetime" }
+      - { label: "Descripción", name: "description", widget: "string" }
+      - { label: "Imagen", name: "image", widget: "image", required: false }
+      - { label: "Cuerpo", name: "body", widget: "markdown" }
