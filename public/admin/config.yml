@@ -15,11 +15,8 @@ collections:
     label: "Blog"
     folder: "src/content/blog"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md" # Fuerza a leer solo archivos .md
+    format: "frontmatter"
     fields:
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Estado (Mapa)", name: "state", widget: "string", default: "published" }
-      - { label: "Fecha", name: "date", widget: "datetime" }
-      - { label: "Descripción", name: "description", widget: "string" }
-      - { label: "Imagen", name: "image", widget: "image", required: false }
-      - { label: "Cuerpo", name: "body", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
