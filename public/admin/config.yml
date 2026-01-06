@@ -4,7 +4,9 @@ backend:
   branch: main
   base_url: https://auth.cayadservices.com
   auth_endpoint: auth
+  site_domain: cayadservices.com # Agrega esto explícitamente
 
+display_url: https://cayadservices.com
 media_folder: "public/img"
 public_folder: "/img"
 
