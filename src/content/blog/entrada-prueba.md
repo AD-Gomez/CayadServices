@@ -1,6 +1,8 @@
 ---
-title: "Prueba"
-date: "2026-01-06"
+title: "Mi primer post"
 state: "published"
-description: "Validación de acceso"
+date: 2026-01-06T12:00:00Z
+description: "Probando el acceso al panel"
+image: ""
 ---
+Si puedes leer esto, el panel ya funciona.
