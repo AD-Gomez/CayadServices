@@ -1,8 +1,8 @@
 ---
-title: "Mi primer post"
-state: "published"
+title: "Validación de Sistema"
+state: "active"
 date: 2026-01-06T12:00:00Z
-description: "Probando el acceso al panel"
+description: "Archivo necesario para activar el panel de Decap CMS"
 image: ""
 ---
-Si puedes leer esto, el panel ya funciona.
+Este archivo permite que el esquema de Astro y Decap CMS se sincronicen.
