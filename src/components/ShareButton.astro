@@ -1,0 +1,192 @@
+---
+/* Componente: Pestaña Lateral Izquierda Cayad - Full Social */
+---
+
+<div class="share-drawer-container">
+  <button id="toggleShareMenu" class="share-tab-btn group" aria-label="Share">
+    <div class="tab-content">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-5 icon-share">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185m0 12.814a2.25 2.25 0 1 0 3.933 2.185 2.25 2.25 0 0 0-3.933-2.185" />
+      </svg>
+      <span class="tab-text">SHARE</span>
+    </div>
+  </button>
+
+  <div id="socialMenu" class="social-drawer">
+    <a href="https://api.whatsapp.com/send?text=Check%20out%20Cayad%20Auto%20Transport%20https://cayadservices.com" target="_blank" class="drawer-item" title="WhatsApp">
+      <img src="/img/wa.png" alt="WhatsApp" />
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://cayadservices.com" target="_blank" class="drawer-item" title="Facebook">
+      <img src="/img/fb.png" alt="Facebook" />
+    </a>
+    <a href="https://www.instagram.com/cayadservices" target="_blank" class="drawer-item" title="Instagram">
+      <img src="/img/in.png" alt="Instagram" />
+    </a>
+    <a href="https://twitter.com/intent/tweet?url=https://cayadservices.com" target="_blank" class="drawer-item" title="X (Twitter)">
+      <img src="/img/tw.png" alt="X" />
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cayadservices.com" target="_blank" class="drawer-item" title="LinkedIn">
+      <img src="/img/li.png" alt="LinkedIn" />
+    </a>
+    <a href="https://www.youtube.com/@cayadservices" target="_blank" class="drawer-item" title="YouTube">
+      <img src="/img/yt.png" alt="YouTube" />
+    </a>
+    <a href="https://www.reddit.com/submit?url=https://cayadservices.com" target="_blank" class="drawer-item" title="Reddit">
+      <img src="/img/re.png" alt="Reddit" />
+    </a>
+  </div>
+</div>
+
+<style>
+  .share-drawer-container {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999; /* Máxima prioridad sobre otros elementos */
+    display: flex;
+    align-items: center;
+  }
+
+  /* Botón Pestaña - Color Azul Corporativo Cayad */
+  .share-tab-btn {
+    background: #00a1e1; 
+    color: white;
+    border: none;
+    padding: 14px 7px;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    box-shadow: 3px 0 15px rgba(0,0,0,0.25);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1010;
+  }
+
+  .share-tab-btn:hover {
+    padding-left: 12px;
+    background: #00a1e1;
+  }
+
+  .tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tab-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    opacity: 0.95;
+  }
+
+  /* Animación de aviso sutil lateral */
+  .share-tab-btn.pulse {
+    animation: side-pulse 2.5s infinite;
+  }
+
+  @keyframes side-pulse {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(5px); }
+    20% { transform: translateX(0); }
+    30% { transform: translateX(5px); }
+    40% { transform: translateX(0); }
+  }
+
+  /* Cajón de Redes Sociales */
+  .social-drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+    padding: 18px 12px;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 8px 0 25px rgba(0,0,0,0.18);
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    margin-left: -2px;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: none;
+  }
+
+  .social-drawer.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .drawer-item {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  .drawer-item:hover {
+    transform: scale(1.25) rotate(8deg);
+  }
+
+  .drawer-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* AJUSTE PARA MÓVILES */
+  @media (max-width: 768px) {
+    .share-tab-btn {
+      padding: 10px 5px;
+    }
+    .tab-text {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+    .drawer-item {
+      width: 28px;
+      height: 28px;
+    }
+    .social-drawer {
+      padding: 12px 8px;
+      gap: 10px;
+    }
+  }
+</style>
+
+<script>
+  function setupShareDrawer() {
+    const btn = document.getElementById("toggleShareMenu");
+    const menu = document.getElementById("socialMenu");
+    
+    if (!btn || !menu) return;
+
+    // Toggle al hacer click
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menu.classList.toggle("active");
+      btn.classList.remove("pulse");
+    });
+
+    // Cerrar automáticamente si el usuario hace click en cualquier otra parte de la pantalla
+    document.addEventListener("click", (e) => {
+      if (!btn.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+        menu.classList.remove("active");
+      }
+    });
+
+    // Pequeño recordatorio visual si el usuario no lo ha abierto tras 5 segundos
+    setTimeout(() => {
+      if (!menu.classList.contains("active")) {
+        btn.classList.add("pulse");
+      }
+    }, 5000);
+  }
+
+  // Ejecución inicial y en cambios de página (Astro)
+  setupShareDrawer();
+  document.addEventListener("astro:after-swap", setupShareDrawer);
+</script>

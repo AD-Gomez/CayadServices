@@ -74,7 +74,6 @@ const whyUs = [
   { description: 'Reviews', href: '/why-us/reviews/', icon: FaStar },
   { description: 'Growth', href: '/why-us/growth/', icon: FaChartLine },
   { description: 'Our team', href: '/why-us/our-team/', icon: FaUsers },
-  //{ description: 'Vision and Mission', href: '/why-us/vision-mission/', icon: FingerPrintIcon },
 ]
 
 function classNames(...classes: any) {
@@ -92,12 +91,14 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [isFunnelMode, setIsFunnelMode] = useState(false);
 
+  // AÑO DINÁMICO
+  const currentYear = new Date().getFullYear();
+
   useEffect(() => {
     setCurrentPath(window.location.pathname);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
 
-    // Listen for funnel mode changes (from form step changes)
     const handleFunnelMode = (e: CustomEvent) => {
       setIsFunnelMode(e.detail?.enabled === true);
     };
@@ -109,9 +110,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
     };
   }, []);
 
-  // Combine prop-based cleanMode with dynamic funnel mode
   const isCleanMode = cleanMode || isFunnelMode;
-
   const isActive = (path: string) => currentPath.startsWith(path);
 
   const pathsToCheckForIndividuals = ['/for-individuals', ...weOffer.map(item => item.href), ...weServe.map(item => item.href)];
@@ -135,7 +134,6 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
       >
         <nav className="mx-auto flex w-full items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Global">
           <div className="flex items-center gap-4">
-            {/* Mobile menu button - hidden in funnel mode */}
             {!isCleanMode && (
               <div className="navbar-mobile-btn">
                 <button
@@ -149,7 +147,6 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
               </div>
             )}
 
-            {/* Logo - non-clickable in funnel mode */}
             {isCleanMode ? (
               <div className="-m-1.5 p-1.5">
                 <span className="sr-only">Cayad Auto Transport</span>
@@ -163,7 +160,6 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
             )}
           </div>
 
-          {/* Mobile Communication Icons - hidden in funnel mode */}
           {!isCleanMode && (
             <div className="flex lg:hidden items-center gap-2">
               <a
@@ -194,7 +190,6 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
             </div>
           )}
 
-          {/* Desktop menu - controlled by CSS, hidden in cleanMode */}
           {!isCleanMode && (
             <div className="navbar-desktop-menu">
               <Popover className="relative" onMouseEnter={() => setOpenPopover('how-it-work')} onMouseLeave={() => setOpenPopover(null)}>
@@ -408,12 +403,11 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                 </a>
               </div>
             </div>
-          )
-          }
+          )}
         </nav >
 
         {/* Mobile menu */}
-        < Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen} >
+        <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10 shadow-2xl">
             <div className="flex items-center justify-between">
@@ -530,7 +524,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                 </div>
                 <div className="py-6 mt-auto text-center text-xs text-slate-400">
                   <p className="text-[10px] uppercase font-medium tracking-[0.2em] mb-1 text-slate-500">IN GOD WE TRUST</p>
-                  <p>&copy; 2023-2025 Cayad Services LLC</p>
+                  <p>&copy; 2023-{currentYear} Cayad Services LLC</p>
                 </div>
               </div>
             </div>
