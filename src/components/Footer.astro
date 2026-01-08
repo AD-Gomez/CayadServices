@@ -4,7 +4,7 @@ import {
   FaFacebookF,
   FaReddit,
   FaLinkedinIn,
-FaYoutube,
+  FaYoutube,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -14,7 +14,8 @@ interface Props {
 
 const { minimal = false } = Astro.props;
 
-// For dynamic mode, we'll use CSS classes that can be toggled via JavaScript
+// --- AÑO DINÁMICO APLICADO AQUÍ ---
+const currentYear = new Date().getFullYear();
 ---
 
 <style>
@@ -118,7 +119,6 @@ const { minimal = false } = Astro.props;
 </style>
 
 <footer class:list={["relative bg-bg-footer text-light", minimal && "footer-minimal-mode"]}>
-  <!-- Decorative gradient glow -->
   <div class="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true"></div>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
@@ -126,8 +126,7 @@ const { minimal = false } = Astro.props;
     "footer-grid grid gap-6",
     minimal ? "grid-cols-1 max-w-md mx-auto" : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4"
   ]}>
-      <!-- Address + Social -->
-  <div class="flex flex-col gap-4 min-w-0" data-footer-section="address">
+      <div class="flex flex-col gap-4 min-w-0" data-footer-section="address">
         <h4 class="text-lg font-bold font-heading track-wide">Address</h4>
 
         <div class="flex items-start gap-3">
@@ -224,7 +223,6 @@ const { minimal = false } = Astro.props;
   <div class="flex flex-col gap-4 min-w-0" data-footer-section="quick-links">
   <h4 class="text-lg font-bold font-heading track-wide">Quick Links</h4>
         <ul class="space-y-3">
-          <!-- About us intentionally commented in original -->
           <li class="group flex items-center gap-3">
             <div class="h-1.5 w-1.5 rounded-full bg-blue-400 group-hover:bg-white transition-colors"></div>
             <a class="block text-slate-300 capitalize hover:text-white hover:translate-x-1 transition-all duration-300" href="/contact/">Contact us</a>
@@ -269,7 +267,6 @@ const { minimal = false } = Astro.props;
             <p class="text-sm">USDOT: 4091368 <br />MC: 1558686</p>
           </div>
 
-          <!-- (c) 2005, 2025. Authorize.Net is a registered trademark of CyberSource Corporation -->
           <div class="AuthorizeNetSeal">
             <script type="text/javascript">var ANS_customer_id = "40b07bd0-492e-41ef-af3d-203518035d55";</script>
             <script type="text/javascript" src="https://verify.authorize.net:443/anetseal/seal.js"></script>
@@ -277,7 +274,6 @@ const { minimal = false } = Astro.props;
         </div>
       </div>
       ) : (
-        <!-- In minimal mode, show only USDOT badge -->
         <div class="flex flex-col items-center gap-4" data-footer-section="badges">
           <div class="flex items-center gap-3 text-sm">
             <img src="/img/part6.webp" width="36" height="36" alt="car shipping fmcsa logo" class="h-7 w-7" />
@@ -291,16 +287,15 @@ const { minimal = false } = Astro.props;
       )}
   </div>
 
-  <!-- Bottom bar -->
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   <div class="border-t border-white border-opacity-10 py-3">
   <div class="flex flex-col items-center justify-between gap-2 text-center md:flex-row lg:flex-row xl:flex-row md:text-left">
         <p class="text-light text-sm opacity-90">IN GOD WE TRUST</p>
         <div class="flex items-center text-xs sm:text-sm">
-          &copy; 2023-2025
+          &copy; 2023-{currentYear}
           <a class="ml-1 mr-2 border-b text-sm" href="https://www.cayadservices.com">Cayad Services LLC</a>
           <span class="mx-2">|</span>
-          <p class="text-sm mb-0">All Rights Reserve</p>
+          <p class="text-sm mb-0">All Rights Reserved</p>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm md:text-sm" data-footer-section="bottom-links">
           <a href="/privacy-policy/" class="text-light hover:text-white transition-colors">Privacy Policy</a>
