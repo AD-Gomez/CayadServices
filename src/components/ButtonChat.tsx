@@ -52,7 +52,7 @@ const ButtonChat = () => {
       {isOpen && (
         <div className="mb-2 flex flex-col items-end space-y-2 transition-all duration-300">
           <a
-            href="https://m.me/116222094837969"
+            href="https://m.me/116222094837969?ref=Hello_Cayad_Team_I_want_to_ship_my_car"
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 w-12 flex items-center justify-center text-[1.8rem] text-white bg-blue-500 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
@@ -62,7 +62,7 @@ const ButtonChat = () => {
             <FaFacebookMessenger />
           </a>
           <a
-            href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+            href="https://api.whatsapp.com/send/?phone=14696190747&text=%F0%9F%8C%90%20Hola%20Cayad%20Team%20quiero%20transportar%20mi%20coche&type=phone_number&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 w-12 flex items-center justify-center bg-green-500 text-[2rem] text-white rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"

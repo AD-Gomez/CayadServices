@@ -60,6 +60,13 @@ type Lead = {
     }>;
 };
 
+// Extender el objeto window para TypeScript
+declare global {
+    interface Window {
+        dataLayer: any[];
+    }
+}
+
 export default function Quote2ServiceSelector() {
     const [lead, setLead] = useState<Lead | null>(null);
     const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
@@ -74,10 +81,6 @@ export default function Quote2ServiceSelector() {
         setIsPremium(getSelectedPlan()); // Get selected plan from localStorage
         setLoading(false);
     }, []);
-
-    const handleVerifyCard = () => {
-        if (quoteUrl) window.open(quoteUrl, '_blank');
-    };
 
     const origin = useMemo(() => parseCityStateZip(lead?.origin_city || ''), [lead]);
     const destination = useMemo(() => parseCityStateZip(lead?.destination_city || ''), [lead]);
@@ -102,6 +105,33 @@ export default function Quote2ServiceSelector() {
         if (lead?.client_estimate?.transit) return lead.client_estimate.transit;
         return estimateTransitDays(miles);
     }, [lead?.client_estimate?.transit, miles]);
+
+    // MODIFICADO: Función con tracking para GTM
+    const handleVerifyCard = () => {
+        if (quoteUrl) {
+            // Push data to GTM DataLayer
+            if (typeof window !== 'undefined' && window.dataLayer) {
+                window.dataLayer.push({
+                    event: 'purchase_intent',
+                    ecommerce: {
+                        value: selectedPrice,
+                        currency: 'USD',
+                        plan_type: isPremium ? 'Priority' : 'Economy',
+                        vehicle: vehicleName,
+                        items: [{
+                            item_name: isPremium ? 'Priority Service' : 'Economy Service',
+                            price: selectedPrice,
+                            item_category: transportTypeLabel,
+                            item_variant: vehicleName,
+                            quantity: 1
+                        }]
+                    }
+                });
+            }
+            // Abrir URL de checkout
+            window.open(quoteUrl, '_blank');
+        }
+    };
 
     if (loading) {
         return (
@@ -139,7 +169,7 @@ export default function Quote2ServiceSelector() {
 
                         <div className="p-6 md:p-8">
                             <div className="relative mb-8">
-                                {/* Mobile Line (Horizontal but subtle) */}
+                                {/* Mobile Line */}
                                 <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-slate-100 -translate-y-1/2 md:hidden"></div>
                                 {/* Desktop Line */}
                                 <div className="absolute top-[28px] left-[60px] right-[60px] h-0.5 border-t-2 border-dashed border-slate-200 hidden md:block"></div>
@@ -153,7 +183,7 @@ export default function Quote2ServiceSelector() {
                                         <div>
                                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Origin</p>
                                             <h3 className="text-sm md:text-xl font-bold text-slate-900 leading-tight">{origin.city}</h3>
-                                            <p className="text-xs md:text-sm text-slate-500">{origin.state} {origin.postalCode}</p>
+                                            <p className="text-xs md:sm text-slate-500">{origin.state} {origin.postalCode}</p>
                                         </div>
                                     </div>
 
@@ -197,7 +227,7 @@ export default function Quote2ServiceSelector() {
                         </div>
                     </div>
 
-                    {/* Selected Plan Display (Read-Only) */}
+                    {/* Selected Plan Display */}
                     <div>
                         <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                             Your Selected Plan
@@ -208,7 +238,6 @@ export default function Quote2ServiceSelector() {
                             : 'border-emerald-500 bg-white shadow-lg'
                             }`}>
                             {isPremium ? (
-                                // Priority Service Display
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 mb-3">
                                         <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
@@ -228,7 +257,6 @@ export default function Quote2ServiceSelector() {
                                     </div>
                                 </div>
                             ) : (
-                                // Economy Service Display
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 mb-3">
                                         <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -258,7 +286,6 @@ export default function Quote2ServiceSelector() {
                 {/* RIGHT COLUMN: Summary & CTA */}
                 <div className="lg:col-span-4 space-y-6">
 
-                    {/* CTA Box (Brand Blue Button) */}
                     <div className="bg-white rounded-3xl shadow-lg shadow-sky-900/5 border border-slate-100 p-6 md:p-8">
                         <div className="text-center mb-6">
                             <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Total Estimated</p>
@@ -304,7 +331,6 @@ export default function Quote2ServiceSelector() {
                             No payment is required today. We only verify your card to secure your spot.
                         </p>
 
-                        {/* Terms & Conditions */}
                         <div className="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
                             <p className="text-[10px] text-slate-500 leading-relaxed text-center">
                                 By clicking "Verify Your Card Info", you agree to our{' '}
@@ -319,7 +345,6 @@ export default function Quote2ServiceSelector() {
                         </div>
                     </div>
 
-                    {/* Rotating Trust Badge */}
                     <RotatingTrustBadge />
                 </div>
 
