@@ -221,7 +221,6 @@ const SocialProofMini: React.FC = () => {
     useEffect(() => {
         if (isDismissed || slides.length === 0) return;
 
-        // Shorter delay in dev for testing, longer in production
         const delay = import.meta.env.DEV ? 3000 : 15000;
 
         const showTimer = setTimeout(() => {
@@ -231,25 +230,25 @@ const SocialProofMini: React.FC = () => {
         return () => clearTimeout(showTimer);
     }, [isDismissed, slides.length]);
 
-    // Rotate slides
+    // Rotate slides - TIEMPO ACTUALIZADO A 7 SEGUNDOS
     useEffect(() => {
         if (!isVisible || slides.length <= 1) return;
 
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000); // Change every 5 seconds
+        }, 7000); // 7 segundos entre cada rotación
 
         return () => clearInterval(interval);
     }, [isVisible, slides.length]);
 
-    // Auto-hide after showing all slides twice
+    // Auto-hide - TIEMPO ACTUALIZADO PARA COINCIDIR CON LOS 7 SEGUNDOS
     useEffect(() => {
         if (!isVisible) return;
 
         const hideTimer = setTimeout(() => {
             setIsVisible(false);
             setIsDismissed(true);
-        }, slides.length * 5000 * 2); // Show each slide twice, then hide
+        }, slides.length * 7000 * 2); // Show each slide twice, then hide
 
         return () => clearTimeout(hideTimer);
     }, [isVisible, slides.length]);
@@ -298,18 +297,7 @@ const SocialProofMini: React.FC = () => {
                 </div>
             </div>
 
-            {/* Slide indicators */}
-            <div className="flex justify-center gap-1 mt-2">
-                {slides.map((_, idx) => (
-                    <div
-                        key={idx}
-                        className={`
-              w-1 h-1 rounded-full transition-all duration-300
-              ${idx === currentSlide ? 'bg-blue-500 w-2' : 'bg-gray-300'}
-            `}
-                    />
-                ))}
-            </div>
+            {/* Slide indicators eliminados para mayor espontaneidad */}
 
             <style>{`
         @keyframes slideIn {
