@@ -170,7 +170,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                 <FaHeadset className="h-5 w-5" />
               </a>
               <a
-                href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+                href="https://api.whatsapp.com/send/?phone=14696190747&text=%F0%9F%8C%90%20Hola%20Cayad%20Team%20quiero%20transportar%20mi%20coche&type=phone_number&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-9 w-9 flex items-center justify-center rounded-md bg-[#25D366] text-white shadow-sm hover:bg-[#20b858] transition-all active:scale-95"
@@ -179,7 +179,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                 <FaWhatsapp className="h-5 w-5" />
               </a>
               <a
-                href="https://m.me/116222094837969"
+                href="https://m.me/116222094837969?ref=Hello_Cayad_Team_I_want_to_ship_my_car"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-9 w-9 flex items-center justify-center rounded-md bg-[#0084FF] text-white shadow-sm hover:bg-[#0074e0] transition-all active:scale-95"
@@ -373,7 +373,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                     <FaHeadset className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://api.whatsapp.com/send/?phone=14696190747&text&type=phone_number&app_absent=0"
+                    href="https://api.whatsapp.com/send/?phone=14696190747&text=%F0%9F%8C%90%20Hola%20Cayad%20Team%20quiero%20transportar%20mi%20coche&type=phone_number&app_absent=0"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="h-10 w-10 flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-md hover:bg-[#20b858] hover:scale-105 transition-all duration-200"
@@ -383,7 +383,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
                     <FaWhatsapp className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://m.me/116222094837969"
+                    href="https://m.me/116222094837969?ref=Hello_Cayad_Team_I_want_to_ship_my_car"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="h-10 w-10 flex items-center justify-center rounded-full bg-[#0084FF] text-white shadow-md hover:bg-[#0074e0] hover:scale-105 transition-all duration-200"
