@@ -1,0 +1,110 @@
+[
+    {
+        "id": "legacy_0",
+        "author": "Moe Omar",
+        "source": "Google",
+        "stars": 5,
+        "text": "Awesome service, second time using the service",
+        "date": "2025-11-15T12:00:00Z",
+        "relativeDate": "a month ago",
+        "link": "https://www.google.com/maps/contrib/112079156209575097076/reviews?hl=en-GB",
+        "verified": true,
+        "avatarUrl": "/img/moe.webp"
+    },
+    {
+        "id": "legacy_1",
+        "author": "Santiago Caceres",
+        "source": "Google",
+        "stars": 5,
+        "text": "Alex G at Cayad Auto Transport was amazing to work with. He helps me ship a car from Utah to Idaho without problems and with fair price. I’d definitely be using their services again.",
+        "date": "2025-10-20T12:00:00Z",
+        "relativeDate": "2 months ago",
+        "link": "https://www.google.com/maps/contrib/102787767697976243009/reviews/@36.8332502,-101.4969573,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?hl=en-GB&entry=ttu",
+        "verified": true,
+        "avatarUrl": "/img/santiago.webp"
+    },
+    {
+        "id": "legacy_2",
+        "author": "Hhrg Ramirez",
+        "source": "Facebook",
+        "stars": 5,
+        "text": "Muy profesional y excelente servicio hasta ahora el mejor servicio de transporte que he contratado. Recomiendo 100%,. Muy rápida y buena comunicación.",
+        "date": "2025-12-10T12:00:00Z",
+        "relativeDate": "3 weeks ago",
+        "link": "https://www.facebook.com/permalink.php?story_fbid=1548929205689939&id=100017186221123&ref=embed_post",
+        "verified": true,
+        "avatarUrl": "/img/hhrg.webp"
+    },
+    {
+        "id": "legacy_3",
+        "author": "Kimmy Tennant",
+        "source": "Facebook",
+        "stars": 5,
+        "text": "very good company Lucas was on top of things and kept me updated on everything very good transportation company thanks again!!!",
+        "date": "2025-11-05T12:00:00Z",
+        "relativeDate": "2 months ago",
+        "link": "https://www.facebook.com/kimmy.tennant/posts/10168525934190481?ref=embed_post",
+        "verified": true,
+        "avatarUrl": "/img/kimmy.webp"
+    },
+    {
+        "id": "legacy_4",
+        "author": "Jordan Allen",
+        "source": "Google",
+        "stars": 5,
+        "text": "I've worked with AD for a couple years now, he's shipped 10 or so rigs for me. First time I was a little worried doing all this through messenger, but now he's my go to guy.",
+        "date": "2025-09-15T12:00:00Z",
+        "relativeDate": "3 months ago",
+        "link": "https://www.google.com/maps/contrib/115116084854189813969/reviews/@37.0668996,-96.2086757,5z/data=!3m1!4b1!4m3!8m2!3m1!1e1?entry=ttu",
+        "verified": true,
+        "avatarUrl": "/img/jordan.webp"
+    },
+    {
+        "id": "legacy_5",
+        "author": "Abir Khan",
+        "source": "Facebook",
+        "stars": 5,
+        "text": "11/10. Maiky was amazing in his communication and transparency. Car was delivered from IL to NY with no issues and they even provide live upates and location tracking! Would not hesitate to use their services again.",
+        "date": "2025-12-15T12:00:00Z",
+        "relativeDate": "2 weeks ago",
+        "link": "https://www.facebook.com/adot.khan.7/posts/10232305783965435?ref=embed_post",
+        "verified": true,
+        "avatarUrl": "/img/abir.webp"
+    },
+    {
+        "id": "legacy_6",
+        "author": "Jose Santiago",
+        "source": "Google",
+        "stars": 5,
+        "text": "Call  Leo Took care of me. They brought my vehicle to my house. The best service I ever have. These are the great people that you can trust on",
+        "date": "2025-10-01T12:00:00Z",
+        "relativeDate": "3 months ago",
+        "link": "https://www.google.com/maps/contrib/105406262029060010977/reviews?hl=en-GB",
+        "verified": true,
+        "avatarUrl": "/img/jose.webp"
+    },
+    {
+        "id": "g_1",
+        "author": "Joe Gutgsell",
+        "source": "Google",
+        "stars": 5,
+        "text": "Best transport company I have worked with, very professional and constantly...",
+        "date": "2025-12-01T23:01:00Z",
+        "relativeDate": "23 days ago",
+        "link": "https://g.co/kgs/ZyGQu9",
+        "verified": true,
+        "avatarUrl": ""
+    },
+    {
+        "id": "g_2",
+        "author": "Orestis Melirrytos",
+        "source": "Google",
+        "stars": 5,
+        "text": "Transporting a high end vehicle of intrinsic value can be stressful and mind...",
+        "date": "2025-11-29T10:00:00Z",
+        "relativeDate": "25 days ago",
+        "link": "https://g.co/",
+        "verified": true,
+        "avatarUrl": ""
+    }
+]
