@@ -2,35 +2,53 @@
 import Layout from "../layouts/Layout.astro";
 import ButtonScrollTop from "../components/buttons/ButtonScrollTop";
 ---
-  <!-- End Google Tag Manager (noscript) -->
-  <Layout title="Page Not Found | Cayad Auto Transport"
-  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor.">
-    <container
-      class="h-screen w-[80%] xs:px-4 sm:px-4 xs:h-max sm:h-max flex xs:flex-col sm:flex-col xs:w-full sm:w-full items-center mx-auto"
-    >
-      <div class="w-[45%] xs:w-full sm:w-full h-max">
-        <img src="/img/not-found.svg" alt="not-found" class="w-full" width="592"
-        height="550" />
+
+<Layout 
+  title="Page Not Found | Cayad Auto Transport"
+  content="Cayad Auto Transport has safely shipped 10,000+ vehicles to all 50 states. Read our 5 stars online reviews to hear more about our dedicated labor."
+>
+  <main class="min-h-[80vh] flex items-center justify-center py-20 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-20">
+      
+      <div class="w-full md:w-1/2 max-w-[500px]">
+        <img 
+          src="/img/not-found.svg" 
+          alt="not-found" 
+          class="w-full h-auto" 
+          width="592"
+          height="550" 
+        />
       </div>
-      <div class="w-[45%] xs:w-full sm:w-full h-max">
-        <h2 class="text-5xl text-[#00000] font-semibold">
-          We can not seem to find the page you are looking for.
+
+      <div class="w-full md:w-1/2 text-center md:text-left">
+        <h2 class="text-4xl md:text-5xl text-slate-900 font-bold leading-tight">
+          We can't seem to find the page you're looking for.
         </h2>
-        <p class="mt-4 font-semibold text-2xl text-[#555555]">
-          but your car is still safe with us
+        
+        <p class="mt-6 font-semibold text-xl md:text-2xl text-slate-600">
+          But your car is still safe with us.
         </p>
-        <p class="mt-2 font-semibold text-xl text-[#555555]">
-          Check out our <a class="text-btn-blue" href="/faqs/">Faqs</a> or
+        
+        <p class="mt-2 font-medium text-lg text-slate-500">
+          Check out our <a class="text-blue-600 hover:underline font-bold" href="/faqs/">FAQs</a> or go back home.
         </p>
-        <a href="/">
-          <button
-            data-aos="fade-right"
-            class="flex mt-4 min-w-[250px] max-w-[270px] items-center justify-center border mb-2 border-transparent bg-btn-blue px-8 py-3 text-base font-medium text-white hover:bg-btn-hover transition-colors duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Home
-          </button>
-        </a>
-        <ButtonScrollTop client:load />
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+          <a href="/" class="w-full sm:w-auto">
+            <button
+              data-aos="fade-right"
+              class="w-full sm:min-w-[200px] bg-[#0061ff] hover:bg-blue-700 text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-blue-200"
+            >
+              Back to Home
+            </button>
+          </a>
+        </div>
+        
+        <div class="mt-4">
+          <ButtonScrollTop client:load />
+        </div>
       </div>
-    </container>
-  </Layout>
+
+    </div>
+  </main>
+</Layout>
