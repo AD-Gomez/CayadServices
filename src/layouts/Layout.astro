@@ -18,6 +18,14 @@ const { title, content, isLanding = false } = Astro.props;
 <!doctype html>
 <html lang="en" class="overflow-x-clip">
   <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11465331667"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11465331667');
+    </script>
+
     <script is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -74,6 +82,41 @@ const { title, content, isLanding = false } = Astro.props;
     <SocialProofMini client:load />
 
     <ShareButton />
+
+    <script is:inline>
+      document.addEventListener('click', function(e) {
+        const target = e.target.closest('a');
+        if (!target) return;
+        const href = target.href || "";
+
+        // WhatsApp Tracking
+        if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+          gtag('event', 'click_whatsapp', { 'send_to': 'AW-11465331667' });
+        }
+        // Messenger Tracking
+        else if (href.includes('m.me')) {
+          gtag('event', 'click_messenger', { 'send_to': 'AW-11465331667' });
+        }
+        // Call Tracking
+        else if (href.startsWith('tel:')) {
+          gtag('event', 'click_call', { 'send_to': 'AW-11465331667' });
+        }
+      });
+
+      // Submit Quote Tracking
+      document.addEventListener('submit', function(e) {
+        gtag('event', 'submit_quote', { 'send_to': 'AW-11465331667' });
+      });
+
+      // Purchase Tracking Function (Call this on success pages)
+      window.trackPurchase = function(val, curr) {
+        gtag('event', 'purchase', {
+          'send_to': 'AW-11465331667',
+          'value': val || 0.0,
+          'currency': curr || 'USD'
+        });
+      };
+    </script>
 
     <script>
       import { aosInit } from "../lib/aos";
