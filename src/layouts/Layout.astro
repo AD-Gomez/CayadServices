@@ -2,7 +2,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import SocialProofMini from "../components/SocialProofMini";
-import ShareButton from "../components/ShareButton.astro"; // Importamos el nuevo componente
+import ShareButton from "../components/ShareButton.astro"; 
 import "aos/dist/aos.css";
 import "../styles/animate.css";
 
@@ -89,27 +89,30 @@ const { title, content, isLanding = false } = Astro.props;
         if (!target) return;
         const href = target.href || "";
 
-        // WhatsApp Tracking
+        // WhatsApp Tracking for Ads
         if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+          gtag('event', 'conversion', { 'send_to': 'AW-11465331667' });
           gtag('event', 'click_whatsapp', { 'send_to': 'AW-11465331667' });
         }
-        // Messenger Tracking
+        // Messenger Tracking for Ads
         else if (href.includes('m.me')) {
+          gtag('event', 'conversion', { 'send_to': 'AW-11465331667' });
           gtag('event', 'click_messenger', { 'send_to': 'AW-11465331667' });
         }
-        // Call Tracking
+        // Call Tracking for Ads
         else if (href.startsWith('tel:')) {
+          gtag('event', 'conversion', { 'send_to': 'AW-11465331667' });
           gtag('event', 'click_call', { 'send_to': 'AW-11465331667' });
         }
       });
 
-      // Submit Quote Tracking
+      // Submit Quote Tracking for Ads
       document.addEventListener('submit', function(e) {
+        gtag('event', 'conversion', { 'send_to': 'AW-11465331667' });
         gtag('event', 'submit_quote', { 'send_to': 'AW-11465331667' });
       });
 
-      // Purchase Tracking Function
-      // Call this as window.trackPurchase(50.00, 'transaction_id')
+      // Función de compra (Purchase) con Label específico
       window.trackPurchase = function(value, transaction_id) {
         gtag('event', 'conversion', {
           'send_to': 'AW-11465331667/XWYiCPbUgeYbENOnjNsq',
