@@ -108,12 +108,14 @@ const { title, content, isLanding = false } = Astro.props;
         gtag('event', 'submit_quote', { 'send_to': 'AW-11465331667' });
       });
 
-      // Purchase Tracking Function (Call this on success pages)
-      window.trackPurchase = function(val, curr) {
-        gtag('event', 'purchase', {
-          'send_to': 'AW-11465331667',
-          'value': val || 0.0,
-          'currency': curr || 'USD'
+      // Purchase Tracking Function
+      // Call this as window.trackPurchase(50.00, 'transaction_id')
+      window.trackPurchase = function(value, transaction_id) {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-11465331667/XWYiCPbUgeYbENOnjNsq',
+          'value': value || 50.0,
+          'currency': 'USD',
+          'transaction_id': transaction_id || ''
         });
       };
     </script>
