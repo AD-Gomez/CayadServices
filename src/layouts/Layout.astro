@@ -2,7 +2,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer.astro";
 import SocialProofMini from "../components/SocialProofMini";
-import ShareButton from "../components/ShareButton.astro"; // Importamos el nuevo componente
+import ShareButton from "../components/ShareButton.astro"; 
 import "aos/dist/aos.css";
 import "../styles/animate.css";
 
@@ -23,7 +23,9 @@ const { title, content, isLanding = false } = Astro.props;
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      // Configuración base
       gtag('config', 'AW-11465331667');
+      gtag('config', 'G-KR8PHJLS6S');
     </script>
 
     <script is:inline>
@@ -89,33 +91,36 @@ const { title, content, isLanding = false } = Astro.props;
         if (!target) return;
         const href = target.href || "";
 
-        // WhatsApp Tracking
+        // Seguimiento unificado hacia GA4 (Google Ads importará desde aquí)
         if (href.includes('wa.me') || href.includes('whatsapp.com')) {
-          gtag('event', 'click_whatsapp', { 'send_to': 'AW-11465331667' });
+          gtag('event', 'click_whatsapp');
         }
-        // Messenger Tracking
         else if (href.includes('m.me')) {
-          gtag('event', 'click_messenger', { 'send_to': 'AW-11465331667' });
+          gtag('event', 'click_messenger');
         }
-        // Call Tracking
         else if (href.startsWith('tel:')) {
-          gtag('event', 'click_call', { 'send_to': 'AW-11465331667' });
+          gtag('event', 'click_call');
         }
       });
 
-      // Submit Quote Tracking
+      // Seguimiento de Formulario
       document.addEventListener('submit', function(e) {
-        gtag('event', 'submit_quote', { 'send_to': 'AW-11465331667' });
+        gtag('event', 'submit_quote');
       });
 
-      // Purchase Tracking Function
-      // Call this as window.trackPurchase(50.00, 'transaction_id')
+      // Función de compra (Purchase) Estándar para GA4
       window.trackPurchase = function(value, transaction_id) {
-        gtag('event', 'conversion', {
-          'send_to': 'AW-11465331667/XWYiCPbUgeYbENOnjNsq',
+        gtag('event', 'purchase', {
+          'transaction_id': transaction_id || 'T_' + new Date().getTime(),
           'value': value || 50.0,
           'currency': 'USD',
-          'transaction_id': transaction_id || ''
+          'items': [
+            {
+              'item_name': 'Auto Transport Service',
+              'price': value || 50.0,
+              'quantity': 1
+            }
+          ]
         });
       };
     </script>
