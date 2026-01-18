@@ -37,7 +37,6 @@ import {
   FaWhatsapp
 } from 'react-icons/fa'
 import logoweb from '../../public/img/logo-cayad.webp'
-import MarqueeText from './Marquee'
 import '../styles/navbar.css'
 
 const howItWork = [
@@ -125,7 +124,7 @@ export default function Navbar({ cleanMode = false }: NavbarProps) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full">
-      {!isCleanMode && <MarqueeText />}
+      {!isCleanMode}
       <header
         className={classNames(
           "transition-all duration-300 border-t-[4px] border-[#00a1e1]",
