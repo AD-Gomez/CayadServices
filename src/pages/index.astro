@@ -409,61 +409,58 @@ import GlobalTrustBadges from "../components/GlobalTrustBadges.astro";
   isLanding={true}
 >
 
-  <section
-    class="relative min-h-screen md:h-screen w-full overflow-hidden"
-  >
-    <div class="fixed inset-0 z-0 h-full w-full image--banner"></div>
+  <section class="relative min-h-screen md:h-screen w-full overflow-hidden">
+  <div class="fixed inset-0 z-0 h-full w-full image--banner"></div>
+  <VisualFlow />
+
+  <div class="relative z-10 w-full min-h-screen pt-16 md:pt-20 pb-12 px-4 md:px-8 flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 bg-black/45">
     
-    <!-- Visual Flow Line Overlay - High Z-index to ensure visibility over backgrounds -->
-    <VisualFlow />
+    <div class="w-full lg:w-1/2 flex flex-col justify-center items-start space-y-4 md:space-y-6 max-w-2xl order-1">
+      <h1 class="hidden lg:inline-flex text-xs md:text-sm font-semibold text-white/90 tracking-[0.15em] uppercase bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/20 items-center shadow-lg">
+        Premier Nationwide Auto Transport
+      </h1>
 
-    <div
-      class="relative z-10 inset-0 w-full min-h-screen pt-[72px] sm:pt-[80px] pb-6 px-4 md:px-8 flex flex-col xl:flex-row justify-around items-center bg-[rgba(6,3,21,0.5)]"
-    >
-      <div
-        class="w-full md:w-[65%] xl:w-[50%] p-4 md:p-8 relative z-20"
-      >
-        <div class="flex justify-start w-full">
-          <div class="w-10/12 lg:w-8/12 px-2 md:px-6 lg:px-20 transition-opacity duration-300">
-            <p class="changing-text text-white text-6xl mt-6">
-              WE DELIVER
-              <div class="texts-container text-3xl">
-                <span>
-                  CARS-SUVS-TRUCKS<br />
-                  MOTORCYCLES-ATV<br />
-                  RVS-HEAVY HAULS<br />
-                  ....
-                </span>
-              </div>
-            </p>
-            <h1 id="hero-text-content" class="text-xl md:text-2xl font-medium text-white mb-3 mt-4 leading-relaxed bg-black/30 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block font-sans transition-all duration-300">
-              <strong>Premier Nationwide Auto Transport</strong>
-            </h1>
-
-            <!-- Ocultar en móviles -->
-            <div class="hidden sm:block">
-              <GetQuote />
-            </div>
-          </div>
+      <div class="text-white">
+        <h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-2 md:mb-4 leading-none">
+          WE DELIVER
+        </h2>
+        <div class="texts-container text-lg md:text-2xl font-light text-[#00a1e1] uppercase tracking-[0.20em] md:tracking-[0.25em] leading-relaxed">
+          <span class="changing-text">
+            CARS • SUVS • TRUCKS<br />
+            MOTORCYCLES • ATV<br />
+            RVS • HEAVY HAULS
+          </span>
         </div>
       </div>
-      <div
-        id="form-section-wrapper"
-        class="mx-auto mb-4 flex flex-col items-center justify-end
-               w-full max-w-[500px] sm:w-[90%] md:w-[60%] lg:w-[500px] relative z-20
-               transition-all duration-300 ease-in-out"
-      >
-        <!-- Trust Badges above the form -->
-        <div id="trust-badges-wrapper" class="w-full transition-all duration-300 ease-in-out flex-shrink-0">
-          <TrustBadges />
-        </div>
 
-        <div class="form-inner-container form-step-animate bg-white rounded-2xl shadow-2xl w-full border border-slate-200 py-4 h-auto transition-all duration-300 ease-in-out">
-            <EstimatorQuote client:load embedded />
-        </div>
+      <div class="hidden sm:block pt-4 w-full">
+        <GetQuote />
       </div>
     </div>
-  </section>
+
+    <div id="form-section-wrapper" 
+         class="w-full max-w-[480px] flex flex-col items-center relative z-20 order-2">
+      
+      <div id="trust-badges-wrapper" class="w-full mb-4 transform scale-90 sm:scale-100 origin-bottom">
+        <TrustBadges />
+      </div>
+
+      <div class="form-inner-container bg-white rounded-3xl w-full border border-white/20 overflow-hidden mb-6 lg:mb-0 
+                  shadow-[0_0_60px_-15px_rgba(0,161,225,0.6)] ring-1 ring-[#00a1e1]/20 transition-shadow duration-500 hover:shadow-[0_0_70px_-10px_rgba(0,161,225,0.7)]">
+          <div class="py-2">
+            <EstimatorQuote client:load embedded />
+          </div>
+      </div>
+
+      <div class="lg:hidden w-full flex justify-center">
+        <span class="text-[10px] font-semibold text-white/70 tracking-widest uppercase bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm">
+          Premier Nationwide Auto Transport
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
   <div class="main-content-wrapper relative z-20 bg-white">
   <br />
   <!-- Fixed stray '>' and malformed div wrapper previously rendering incorrectly -->

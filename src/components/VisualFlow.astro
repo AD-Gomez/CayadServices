@@ -1,72 +1,57 @@
----
----
-<div class="visual-flow-container pointer-events-none absolute inset-0 z-40 overflow-visible" style="top: 0; left: 0; width: 100%; height: 100%;">
+<div class="visual-flow-container pointer-events-none absolute inset-0 z-40 overflow-visible">
     <svg 
       class="w-full h-full" 
       viewBox="0 0 1440 900" 
-      preserveAspectRatio="none"
+      preserveAspectRatio="xMidYMid slice"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-        refX="9" refY="3.5" orient="auto">
-          <polygon points="0 0, 10 3.5, 0 7" fill="white" />
+        <marker id="arrowhead" markerWidth="8" markerHeight="8" 
+        refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="white" />
         </marker>
       </defs>
       
-      <!-- Path simulating flow from Titles (Left) to Form (Right) 
-           Desktop Alignment (1440x900 viewbox)
-           Start: x=250 (Near 'We Deliver')
-           End: x=880 (Left edge of Form container)
-      -->
       <path 
-        d="M 250,450 
-           C 400,450 500,550 650,550 
-           S 830,550 860,550" 
+        d="M 180,500 
+           C 300,500 450,280 650,480 
+           S 850,720 940,660" 
         fill="none" 
         stroke="white" 
-        stroke-width="6" 
-        stroke-dasharray="20,20"
+        stroke-width="5" 
         stroke-linecap="round"
         marker-end="url(#arrowhead)"
         class="flow-line"
       />
     </svg>
-  </div>
+</div>
   
-  <style>
-    /* Default: Hidden on mobile */
+<style>
+    /* Oculto en mobile, visible en desktop */
     .visual-flow-container {
         display: none;
     }
 
-    /* Show on Desktop (md: 768px and up) */
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         .visual-flow-container {
-            display: block !important;
+            display: block;
+            opacity: 0.8;
         }
     }
 
     .flow-line {
-      animation: dash 40s linear infinite; 
-      opacity: 0.8;
-      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+      /* Sombra más discreta para acompañar la línea fina */
+      filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.3));
+      
+      /* Animación de dibujado al cargar */
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: draw-line 2.5s ease-out forwards;
     }
-  
-    @keyframes dash {
+
+    @keyframes draw-line {
       to {
-        stroke-dashoffset: -1000;
+        stroke-dashoffset: 0;
       }
     }
-
-    /* Adjust position based on screen width to better track background image scaling */
-    @media (min-width: 1024px) {
-        .visual-flow-container svg {
-            viewBox: 0 0 1440 800; /* Baseline */
-        }
-    }
-
-    @media (min-width: 1536px) {
-        /* 2xl Breakpoint adjustments if needed */
-    }
-  </style>
+</style>
