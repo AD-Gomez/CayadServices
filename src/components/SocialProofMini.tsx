@@ -221,7 +221,7 @@ const SocialProofMini: React.FC = () => {
     useEffect(() => {
         if (isDismissed || slides.length === 0) return;
 
-        const delay = import.meta.env.DEV ? 3000 : 15000;
+        const delay = import.meta.env.DEV ? 14000 : 15000;
 
         const showTimer = setTimeout(() => {
             setIsVisible(true);
@@ -230,13 +230,13 @@ const SocialProofMini: React.FC = () => {
         return () => clearTimeout(showTimer);
     }, [isDismissed, slides.length]);
 
-    // Rotate slides - TIEMPO ACTUALIZADO A 7 SEGUNDOS
+    // Rotate slides - TIEMPO ACTUALIZADO A 14 SEGUNDOS
     useEffect(() => {
         if (!isVisible || slides.length <= 1) return;
 
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 7000); // 7 segundos entre cada rotación
+        }, 14000); // 14 segundos entre cada rotación
 
         return () => clearInterval(interval);
     }, [isVisible, slides.length]);

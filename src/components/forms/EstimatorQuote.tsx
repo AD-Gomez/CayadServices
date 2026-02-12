@@ -846,9 +846,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         <div className={`${padding} pb-4 mb-2 border-b border-slate-200 transition-all duration-300 ease-in-out`}>
           <div className="flex items-center justify-between">
             <h1 className={`${titleSize} font-bold text-slate-800`}>
-              {activeStep === 0 && 'Get Your Instant Estimated Price'}
+              {activeStep === 0 && 'Get Your Instant Price'}
               {activeStep === 1 && 'What Are You Shipping?'}
-              {activeStep === 2 && 'Your Estimated Price is Ready!'}
+              {activeStep === 2 && 'Your Estimated Price!'}
               {activeStep === 3 && 'Almost Done!'}
             </h1>
             {activeStep === 3 && (
@@ -1304,10 +1304,15 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           <FormProvider {...step1}>
             <div className={`${padding} space-y-3 w-full max-w-none`}>
               {/* Important notice - moved to top, more compact */}
-              <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
+              {/* <div className="rounded-lg border border-amber-200 bg-amber-50/50 px-3 py-2 text-amber-800">
                 <p className="text-[10px] leading-relaxed">
                   <span className="font-semibold">Note:</span> Estimated price based on similar orders. Vehicle size and condition may affect final cost.
                 </p>
+              </div> */}
+              <div className="pt-3">
+                <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button" disabled={busy}>
+                  {busy ? 'Updating...' : 'Lock My Quote'}
+                </button>
               </div>
 
               {/* Rate Plan Selector with integrated shared info */}
@@ -1480,7 +1485,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
               {/* CTA button */}
               <div className="pt-3">
                 <button onClick={goToContact} className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 text-white font-semibold py-2.5 text-sm hover:bg-sky-700 transition-colors" type="button" disabled={busy}>
-                  {busy ? 'Updating...' : 'Lock In My Quote'}
+                  {busy ? 'Updating...' : 'Lock My Quote'}
                 </button>
               </div>
             </div>
