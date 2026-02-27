@@ -140,7 +140,7 @@ export default function RatePlanSelector({
                     <div className="p-4 pt-6">
                         {/* Header */}
                         <div className="flex items-center justify-between mb-2">
-                            <h4 className="text-sm font-bold text-slate-800">Standard Priority</h4>
+                            <h4 className="text-sm font-bold text-slate-800">Premium</h4>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${isPremium
                                 ? 'border-sky-600 bg-sky-600'
                                 : 'border-slate-300'
@@ -195,7 +195,7 @@ export default function RatePlanSelector({
                     <div className="p-4 pt-6">
                         {/* Header */}
                         <div className="flex items-center justify-between mb-2">
-                            <h4 className="text-sm font-bold text-slate-800">Economy Service</h4>
+                            <h4 className="text-sm font-bold text-slate-800">Standard</h4>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${!isPremium
                                 ? 'border-emerald-500 bg-emerald-500'
                                 : 'border-slate-300'
