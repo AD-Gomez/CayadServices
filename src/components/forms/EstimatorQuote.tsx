@@ -201,7 +201,6 @@ async function resolveLandingDisplayTotals({
     {
       routeEffortFactor,
       applyRouteEffortToPremium: true,
-      minimumStandardTotal: fuelGuardFloor,
       minimumPremiumTotal: fuelGuardFloor,
     },
   );

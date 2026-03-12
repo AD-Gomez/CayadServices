@@ -1,3 +1,5 @@
+import { apiUrl } from "./config";
+
 export type AquaRouteInsightsLocation = {
   zip?: string;
   city?: string;
@@ -33,18 +35,25 @@ export async function postAquaRouteInsights(
   signal?: AbortSignal,
 ): Promise<AquaRouteInsightsResponse> {
   try {
-    const res = await fetch("/api/aqua-route-insights", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      signal,
-    });
+    const endpoints = [
+      apiUrl("/api/public/aqua-route-insights/"),
+      "/api/aqua-route-insights",
+    ];
 
-    if (!res.ok) {
-      return null;
+    for (const endpoint of endpoints) {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal,
+      });
+
+      if (res.ok) {
+        return (await res.json()) as AquaRouteInsightsResponse;
+      }
     }
 
-    return (await res.json()) as AquaRouteInsightsResponse;
+    return null;
   } catch (error) {
     console.warn("[aquaRouteInsights] Request failed", error);
     return null;
