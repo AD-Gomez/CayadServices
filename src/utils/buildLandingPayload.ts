@@ -11,9 +11,18 @@ export type ClientEstimate = {
   miles: number | null;
   per_mile: number | null;
   total: number | null;
+  discounted_total?: number | null;
+  normal_total?: number | null;
   transit: string | null;
   vehicle_class?: string;
   transport_type?: string; // "Open" | "Enclosed" label
+  primary_vehicle?: {
+    year?: string;
+    make?: string;
+    model?: string;
+    inop?: '0' | '1';
+    vehicle_type?: string;
+  };
 };
 
 export type LandingFormInput = {

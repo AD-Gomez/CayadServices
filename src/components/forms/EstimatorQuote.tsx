@@ -8,6 +8,8 @@ import { distanceForLocations, estimateTransitDays, formatMiles } from "../../se
 import { parseCityStateZip } from "../../utils/leadFormat";
 import { apiUrl } from "../../services/config";
 import { postPriceEstimate, type PriceEstimateRequest, type PriceEstimateResponse, type TransportType } from "../../services/priceEstimate";
+import { computeAquaDisplayPricing, computeFuelGuardFloor } from "../../services/aquaPricing";
+import { postAquaRouteInsights } from "../../services/aquaRouteInsights";
 // New unified vehicle selectors using /api/public/vehicle-options/
 import VehicleYearSelect from "../VehicleYearSelect";
 import VehicleMakeSelect from "../VehicleMakeSelect";
@@ -139,6 +141,77 @@ type VehicleRow = {
   vehicle_inop: '0' | '1';
 };
 
+type ParsedRouteLocation = ReturnType<typeof parseCityStateZip>;
+
+const roundCurrency = (value: number | null | undefined): number | null => {
+  if (value == null || !Number.isFinite(value)) return null;
+  return Math.round(value * 100) / 100;
+};
+
+async function resolveLandingDisplayTotals({
+  summary,
+  discountedBase,
+  normalBase,
+  usedMiles,
+  origin,
+  destination,
+  shipDate,
+}: {
+  summary: Partial<PriceEstimateResponse>;
+  discountedBase: number | null;
+  normalBase: number | null;
+  usedMiles: number | null;
+  origin: ParsedRouteLocation;
+  destination: ParsedRouteLocation;
+  shipDate?: string;
+}) {
+  let routeInsights = null;
+
+  if (origin.postalCode && destination.postalCode) {
+    routeInsights = await postAquaRouteInsights({
+      origin: {
+        zip: origin.postalCode,
+        city: origin.city,
+        state: origin.state,
+      },
+      destination: {
+        zip: destination.postalCode,
+        city: destination.city,
+        state: destination.state,
+      },
+      ship_date: shipDate || null,
+    });
+  }
+
+  const routeEffortFactorRaw = Number(routeInsights?.routeEffort?.factor);
+  const routeEffortFactor = Number.isFinite(routeEffortFactorRaw) && routeEffortFactorRaw > 0
+    ? routeEffortFactorRaw
+    : 1;
+  const fuelGuardFloor = computeFuelGuardFloor(usedMiles, routeInsights);
+  const pricingSummary = computeAquaDisplayPricing(
+    {
+      ...summary,
+      discounted_estimate_total: typeof summary?.discounted_estimate_total === "number"
+        ? summary.discounted_estimate_total
+        : discountedBase ?? undefined,
+      normal_estimate_total: typeof summary?.normal_estimate_total === "number"
+        ? summary.normal_estimate_total
+        : normalBase ?? undefined,
+    },
+    {
+      routeEffortFactor,
+      applyRouteEffortToPremium: true,
+      minimumStandardTotal: fuelGuardFloor,
+      minimumPremiumTotal: fuelGuardFloor,
+    },
+  );
+
+  return {
+    discounted: roundCurrency(pricingSummary.displayStandardTotal ?? discountedBase),
+    normal: roundCurrency(pricingSummary.displayPremiumTotal ?? normalBase ?? discountedBase),
+  };
+}
+
 export default function EstimatorQuote({ embedded = false }: { embedded?: boolean }) {
   // Steps simplified: 0 Locations -> 1 Vehicle Type -> 2 Estimate -> 3 Contact
   const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3>(0);
@@ -149,7 +222,6 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
   const [estimate, setEstimate] = useState<number | null>(null); // kept for backwards compatibility (discounted total)
   const [discountedTotal, setDiscountedTotal] = useState<number | null>(null);
   const [normalTotal, setNormalTotal] = useState<number | null>(null);
-  const [perMile, setPerMile] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [vehicles, setVehicles] = useState<VehicleRow[]>([]); // cart of full vehicle rows
@@ -158,6 +230,13 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   // Rate plan selection: true = Premium (normal price), false = Economy (discounted)
   const [isPremium, setIsPremium] = useState(true);
+
+  const selectedPerMile = useMemo(() => {
+    const activeTotal = isPremium ? normalTotal : discountedTotal;
+    return activeTotal != null && miles != null && miles > 0
+      ? Math.round((activeTotal / miles) * 100) / 100
+      : null;
+  }, [discountedTotal, isPremium, miles, normalTotal]);
 
   // Cart modal and animation states
   const [showCartModal, setShowCartModal] = useState(false);
@@ -378,12 +457,18 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const respTransitDays = typeof unifiedResp.estimated_transit_days === 'number' ? unifiedResp.estimated_transit_days : undefined;
         if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
         else setTransit(estimateTransitDays(usedMiles ?? null));
-        const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
-        const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
-        setDiscountedTotal(roundedDiscounted);
-        setNormalTotal(roundedNormal);
-        setEstimate(roundedDiscounted);
-        setPerMile(roundedDiscounted != null && usedMiles ? Math.round((roundedDiscounted / usedMiles) * 100) / 100 : null);
+        const displayTotals = await resolveLandingDisplayTotals({
+          summary: unifiedResp,
+          discountedBase: roundCurrency(discountedSum),
+          normalBase: roundCurrency(normalSum),
+          usedMiles,
+          origin: o,
+          destination: d,
+          shipDate: s1.ship_date,
+        });
+        setDiscountedTotal(displayTotals.discounted);
+        setNormalTotal(displayTotals.normal);
+        setEstimate(displayTotals.discounted);
         const topPct = typeof unifiedResp.confidence_pct === 'number' ? unifiedResp.confidence_pct : null;
         if (typeof topPct === 'number') setConfidencePct(Math.max(5, Math.min(99, Math.round(topPct))));
         else if (Array.isArray(items) && items.length) {
@@ -433,12 +518,21 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const respTransitDays = avail.find(r => typeof r?.data?.estimated_transit_days === 'number')?.data?.estimated_transit_days;
         if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
         else setTransit(estimateTransitDays(usedMiles ?? null));
-        const roundedDiscounted = discountedSum ? Math.round(discountedSum * 100) / 100 : null;
-        const roundedNormal = normalSum ? Math.round(normalSum * 100) / 100 : null;
-        setDiscountedTotal(roundedDiscounted);
-        setNormalTotal(roundedNormal);
-        setEstimate(roundedDiscounted);
-        setPerMile(roundedDiscounted != null && usedMiles ? Math.round((roundedDiscounted / usedMiles) * 100) / 100 : null);
+        const displayTotals = await resolveLandingDisplayTotals({
+          summary: {
+            discounted_estimate_total: discountedSum,
+            normal_estimate_total: normalSum,
+          },
+          discountedBase: roundCurrency(discountedSum),
+          normalBase: roundCurrency(normalSum),
+          usedMiles,
+          origin: o,
+          destination: d,
+          shipDate: s1.ship_date,
+        });
+        setDiscountedTotal(displayTotals.discounted);
+        setNormalTotal(displayTotals.normal);
+        setEstimate(displayTotals.discounted);
         const totalSamples = avail.reduce((acc, r) => acc + (Number(r?.data?.sample_size) || 0), 0);
         let weightedPct: number | null = null;
         if (totalSamples > 0) {
@@ -453,7 +547,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
     } finally {
       setBusy(false);
     }
-  }, [step1, vehicles, miles]);
+  }, [step1, transportType, vehicles]);
 
   const onSubmitStep1 = async (data: Step1Values) => {
     void data; // validation already handled
@@ -782,7 +876,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       is_premium: isPremium, // true = Priority, false = Economy
       client_estimate: {
         miles,
-        per_mile: perMile,
+        per_mile: selectedPerMile,
         total: isPremium ? normalTotal : discountedTotal, // send the selected price as total
         discounted_total: discountedTotal,
         normal_total: normalTotal,
@@ -1316,7 +1410,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
                 isPremium={isPremium}
                 onPlanChange={setIsPremium}
                 miles={miles}
-                perMile={perMile}
+                perMile={selectedPerMile}
                 transit={transit}
                 confidencePct={confidencePct}
                 vehicleCount={vehicles.length || 1}
