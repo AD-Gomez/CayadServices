@@ -156,6 +156,7 @@ async function resolveLandingDisplayTotals({
   origin,
   destination,
   shipDate,
+  routeInsights,
 }: {
   summary: Partial<PriceEstimateResponse>;
   discountedBase: number | null;
@@ -164,11 +165,12 @@ async function resolveLandingDisplayTotals({
   origin: ParsedRouteLocation;
   destination: ParsedRouteLocation;
   shipDate?: string;
+  routeInsights?: Awaited<ReturnType<typeof postAquaRouteInsights>>;
 }) {
-  let routeInsights = null;
+  let resolvedRouteInsights = routeInsights ?? null;
 
-  if (origin.postalCode && destination.postalCode) {
-    routeInsights = await postAquaRouteInsights({
+  if (!resolvedRouteInsights && origin.postalCode && destination.postalCode) {
+    resolvedRouteInsights = await postAquaRouteInsights({
       origin: {
         zip: origin.postalCode,
         city: origin.city,
@@ -183,11 +185,11 @@ async function resolveLandingDisplayTotals({
     });
   }
 
-  const routeEffortFactorRaw = Number(routeInsights?.routeEffort?.factor);
+  const routeEffortFactorRaw = Number(resolvedRouteInsights?.routeEffort?.factor);
   const routeEffortFactor = Number.isFinite(routeEffortFactorRaw) && routeEffortFactorRaw > 0
     ? routeEffortFactorRaw
     : 1;
-  const fuelGuardFloor = computeFuelGuardFloor(usedMiles, routeInsights);
+  const fuelGuardFloor = computeFuelGuardFloor(usedMiles, resolvedRouteInsights);
   const pricingSummary = computeAquaDisplayPricing(
     {
       ...summary,
@@ -351,8 +353,11 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
   // Track last computed values to prevent redundant API calls
   const lastComputedRef = useRef<{ origin: string; dest: string; date: string } | null>(null);
+  const computeRunIdRef = useRef(0);
 
   const computeEstimate = useCallback(async (vehiclesOverride?: VehicleRow[]) => {
+    const runId = ++computeRunIdRef.current;
+    const isLatestRun = () => computeRunIdRef.current === runId;
     const s1 = step1.getValues();
 
     // Update lastComputedRef to prevent double computation when entering Step 2
@@ -407,6 +412,22 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
       const d = parseCityStateZip(s1.destination_city || "");
       const origin_zip = o.postalCode || ((s1.origin_city || "").match(/(\d{5})/) || [""])[0];
       const destination_zip = d.postalCode || ((s1.destination_city || "").match(/(\d{5})/) || [""])[0];
+      const distancePromise = distanceForLocations(s1.origin_city, s1.destination_city);
+      const routeInsightsPromise = origin_zip && destination_zip
+        ? postAquaRouteInsights({
+            origin: {
+              zip: origin_zip,
+              city: o.city,
+              state: o.state,
+            },
+            destination: {
+              zip: destination_zip,
+              city: d.city,
+              state: d.state,
+            },
+            ship_date: s1.ship_date || null,
+          })
+        : Promise.resolve(null);
       // Unified request payload (supports generic and specific vehicles)
       // Unified request payload (supports generic and specific vehicles)
       const unifiedPayload: PriceEstimateRequest = {
@@ -423,6 +444,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
 
       const results: any[] = [];
       let unifiedResp: PriceEstimateResponse | null = await postPriceEstimate(unifiedPayload);
+      if (!isLatestRun()) return;
 
       if (unifiedResp && (Array.isArray(unifiedResp.items) || typeof unifiedResp.estimate_available !== 'undefined')) {
         const items = Array.isArray(unifiedResp.items) ? unifiedResp.items : [];
@@ -435,6 +457,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         } else {
           results.push({ type: 'vehicles', count: listToUse.length, data: unifiedResp });
         }
+        if (!isLatestRun()) return;
         setEstResponses(results);
         const discountedSum = (typeof unifiedResp.discounted_estimate_total === 'number')
           ? Number(unifiedResp.discounted_estimate_total)
@@ -451,11 +474,17 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const refFromResp = typeof unifiedResp.reference_distance_miles === 'number' ? unifiedResp.reference_distance_miles : undefined;
         if (typeof pricingMiles === 'number') usedMiles = pricingMiles;
         else if (typeof refFromResp === 'number') usedMiles = refFromResp;
-        else { const dist = await distanceForLocations(s1.origin_city, s1.destination_city); usedMiles = dist.miles ?? null; }
+        else {
+          const dist = await distancePromise;
+          if (!isLatestRun()) return;
+          usedMiles = dist.miles ?? null;
+        }
         setMiles(usedMiles);
         const respTransitDays = typeof unifiedResp.estimated_transit_days === 'number' ? unifiedResp.estimated_transit_days : undefined;
         if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
         else setTransit(estimateTransitDays(usedMiles ?? null));
+        const routeInsights = await routeInsightsPromise;
+        if (!isLatestRun()) return;
         const displayTotals = await resolveLandingDisplayTotals({
           summary: unifiedResp,
           discountedBase: roundCurrency(discountedSum),
@@ -464,7 +493,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           origin: o,
           destination: d,
           shipDate: s1.ship_date,
+          routeInsights,
         });
+        if (!isLatestRun()) return;
         setDiscountedTotal(displayTotals.discounted);
         setNormalTotal(displayTotals.normal);
         setEstimate(displayTotals.discounted);
@@ -499,6 +530,7 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
             results.push({ type: vt, count, data: resp });
           }
         }
+        if (!isLatestRun()) return;
         setEstResponses(results);
         const avail = results.filter(r => r?.data?.estimate_available);
         const discountedSum = avail.reduce((acc, r) => acc + (Number(r.data?.discounted_estimate_total ?? r.data?.low_estimate_total) || 0), 0);
@@ -512,11 +544,17 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         const refFromResp = avail.find(r => typeof r?.data?.reference_distance_miles === 'number')?.data?.reference_distance_miles;
         if (typeof pricingMiles === 'number') usedMiles = pricingMiles;
         else if (typeof refFromResp === 'number') usedMiles = refFromResp;
-        else { const dist = await distanceForLocations(s1.origin_city, s1.destination_city); usedMiles = dist.miles ?? null; }
+        else {
+          const dist = await distancePromise;
+          if (!isLatestRun()) return;
+          usedMiles = dist.miles ?? null;
+        }
         setMiles(usedMiles);
         const respTransitDays = avail.find(r => typeof r?.data?.estimated_transit_days === 'number')?.data?.estimated_transit_days;
         if (typeof respTransitDays === 'number' && Number.isFinite(respTransitDays)) setTransit(`${Math.max(0, Math.ceil(respTransitDays))} day${respTransitDays === 1 ? '' : 's'}`);
         else setTransit(estimateTransitDays(usedMiles ?? null));
+        const routeInsights = await routeInsightsPromise;
+        if (!isLatestRun()) return;
         const displayTotals = await resolveLandingDisplayTotals({
           summary: {
             discounted_estimate_total: discountedSum,
@@ -528,7 +566,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
           origin: o,
           destination: d,
           shipDate: s1.ship_date,
+          routeInsights,
         });
+        if (!isLatestRun()) return;
         setDiscountedTotal(displayTotals.discounted);
         setNormalTotal(displayTotals.normal);
         setEstimate(displayTotals.discounted);
@@ -544,7 +584,9 @@ export default function EstimatorQuote({ embedded = false }: { embedded?: boolea
         if (typeof weightedPct === 'number') setConfidencePct(Math.max(5, Math.min(99, weightedPct)));
       }
     } finally {
-      setBusy(false);
+      if (isLatestRun()) {
+        setBusy(false);
+      }
     }
   }, [step1, transportType, vehicles]);
 
