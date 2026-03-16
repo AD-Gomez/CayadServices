@@ -79,25 +79,67 @@ export type PriceEstimateResponse = {
   timeframe_seasonality?: TimeframeSeasonality;
 };
 
+const PRICE_ESTIMATE_CACHE_TTL_MS = 60 * 1000;
+const responseCache = new Map<string, { expiresAt: number; value: PriceEstimateResponse }>();
+const inFlightRequests = new Map<string, Promise<PriceEstimateResponse | null>>();
+
+function buildRequestKey(payload: PriceEstimateRequest) {
+  return JSON.stringify(payload);
+}
+
 export async function postPriceEstimate(payload: PriceEstimateRequest, signal?: AbortSignal): Promise<PriceEstimateResponse | null> {
+  const cacheKey = buildRequestKey(payload);
+  const canReuse = !signal;
+
+  if (canReuse) {
+    const cached = responseCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value;
+    }
+
+    const existing = inFlightRequests.get(cacheKey);
+    if (existing) {
+      return existing;
+    }
+  }
+
   const canonical = apiUrl("/api/public/price-estimate/");
   const alias = apiUrl("/leads/public/price-estimate/");
   const body = JSON.stringify(payload);
-  try {
-    let res = await fetch(canonical, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
-    if (!res.ok) {
-      const errorText = await res.text().catch(() => '');
-      console.warn(`[priceEstimate] Primary endpoint failed (${res.status}):`, errorText);
-      res = await fetch(alias, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
-    }
-    if (!res.ok) {
-      const errorText = await res.text().catch(() => '');
-      console.warn(`[priceEstimate] Fallback endpoint also failed (${res.status}):`, errorText);
+  const requestPromise = (async () => {
+    try {
+      let res = await fetch(canonical, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
+      if (!res.ok) {
+        const errorText = await res.text().catch(() => '');
+        console.warn(`[priceEstimate] Primary endpoint failed (${res.status}):`, errorText);
+        res = await fetch(alias, { method: "POST", headers: { "Content-Type": "application/json" }, body, signal });
+      }
+      if (!res.ok) {
+        const errorText = await res.text().catch(() => '');
+        console.warn(`[priceEstimate] Fallback endpoint also failed (${res.status}):`, errorText);
+        return null;
+      }
+      const data = (await res.json()) as PriceEstimateResponse;
+      if (canReuse && data) {
+        responseCache.set(cacheKey, {
+          expiresAt: Date.now() + PRICE_ESTIMATE_CACHE_TTL_MS,
+          value: data,
+        });
+      }
+      return data;
+    } catch (err) {
+      console.error('[priceEstimate] Exception:', err);
       return null;
+    } finally {
+      if (canReuse) {
+        inFlightRequests.delete(cacheKey);
+      }
     }
-    return (await res.json()) as PriceEstimateResponse;
-  } catch (err) {
-    console.error('[priceEstimate] Exception:', err);
-    return null;
+  })();
+
+  if (canReuse) {
+    inFlightRequests.set(cacheKey, requestPromise);
   }
+
+  return requestPromise;
 }
