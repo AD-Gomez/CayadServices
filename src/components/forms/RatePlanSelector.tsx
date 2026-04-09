@@ -235,7 +235,10 @@ export default function RatePlanSelector({
             </div>
 
             {/* Price varies disclaimer */}
-            <p className="text-[10px] text-slate-400 text-center">Based on similar orders. Final price may vary.</p>
+            <p className="text-[12px] text-slate-400 text-center font-semibold">
+Final price may vary. Call a specialist to know yours.
+
+</p>
         </div>
     );
 }
