@@ -1,6 +1,18 @@
 import { getAaaFuelPriceSnapshot, type FuelStatePrice } from "./serverAaaFuelPrices";
+import { createTtlCache } from "./serverCache";
 
 const NOAA_BASE_URL = "https://api.weather.gov";
+
+// Cache TTLs — data changes slowly, no need to re-fetch every request
+const ONE_HOUR_MS = 60 * 60 * 1000;
+const ONE_DAY_MS = 24 * ONE_HOUR_MS;
+
+// ZIP → coordinates (static data, cache 24h)
+const zipCoordCache = createTtlCache<ZipLookupData>(ONE_DAY_MS);
+// lat/lon → NOAA point URL (static per location, cache 24h)
+const noaaPointCache = createTtlCache<PointData>(ONE_DAY_MS);
+// forecast URL → forecast data (changes hourly, cache 1h)
+const noaaForecastCache = createTtlCache<ForecastData>(ONE_HOUR_MS);
 const ZIP_LOOKUP_BASE_URL = "https://api.zippopotam.us/us";
 const MAPBOX_DIRECTIONS_BASE_URL = "https://api.mapbox.com/directions/v5/mapbox/driving";
 const SHORT_TERM_FORECAST_DAYS = 7;
@@ -705,16 +717,25 @@ async function getPointInsights({
   }
 
   try {
-    const pointData = await fetchJson<PointData>(`${NOAA_BASE_URL}/points/${latitude},${longitude}`, {
-      headers: { Accept: "application/geo+json" },
-    });
+    const pointCacheKey = `noaa_point:${latitude?.toFixed(4)},${longitude?.toFixed(4)}`;
+    let pointData = noaaPointCache.get(pointCacheKey);
+    if (!pointData) {
+      pointData = await fetchJson<PointData>(`${NOAA_BASE_URL}/points/${latitude},${longitude}`, {
+        headers: { Accept: "application/geo+json" },
+      });
+      noaaPointCache.set(pointCacheKey, pointData);
+    }
     const relative = normalizeRelativeLocation(pointData, fallback);
     const forecastUrl = pointData?.properties?.forecast;
     let weather: WeatherSummary | null = null;
     if (forecastUrl) {
-      const forecastData = await fetchJson<ForecastData>(forecastUrl, {
-        headers: { Accept: "application/geo+json" },
-      });
+      let forecastData = noaaForecastCache.get(forecastUrl);
+      if (!forecastData) {
+        forecastData = await fetchJson<ForecastData>(forecastUrl, {
+          headers: { Accept: "application/geo+json" },
+        });
+        noaaForecastCache.set(forecastUrl, forecastData);
+      }
       weather = summarizeForecast(forecastData, shipDate);
     }
 
@@ -754,7 +775,12 @@ async function getLocationInsights(side: RouteInsightsLocationInput = {}, option
 
   if (zip) {
     try {
-      const zipData = await fetchJson<ZipLookupData>(`${ZIP_LOOKUP_BASE_URL}/${zip}`);
+      const cacheKey = `zip:${zip}`;
+      let zipData = zipCoordCache.get(cacheKey);
+      if (!zipData) {
+        zipData = await fetchJson<ZipLookupData>(`${ZIP_LOOKUP_BASE_URL}/${zip}`);
+        zipCoordCache.set(cacheKey, zipData);
+      }
       place = normalizeZipPlace(zipData, fallback);
     } catch {
       place = { ...place, latitude: null, longitude: null };
