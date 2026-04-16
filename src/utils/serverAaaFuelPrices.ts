@@ -1,4 +1,9 @@
+import { createTtlCache } from "./serverCache";
+
 const AAA_BASE_URL = "https://gasprices.aaa.com";
+
+const ONE_HOUR_MS = 60 * 60 * 1000;
+const fuelCache = createTtlCache<AaaFuelSnapshot>(ONE_HOUR_MS);
 
 const AAA_HEADERS = {
   "User-Agent": import.meta.env.AAA_FUEL_USER_AGENT || "CAYAD Services (support@cayad.co)",
@@ -75,6 +80,9 @@ function parsePlacestxtPayload(payload: string): FuelStatePrice[] {
 }
 
 export async function getAaaFuelPriceSnapshot(): Promise<AaaFuelSnapshot> {
+  const cached = fuelCache.get("snapshot");
+  if (cached) return cached;
+
   const homepageHtml = await fetchText(AAA_BASE_URL);
   const states = parsePlacestxtPayload(extractPlacestxtPayload(homepageHtml));
 
@@ -86,7 +94,7 @@ export async function getAaaFuelPriceSnapshot(): Promise<AaaFuelSnapshot> {
   const byPriceDesc = [...states].sort((a, b) => b.regularPrice - a.regularPrice);
   const byPriceAsc = [...states].sort((a, b) => a.regularPrice - b.regularPrice);
 
-  return {
+  const snapshot: AaaFuelSnapshot = {
     source: "gasprices.aaa.com",
     fetchedAt: new Date().toISOString(),
     stateCount: states.length,
@@ -95,4 +103,6 @@ export async function getAaaFuelPriceSnapshot(): Promise<AaaFuelSnapshot> {
     lowestRegularStates: byPriceAsc.slice(0, 5),
     states,
   };
+  fuelCache.set("snapshot", snapshot);
+  return snapshot;
 }
